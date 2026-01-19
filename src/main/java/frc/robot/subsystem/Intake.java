@@ -6,6 +6,8 @@ package frc.robot.subsystem;
 
 import com.ctre.phoenix6.controls.MotionMagicVoltage;
 import com.ctre.phoenix6.hardware.TalonFX;
+
+import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.util.BotConstants;
 
@@ -54,15 +56,25 @@ public class Intake extends SubsystemBase {
   private Pivot mPivot = Pivot.STOW;
 
   public Intake() {
-    
-
-
-
-
+    m_IntakeRoller.getConfigurator().apply(BotConstants.Intake.cfg);
+    m_IntakePivot.getConfigurator().apply(BotConstants.Intake.cfg_2);
   }
+
+  public Command setState(State state, Pivot pivot){
+    return runOnce(() -> {
+      mState = state;
+      mPivot = pivot;
+    });
+  }
+
+  public Command stow(){
+    return setState(mState.IDLE, mPivot.STOW);
+  }
+
 
   @Override
   public void periodic() {
-    // This method will be called once per scheduler run
+    m_IntakePivot.setControl(PivotPositionControl.withPosition(mPivot.angle/360));
+    m_IntakeRoller.setVoltage(mState.roller_voltage);
   }
 }
