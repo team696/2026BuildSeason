@@ -7,9 +7,19 @@ package frc.robot.subsystem;
 import com.ctre.phoenix6.hardware.TalonFX;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.BotConstants;
+import frc.robot.util.BotConstants;
 
 public class Climber extends SubsystemBase {
+
+  private static Climber climber = null;
+
+  private static synchronized Climber get(){
+    if(climber == null){
+      climber = new Climber();
+    }
+    return climber;
+  }
+
   /** Creates a new Climber. */
     private final TalonFX m_Climber1 = new TalonFX(BotConstants.Climber.Climber_1_ID);
     private final TalonFX m_Climber2 = new TalonFX(BotConstants.Climber.Climber_2_ID);

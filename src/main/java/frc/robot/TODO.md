@@ -1,9 +1,9 @@
 Week 1:
  -Build a skeleton(named files n stuff)[x]
- -Initialize motors and necessary devices[]
+ -Initialize motors and necessary devices[x]
  
 Week 2(Hopefully the CAD is done): 
- -Discuss with CAD team to get necessary value(i.e angle of the intake, shooter, and other stuff)[]
+ -Discuss with CAD team to get necessary value(i.e angle of the intake, shooter, and other stuff)[?]
  -Write the program[]
     -Create an autoalign that moves the TURRET instead of the drive base[]
     -Convert degrees to rotaitons to get the position values for the TalonFX controllers[]
@@ -13,6 +13,7 @@ Week 2(Hopefully the CAD is done):
     -If not completed in Week 2, continue[]
     -Once completed wait until bot is done[]
         -Once bot is done, test[]
+        -Make sure to change the Tunner Constants[]
 -Week 4:
     -Continue testing[]
 -Week 5:

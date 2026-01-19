@@ -4,18 +4,62 @@
 
 package frc.robot.subsystem;
 
+import com.ctre.phoenix6.controls.MotionMagicVoltage;
 import com.ctre.phoenix6.hardware.TalonFX;
-
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.BotConstants;
+import frc.robot.util.BotConstants;
 
 public class Intake extends SubsystemBase {
-  /** Creates a new Intake. */
-    private final TalonFX m_IntakePivot = new TalonFX(BotConstants.Intake.pivotID);
-    private final TalonFX m_IntakeRun = new TalonFX(BotConstants.Intake.intakeID);
-    private final TalonFX m_IntakeBeam = new TalonFX(BotConstants.Intake.intakeBeamBreakID);
 
-  public Intake() {}
+  private static Intake intake = null;
+
+  private static synchronized Intake get(){
+    if(intake == null){
+      intake = new Intake();
+    } 
+    return intake;
+  }
+
+  /** Creates a new Intake. */
+  private enum State{
+    IDLE(0.0),
+    INTAKE(1.0),
+    OUTTAKE(-1.0);
+
+    public double roller_voltage;
+
+    State(double roller_voltage){
+      this.roller_voltage= roller_voltage;
+    }
+  }
+
+  private enum Pivot{
+    STOW(0.0),
+    DEPLOY(45.0);
+
+    public double angle;
+
+    Pivot(double angle){
+      this.angle = angle;
+    }
+  }
+  
+
+  private final TalonFX m_IntakePivot = new TalonFX(BotConstants.Intake.pivotID);
+  private final TalonFX m_IntakeRoller = new TalonFX(BotConstants.Intake.intakeID);
+
+  private final MotionMagicVoltage PivotPositionControl = new MotionMagicVoltage(0);
+
+  private State mState = State.IDLE;
+  private Pivot mPivot = Pivot.STOW;
+
+  public Intake() {
+    
+
+
+
+
+  }
 
   @Override
   public void periodic() {
