@@ -1,108 +1,93 @@
 package frc.robot.util;
 
 import java.util.Optional;
-import java.util.concurrent.Callable;
 
-import edu.wpi.first.math.VecBuilder;
-import edu.wpi.first.math.Vector;
-import edu.wpi.first.math.estimator.SwerveDrivePoseEstimator;
-import edu.wpi.first.math.geometry.Pose2d;
-import edu.wpi.first.math.numbers.N3;
+import com.ctre.phoenix6.Utils;
+
+import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.net.PortForwarder;
-import frc.robot.subsystem.CommandSwerveDrivetrain;
-public class LimeLightCam {
+import edu.wpi.first.networktables.NetworkTable;
+import edu.wpi.first.networktables.NetworkTableInstance;
+import edu.wpi.first.wpilibj.DriverStation;
 
-CommandSwerveDrivetrain drivetrain;
+/**
+ * LimeLight Camera Interface
+ */
+public class LimeLightCam extends BaseCam {
+  public String name = "";
+  public static int LimeLightCount = 0;
 
-    public class AprilTagResult {
-        public Pose2d pose;
-        public double time;
+  private NetworkTable _ntTable;
 
-        public double distToTag;
+  private boolean useMegaTag2 = false;
 
-        public int tagCount;
+  public LimeLightCam(String name, int[] TagsToCheck, boolean useMegaTag2) {
+    this.name = name;
 
-        public AprilTagResult(LimelightHelpers.PoseEstimate estimate) {
-            pose = estimate.pose;
-            time = estimate.timestampSeconds;
-
-            distToTag = estimate.avgTagDist;
-            tagCount = estimate.tagCount;
-        }
+    if (TagsToCheck.length > 0) {
+      LimelightHelpers.SetFiducialIDFiltersOverride(name, TagsToCheck);
     }
 
-    public String name = "";
-    public static int LimeLightCount = 0;
-    public AprilTagResult latestResult;
-    Vector<N3> stdDeviations = VecBuilder.fill(0.7, 0.7, 2);
-    
-    public LimeLightCam(String name, int[] TagsToCheck,CommandSwerveDrivetrain drivetrain) {
-        this.name = name;
-
-            this.drivetrain = drivetrain;
-
-
-        if(TagsToCheck.length > 0) {
-            LimelightHelpers.SetFiducialIDFiltersOverride(name, TagsToCheck); 
-        }
-
-        for (int port = 5800; port <= 5809; port++) { 
-            PortForwarder.add(port + 10 * LimeLightCount, String.format("%s.local", this.name), port);
-        }
-
-        LimeLightCount++;
+    for (int port = 5800; port <= 5809; port++) {
+      PortForwarder.add(port + 10 * LimeLightCount, String.format("%s.local", this.name), port);
     }
 
-    public LimeLightCam(String name, CommandSwerveDrivetrain drivetrain) {
-        this(name, new int[] {}, drivetrain);
+    _ntTable = NetworkTableInstance.getDefault().getTable(name);
+
+    _ntTable.getEntry("ledMode").setNumber(1); // Example of how to use -> This turns off LEDS on the front
+
+    this.useMegaTag2 = useMegaTag2;
+
+    LimeLightCount++;
+  }
+
+  public LimeLightCam(String name) {
+    this(name, new int[] {}, false);
+  }
+
+  public LimeLightCam(String name, boolean useMegaTag2) {
+    this(name, new int[] {}, useMegaTag2);
+  }
+
+  public int targetCount() {
+    double[] t2d = _ntTable.getEntry("t2d").getDoubleArray(new double[0]);
+    if (t2d.length == 17) {
+      return (int) t2d[1];
+    }
+    return 0;
+  }
+
+  public boolean hasTargets() {
+    return targetCount() > 0;
+  }
+
+  public double tX() {
+    return -1 * _ntTable.getEntry("tx").getDouble(0);
+  }
+
+  public void SetRobotOrientation(Rotation2d curYaw) {
+    LimelightHelpers.SetRobotOrientation(name, curYaw.getDegrees(), 0, 0, 0, 0, 0);
+  }
+
+  public Optional<AprilTagResult> getEstimate() {
+    LimelightHelpers.PoseEstimate latestEstimate;
+    if (!useMegaTag2 || DriverStation.isDisabled()) {
+      latestEstimate = LimelightHelpers.getBotPoseEstimate_wpiBlue(name);
+    } else {
+      latestEstimate = LimelightHelpers.getBotPoseEstimate_wpiBlue_MegaTag2(name);
     }
 
-    boolean hasTarget() {
-        return LimelightHelpers.getTargetCount(name) > 0;
-    }
+    if (latestEstimate == null)
+      return Optional.empty();
 
-    double tX() {
-        return LimelightHelpers.getTX(name);
-    }
+    if (latestEstimate.tagCount == 0)
+      return Optional.empty();
 
-    public Optional<LimelightHelpers.PoseEstimate> getEstimate() {
-        LimelightHelpers.SetRobotOrientation(name, drivetrain.getPose().getRotation().getDegrees(),0,0,0,0,0);
-        LimelightHelpers.PoseEstimate latestEstimate = LimelightHelpers.getBotPoseEstimate_wpiBlue(name);
-
-        if (latestEstimate == null) return Optional.empty();
-
-        if (latestEstimate.tagCount == 0) return Optional.empty();
-
-        return Optional.of(latestEstimate);
-    }
-
-    public void setStdDeviations(double x, double y, double r) {
-        stdDeviations = VecBuilder.fill(x,y,r);
-    }
-
-    /* checkEstimation Used to filter out unwanted results, can use cam.latestResult to filter 
-     * 
-     * example usage: testCam.updateEstimator(m_poseEstimator, ()->{ if (testCam.latestResult.distToTag > 2) return false; return true;});
-     * 
-    */
-    public boolean updateEstimator(SwerveDrivePoseEstimator estimator, Callable<Boolean> checkEstimation) {
-        Optional<LimelightHelpers.PoseEstimate> oEstimation = this.getEstimate();
-        
-        if(oEstimation.isPresent()) {
-            this.latestResult = new AprilTagResult(oEstimation.get());
-            try {
-                if (!checkEstimation.call()) {
-                    return false;
-                }
-            } catch (Exception e) {
-                PLog.fatalException("LimeLightCam", e.getMessage(), e);
-            }
-            estimator.setVisionMeasurementStdDevs(stdDeviations);
-            estimator.addVisionMeasurement(
-                this.latestResult.pose,
-                this.latestResult.time);
-            return true;
-        }
-        return false;
-    }
+    return Optional.of(
+        new AprilTagResult(latestEstimate.pose,
+            Utils.fpgaToCurrentTime(latestEstimate.timestampSeconds),
+            latestEstimate.avgTagDist,
+            latestEstimate.tagCount,
+            latestEstimate.rawFiducials[0].ambiguity)); // Probably not the best but good enough for now
+  }
 }
