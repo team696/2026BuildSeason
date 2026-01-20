@@ -56,8 +56,8 @@ public class Intake extends SubsystemBase {
   private Pivot mPivot = Pivot.STOW;
 
   public Intake() {
-    m_IntakeRoller.getConfigurator().apply(BotConstants.Intake.cfg);
-    m_IntakePivot.getConfigurator().apply(BotConstants.Intake.cfg_2);
+    m_IntakeRoller.getConfigurator().apply(BotConstants.Intake.cfg_Roller);
+    m_IntakePivot.getConfigurator().apply(BotConstants.Intake.cfg_Pivot);
   }
 
   public Command setState(State state, Pivot pivot){

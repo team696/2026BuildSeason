@@ -28,7 +28,7 @@ public class Hopper extends SubsystemBase {
 
   private final TalonFX m_Hopper = new TalonFX(BotConstants.Hopper.HopperID);
   private final TalonFX m_Magazine = new TalonFX(BotConstants.Hopper.MagazineID);
-    private final DigitalInput m_hopperbeambreak = new DigitalInput(BotConstants.Hopper.HopperBeamBreakID);
+  private final DigitalInput m_hopperbeambreak = new DigitalInput(BotConstants.Hopper.HopperBeamBreakID);
 
   /** Creates a new Hopper. */
   public Hopper() {}

@@ -80,6 +80,10 @@ public final class Swerve extends TunerSwerveDrivetrain implements Subsystem, Se
 				visionMeasurementStdDevs);
 	}
 
+	public Pose2d getPose(){
+		return this.getState().Pose;
+	}
+
 	double m_lastSimTime;
 	Notifier simUpdate;
 
