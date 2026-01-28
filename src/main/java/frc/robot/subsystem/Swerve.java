@@ -4,11 +4,13 @@ import java.util.function.Supplier;
 
 import com.ctre.phoenix6.Utils;
 import com.ctre.phoenix6.swerve.SwerveDrivetrainConstants;
+import com.ctre.phoenix6.swerve.SwerveModule.DriveRequestType;
 import com.ctre.phoenix6.swerve.SwerveModuleConstants;
 import com.ctre.phoenix6.swerve.SwerveRequest;
 
 import edu.wpi.first.math.Matrix;
 import edu.wpi.first.math.geometry.Pose2d;
+import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.numbers.N1;
 import edu.wpi.first.math.numbers.N3;
 import edu.wpi.first.util.sendable.Sendable;
@@ -20,12 +22,15 @@ import edu.wpi.first.wpilibj2.command.Subsystem;
 import frc.robot.TunerConstants;
 import frc.robot.TunerConstants.TunerSwerveDrivetrain;
 import frc.robot.util.BaseCam.AprilTagResult;
+import frc.robot.util.BotConstants;
+import frc.robot.util.Field;
 import frc.robot.util.LimeLightCam;
 
 public final class Swerve extends TunerSwerveDrivetrain implements Subsystem, Sendable {
 	private static Swerve m_Swerve;
 	private static LimeLightCam frontTable = new LimeLightCam("FrontCamera");
     private static LimeLightCam backTable = new LimeLightCam("BackCamera");
+
 
 	public static synchronized Swerve get() {
 		if (m_Swerve == null)
@@ -66,6 +71,7 @@ public final class Swerve extends TunerSwerveDrivetrain implements Subsystem, Se
 		return run(() -> this.setControl(requestSupplier.get()));
 	}
 
+
 	@Override
 	public void addVisionMeasurement(Pose2d visionRobotPoseMeters, double timestampSeconds) {
 		super.addVisionMeasurement(visionRobotPoseMeters, Utils.fpgaToCurrentTime(timestampSeconds));
@@ -80,9 +86,20 @@ public final class Swerve extends TunerSwerveDrivetrain implements Subsystem, Se
 				visionMeasurementStdDevs);
 	}
 
+	public Rotation2d target_theta(){
+      return new Rotation2d(Math.atan2(
+        Field.hub_position.getY() - Swerve.get().getPose().getY(),
+        Field.hub_position.getX() - Swerve.get().getPose().getX()
+        )).minus(Swerve.get().getPose().getRotation());
+    }
+
+	
+
 	public Pose2d getPose(){
 		return this.getState().Pose;
 	}
+
+	
 
 	double m_lastSimTime;
 	Notifier simUpdate;

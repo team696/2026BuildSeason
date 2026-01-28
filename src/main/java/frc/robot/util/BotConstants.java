@@ -4,12 +4,14 @@
 
 package frc.robot.util;
 
+import static edu.wpi.first.units.Units.*;
+
 import com.ctre.phoenix6.CANBus;
 import com.ctre.phoenix6.configs.TalonFXConfiguration;
-import com.ctre.phoenix6.hardware.TalonFX;
 import com.ctre.phoenix6.signals.NeutralModeValue;
 
 import edu.wpi.first.math.interpolation.InterpolatingDoubleTreeMap;
+import frc.robot.TunerConstants;
 
 
 /** Add your docs here. */
@@ -58,8 +60,19 @@ public class BotConstants {
     public static class Shooter{
         public static final int shooterflywheel_ID = 4;
         public static final TalonFXConfiguration cfg_shooter = new TalonFXConfiguration();
+        public static final InterpolatingDoubleTreeMap velocityTable = new InterpolatingDoubleTreeMap();
         static{
             cfg_shooter.Slot0.kP = 0.0;
+        }
+
+        static{
+            velocityTable.put(0.0, 0.0);
+            velocityTable.put(1.0, 1.0);
+            velocityTable.put(1.0, 1.0);
+            velocityTable.put(1.0, 1.0);
+            velocityTable.put(1.0, 1.0);
+            velocityTable.put(1.0, 1.0);
+
         }
 
     }
@@ -83,18 +96,6 @@ public class BotConstants {
 
     }
 
-    public static class Turret{
-        public static final int Turret_ID = 7;
-        public static final int Turret_BeamBreakID = 1;
-        public static final TalonFXConfiguration cfg_turret = new TalonFXConfiguration();
-
-        static{
-            cfg_turret.Slot0.kP = 0.0;
-            cfg_turret.MotionMagic.MotionMagicAcceleration = 5.0;
-            cfg_turret.MotionMagic.MotionMagicCruiseVelocity = 5.0;
-        }
-    }
-
     public static class Climber{
         public static final int Climber_1_ID = 8;
         public static final int Climber_2_ID = 9;
@@ -102,6 +103,18 @@ public class BotConstants {
         static{
             //Tis where the config will go, too lazy to write it rn
         }
+    
+
+    }
+
+    public static class DriveConstants{
+        public final static double MaxSpeed = TunerConstants.kSpeedAt12Volts.in(MetersPerSecond); // kSpeedAt12Volts desired top speed
+    
+	    public final  static double MaxAngularRate = RotationsPerSecond.of(0.75).in(RadiansPerSecond); // 3/4 of a rotation per second max angular velocity
+	
+	    public static final double kToleranceDegree = 0.5;
+	    public static final double kToleranceSpeed = 0.01;
+
     }
 
     
