@@ -21,10 +21,10 @@ public class Hopper extends SubsystemBase {
 
     private static MotionMagicVelocityVoltage HopperController = new MotionMagicVelocityVoltage(0);
 
-    private static Hopper hopper = null;
+    public static Hopper hopper = null;
 
 
-  private static synchronized Hopper get(){
+  public static synchronized Hopper get(){
     if(hopper == null){
       hopper = new Hopper();
     }
@@ -46,6 +46,12 @@ public class Hopper extends SubsystemBase {
   public Command run_Hopper(){
     return run(()->{m_Hopper.setControl(HopperController.withVelocity(1));});
   }
+
+  public Command Stop(){
+    return run(()->{m_Hopper.stopMotor();});
+  }
+
+
 
   @Override
   public void periodic() {

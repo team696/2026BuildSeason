@@ -8,16 +8,13 @@ import frc.robot.subsystem.Swerve;
 import frc.robot.util.BotConstants;
 
 public class Binds {
-		private static final SwerveRequest.FieldCentric swerveFCDriveRequest = new SwerveRequest.FieldCentric()
-			.withDeadband(TunerConstants.MaxSpeed * 0.05).withRotationalDeadband(TunerConstants.MaxAngularRate * 0.05)
+
+		//Standard driving
+		private static final SwerveRequest.FieldCentric swerveFCDriveRequest = 
+			new SwerveRequest.FieldCentric()
+			.withDeadband(TunerConstants.MaxSpeed * 0.05)
+			.withRotationalDeadband(TunerConstants.MaxAngularRate * 0.05)
 			.withDriveRequestType(DriveRequestType.OpenLoopVoltage);
-		
-		public final static SwerveRequest.FieldCentricFacingAngle FCFARequest = 
-					new SwerveRequest.FieldCentricFacingAngle()
-					.withDeadband(BotConstants.DriveConstants.MaxSpeed* 0.1)
-					.withRotationalDeadband(BotConstants.DriveConstants.MaxAngularRate * 0.15) // Add a  deadband
-					.withDriveRequestType(DriveRequestType.OpenLoopVoltage)
-					.withHeadingPID(3, 0, 0); 
 		
 		   
 		
@@ -64,13 +61,7 @@ public class Binds {
 									.withVelocityY(getDriveRight())
 									.withRotationalRate(getRotationClockwise())));
 					
-					HumanControls.SingleXboxController.B.whileTrue(Swerve.get().applyRequest(() ->
-						FCFARequest
-							.withVelocityX(getDriveForward()) // Drive forward with negative Y (forward)
-                    		.withVelocityY(getDriveRight()) // Drive left with negative X (left)
-                    		.withTargetDirection(Swerve.get().target_theta())
-            )
-        );
+				
 		}
 
 	}

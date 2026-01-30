@@ -16,5 +16,10 @@ public class Field {
 	public static final Distance LENGTH = Feet.of(57.53);
 	public static final Distance WIDTH = Feet.of(26.75);
 
-	public final static Translation2d hub_position = new Translation2d(4.4, 3.2);
+	public final static Translation2d hub_position_blue = new Translation2d(4.616, 4.048);
+	public final static Translation2d pass_position_blue_1 = new Translation2d(1.060,7.369);
+	public final static Translation2d pass_position_blue_2 = new Translation2d(0.825,0.740);
+
+	
+
 }

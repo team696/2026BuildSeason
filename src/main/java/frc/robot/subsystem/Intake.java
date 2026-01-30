@@ -68,7 +68,7 @@ public class Intake extends SubsystemBase {
   }
 
   public Command stow(){
-    return setState(mState.IDLE, mPivot.STOW);
+    return setState(State.IDLE, Pivot.STOW);
   }
 
 

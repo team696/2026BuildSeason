@@ -11,6 +11,7 @@ import com.ctre.phoenix6.swerve.SwerveRequest;
 import edu.wpi.first.math.Matrix;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.numbers.N1;
 import edu.wpi.first.math.numbers.N3;
 import edu.wpi.first.util.sendable.Sendable;
@@ -86,12 +87,19 @@ public final class Swerve extends TunerSwerveDrivetrain implements Subsystem, Se
 				visionMeasurementStdDevs);
 	}
 
-	public Rotation2d target_theta(){
+	public Rotation2d target_theta_hub(){
       return new Rotation2d(Math.atan2(
-        Field.hub_position.getY() - Swerve.get().getPose().getY(),
-        Field.hub_position.getX() - Swerve.get().getPose().getX()
+        Field.hub_position_blue.getY() - Swerve.get().getPose().getY(),
+        Field.hub_position_blue.getX() - Swerve.get().getPose().getX()
         )).minus(Swerve.get().getPose().getRotation());
     }
+
+	public Rotation2d target_theta(Translation2d desiredpose){
+		return new Rotation2d(Math.atan2(
+			desiredpose.getY() - Swerve.get().getPose().getY(),
+			desiredpose.getX() - Swerve.get().getPose().getX()
+		)).minus(Swerve.get().getPose().getRotation());
+	}
 
 	
 
