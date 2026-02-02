@@ -5,11 +5,14 @@
 package frc.robot;
 
 import com.ctre.phoenix6.swerve.SwerveModule.DriveRequestType;
+import com.pathplanner.lib.auto.NamedCommands;
 import com.ctre.phoenix6.swerve.SwerveRequest;
 
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import frc.robot.Auto.NamedCommand;
+import frc.robot.subsystem.Shooter;
 import frc.robot.util.BotConstants;
 
 public class Robot extends TimedRobot {
@@ -21,6 +24,9 @@ public class Robot extends TimedRobot {
   public Robot() {
     this.logger = new Telemetry(TunerConstants.MaxSpeed);
     Binds.DriverStation2026.bind();
+
+    //NamedCommands.registerCommand("Shoot", );
+
   }
 
   @Override

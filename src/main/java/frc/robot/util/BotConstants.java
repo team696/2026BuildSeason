@@ -49,7 +49,6 @@ public class BotConstants {
 
     public static class Hopper{
         public static final int HopperID = 3;
-        public static final int MagazineID = 3;
         public static final int HopperBeamBreakID = 0;
 
         static{
@@ -59,10 +58,15 @@ public class BotConstants {
 
     public static class Shooter{
         public static final int shooterflywheel_ID = 4;
+        public static final int shooterIntake_ID = 5;
         public static final TalonFXConfiguration cfg_shooter = new TalonFXConfiguration();
+        public static final TalonFXConfiguration cfg_shooter_intake = new TalonFXConfiguration();
         public static final InterpolatingDoubleTreeMap velocityTable = new InterpolatingDoubleTreeMap();
         static{
             cfg_shooter.Slot0.kP = 0.0;
+
+
+            cfg_shooter_intake.Slot0.kP = 0.0;
         }
 
         static{

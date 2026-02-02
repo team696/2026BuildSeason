@@ -4,8 +4,6 @@
 
 package frc.robot.subsystem;
 
-import java.util.function.Supplier;
-
 import com.ctre.phoenix6.StatusSignal;
 import com.ctre.phoenix6.controls.MotionMagicVelocityVoltage;
 import com.ctre.phoenix6.controls.MotionMagicVoltage;
@@ -13,8 +11,6 @@ import com.ctre.phoenix6.hardware.TalonFX;
 
 import edu.wpi.first.units.measure.Angle;
 import edu.wpi.first.units.measure.AngularVelocity;
-import edu.wpi.first.units.measure.Current;
-import edu.wpi.first.units.measure.Velocity;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.util.BotConstants;
@@ -35,9 +31,11 @@ public class Shooter extends SubsystemBase {
   /** Creates a new ShooterAndTurret. */
       private final TalonFX m_Shooter = new TalonFX(BotConstants.Shooter.shooterflywheel_ID);
       private final TalonFX m_Hood = new TalonFX(BotConstants.Hood.Hood_ID);
+      private final TalonFX m_ShooterIntake = new TalonFX(BotConstants.Shooter.shooterIntake_ID);
 
       private final MotionMagicVelocityVoltage shooterVelocityController = new MotionMagicVelocityVoltage(0);
       private final MotionMagicVoltage hoodAngleController = new MotionMagicVoltage(0);
+      private final MotionMagicVelocityVoltage intakeRollerController = new MotionMagicVelocityVoltage(0);
 
       private StatusSignal<Angle> position_hood;
       private StatusSignal<AngularVelocity> velocity_roller;
@@ -45,6 +43,7 @@ public class Shooter extends SubsystemBase {
   public Shooter() {
       m_Shooter.getConfigurator().apply(BotConstants.Shooter.cfg_shooter);
       m_Hood.getConfigurator().apply(BotConstants.Hood.cfg_Hood);
+      m_ShooterIntake.getConfigurator().apply(BotConstants.Shooter.cfg_shooter_intake);
 
       position_hood = m_Hood.getPosition();
       velocity_roller = m_Shooter.getVelocity();
@@ -52,7 +51,7 @@ public class Shooter extends SubsystemBase {
 
   }
 
-    double getDistanceToHub() {
+  double getDistanceToHub() {
       return Swerve.get().getPose().getTranslation().getDistance(Field.hub_position_blue);
     }
 
@@ -73,10 +72,16 @@ public class Shooter extends SubsystemBase {
     return set_velocity(BotConstants.Shooter.velocityTable.get(getDistanceToHub()));
   }
 
+  public Command intake_shooter(){
+    return run(()->{m_ShooterIntake.setControl(intakeRollerController.withVelocity(1));});
+  }
+
+
   public Command Stop(){
     return run(()->{
       m_Shooter.stopMotor();
       m_Hood.stopMotor();
+      m_ShooterIntake.stopMotor();
     });
   }
 

@@ -20,6 +20,10 @@ public class Field {
 	public final static Translation2d pass_position_blue_1 = new Translation2d(1.060,7.369);
 	public final static Translation2d pass_position_blue_2 = new Translation2d(0.825,0.740);
 
-	
+	public final static Translation2d hub_position_red = new Translation2d(11.924, 4.048);
+	public final static Translation2d pass_position_red_1 = new Translation2d(15.48, 7.369);
+	public final static Translation2d pass_position_red_2 = new Translation2d(15.715, 0.740);
+
+
 
 }

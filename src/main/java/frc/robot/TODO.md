@@ -1,3 +1,20 @@
+Priority List:
+    -Get data for the Climber[]
+    -Use the Hopper Beam Break for something[]
+    -Intergrate the AutoAlign to the Binds[]
+    -Autos
+        -Initalize commands for pathplanner[]
+        -Make the actual autos[]
+
+
+
+
+
+
+
+
+
+Schedule:
 Week 1:
  -Build a skeleton(named files n stuff)[x]
  -Initialize motors and necessary devices[x]

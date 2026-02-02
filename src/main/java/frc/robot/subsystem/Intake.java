@@ -15,7 +15,8 @@ public class Intake extends SubsystemBase {
 
   private static Intake intake = null;
 
-  private static synchronized Intake get(){
+  @SuppressWarnings("unused")
+  public static synchronized Intake get(){
     if(intake == null){
       intake = new Intake();
     } 
@@ -23,7 +24,7 @@ public class Intake extends SubsystemBase {
   }
 
   /** Creates a new Intake. */
-  private enum State{
+  public enum State{
     IDLE(0.0),
     INTAKE(1.0),
     OUTTAKE(-1.0);
@@ -35,7 +36,7 @@ public class Intake extends SubsystemBase {
     }
   }
 
-  private enum Pivot{
+  public enum Pivot{
     STOW(0.0),
     DEPLOY(45.0);
 

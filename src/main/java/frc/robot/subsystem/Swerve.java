@@ -4,7 +4,6 @@ import java.util.function.Supplier;
 
 import com.ctre.phoenix6.Utils;
 import com.ctre.phoenix6.swerve.SwerveDrivetrainConstants;
-import com.ctre.phoenix6.swerve.SwerveModule.DriveRequestType;
 import com.ctre.phoenix6.swerve.SwerveModuleConstants;
 import com.ctre.phoenix6.swerve.SwerveRequest;
 
@@ -23,7 +22,6 @@ import edu.wpi.first.wpilibj2.command.Subsystem;
 import frc.robot.TunerConstants;
 import frc.robot.TunerConstants.TunerSwerveDrivetrain;
 import frc.robot.util.BaseCam.AprilTagResult;
-import frc.robot.util.BotConstants;
 import frc.robot.util.Field;
 import frc.robot.util.LimeLightCam;
 
