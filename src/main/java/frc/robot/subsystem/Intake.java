@@ -32,7 +32,7 @@ public class Intake extends SubsystemBase {
     public double roller_voltage;
 
     State(double roller_voltage){
-      this.roller_voltage= roller_voltage;
+      this.roller_voltage = roller_voltage;
     }
   }
 
