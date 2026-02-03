@@ -76,8 +76,15 @@ public class Shooter extends SubsystemBase {
     return run(()->{m_ShooterIntake.setControl(intakeRollerController.withVelocity(1));});
   }
 
-
-  public Command Stop(){
+  public Command Shoot(double velocity, double position_hood){
+  ;
+    return run(()->{
+      m_ShooterIntake.setControl(intakeRollerController.withVelocity(1));
+      m_Shooter.setControl(shooterVelocityController.withVelocity(velocity));
+      m_Hood.setControl(hoodAngleController.withPosition(position_hood));
+     });
+    }
+    public Command Stop(){
     return run(()->{
       m_Shooter.stopMotor();
       m_Hood.stopMotor();

@@ -20,26 +20,11 @@ import frc.robot.util.*;
 public class Binds {
 
 	public static Optional<Alliance> alliance = DriverStation.getAlliance();
-	public static Translation2d hub = new Translation2d();
-	public static Translation2d Pass_1 = new Translation2d();
-	public static Translation2d Pass_2 = new Translation2d();
+	public static Translation2d hub = Field.Alliance_Find.hub;
+	public static Translation2d Pass_1 = Field.Alliance_Find.Pass_1;
+	public static Translation2d Pass_2 = Field.Alliance_Find.Pass_2;
 	
-		public Binds(){
-			if(alliance.get() == Alliance.Red){
-				hub = Field.hub_position_red;
-				Pass_1 = Field.pass_position_red_1;
-				Pass_2 = Field.pass_position_red_2;
-			}
-			else if(alliance.get() == Alliance.Blue){
-				hub = Field.hub_position_blue;
-				Pass_1 = Field.pass_position_blue_1;
-				Pass_2 = Field.pass_position_blue_2;
-			}
-			else{
-				System.out.print("You fucked up");
-			}
-	
-		}
+
 		
 		
 	

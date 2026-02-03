@@ -5,28 +5,72 @@
 package frc.robot;
 
 import com.ctre.phoenix6.swerve.SwerveModule.DriveRequestType;
+import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.auto.NamedCommands;
+import com.pathplanner.lib.config.PIDConstants;
+import com.pathplanner.lib.config.RobotConfig;
+import com.pathplanner.lib.controllers.PPHolonomicDriveController;
 import com.ctre.phoenix6.swerve.SwerveRequest;
 
+import edu.wpi.first.math.geometry.Translation2d;
+import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import frc.robot.Auto.NamedCommand;
+import frc.robot.subsystem.Intake;
 import frc.robot.subsystem.Shooter;
+import frc.robot.subsystem.Swerve;
+import frc.robot.subsystem.Intake.Pivot;
+import frc.robot.subsystem.Intake.State;
 import frc.robot.util.BotConstants;
+import frc.robot.util.Field;
 
 public class Robot extends TimedRobot {
   private Command m_autonomousCommand;
 
   private final Telemetry logger;
 
+  private final SendableChooser<Command> autoChooser;
+
   
   public Robot() {
     this.logger = new Telemetry(TunerConstants.MaxSpeed);
     Binds.DriverStation2026.bind();
+      
 
-    //NamedCommands.registerCommand("Shoot", );
+    autoChooser = AutoBuilder.buildAutoChooser();
+    SmartDashboard.putData("Auto Chooser", autoChooser);
 
+    Auto.initialize(
+    new Auto.NamedCommand("Shoot", Shooter.get().Shoot(
+        BotConstants.Shooter.velocityTable.get(DistanceFinder(Field.Alliance_Find.hub)),
+        BotConstants.Hood.shooterTable.get(DistanceFinder(Field.Alliance_Find.hub)))),
+    
+    new Auto.NamedCommand("Pass_1", Shooter.get().Shoot(
+        BotConstants.Shooter.velocityTable.get(DistanceFinder(Field.Alliance_Find.Pass_1)),
+        BotConstants.Hood.shooterTable.get(DistanceFinder(Field.Alliance_Find.Pass_1)))),
+    
+    new Auto.NamedCommand("Pass_2", Shooter.get().Shoot(
+        BotConstants.Shooter.velocityTable.get(DistanceFinder(Field.Alliance_Find.Pass_2)),
+        BotConstants.Hood.shooterTable.get(DistanceFinder(Field.Alliance_Find.Pass_2)))),
+
+    new Auto.NamedCommand("Intake", Intake.get().setState(State.INTAKE, Pivot.DEPLOY)),
+    
+    new Auto.NamedCommand("Reset Intake", Intake.get().setState(State.IDLE, Pivot.STOW))
+);
+    
+    
+    
+  }
+
+
+
+  public double DistanceFinder(Translation2d targetPosition){
+    return Swerve.get().getPose().getTranslation().getDistance(targetPosition);
   }
 
   @Override
@@ -45,7 +89,7 @@ public class Robot extends TimedRobot {
 
 @Override
 	public void autonomousInit() {
-		m_autonomousCommand = Auto.getSelectedAuto();
+		m_autonomousCommand = autoChooser.getSelected();
 
 		if (m_autonomousCommand != null) {
 			m_autonomousCommand.schedule();
