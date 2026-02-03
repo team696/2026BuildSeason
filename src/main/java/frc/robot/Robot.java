@@ -10,6 +10,9 @@ import com.pathplanner.lib.auto.NamedCommands;
 import com.pathplanner.lib.config.PIDConstants;
 import com.pathplanner.lib.config.RobotConfig;
 import com.pathplanner.lib.controllers.PPHolonomicDriveController;
+
+import java.util.Optional;
+
 import com.ctre.phoenix6.swerve.SwerveRequest;
 
 import edu.wpi.first.math.geometry.Translation2d;
@@ -36,12 +39,11 @@ public class Robot extends TimedRobot {
   private final Telemetry logger;
 
   private final SendableChooser<Command> autoChooser;
-
   
   public Robot() {
     this.logger = new Telemetry(TunerConstants.MaxSpeed);
     Binds.DriverStation2026.bind();
-      
+    
 
     autoChooser = AutoBuilder.buildAutoChooser();
     SmartDashboard.putData("Auto Chooser", autoChooser);
@@ -69,8 +71,6 @@ public class Robot extends TimedRobot {
     
     
   }
-
-
 
   public double DistanceFinder(Translation2d targetPosition){
     return Swerve.get().getPose().getTranslation().getDistance(targetPosition);

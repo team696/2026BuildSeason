@@ -14,9 +14,8 @@ import frc.robot.util.BotConstants;
 
 public class Hopper extends SubsystemBase {
 
-    private static MotionMagicVelocityVoltage HopperController = new MotionMagicVelocityVoltage(0);
-
-    public static Hopper hopper = null;
+  
+  public static Hopper hopper = null;
 
 
   public static synchronized Hopper get(){
@@ -26,20 +25,23 @@ public class Hopper extends SubsystemBase {
     return hopper;
   }
 
-
-
-
+  //Motor controller
+  private static MotionMagicVelocityVoltage HopperController = new MotionMagicVelocityVoltage(0);
+  //Motor initalized
   private final TalonFX m_Hopper = new TalonFX(BotConstants.Hopper.HopperID);
   /** Creates a new Hopper. */
   public Hopper() {
+    //Motor config
     m_Hopper.getConfigurator().apply(BotConstants.cfg_Roller);
 
   }
 
+  //Moves the belt that pushes all the balls towrads the shooter
   public Command run_Hopper(){
     return run(()->{m_Hopper.setControl(HopperController.withVelocity(1));});
   }
 
+  //Stops
   public Command Stop(){
     return run(()->{m_Hopper.stopMotor();});
   }

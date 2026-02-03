@@ -1,3 +1,5 @@
+//Generously given to us by Oscar, eliminates lots of the BS CTRE added into their swerve code. 
+
 package frc.robot.subsystem;
 
 import java.util.function.Supplier;
@@ -38,7 +40,7 @@ public final class Swerve extends TunerSwerveDrivetrain implements Subsystem, Se
 	}
 
 	public Swerve(
-			SwerveDrivetrainConstants drivetrainConstants, SwerveModuleConstants<?, ?, ?>... modules) {
+		SwerveDrivetrainConstants drivetrainConstants, SwerveModuleConstants<?, ?, ?>... modules) {
 		super(drivetrainConstants, 0, modules);
 		if (Utils.isSimulation()) {
 			simulationInit();

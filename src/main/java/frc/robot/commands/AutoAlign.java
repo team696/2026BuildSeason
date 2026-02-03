@@ -20,11 +20,10 @@ import frc.robot.subsystem.Shooter;
 import frc.robot.subsystem.Swerve;
 import frc.robot.util.BotConstants;
 
-
-/* You should consider using the more terse Command factories API instead https://docs.wpilib.org/en/stable/docs/software/commandbased/organizing-command-based.html#defining-commands */
 public class AutoAlign extends Command {
   /** Creates a new AutoAlign. */
 
+    //FCFA reqest, Field Centric Drive Facing Angle request, allows driving while letting the angle be hijacked
   	private final static SwerveRequest.FieldCentricFacingAngle FCFARequest = 
 					new SwerveRequest.FieldCentricFacingAngle()
 					.withDeadband(BotConstants.DriveConstants.MaxSpeed* 0.1)
@@ -34,9 +33,10 @@ public class AutoAlign extends Command {
 
       HumanControls joystick = new HumanControls();
 
+      //Tunner Constant stuff for driving 
       private final double MaxSpeed = TunerConstants.kSpeedAt12Volts.in(MetersPerSecond); // kSpeedAt12Volts desired top speed
       public final  double MaxAngularRate = RotationsPerSecond.of(0.75).in(RadiansPerSecond); // 3/4 of a rotation per second max angular velocity
-
+      //Target pose
       private Translation2d targetPosition;
 		
 
@@ -57,10 +57,14 @@ public class AutoAlign extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
+    //Calculates distance
     double distance = Swerve.get().getPose().getTranslation().getDistance(targetPosition);
+    //Calculates shooter angle using interpolation table in BotConstants
     double shooterangle = BotConstants.Hood.shooterTable.get(distance);
+    //Calculate velocity using interpolation table in BotConstants
     double shootervelocity = BotConstants.Shooter.velocityTable.get(distance);
 
+    //Drives the swerve using the FCFA request
     Swerve.get().applyRequest(()->
         FCFARequest
         .withVelocityX((HumanControls.DriverPanel.leftJoyY.getAsDouble()/2)*MaxSpeed)
@@ -68,9 +72,11 @@ public class AutoAlign extends Command {
         .withTargetDirection(Swerve.get().target_theta(targetPosition)));
     
 
+    //Sets the hood angle and velocity
     Shooter.get().setHoodAngle(shooterangle);
     Shooter.get().set_velocity(shootervelocity);
 
+    //Checks if 
     if(Math.abs((shooterangle/360)-Shooter.get().getHoodPosition()) >= 0.1 &&
       Math.abs(shootervelocity-Shooter.get().getRollerVelocity()) >= 0.2){
         Hopper.get().run_Hopper();

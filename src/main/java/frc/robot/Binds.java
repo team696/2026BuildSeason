@@ -22,11 +22,6 @@ public class Binds {
 	public static Translation2d hub = Field.Alliance_Find.hub;
 	public static Translation2d Pass_1 = Field.Alliance_Find.Pass_1;
 	public static Translation2d Pass_2 = Field.Alliance_Find.Pass_2;
-	
-
-		
-		
-	
 			//Standard driving
 			private static final SwerveRequest.FieldCentric swerveFCDriveRequest = 
 			new SwerveRequest.FieldCentric()
@@ -63,6 +58,7 @@ public class Binds {
 					DriverStation.silenceJoystickConnectionWarning(true);
 				}
 	
+				//Xbox controller methods, simplifies and cleans up the bind() method a lot
 				private static double getDriveForward() {
 					return Math.pow(HumanControls.SingleXboxController.leftJoyY.getAsDouble(), 2) * Math.signum(HumanControls.SingleXboxController.leftJoyY.getAsDouble());
 				}
@@ -79,12 +75,13 @@ public class Binds {
 							() -> swerveFCDriveRequest
 								.withVelocityX(getDriveForward())
 								.withVelocityY(getDriveRight())
-								.withRotationalRate(getRotationClockwise())));
-				HumanControls.SingleXboxController.X.whileTrue(new AutoAlign(hub));
-				HumanControls.SingleXboxController.Y.and(HumanControls.SingleXboxController.LB).whileTrue(new AutoAlign(Pass_1));
-				HumanControls.SingleXboxController.Y.and(HumanControls.SingleXboxController.RB).whileTrue(new AutoAlign(Pass_2));
-				HumanControls.SingleXboxController.LT.whileTrue(Intake.get().setState(Intake.State.INTAKE, Intake.Pivot.DEPLOY));
-				HumanControls.SingleXboxController.RT.whileTrue(Shooter.get().intake_shooter());
+								.withRotationalRate(getRotationClockwise()))); //Standard driving
+
+				HumanControls.SingleXboxController.X.whileTrue(new AutoAlign(hub)); //Auto align and rev
+				HumanControls.SingleXboxController.Y.and(HumanControls.SingleXboxController.LB).whileTrue(new AutoAlign(Pass_1)); //Auto Align to conrer
+				HumanControls.SingleXboxController.Y.and(HumanControls.SingleXboxController.RB).whileTrue(new AutoAlign(Pass_2));//Auto Align to the corner again
+				HumanControls.SingleXboxController.LT.whileTrue(Intake.get().setState(Intake.State.INTAKE, Intake.Pivot.DEPLOY)); //Intake
+				HumanControls.SingleXboxController.RT.whileTrue(Shooter.get().intake_shooter()); //Feed the balls from the hopper into the intake
 				
 		}
 
