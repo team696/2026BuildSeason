@@ -44,11 +44,9 @@ public class Shooter extends SubsystemBase {
       m_Shooter.getConfigurator().apply(BotConstants.Shooter.cfg_shooter);
       m_Hood.getConfigurator().apply(BotConstants.Hood.cfg_Hood);
       m_ShooterIntake.getConfigurator().apply(BotConstants.Shooter.cfg_shooter_intake);
-
+      
       position_hood = m_Hood.getPosition();
       velocity_roller = m_Shooter.getVelocity();
-
-
   }
 
   double getDistanceToHub() {

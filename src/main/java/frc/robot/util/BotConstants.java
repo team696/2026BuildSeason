@@ -64,8 +64,6 @@ public class BotConstants {
         public static final InterpolatingDoubleTreeMap velocityTable = new InterpolatingDoubleTreeMap();
         static{
             cfg_shooter.Slot0.kP = 0.0;
-
-
             cfg_shooter_intake.Slot0.kP = 0.0;
         }
 
@@ -103,6 +101,12 @@ public class BotConstants {
     public static class Climber{
         public static final int Climber_1_ID = 8;
         public static final int Climber_2_ID = 9;
+        public static final TalonFXConfiguration cfg_Climber1 = new TalonFXConfiguration();
+        public static final TalonFXConfiguration cfg_Climber2 = new TalonFXConfiguration();
+        public static final double gearRatio = 1;
+        public static final double chainLength = .5; // in meters
+        public static final double sproketRadius = .253; // in meters
+        public static final double sproketDiameter = 2*Math.PI*sproketRadius; // in meters
 
         static{
             //Tis where the config will go, too lazy to write it rn
