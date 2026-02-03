@@ -21,6 +21,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import frc.robot.Auto.NamedCommand;
+import frc.robot.subsystem.Climber;
 import frc.robot.subsystem.Intake;
 import frc.robot.subsystem.Shooter;
 import frc.robot.subsystem.Swerve;
@@ -60,7 +61,9 @@ public class Robot extends TimedRobot {
 
     new Auto.NamedCommand("Intake", Intake.get().setState(State.INTAKE, Pivot.DEPLOY)),
     
-    new Auto.NamedCommand("Reset Intake", Intake.get().setState(State.IDLE, Pivot.STOW))
+    new Auto.NamedCommand("Reset Intake", Intake.get().setState(State.IDLE, Pivot.STOW)),
+
+    new Auto.NamedCommand("Climb L1", Climber.get().climbL1())
 );
     
     

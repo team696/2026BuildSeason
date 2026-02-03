@@ -1,6 +1,5 @@
 package frc.robot;
 
-import java.lang.Thread.State;
 import java.util.Optional;
 
 import com.ctre.phoenix6.swerve.SwerveRequest;

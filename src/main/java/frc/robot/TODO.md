@@ -1,9 +1,8 @@
 Priority List:
-    -Get data for the Climber[]
-    -Use the Hopper Beam Break for something[]
-    -Intergrate the AutoAlign to the Binds[]
+    -Get data for the Climber[x]
+    -Intergrate the AutoAlign to the Binds[x]
     -Autos
-        -Initalize commands for pathplanner[]
+        -Initalize commands for pathplanner[x]
         -Make the actual autos[]
 
 

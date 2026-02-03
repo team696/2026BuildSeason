@@ -17,16 +17,14 @@ import com.ctre.phoenix6.hardware.TalonFX;
 
 import edu.wpi.first.units.measure.Angle;
 import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.subsystem.Intake.Pivot;
 import frc.robot.util.BotConstants;
 
 public class Climber extends SubsystemBase {
 
   private static Climber climber = null;
 
-  private static synchronized Climber get(){
+  public static synchronized Climber get(){
     if(climber == null){
       climber = new Climber();
     }
