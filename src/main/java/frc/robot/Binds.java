@@ -23,67 +23,68 @@ public class Binds {
 	public static Translation2d Pass_1 = Field.Alliance_Find.Pass_1;
 	public static Translation2d Pass_2 = Field.Alliance_Find.Pass_2;
 			//Standard driving
-			private static final SwerveRequest.FieldCentric swerveFCDriveRequest = 
-			new SwerveRequest.FieldCentric()
-			.withDeadband(TunerConstants.MaxSpeed * 0.05)
-			.withRotationalDeadband(TunerConstants.MaxAngularRate * 0.05)
-			.withDriveRequestType(DriveRequestType.OpenLoopVoltage);
+	private static final SwerveRequest.FieldCentric swerveFCDriveRequest = 
+		new SwerveRequest.FieldCentric()
+		.withDeadband(TunerConstants.MaxSpeed * 0.05)
+		.withRotationalDeadband(TunerConstants.MaxAngularRate * 0.05)
+		.withDriveRequestType(DriveRequestType.OpenLoopVoltage);
 	
 			
 			
 			   
 			
-				public static final class DriverStation2026 {
-				static {
-					DriverStation.silenceJoystickConnectionWarning(true);
-				}
+public static final class DriverStation2026 {
+	static {
+		DriverStation.silenceJoystickConnectionWarning(true);
+		}
 			
 			
-				public static final void bind() {
+	public static final void bind() {
 					// Map Joysticks
-					Swerve.get().setDefaultCommand(Swerve.get().applyRequest(
-							() -> swerveFCDriveRequest.withVelocityX(Math.pow(HumanControls.DriverPanel.leftJoyY.getAsDouble(), 2))
-								.withVelocityY(Math.pow(HumanControls.DriverPanel.leftJoyX.getAsDouble(), 2))
-								.withRotationalRate(Math.pow(HumanControls.DriverPanel.rightJoyX.getAsDouble(), 2))));
+		Swerve.get().setDefaultCommand(Swerve.get().applyRequest(
+			() -> swerveFCDriveRequest.withVelocityX(Math.pow(HumanControls.DriverPanel.leftJoyY.getAsDouble(), 2))
+				.withVelocityY(Math.pow(HumanControls.DriverPanel.leftJoyX.getAsDouble(), 2))
+				.withRotationalRate(Math.pow(HumanControls.DriverPanel.rightJoyX.getAsDouble(), 2))));
 			
-						// Reset Gyro
-					HumanControls.DriverPanel.resetGyro.onTrue(new InstantCommand(() -> Swerve.get().seedFieldCentric()));
-				}
-			}
+			// Reset Gyro
+			HumanControls.DriverPanel.resetGyro.onTrue(new InstantCommand(() -> Swerve.get().seedFieldCentric()));
+		}
+	}
 			
 			
 			
-			public static final class Controller {
-				static {
-					DriverStation.silenceJoystickConnectionWarning(true);
-				}
+public static final class Controller {
+	static {
+		DriverStation.silenceJoystickConnectionWarning(true);
+		}
 	
-				//Xbox controller methods, simplifies and cleans up the bind() method a lot
-				private static double getDriveForward() {
-					return Math.pow(HumanControls.SingleXboxController.leftJoyY.getAsDouble(), 2) * Math.signum(HumanControls.SingleXboxController.leftJoyY.getAsDouble());
-				}
+	//Xbox controller methods, simplifies and cleans up the bind() method a lot
+	private static double getDriveForward() {
+		return Math.pow(HumanControls.SingleXboxController.leftJoyY.getAsDouble(), 2) * Math.signum(HumanControls.SingleXboxController.leftJoyY.getAsDouble());
+	}
 	
-				private static double getDriveRight() {
-					return Math.pow(HumanControls.SingleXboxController.leftJoyX.getAsDouble(), 2) * Math.signum(HumanControls.SingleXboxController.leftJoyX.getAsDouble());
-				}
-				private static double getRotationClockwise() {
-					return Math.pow(HumanControls.SingleXboxController.rightJoyX.getAsDouble(), 2) * Math.signum(HumanControls.SingleXboxController.rightJoyX.getAsDouble());
-				}	
+	private static double getDriveRight() {
+		return Math.pow(HumanControls.SingleXboxController.leftJoyX.getAsDouble(), 2) * Math.signum(HumanControls.SingleXboxController.leftJoyX.getAsDouble());
+	}
+	private static double getRotationClockwise() {
+		return Math.pow(HumanControls.SingleXboxController.rightJoyX.getAsDouble(), 2) * Math.signum(HumanControls.SingleXboxController.rightJoyX.getAsDouble());
+	}	
 			
-				public static final void bind() {
-					Swerve.get().setDefaultCommand(Swerve.get().applyRequest(
-							() -> swerveFCDriveRequest
-								.withVelocityX(getDriveForward())
-								.withVelocityY(getDriveRight())
-								.withRotationalRate(getRotationClockwise()))); //Standard driving
+	public static final void bind() {
+		Swerve.get().setDefaultCommand(Swerve.get().applyRequest(
+			() -> swerveFCDriveRequest
+			.withVelocityX(getDriveForward())
+			.withVelocityY(getDriveRight())
+			.withRotationalRate(getRotationClockwise()))); //Standard driving
 
-				HumanControls.SingleXboxController.X.whileTrue(new AutoAlign(hub)); //Auto align and rev
-				HumanControls.SingleXboxController.Y.and(HumanControls.SingleXboxController.LB).whileTrue(new AutoAlign(Pass_1)); //Auto Align to conrer
-				HumanControls.SingleXboxController.Y.and(HumanControls.SingleXboxController.RB).whileTrue(new AutoAlign(Pass_2));//Auto Align to the corner again
-				HumanControls.SingleXboxController.LT.whileTrue(Intake.get().setState(Intake.State.INTAKE, Intake.Pivot.DEPLOY)); //Intake
-				HumanControls.SingleXboxController.RT.whileTrue(Shooter.get().intake_shooter()); //Feed the balls from the hopper into the intake
+	HumanControls.SingleXboxController.X.whileTrue(new AutoAlign(hub)); //Auto align and rev
+	HumanControls.SingleXboxController.Y.and(HumanControls.SingleXboxController.LB).whileTrue(new AutoAlign(Pass_1)); //Auto Align to conrer
+	HumanControls.SingleXboxController.Y.and(HumanControls.SingleXboxController.RB).whileTrue(new AutoAlign(Pass_2));//Auto Align to the corner again
+	HumanControls.SingleXboxController.LT.whileTrue(Intake.get().intake_Command()); //Intake
+	HumanControls.SingleXboxController.LT.whileFalse(Intake.get().stow()); //Stow when the LT button is not pressed
+	HumanControls.SingleXboxController.RT.whileTrue(Shooter.get().intake_shooter()); //Feed the balls from the hopper into the intake
+	HumanControls.SingleXboxController.A.whileTrue(Swerve.get().alignToClimb()); //PathFind to the climb
 				
 		}
-
 	}
 }

@@ -65,23 +65,24 @@ public class Intake extends SubsystemBase {
   }
 
   //Set roller and pivot state together
-  public Command setState(State state, Pivot pivot){
-    return runOnce(() -> {
-      mState = state;
-      mPivot = pivot;
-    });
+  public Command intake_Command(){
+    return run(()->{
+    m_IntakePivot.setControl(PivotPositionControl.withPosition(mPivot.angle/360)); //Have to divide by 360 because the angle of the pivot is going to be set in degrees, but is up to changees
+    m_IntakeRoller.setVoltage(mState.roller_voltage);});
   }
 
   //Stows, basically sets everything to 0
   public Command stow(){
-    return setState(State.IDLE, Pivot.STOW);
+    return run(()->{
+      m_IntakePivot.setControl(PivotPositionControl.withPosition(0));
+      m_IntakeRoller.setVoltage(0);
+    });
   }
 
 
   @Override
   //Sets the values
   public void periodic() {
-    m_IntakePivot.setControl(PivotPositionControl.withPosition(mPivot.angle/360)); //Have to divide by 360 because the angle of the pivot is going to be set in degrees, but is up to changees
-    m_IntakeRoller.setVoltage(mState.roller_voltage);
+    
   }
 }

@@ -4,6 +4,7 @@
 
 package frc.robot.commands;
 
+import static edu.wpi.first.units.Units.DegreesPerSecond;
 import static edu.wpi.first.units.Units.MetersPerSecond;
 import static edu.wpi.first.units.Units.RadiansPerSecond;
 import static edu.wpi.first.units.Units.RotationsPerSecond;
@@ -69,14 +70,18 @@ public class AutoAlign extends Command {
         FCFARequest
         .withVelocityX((HumanControls.DriverPanel.leftJoyY.getAsDouble()/2)*MaxSpeed)
         .withVelocityY((HumanControls.DriverPanel.leftJoyX.getAsDouble()/2)*MaxSpeed)
-        .withTargetDirection(Swerve.get().target_theta(targetPosition)));
+        .withTargetDirection(Swerve.get().target_theta(targetPosition))
+        .withHeadingPID(5,0,0)
+        .withMaxAbsRotationalRate(DegreesPerSecond.of(360))
+        .withRotationalDeadband(DegreesPerSecond.of(1)));
+
     
 
     //Sets the hood angle and velocity
     Shooter.get().setHoodAngle(shooterangle);
     Shooter.get().set_velocity(shootervelocity);
 
-    //Checks if 
+    //Checks if everything is in place before the hopper runs
     if(Math.abs((shooterangle/360)-Shooter.get().getHoodPosition()) >= 0.1 &&
       Math.abs(shootervelocity-Shooter.get().getRollerVelocity()) >= 0.2){
         Hopper.get().run_Hopper();
