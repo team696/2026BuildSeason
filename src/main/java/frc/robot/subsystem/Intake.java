@@ -1,12 +1,15 @@
+
 // Copyright (c) FIRST and other WPILib contributors.
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
 
 package frc.robot.subsystem;
 
-import com.ctre.phoenix6.controls.MotionMagicVoltage;
+import com.ctre.phoenix6.controls.MotionMagicVelocityVoltage;
+import com.ctre.phoenix6.controls.PositionVoltage;
 import com.ctre.phoenix6.hardware.TalonFX;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.util.BotConstants;
@@ -26,63 +29,70 @@ public class Intake extends SubsystemBase {
   /** Creates a new Intake. */
 
   //Enum to determin state, values are temporary
-  public enum State{
+  public static enum State{
     IDLE(0.0),
-    INTAKE(1.0),
-    OUTTAKE(-1.0);
+    INTAKE(3000.0),
+    OUTTAKE(-3000.0);
 
-    public double roller_voltage;
-    State(double roller_voltage){
-      this.roller_voltage = roller_voltage;
+    public double roller_velocity;  // Renamed
+    State(double roller_velocity){
+        this.roller_velocity = roller_velocity;
     }
-  }
+}
   //Enum to determin pivot position, values are temporary
   public enum Pivot{
-    STOW(0.0),
-    DEPLOY(45.0);
+    STOW(0.00),
+    DEPLOY(5.5);
 
-    public double angle;
+    public double position;
 
-    Pivot(double angle){
-      this.angle = angle;
+    Pivot(double position){
+      this.position = position;
     }
   }
   
 
   //Motors
-  private final TalonFX m_IntakePivot = new TalonFX(BotConstants.Intake.pivotID);
-  private final TalonFX m_IntakeRoller = new TalonFX(BotConstants.Intake.intakeID);
+  private final TalonFX m_IntakePivot = new TalonFX(BotConstants.Intake.pivotID, BotConstants.Canivore);
+  private final TalonFX m_IntakeRoller = new TalonFX(BotConstants.Intake.intakeID, BotConstants.Canivore);
   //Motor Controller
-  private final MotionMagicVoltage PivotPositionControl = new MotionMagicVoltage(0);
-  //Variables getting the values
-  private State mState = State.IDLE;
-  private Pivot mPivot = Pivot.STOW;
+  private final PositionVoltage PivotPositionControl = new PositionVoltage(0);
+  private final MotionMagicVelocityVoltage intakeVelocityController  = new MotionMagicVelocityVoltage(0);
 
-  //Constructor, just sets up the config
   public Intake() {
     m_IntakeRoller.getConfigurator().apply(BotConstants.Intake.cfg_Roller);
     m_IntakePivot.getConfigurator().apply(BotConstants.Intake.cfg_Pivot);
+    m_IntakePivot.setPosition(0.0);
+
+    this.setDefaultCommand(doStow());
   }
 
-  //Set roller and pivot state together
-  public Command intake_Command(){
-    return run(()->{
-    m_IntakePivot.setControl(PivotPositionControl.withPosition(mPivot.angle/360)); //Have to divide by 360 because the angle of the pivot is going to be set in degrees, but is up to changees
-    m_IntakeRoller.setVoltage(mState.roller_voltage);});
+  public void runIntake(State state) {
+    m_IntakeRoller.setControl(intakeVelocityController.withVelocity(state.roller_velocity/60));
   }
 
-  //Stows, basically sets everything to 0
-  public Command stow(){
-    return run(()->{
-      m_IntakePivot.setControl(PivotPositionControl.withPosition(0));
-      m_IntakeRoller.setVoltage(0);
+    public void positionIntake(double state) {
+    m_IntakePivot.setControl(PivotPositionControl.withPosition(state)); //
+    //vout.withOutput(-1 * pidController.calculate(m_IntakePivot.getPosition().getValueAsDouble(), state))
+  }
+
+  public Command doIntake() {
+    return this.run(() -> {
+        this.runIntake(State.INTAKE); this.positionIntake(5.7);
     });
   }
 
-
-  @Override
-  //Sets the values
-  public void periodic() {
-    
+public Command doStow() {
+    return this.run(() -> {
+        m_IntakeRoller.stopMotor(); this.positionIntake(0.);
+    });
   }
+
+@Override
+public void periodic() {
+
+
+    SmartDashboard.putNumber("Pivot Position", m_IntakePivot.getPosition().getValueAsDouble());
+    SmartDashboard.putData(this);
+}
 }

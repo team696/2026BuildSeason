@@ -8,6 +8,7 @@ import static edu.wpi.first.units.Units.*;
 
 import com.ctre.phoenix6.CANBus;
 import com.ctre.phoenix6.configs.TalonFXConfiguration;
+import com.ctre.phoenix6.signals.InvertedValue;
 import com.ctre.phoenix6.signals.NeutralModeValue;
 
 import edu.wpi.first.math.interpolation.InterpolatingDoubleTreeMap;
@@ -22,23 +23,33 @@ public class BotConstants {
     
     static{
         riobus = new CANBus("rio");
-        Canivore = new CANBus("cv");
+        Canivore = new CANBus("CANivore");
     }
 
 //All these values are temporary.
     public static class Intake{
-        public static final int pivotID = 1;
-        public static final int intakeID = 2;
+        public static final int pivotID = 22;
+        public static final int intakeID = 21;
         public static TalonFXConfiguration cfg_Roller = new TalonFXConfiguration();
         public static TalonFXConfiguration cfg_Pivot = new TalonFXConfiguration();
         static{
-            cfg_Roller.Slot0.kP = 0.0;
-            cfg_Roller.MotorOutput.NeutralMode = NeutralModeValue.Brake;
-            cfg_Roller.MotionMagic.MotionMagicAcceleration = 40;
-            cfg_Roller.MotionMagic.MotionMagicCruiseVelocity = 20;
+            cfg_Roller.Slot0.kP = .45;
+            cfg_Roller.Slot0.kV = .1;
+            cfg_Roller.Slot0.kS = .1;
+            cfg_Roller.MotorOutput.Inverted = InvertedValue.Clockwise_Positive;
+            cfg_Roller.MotorOutput.NeutralMode = NeutralModeValue.Coast;
+            cfg_Roller.MotionMagic.MotionMagicAcceleration = 3000.0 / 60.0;
+            cfg_Roller.MotionMagic.MotionMagicCruiseVelocity = 6000.0 / 60.0;
             cfg_Roller.CurrentLimits.StatorCurrentLimitEnable = false;
-            cfg_Roller.CurrentLimits.SupplyCurrentLimitEnable = false;
-            cfg_Roller.CurrentLimits.StatorCurrentLimit = 120.;
+            cfg_Roller.CurrentLimits.SupplyCurrentLimitEnable = true;
+            cfg_Roller.CurrentLimits.StatorCurrentLimit = 30.;
+    
+            cfg_Pivot.Slot0.kP = -7.;
+            cfg_Pivot.Slot0.kD = 0.0;
+
+            cfg_Pivot.MotorOutput.NeutralMode = NeutralModeValue.Brake;
+            cfg_Pivot.CurrentLimits.StatorCurrentLimitEnable = true;
+            cfg_Pivot.CurrentLimits.StatorCurrentLimit = 60.;
         }
         static{
             cfg_Pivot.Slot0.kP = 0.0;
@@ -57,14 +68,20 @@ public class BotConstants {
     }
 
     public static class Shooter{
-        public static final int shooterflywheel_ID = 4;
-        public static final int shooterIntake_ID = 5;
+        public static final int shooterflywheel_ID = 17;
+        public static final int shooterIntake_ID = 19;
         public static final TalonFXConfiguration cfg_shooter = new TalonFXConfiguration();
         public static final TalonFXConfiguration cfg_shooter_intake = new TalonFXConfiguration();
         public static final InterpolatingDoubleTreeMap velocityTable = new InterpolatingDoubleTreeMap();
         static{
-            cfg_shooter.Slot0.kP = 0.0;
-            cfg_shooter_intake.Slot0.kP = 0.0;
+            cfg_shooter.Slot0.kP = 0.3;
+            cfg_shooter.Slot0.kV = 0.12;
+            cfg_shooter_intake.Slot0.kP = 0.3;
+            cfg_shooter_intake.Slot0.kV = 0.12;
+            cfg_shooter.MotionMagic.MotionMagicAcceleration = 100;
+            cfg_shooter.MotionMagic.MotionMagicCruiseVelocity = 160;
+            cfg_shooter_intake.MotionMagic.MotionMagicCruiseVelocity = 160;
+            cfg_shooter_intake.MotionMagic.MotionMagicAcceleration  = 100;
         }
 
         static{
@@ -80,7 +97,7 @@ public class BotConstants {
     }
 
     public static class Hood{
-        public static final int Hood_ID = 6;
+        public static final int Hood_ID = 16;
         public static final TalonFXConfiguration cfg_Hood = new TalonFXConfiguration();
         public static final InterpolatingDoubleTreeMap shooterTable = new InterpolatingDoubleTreeMap();
         static{

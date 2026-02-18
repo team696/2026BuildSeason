@@ -41,9 +41,9 @@ public class Robot extends TimedRobot {
         BotConstants.Shooter.velocityTable.get(DistanceFinder(Field.Alliance_Find.Pass_2)),
         BotConstants.Hood.shooterTable.get(DistanceFinder(Field.Alliance_Find.Pass_2)))),
 
-    new Auto.NamedCommand("Intake", Intake.get().intake_Command()),
+    new Auto.NamedCommand("Intake", Intake.get().doIntake()),
     
-    new Auto.NamedCommand("Reset Intake", Intake.get().stow()),
+    new Auto.NamedCommand("Reset Intake", Intake.get().doStow()),
 
     new Auto.NamedCommand("Climb L1", Climber.get().climbL1())
 );

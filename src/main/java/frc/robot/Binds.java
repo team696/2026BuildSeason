@@ -80,8 +80,8 @@ public static final class Controller {
 	HumanControls.SingleXboxController.X.whileTrue(new AutoAlign(hub)); //Auto align and rev
 	HumanControls.SingleXboxController.Y.and(HumanControls.SingleXboxController.LB).whileTrue(new AutoAlign(Pass_1)); //Auto Align to conrer
 	HumanControls.SingleXboxController.Y.and(HumanControls.SingleXboxController.RB).whileTrue(new AutoAlign(Pass_2));//Auto Align to the corner again
-	HumanControls.SingleXboxController.LT.whileTrue(Intake.get().intake_Command()); //Intake
-	HumanControls.SingleXboxController.LT.whileFalse(Intake.get().stow()); //Stow when the LT button is not pressed
+	HumanControls.SingleXboxController.LT.whileTrue(Intake.get().doIntake()); //Intake
+	HumanControls.SingleXboxController.LT.onFalse(Intake.get().doStow()); //Stow when the LT button is not pressed
 	HumanControls.SingleXboxController.RT.whileTrue(Shooter.get().intake_shooter()); //Feed the balls from the hopper into the intake
 	HumanControls.SingleXboxController.A.whileTrue(Swerve.get().alignToClimb()); //PathFind to the climb
 				
