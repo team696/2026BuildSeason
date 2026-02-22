@@ -17,6 +17,7 @@ import frc.robot.subsystem.Shooter;
 import frc.robot.subsystem.Swerve;
 import frc.robot.util.BotConstants;
 import frc.robot.util.Field;
+import frc.robot.util.Field.Alliance_Find;
 
 public class Robot extends TimedRobot {
   private Command m_autonomousCommand;
@@ -26,6 +27,7 @@ public class Robot extends TimedRobot {
   public Robot() {
     this.logger = new Telemetry(TunerConstants.MaxSpeed);
     Binds.DriverStation2026.bind();
+    Alliance_Find alliance_finder = new Alliance_Find();
     
 
     Auto.initialize(
@@ -52,7 +54,7 @@ public class Robot extends TimedRobot {
     
   }
 
-  public double DistanceFinder(Translation2d targetPosition){
+public double DistanceFinder(Translation2d targetPosition){
     return Swerve.get().getPose().getTranslation().getDistance(targetPosition);
   }
 
