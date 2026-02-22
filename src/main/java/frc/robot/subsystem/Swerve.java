@@ -73,7 +73,7 @@ public final class Swerve extends TunerSwerveDrivetrain implements Subsystem, Se
 	
     boolean acceptEstimate(AprilTagResult latestResult) {
       if(latestResult.distToTag > 3){
-        return false;
+        return true;
       }
 	  //System.out.println(latestResult.pose.getX()+","+latestResult.pose.getY());
 	  setVisionMeasurementStdDevs(VecBuilder.fill(0.001, 0.001, 0.001)); // trust the tag a lot, change and scale this in the future 
