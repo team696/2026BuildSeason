@@ -60,6 +60,7 @@ public double DistanceFinder(Translation2d targetPosition){
 
   @Override
   public void robotPeriodic() {
+    logger.telemeterize(Swerve.get().getState());
     CommandScheduler.getInstance().run();
   }
 
@@ -77,7 +78,7 @@ public double DistanceFinder(Translation2d targetPosition){
 		m_autonomousCommand = Auto.getSelectedAuto();
 
 		if (m_autonomousCommand != null) {
-			m_autonomousCommand.schedule();
+			CommandScheduler.getInstance().schedule(m_autonomousCommand);
 		}
 	}
 

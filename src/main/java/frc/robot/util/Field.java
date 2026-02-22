@@ -2,6 +2,7 @@ package frc.robot.util;
 
 import static edu.wpi.first.units.Units.Feet;
 
+import java.util.NoSuchElementException;
 import java.util.Optional;
 
 import com.pathplanner.lib.util.FlippingUtil;
@@ -48,7 +49,9 @@ public class Field {
 		public static Pose2d climb_tower;
 
 		public Alliance_Find(){
-			if(alliance.get() == Alliance.Red){
+
+			try{
+				if(alliance.get() == Alliance.Red){
 					hub = Field.hub_position_red;
 					Pass_1 = Field.pass_position_red_1;
 					Pass_2 = Field.pass_position_red_2;
@@ -63,6 +66,13 @@ public class Field {
 				else{
 					System.out.print("You fucked up");
 				}
+			} catch (NoSuchElementException e){
+					DriverStation.reportWarning("Could not get alliance from driver station/FMS!", e.getStackTrace());
+					hub = Field.hub_position_blue;
+					Pass_1 = Field.pass_position_blue_1;
+					Pass_2 = Field.pass_position_blue_2;
+					climb_tower = Field.climb_tower_blue;
+			}
 
 		}
 	}

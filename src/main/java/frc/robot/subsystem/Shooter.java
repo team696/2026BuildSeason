@@ -14,6 +14,8 @@ import edu.wpi.first.units.measure.AngularVelocity;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.util.BotConstants;
+import frc.robot.util.Field;
+import frc.robot.util.BotConstants.Hood;
 
 public class Shooter extends SubsystemBase {
 
@@ -70,6 +72,17 @@ public class Shooter extends SubsystemBase {
       m_Shooter.setControl(shooterVelocityController.withVelocity(-velocity));
       m_Hood.setControl(hoodAngleController.withPosition(position_hood));
      });
+    }
+    public Command Shoot(){
+
+      return run(()->{
+        double distMeters=Swerve.get().getPose().getTranslation().getDistance(Field.Alliance_Find.hub);
+        m_Shooter.setControl(shooterVelocityController.withVelocity(BotConstants.Shooter.velocityTable.get(distMeters)));
+        m_Hood.setControl(hoodAngleController.withPosition(Hood.shooterTable.get(distMeters)));
+        // TODO: wait for the shooter to go up to speed and the hood to reach the right angle before the line below runs (the line below releases the gamepiece).
+        m_ShooterIntake.setControl(intakeRollerController.withVelocity(30));
+
+      });
     }
 
   //Stops everything

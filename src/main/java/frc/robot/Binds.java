@@ -8,6 +8,7 @@ import com.ctre.phoenix6.swerve.SwerveModule.DriveRequestType;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
+import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import frc.robot.commands.AutoAlign;
 import frc.robot.subsystem.Intake;
@@ -81,6 +82,7 @@ public static final class Controller {
 	HumanControls.SingleXboxController.Y.and(HumanControls.SingleXboxController.LB).whileTrue(new AutoAlign(Pass_1)); //Auto Align to conrer
 	HumanControls.SingleXboxController.Y.and(HumanControls.SingleXboxController.RB).whileTrue(new AutoAlign(Pass_2));//Auto Align to the corner again
 	HumanControls.SingleXboxController.LT.whileTrue(Intake.get().doIntake()); //Intake
+
 	HumanControls.SingleXboxController.LT.onFalse(Intake.get().doStow()); //Stow when the LT button is not pressed
 	HumanControls.SingleXboxController.RT.whileTrue(Shooter.get().intake_shooter()); //Feed the balls from the hopper into the intake
 	HumanControls.SingleXboxController.A.whileTrue(Swerve.get().alignToClimb()); //PathFind to the climb

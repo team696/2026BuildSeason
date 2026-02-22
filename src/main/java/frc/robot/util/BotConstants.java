@@ -72,6 +72,9 @@ public class BotConstants {
         public static final int shooterIntake_ID = 19;
         public static final TalonFXConfiguration cfg_shooter = new TalonFXConfiguration();
         public static final TalonFXConfiguration cfg_shooter_intake = new TalonFXConfiguration();
+        /**
+         * Interpolates between the robot's distance from the hub (in meters) and the velocity of the shooter rollers (in rotations/second)
+         */
         public static final InterpolatingDoubleTreeMap velocityTable = new InterpolatingDoubleTreeMap();
         static{
             cfg_shooter.Slot0.kP = 0.3;
@@ -99,9 +102,12 @@ public class BotConstants {
     public static class Hood{
         public static final int Hood_ID = 16;
         public static final TalonFXConfiguration cfg_Hood = new TalonFXConfiguration();
+        /**
+         * Interpolates between distance from the hub (in meters) and the angle of the shooter (in degrees)
+         */
         public static final InterpolatingDoubleTreeMap shooterTable = new InterpolatingDoubleTreeMap();
         static{
-            cfg_Hood.Slot0.kP = 0.0;
+            cfg_Hood.Slot0.kP = 5.;
         }
 
         static{

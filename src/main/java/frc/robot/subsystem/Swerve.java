@@ -22,6 +22,8 @@ import edu.wpi.first.util.sendable.Sendable;
 import edu.wpi.first.util.sendable.SendableBuilder;
 import edu.wpi.first.wpilibj.Notifier;
 import edu.wpi.first.wpilibj.RobotController;
+import edu.wpi.first.wpilibj.smartdashboard.Field2d;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Subsystem;
 import frc.robot.TunerConstants;
@@ -32,9 +34,9 @@ import frc.robot.util.LimeLightCam;
 
 public final class Swerve extends TunerSwerveDrivetrain implements Subsystem, Sendable {
 	private static Swerve m_Swerve;
-	private static LimeLightCam frontTable = new LimeLightCam("FrontCamera");
-    private static LimeLightCam backTable = new LimeLightCam("BackCamera");
-
+	private LimeLightCam frontCamera=new LimeLightCam("limelight-front");
+	private LimeLightCam leftCamera=new LimeLightCam("limelight-left");
+	private LimeLightCam rightCamera=new LimeLightCam("limelight-right");
 
 	public static synchronized Swerve get() {
 		if (m_Swerve == null)
@@ -53,15 +55,21 @@ public final class Swerve extends TunerSwerveDrivetrain implements Subsystem, Se
 	@Override
 	public void periodic() {
 		  // This runs 50 times per second
-        frontTable.addVisionEstimate(this::addVisionMeasurement, this::acceptEstimate);    
-        backTable.addVisionEstimate(this::addVisionMeasurement, this::acceptEstimate);
+        frontCamera.addVisionEstimate(this::addVisionMeasurement, this::acceptEstimate);    
+		leftCamera.addVisionEstimate(this::addVisionMeasurement, this::acceptEstimate);    
+		rightCamera.addVisionEstimate(this::addVisionMeasurement, this::acceptEstimate);    
+		frontCamera.SetRobotOrientation(getPose().getRotation());
 	}
 
 	
     boolean acceptEstimate(AprilTagResult latestResult) {
-      if(latestResult.distToTag > 3){
+      /*if(latestResult.distToTag > 3){
         return false;
-      }
+      }*/
+
+	  System.out.println("Accepted Estimate: "+latestResult.pose.getX()+","+latestResult.pose.getY()+"\t"+latestResult.pose.getRotation().getDegrees());
+	System.out.println("Current Estimate: "+getPose().getX()+","+getPose().getY()+" "+latestResult.pose.getRotation().getDegrees());
+	  //resetPose(latestResult.pose);
       return true;
     }
 
@@ -86,7 +94,7 @@ public final class Swerve extends TunerSwerveDrivetrain implements Subsystem, Se
 			Pose2d visionRobotPoseMeters,
 			double timestampSeconds,
 			Matrix<N3, N1> visionMeasurementStdDevs) {
-		super.addVisionMeasurement(visionRobotPoseMeters, Utils.fpgaToCurrentTime(timestampSeconds),
+		super.addVisionMeasurement(visionRobotPoseMeters,timestampSeconds,
 				visionMeasurementStdDevs);
 	}
 
