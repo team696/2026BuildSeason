@@ -87,7 +87,7 @@ public class LimeLightCam extends BaseCam {
 
     return Optional.of(
         new AprilTagResult(latestEstimate.pose,
-            Utils.fpgaToCurrentTime(latestEstimate.timestampSeconds),
+            latestEstimate.timestampSeconds,//Utils.fpgaToCurrentTime(latestEstimate.timestampSeconds),
             latestEstimate.avgTagDist,
             latestEstimate.tagCount,
             latestEstimate.rawFiducials[0].ambiguity)); // Probably not the best but good enough for now

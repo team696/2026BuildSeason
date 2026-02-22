@@ -9,7 +9,6 @@ import com.pathplanner.lib.util.FlippingUtil;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Translation2d;
-import edu.wpi.first.math.path.TravelingSalesman;
 import edu.wpi.first.math.util.Units;
 import edu.wpi.first.units.measure.Distance;
 import edu.wpi.first.wpilibj.DriverStation;
@@ -39,7 +38,7 @@ public class Field {
 
 
 
-	public class Alliance_Find{
+	public static class Alliance_Find{
 
 		public static Optional<Alliance> alliance = DriverStation.getAlliance();
 		public static Translation2d hub;
@@ -48,21 +47,21 @@ public class Field {
 		public static Pose2d climb_tower;
 
 		public Alliance_Find(){
-		if(alliance.get() == Alliance.Red){
-				hub = Field.hub_position_red;
-				Pass_1 = Field.pass_position_red_1;
-				Pass_2 = Field.pass_position_red_2;
-				climb_tower = Field.climb_tower_red;
-			}
-			else if(alliance.get() == Alliance.Blue){
-				hub = Field.hub_position_blue;
-				Pass_1 = Field.pass_position_blue_1;
-				Pass_2 = Field.pass_position_blue_2;
-				climb_tower = Field.climb_tower_blue;
-			}
-			else{
-				System.out.print("You fucked up");
-			}
+			if(alliance.get() == Alliance.Red){
+					hub = Field.hub_position_red;
+					Pass_1 = Field.pass_position_red_1;
+					Pass_2 = Field.pass_position_red_2;
+					climb_tower = Field.climb_tower_red;
+				}
+				else if(alliance.get() == Alliance.Blue){
+					hub = Field.hub_position_blue;
+					Pass_1 = Field.pass_position_blue_1;
+					Pass_2 = Field.pass_position_blue_2;
+					climb_tower = Field.climb_tower_blue;
+				}
+				else{
+					System.out.print("You fucked up");
+				}
 
 		}
 	}

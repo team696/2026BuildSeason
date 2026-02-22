@@ -2,6 +2,7 @@
 
 package frc.robot.subsystem;
 
+import java.io.Console;
 import java.util.function.Supplier;
 
 import com.ctre.phoenix6.Utils;
@@ -12,6 +13,7 @@ import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.path.PathConstraints;
 
 import edu.wpi.first.math.Matrix;
+import edu.wpi.first.math.VecBuilder;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Translation2d;
@@ -20,6 +22,7 @@ import edu.wpi.first.math.numbers.N3;
 import edu.wpi.first.math.util.Units;
 import edu.wpi.first.util.sendable.Sendable;
 import edu.wpi.first.util.sendable.SendableBuilder;
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Notifier;
 import edu.wpi.first.wpilibj.RobotController;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -32,9 +35,11 @@ import frc.robot.util.LimeLightCam;
 
 public final class Swerve extends TunerSwerveDrivetrain implements Subsystem, Sendable {
 	private static Swerve m_Swerve;
-	private static LimeLightCam frontTable = new LimeLightCam("FrontCamera");
-    private static LimeLightCam backTable = new LimeLightCam("BackCamera");
+	private static LimeLightCam leftCam = new LimeLightCam("limelight-left");
+    private static LimeLightCam rightCam = new LimeLightCam("limelight-right");
+	private static LimeLightCam frontCam = new LimeLightCam("limelight-front");
 
+	Rotation2d yawoffset = new Rotation2d(0);
 
 	public static synchronized Swerve get() {
 		if (m_Swerve == null)
@@ -52,9 +57,17 @@ public final class Swerve extends TunerSwerveDrivetrain implements Subsystem, Se
 
 	@Override
 	public void periodic() {
+		if (DriverStation.isDisabled()){
+			updateYawoffset();
+		}
+
 		  // This runs 50 times per second
-        frontTable.addVisionEstimate(this::addVisionMeasurement, this::acceptEstimate);    
-        backTable.addVisionEstimate(this::addVisionMeasurement, this::acceptEstimate);
+        leftCam.addVisionEstimate(this::addVisionMeasurement, this::acceptEstimate);    
+        rightCam.addVisionEstimate(this::addVisionMeasurement, this::acceptEstimate);
+		frontCam.addVisionEstimate(this::addVisionMeasurement, this::acceptEstimate);
+		leftCam.SetRobotOrientation(yawoffset);
+		rightCam.SetRobotOrientation(yawoffset);
+		frontCam.SetRobotOrientation(yawoffset);
 	}
 
 	
@@ -62,8 +75,14 @@ public final class Swerve extends TunerSwerveDrivetrain implements Subsystem, Se
       if(latestResult.distToTag > 3){
         return false;
       }
+	  //System.out.println(latestResult.pose.getX()+","+latestResult.pose.getY());
+	  setVisionMeasurementStdDevs(VecBuilder.fill(0.001, 0.001, 0.001)); // trust the tag a lot, change and scale this in the future 
       return true;
     }
+
+	public void updateYawoffset(){
+		yawoffset = getPose().getRotation().minus(getPigeon2().getRotation2d());
+	}
 
 
 	@Override
@@ -146,6 +165,6 @@ public final class Swerve extends TunerSwerveDrivetrain implements Subsystem, Se
         targetPose,
         constraints,
         0.0); // Goal end velocity in meters/sec
-}
+	}
 
 }
