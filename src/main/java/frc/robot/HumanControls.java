@@ -25,6 +25,32 @@ public class HumanControls {
         public  static final DoubleSupplier leftJoyX = ()->DriverPanel.getRawAxis(0);
         public  static final DoubleSupplier rightJoyX = ()->DriverPanel.getRawAxis(3)/3;
     }
+
+    public static final class OperatorPanel{
+        //Basically treats the operator panel like a xbox controller
+        public static final Joystick OperatorPanel=new Joystick(1);
+        
+        public static final JoystickButton L1=new JoystickButton(OperatorPanel, 9);
+        public static final JoystickButton L2=new JoystickButton(OperatorPanel, 10);
+        public static final JoystickButton L3=new JoystickButton(OperatorPanel, 11);
+        public static final JoystickButton L4=new JoystickButton(OperatorPanel, 12);
+
+        public static final JoystickButton releaseCoral=new JoystickButton(OperatorPanel, 7);
+        public static final JoystickButton pickupAlgae=new JoystickButton(OperatorPanel, 8);
+        public static final JoystickButton gyro=new JoystickButton(OperatorPanel, 13);
+        public static final JoystickButton Climb1=new JoystickButton(OperatorPanel, 4);
+        public static final JoystickButton Climb2=new JoystickButton(OperatorPanel, 3);
+        public static final JoystickButton SouceCoral=new JoystickButton(OperatorPanel, 5);
+        public static final JoystickButton GroundCoral=new JoystickButton(OperatorPanel, 6);
+        public static final JoystickButton Barge=new JoystickButton(OperatorPanel,2);
+        public static final JoystickButton Processor=new JoystickButton(OperatorPanel, 1);
+
+        public static final JoystickButton leftOrRight=new JoystickButton(OperatorPanel, 14);
+        public static final JoystickButton unlabedSwitch=new JoystickButton(OperatorPanel, 15);
+        public static final JoystickButton deepOrSwitch=new JoystickButton(OperatorPanel, 16);
+
+    }
+
     public static final class SingleXboxController{
         public static final CommandXboxController controller = new CommandXboxController(0);
 

@@ -110,3 +110,100 @@ public class Shooter extends SubsystemBase {
     getRollerVelocity();
   }
 }
+
+  //  SmartDashboard.putNumber("Hood angle", 0);
+//       SmartDashboard.putNumber("Launch Speed", 0);
+//   }
+
+
+
+//   //Sets the hood angle
+//   public Command setHoodAngle(double position_hood){
+//     return run(() -> {m_Hood.setControl( 
+//       hoodAngleController.withPosition(position_hood));});
+//   }
+//   //Sets the velocity
+//   public Command set_velocity(double velocity){
+//     return run(()->{ m_Shooter.setControl(shooterVelocityController.withVelocity(velocity));});
+//   }
+//   //Intakes the ball for the shooter
+//   public Command intake_shooter(){
+//     return run(()->{m_ShooterIntake.setControl(intakeRollerController.withVelocity(1));});
+//   }
+
+//   public Command idle(){
+//     return setHoodAngle(0);
+//   }
+//   //Only used for auto
+//   public Command ShootDash(){
+//     return runEnd(
+//         () -> {
+//             double velocity=SmartDashboard.getNumber("Launch Speed", 0);
+//             double position_hood = SmartDashboard.getNumber("Hood angle", 0);
+//             //m_ShooterIntake.setVoltage(5.0);
+//             m_Shooter.setControl(shooterVelocityController.withVelocity(velocity));
+//             //m_Shooter.setVoltage(5.0);
+//             m_Hood.setControl(hoodAngleController.withPosition(position_hood));
+//             m_Shooter_2.setControl(new Follower(17, MotorAlignmentValue.Opposed));
+//             System.out.println(getRollerVelocity()+","+ velocity);
+//             if((Math.abs(getRollerVelocity()-velocity)/velocity)<0.001){
+//               m_ShooterIntake.setControl(intakeRollerController.withVelocity(60));
+//             }
+
+//         },
+//         () -> {
+//             m_Shooter.stopMotor();
+//             m_Hood.stopMotor();
+//             m_ShooterIntake.stopMotor();
+//             m_Shooter_2.stopMotor();
+//         }
+//     );
+// }
+// public Command Shoot(double velocity, double position_hood){
+//     return runEnd(
+//         () -> {
+//             //m_ShooterIntake.setVoltage(5.0);
+//             m_Shooter.setControl(shooterVelocityController.withVelocity(velocity));
+//             //m_Shooter.setVoltage(5.0);
+//             m_Hood.setControl(hoodAngleController.withPosition(position_hood));
+//             m_Shooter_2.setControl(new Follower(17, MotorAlignmentValue.Opposed));
+//             System.out.println(getRollerVelocity()+","+ velocity);
+//             if((Math.abs(getRollerVelocity()-velocity)/velocity)<0.001){
+//               m_ShooterIntake.setControl(intakeRollerController.withVelocity(60));
+//             }
+
+//         },
+//         () -> {
+//             m_Shooter.stopMotor();
+//             m_Hood.stopMotor();
+//             m_ShooterIntake.stopMotor();
+//             m_Shooter_2.stopMotor();
+//         }
+//     );
+// }
+
+//   //Stops everything
+//   public Command Stop(){
+//     return run(()->{
+//       m_Shooter.stopMotor();
+//       m_Hood.stopMotor();
+//       m_ShooterIntake.stopMotor();
+//     });
+//   }
+
+//   //Data stuff
+//   public double getHoodPosition(){
+//     return position_hood.refresh().getValueAsDouble();
+//   }
+ 
+//   public double getRollerVelocity(){
+//     return velocity_roller.refresh().getValueAsDouble();
+//   }
+
+//   @Override
+//   public void periodic() {
+//     //Data stuff used in Autoalign
+//     getHoodPosition();
+//     getRollerVelocity();
+//   }
+// }

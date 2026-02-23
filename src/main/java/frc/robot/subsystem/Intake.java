@@ -90,7 +90,6 @@ public Command doStow() {
 
 @Override
 public void periodic() {
-    SmartDashboard.putNumber("Pivot Position", m_IntakePivot.getPosition().getValueAsDouble());
-    SmartDashboard.putData(this);
+  
 }
 }
