@@ -12,6 +12,7 @@ import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.path.PathConstraints;
 
 import edu.wpi.first.math.Matrix;
+import edu.wpi.first.math.VecBuilder;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Translation2d;
@@ -63,13 +64,22 @@ public final class Swerve extends TunerSwerveDrivetrain implements Subsystem, Se
 
 	
     boolean acceptEstimate(AprilTagResult latestResult) {
-      /*if(latestResult.distToTag > 3){
+        if (latestResult.distToTag > 3.5)
         return false;
-      }*/
 
-	  System.out.println("Accepted Estimate: "+latestResult.pose.getX()+","+latestResult.pose.getY()+"\t"+latestResult.pose.getRotation().getDegrees());
-	System.out.println("Current Estimate: "+getPose().getX()+","+getPose().getY()+" "+latestResult.pose.getRotation().getDegrees());
-	  //resetPose(latestResult.pose);
+      if (latestResult.ambiguity > 0.6)
+        return false; // Too Ambiguous, Ignore
+      if (getState().Speeds.omegaRadiansPerSecond > 2.5)
+        return false; // Rotating too fast, ignore
+
+      if (latestResult.distToTag < 1) {
+        setVisionMeasurementStdDevs(VecBuilder.fill(0.001, 0.001, 0.001));
+      } else {
+        setVisionMeasurementStdDevs(
+            VecBuilder.fill(latestResult.ambiguity * Math.pow(latestResult.distToTag, 2)*0.01,
+                latestResult.ambiguity * Math.pow(latestResult.distToTag, 2)*0.01,
+                latestResult.ambiguity * Math.pow(latestResult.distToTag, 2)*0.01));
+      }
       return true;
     }
 
