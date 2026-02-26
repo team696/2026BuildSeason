@@ -125,6 +125,7 @@ public final class Swerve extends TunerSwerveDrivetrain implements Subsystem, Se
 	
 
 	public Pose2d getPose(){
+		SmartDashboard.putString("Pose", getPose().toString());
 		return this.getState().Pose;
 	}
 
