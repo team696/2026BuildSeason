@@ -56,35 +56,32 @@ public final class Swerve extends TunerSwerveDrivetrain implements Subsystem, Se
 	@Override
 	public void periodic() {
 		  // This runs 50 times per second
-		System.out.print("ting");
         frontCamera.addVisionEstimate(this::addVisionMeasurement, this::acceptEstimate);    
 		leftCamera.addVisionEstimate(this::addVisionMeasurement, this::acceptEstimate);    
 		rightCamera.addVisionEstimate(this::addVisionMeasurement, this::acceptEstimate);    
 		frontCamera.SetRobotOrientation(getPose().getRotation());
-		leftCamera.SetRobotOrientation(getPose().getRotation());
-		rightCamera.SetRobotOrientation(getPose().getRotation());
 
+		SmartDashboard.putNumber("Distance", distTo(Field.Alliance_Find.hub));
 	}
 
 	
     boolean acceptEstimate(AprilTagResult latestResult) {
-    //     if (latestResult.distToTag > 3.5)
-    //     return false;
+        if (latestResult.distToTag > 3.5)
+        return false;
 
-    //   if (latestResult.ambiguity > 0.6)
-    //     return false; // Too Ambiguous, Ignore
-    //   if (getState().Speeds.omegaRadiansPerSecond > 2.5)
-    //     return false; // Rotating too fast, ignore
+      if (latestResult.ambiguity > 0.6)
+        return false; // Too Ambiguous, Ignore
+      if (getState().Speeds.omegaRadiansPerSecond > 2.5)
+        return false; // Rotating too fast, ignore
 
-    //   if (latestResult.distToTag < 1) {
-    //     setVisionMeasurementStdDevs(VecBuilder.fill(0.001, 0.001, 0.001));
-    //   } else {
-    //     setVisionMeasurementStdDevs(
-    //         VecBuilder.fill(latestResult.ambiguity * Math.pow(latestResult.distToTag, 2)*0.01,
-    //             latestResult.ambiguity * Math.pow(latestResult.distToTag, 2)*0.01,
-    //             latestResult.ambiguity * Math.pow(latestResult.distToTag, 2)*0.01));
-    //   }
-		System.out.print("FAHHH");
+      if (latestResult.distToTag < 1) {
+        setVisionMeasurementStdDevs(VecBuilder.fill(0.001, 0.001, 0.001));
+      } else {
+        setVisionMeasurementStdDevs(
+            VecBuilder.fill(latestResult.ambiguity * Math.pow(latestResult.distToTag, 2)*0.01,
+                latestResult.ambiguity * Math.pow(latestResult.distToTag, 2)*0.01,
+                latestResult.ambiguity * Math.pow(latestResult.distToTag, 2)*0.01));
+      }
       return true;
     }
 
@@ -129,9 +126,24 @@ public final class Swerve extends TunerSwerveDrivetrain implements Subsystem, Se
 
 	
 
+	
+
 	public Pose2d getPose(){
 		return this.getState().Pose;
 	}
+
+	public double distTo(Translation2d position) {
+    	return getPose().getTranslation().getDistance(position);
+  }
+
+  /**
+   * 
+   * @param position Position for distance from
+   * @return distance from position argument
+   */
+  public double distTo(Pose2d position) {
+    return distTo(position.getTranslation());
+  }
 
 	
 
