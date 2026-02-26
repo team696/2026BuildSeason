@@ -2,7 +2,6 @@
 
 package frc.robot.subsystem;
 
-import java.io.Console;
 import java.util.function.Supplier;
 
 import com.ctre.phoenix6.Utils;
@@ -22,9 +21,10 @@ import edu.wpi.first.math.numbers.N3;
 import edu.wpi.first.math.util.Units;
 import edu.wpi.first.util.sendable.Sendable;
 import edu.wpi.first.util.sendable.SendableBuilder;
-import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Notifier;
 import edu.wpi.first.wpilibj.RobotController;
+import edu.wpi.first.wpilibj.smartdashboard.Field2d;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Subsystem;
 import frc.robot.TunerConstants;
@@ -35,11 +35,9 @@ import frc.robot.util.LimeLightCam;
 
 public final class Swerve extends TunerSwerveDrivetrain implements Subsystem, Sendable {
 	private static Swerve m_Swerve;
-	private static LimeLightCam leftCam = new LimeLightCam("limelight-left");
-    private static LimeLightCam rightCam = new LimeLightCam("limelight-right");
-	private static LimeLightCam frontCam = new LimeLightCam("limelight-front");
-
-	Rotation2d yawoffset = new Rotation2d(0);
+	private LimeLightCam frontCamera=new LimeLightCam("limelight-front");
+	private LimeLightCam leftCamera=new LimeLightCam("limelight-left");
+	private LimeLightCam rightCamera=new LimeLightCam("limelight-right");
 
 	public static synchronized Swerve get() {
 		if (m_Swerve == null)
@@ -57,32 +55,38 @@ public final class Swerve extends TunerSwerveDrivetrain implements Subsystem, Se
 
 	@Override
 	public void periodic() {
-		if (DriverStation.isDisabled()){
-			updateYawoffset();
-		}
-
 		  // This runs 50 times per second
-        leftCam.addVisionEstimate(this::addVisionMeasurement, this::acceptEstimate);    
-        rightCam.addVisionEstimate(this::addVisionMeasurement, this::acceptEstimate);
-		frontCam.addVisionEstimate(this::addVisionMeasurement, this::acceptEstimate);
-		leftCam.SetRobotOrientation(yawoffset);
-		rightCam.SetRobotOrientation(yawoffset);
-		frontCam.SetRobotOrientation(yawoffset);
+		System.out.print("ting");
+        frontCamera.addVisionEstimate(this::addVisionMeasurement, this::acceptEstimate);    
+		leftCamera.addVisionEstimate(this::addVisionMeasurement, this::acceptEstimate);    
+		rightCamera.addVisionEstimate(this::addVisionMeasurement, this::acceptEstimate);    
+		frontCamera.SetRobotOrientation(getPose().getRotation());
+		leftCamera.SetRobotOrientation(getPose().getRotation());
+		rightCamera.SetRobotOrientation(getPose().getRotation());
+
 	}
 
 	
     boolean acceptEstimate(AprilTagResult latestResult) {
-      if(latestResult.distToTag > 3){
-        return true;
-      }
-	  //System.out.println(latestResult.pose.getX()+","+latestResult.pose.getY());
-	  setVisionMeasurementStdDevs(VecBuilder.fill(0.001, 0.001, 0.001)); // trust the tag a lot, change and scale this in the future 
+    //     if (latestResult.distToTag > 3.5)
+    //     return false;
+
+    //   if (latestResult.ambiguity > 0.6)
+    //     return false; // Too Ambiguous, Ignore
+    //   if (getState().Speeds.omegaRadiansPerSecond > 2.5)
+    //     return false; // Rotating too fast, ignore
+
+    //   if (latestResult.distToTag < 1) {
+    //     setVisionMeasurementStdDevs(VecBuilder.fill(0.001, 0.001, 0.001));
+    //   } else {
+    //     setVisionMeasurementStdDevs(
+    //         VecBuilder.fill(latestResult.ambiguity * Math.pow(latestResult.distToTag, 2)*0.01,
+    //             latestResult.ambiguity * Math.pow(latestResult.distToTag, 2)*0.01,
+    //             latestResult.ambiguity * Math.pow(latestResult.distToTag, 2)*0.01));
+    //   }
+		System.out.print("FAHHH");
       return true;
     }
-
-	public void updateYawoffset(){
-		yawoffset = getPose().getRotation().minus(getPigeon2().getRotation2d());
-	}
 
 
 	@Override
@@ -105,7 +109,7 @@ public final class Swerve extends TunerSwerveDrivetrain implements Subsystem, Se
 			Pose2d visionRobotPoseMeters,
 			double timestampSeconds,
 			Matrix<N3, N1> visionMeasurementStdDevs) {
-		super.addVisionMeasurement(visionRobotPoseMeters, Utils.fpgaToCurrentTime(timestampSeconds),
+		super.addVisionMeasurement(visionRobotPoseMeters,timestampSeconds,
 				visionMeasurementStdDevs);
 	}
 
@@ -165,6 +169,6 @@ public final class Swerve extends TunerSwerveDrivetrain implements Subsystem, Se
         targetPose,
         constraints,
         0.0); // Goal end velocity in meters/sec
-	}
+}
 
 }

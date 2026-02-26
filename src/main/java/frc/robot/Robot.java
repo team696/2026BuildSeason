@@ -5,7 +5,11 @@
 package frc.robot;
 
 
+import java.util.Optional;
+
 import edu.wpi.first.math.geometry.Translation2d;
+import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -25,10 +29,43 @@ public class Robot extends TimedRobot {
   private final Telemetry logger;
   
   public Robot() {
-    this.logger = new Telemetry(TunerConstants.MaxSpeed);
     Binds.DriverStation2026.bind();
-    Alliance_Find alliance_finder = new Alliance_Find();
+    Binds.Controller.bind();
+    this.logger = new Telemetry(BotConstants.DriveConstants.MaxSpeed);    
+
     
+  
+    
+  }
+
+public double DistanceFinder(Translation2d targetPosition){
+    return Swerve.get().getPose().getTranslation().getDistance(targetPosition);
+  }
+
+  @Override
+  public void robotPeriodic() {
+    logger.telemeterize(Swerve.get().getState());
+    CommandScheduler.getInstance().run();
+
+  }
+
+  @Override
+  public void disabledInit() {
+    
+  }
+
+  @Override
+  public void disabledPeriodic() {}
+
+  @Override
+  public void disabledExit() {}
+
+@Override
+	public void autonomousInit() {
+  
+		m_autonomousCommand = Auto.getSelectedAuto();
+
+    new Field.Alliance_Find();
 
     Auto.initialize(
     new Auto.NamedCommand("Shoot", Shooter.get().Shoot(
@@ -48,33 +85,7 @@ public class Robot extends TimedRobot {
     new Auto.NamedCommand("Reset Intake", Intake.get().doStow())
 
     //new Auto.NamedCommand("Climb L1", Climber.get().climbL1())
-);
-    
-    
-    
-  }
-
-public double DistanceFinder(Translation2d targetPosition){
-    return Swerve.get().getPose().getTranslation().getDistance(targetPosition);
-  }
-
-  @Override
-  public void robotPeriodic() {
-    CommandScheduler.getInstance().run();
-  }
-
-  @Override
-  public void disabledInit() {}
-
-  @Override
-  public void disabledPeriodic() {}
-
-  @Override
-  public void disabledExit() {}
-
-@Override
-	public void autonomousInit() {
-		m_autonomousCommand = Auto.getSelectedAuto();
+  );
 
 		if (m_autonomousCommand != null) {
 			m_autonomousCommand.schedule();

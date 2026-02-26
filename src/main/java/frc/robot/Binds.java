@@ -25,8 +25,8 @@ public class Binds {
 			//Standard driving
 	private static final SwerveRequest.FieldCentric swerveFCDriveRequest = 
 		new SwerveRequest.FieldCentric()
-		.withDeadband(TunerConstants.MaxSpeed * 0.05)
-		.withRotationalDeadband(TunerConstants.MaxAngularRate * 0.05)
+		.withDeadband(BotConstants.DriveConstants.MaxSpeed * 0.05)
+		.withRotationalDeadband(BotConstants.DriveConstants.MaxAngularRate * 0.05)
 		.withDriveRequestType(DriveRequestType.OpenLoopVoltage);
 	
 			
@@ -40,11 +40,11 @@ public static final class DriverStation2026 {
 			
 			
 	public static final void bind() {
-					// Map Joysticks
-		Swerve.get().setDefaultCommand(Swerve.get().applyRequest(
-			() -> swerveFCDriveRequest.withVelocityX(Math.pow(HumanControls.DriverPanel.leftJoyY.getAsDouble(), 2))
-				.withVelocityY(Math.pow(HumanControls.DriverPanel.leftJoyX.getAsDouble(), 2))
-				.withRotationalRate(Math.pow(HumanControls.DriverPanel.rightJoyX.getAsDouble(), 2))));
+		// 			//Map Joysticks
+		// Swerve.get().setDefaultCommand(Swerve.get().applyRequest(
+		// 	() -> swerveFCDriveRequest.withVelocityX(Math.pow(HumanControls.DriverPanel.leftJoyY.getAsDouble(), 2))
+		// 		.withVelocityY(Math.pow(HumanControls.DriverPanel.leftJoyX.getAsDouble(), 2))
+		// 		.withRotationalRate(Math.pow(HumanControls.DriverPanel.rightJoyX.getAsDouble(), 2))));
 			
 			// Reset Gyro
 			HumanControls.DriverPanel.resetGyro.onTrue(new InstantCommand(() -> Swerve.get().seedFieldCentric()));
@@ -71,13 +71,13 @@ public static final class Controller {
 	}	
 			
 	public static final void bind() {
-		// Swerve.get().setDefaultCommand(Swerve.get().applyRequest(
-		// 	() -> swerveFCDriveRequest
-		// 	.withVelocityX(getDriveForward())
-		// 	.withVelocityY(getDriveRight())
-		// 	.withRotationalRate(getRotationClockwise()))); //Standard driving
+		Swerve.get().setDefaultCommand(Swerve.get().applyRequest(
+			() -> swerveFCDriveRequest
+			.withVelocityX(getDriveForward())
+			.withVelocityY(getDriveRight())
+			.withRotationalRate(getRotationClockwise()))); //Standard driving
 
-	//HumanControls.SingleXboxController.X.whileTrue(Shooter.get().Shoot(-120, 0)); //Auto align and rev
+	HumanControls.SingleXboxController.A.whileTrue(Shooter.get().ShootDash()); //Auto align and rev
 	//HumanControls.SingleXboxController.Y.and(HumanControls.SingleXboxController.LB).whileTrue(new AutoAlign(Pass_1)); //Auto Align to conrer
 	//HumanControls.SingleXboxController.Y.and(HumanControls.SingleXboxController.RB).whileTrue(new AutoAlign(Pass_2));//Auto Align to the corner again
 	//HumanControls.SingleXboxController.LT.whileTrue(Intake.get().doIntake()); //Intake
