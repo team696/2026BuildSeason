@@ -45,9 +45,8 @@ public class Robot extends TimedRobot {
 
     new Auto.NamedCommand("Intake", Intake.get().doIntake()),
     
-    new Auto.NamedCommand("Reset Intake", Intake.get().doStow()),
+    new Auto.NamedCommand("Reset Intake", Intake.get().doStow())
 
-    new Auto.NamedCommand("Climb L1", Climber.get().climbL1())
 );
     
     
