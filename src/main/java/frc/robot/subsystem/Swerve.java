@@ -122,14 +122,10 @@ public final class Swerve extends TunerSwerveDrivetrain implements Subsystem, Se
 		)).minus(Swerve.get().getPose().getRotation());
 	}
 
-	
-
 	public Pose2d getPose(){
 		SmartDashboard.putString("Pose", getPose().toString());
 		return this.getState().Pose;
 	}
-
-	
 
 	double m_lastSimTime;
 	Notifier simUpdate;
