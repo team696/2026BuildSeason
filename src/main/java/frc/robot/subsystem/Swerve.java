@@ -60,6 +60,7 @@ public final class Swerve extends TunerSwerveDrivetrain implements Subsystem, Se
 		leftCamera.addVisionEstimate(this::addVisionMeasurement, this::acceptEstimate);    
 		rightCamera.addVisionEstimate(this::addVisionMeasurement, this::acceptEstimate);    
 		frontCamera.SetRobotOrientation(getPose().getRotation());
+		SmartDashboard.putString("Pose", getPose().toString());
 	}
 
 	
@@ -123,7 +124,6 @@ public final class Swerve extends TunerSwerveDrivetrain implements Subsystem, Se
 	}
 
 	public Pose2d getPose(){
-		SmartDashboard.putString("Pose", getPose().toString());
 		return this.getState().Pose;
 	}
 
