@@ -8,6 +8,7 @@ import com.ctre.phoenix6.swerve.SwerveModule.DriveRequestType;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import frc.robot.commands.AutoAlign;
@@ -61,13 +62,18 @@ public static final class Controller {
 	
 	//Xbox controller methods, simplifies and cleans up the bind() method a lot
 	private static double getDriveForward() {
+		//SmartDashboard.putNumber("DriveForward",Math.pow(HumanControls.SingleXboxController.leftJoyY.getAsDouble(), 2) * Math.signum(HumanControls.SingleXboxController.leftJoyY.getAsDouble()));
+
 		return Math.pow(HumanControls.SingleXboxController.leftJoyY.getAsDouble(), 2) * Math.signum(HumanControls.SingleXboxController.leftJoyY.getAsDouble());
 	}
 	
 	private static double getDriveRight() {
+		//SmartDashboard.putNumber("DriveRight",Math.pow(HumanControls.SingleXboxController.leftJoyX.getAsDouble(), 2) * Math.signum(HumanControls.SingleXboxController.leftJoyX.getAsDouble()));
 		return Math.pow(HumanControls.SingleXboxController.leftJoyX.getAsDouble(), 2) * Math.signum(HumanControls.SingleXboxController.leftJoyX.getAsDouble());
 	}
 	private static double getRotationClockwise() {
+		//SmartDashboard.putNumber("RotClockwise",Math.pow(HumanControls.SingleXboxController.rightJoyX.getAsDouble(), 2) * Math.signum(HumanControls.SingleXboxController.rightJoyX.getAsDouble()));
+
 		return Math.pow(HumanControls.SingleXboxController.rightJoyX.getAsDouble(), 2) * Math.signum(HumanControls.SingleXboxController.rightJoyX.getAsDouble());
 	}	
 			
