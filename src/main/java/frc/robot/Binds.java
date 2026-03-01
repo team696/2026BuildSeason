@@ -1,5 +1,8 @@
 package frc.robot;
 
+import static edu.wpi.first.units.Units.MetersPerSecond;
+import static edu.wpi.first.units.Units.RadiansPerSecond;
+
 import java.util.Optional;
 
 import com.ctre.phoenix6.swerve.SwerveRequest;
@@ -78,11 +81,13 @@ public static final class Controller {
 	}	
 			
 	public static final void bind() {
+		double MaxSpeed=TunerConstants.kSpeedAt12Volts.in(MetersPerSecond);
+		double MaxRot=TunerConstants.MaxAngularRate;
 		Swerve.get().setDefaultCommand(Swerve.get().applyRequest(
 			() -> swerveFCDriveRequest
-			.withVelocityX(getDriveForward())
-			.withVelocityY(getDriveRight())
-			.withRotationalRate(getRotationClockwise()))); //Standard driving
+			.withVelocityX(getDriveForward()*MaxSpeed)
+			.withVelocityY(getDriveRight()*MaxSpeed)
+			.withRotationalRate(getRotationClockwise()*MaxRot))); //Standard driving
 
 	HumanControls.SingleXboxController.X.whileTrue(new AutoAlign(hub)); //Auto align and rev
 	HumanControls.SingleXboxController.Y.and(HumanControls.SingleXboxController.LB).whileTrue(new AutoAlign(Pass_1)); //Auto Align to conrer
