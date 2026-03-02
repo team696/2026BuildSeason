@@ -62,7 +62,9 @@ public class BotConstants {
         public static final int HopperID = 23;
         public static TalonFXConfiguration cfg_Hopper = new TalonFXConfiguration();
         static{
-            //Too lazy rn
+            cfg_Hopper.Slot0.kP = 1;
+            
+
         }
     }
 
@@ -122,15 +124,14 @@ public class BotConstants {
     }
 
     public static class Climber{
-        public static final int Climber_1_ID = 30; //Make sure to change to like 20 to make the code nicer
-        public static final TalonFXConfiguration cfg_Climber1 = new TalonFXConfiguration();
-        public static final double gearRatio = 1;
-        public static final double chainLength = .5; // in meters
-        public static final double sproketRadius = .253; // in meters
-        public static final double sproketDiameter = 2*Math.PI*sproketRadius; // in meters
+        public static final int Climber_ID = 30; //Make sure to change to like 20 to make the code nicer
+        public static final TalonFXConfiguration cfg_Climber = new TalonFXConfiguration();
 
         static{
-            //Tis where the config will go, too lazy to write it rn
+            cfg_Climber.Slot0.kP = 0.5;
+            cfg_Climber.Slot0.kV = 0.12; // Feedforward for velocity - needed for Motion Magic
+            cfg_Climber.MotionMagic.MotionMagicAcceleration = 3;
+            cfg_Climber.MotionMagic.MotionMagicCruiseVelocity = 50;//Random number, doesn't really matter too
         }
     
 

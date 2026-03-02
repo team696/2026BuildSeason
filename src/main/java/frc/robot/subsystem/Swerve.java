@@ -128,6 +128,24 @@ public final class Swerve extends TunerSwerveDrivetrain implements Subsystem, Se
 		return this.getState().Pose;
 	}
 
+	  /**
+   * 
+   * @param position Position for distance from
+   * @return distance from position argument
+   */
+  public double distTo(Translation2d position) {
+    return getPose().getTranslation().getDistance(position);
+  }
+
+  /**
+   * 
+   * @param position Position for distance from
+   * @return distance from position argument
+   */
+  public double distTo(Pose2d position) {
+    return distTo(position.getTranslation());
+  }
+
 	
 
 	double m_lastSimTime;

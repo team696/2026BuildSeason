@@ -28,11 +28,10 @@ public class Robot extends TimedRobot {
     this.logger = new Telemetry(TunerConstants.MaxSpeed);
     Binds.DriverStation2026.bind();
     Binds.Controller.bind();
-    Alliance_Find alliance_finder = new Alliance_Find();
     
 
     Auto.initialize(
-    new Auto.NamedCommand("Shoot", Shooter.get().Shoot()),
+    new Auto.NamedCommand("Shoot", Shooter.get().Shoot(Field.Alliance_Find.hub)),
     
     // new Auto.NamedCommand("Pass_1", Shooter.get().Shoot(
     //     BotConstants.Shooter.velocityTable.get(DistanceFinder(Field.Alliance_Find.Pass_1)),

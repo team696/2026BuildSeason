@@ -48,8 +48,8 @@ public class Field {
 		public static Translation2d Pass_2;
 		public static Pose2d climb_tower;
 
-		public Alliance_Find(){
-
+		static {
+			// Initialize the alliance-based values
 			try{
 				if(alliance.get() == Alliance.Red){
 					hub = Field.hub_position_red;
@@ -73,7 +73,6 @@ public class Field {
 					Pass_2 = Field.pass_position_blue_2;
 					climb_tower = Field.climb_tower_blue;
 			}
-
 		}
 	}
 }

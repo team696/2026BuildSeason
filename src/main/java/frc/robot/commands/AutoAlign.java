@@ -31,7 +31,7 @@ public class AutoAlign extends Command {
 
 
   public AutoAlign(Translation2d targetPosition) {
-      targetPosition = this.targetPosition;
+      this.targetPosition = targetPosition;
       addRequirements(Swerve.get());
 
     // Use addRequirements() here to declare subsystem dependencies.

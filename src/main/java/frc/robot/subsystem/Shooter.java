@@ -13,6 +13,8 @@ import com.ctre.phoenix6.signals.MotorAlignmentValue;
 import com.pathplanner.lib.commands.FollowPathCommand;
 import com.ctre.phoenix6.controls.Follower;
 
+import edu.wpi.first.math.geometry.Pose2d;
+import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.units.measure.Angle;
 import edu.wpi.first.units.measure.AngularVelocity;
 import edu.wpi.first.wpilibj.motorcontrol.Talon;
@@ -78,19 +80,21 @@ public class Shooter extends SubsystemBase {
   }
 
 
-  public Command Shoot(){
+  public Command Shoot(Translation2d desired_pose){
       return runEnd(()->{
-        double distMeters=Swerve.get().getPose().getTranslation().getDistance(Field.Alliance_Find.hub);
+        double distMeters=Swerve.get().distTo(desired_pose);
         setHoodAngle(BotConstants.Hood.shooterTable.get(distMeters));
         set_velocity(BotConstants.Shooter.velocityTable.get(distMeters));
         if(getRollerVelocity()<0.01){
           intake_shooter(80);//man why did they make it so high
+          Hopper.get().run_Hopper();
         }
 
       },
       ()->{
         Stop();
         idle();
+        Hopper.get().Stop();
       });
     }
 

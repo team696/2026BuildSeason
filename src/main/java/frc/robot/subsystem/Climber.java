@@ -27,31 +27,24 @@ public class Climber extends SubsystemBase {
     return Climber;
   }
 
-  private final TalonFX mClimb = new TalonFX(BotConstants.Climber.Climber_1_ID);
+  private final TalonFX mClimb = new TalonFX(BotConstants.Climber.Climber_ID);
   private final MotionMagicVoltage climberPosition = new MotionMagicVoltage(0);
   private final MotionMagicVelocityVoltage climberVelocity = new MotionMagicVelocityVoltage(0);
 
   boolean isZeroed;
 
   public Climber(){
-  mClimb.getConfigurator().apply(BotConstants.Climber.cfg_Climber1);
-  this.setDefaultCommand(doRetract());
+  mClimb.getConfigurator().apply(BotConstants.Climber.cfg_Climber);
   }
 
  public Command doRetract() {
-  if (isZeroed) {
-    return run(() -> {
-      mClimb.setControl(climberPosition.withPosition(0));
-    });
-  } else {
-    return run(() -> {
-      // Do nothing if not zeroed
-    });
-  }
+  return run(()->{
+  mClimb.setControl(climberPosition.withPosition(110));
+  });
 }
   public Command doExtend(){
   return run(()->{
-  mClimb.setControl(climberPosition.withPosition(.2)); // .2 chosen randomly
+  mClimb.setControl(climberPosition.withPosition(0)); 
   });
   }
 
@@ -78,7 +71,7 @@ public void setIsZeroed(boolean zeroed) {
 
   @Override
   public void periodic() {
-    // This method will be called once per scheduler run
-
+    // Monitor climber position and current
+   
   }
 }
