@@ -26,10 +26,7 @@ public class Robot extends TimedRobot {
   
   public Robot() {
     this.logger = new Telemetry(TunerConstants.MaxSpeed);
-    Binds.DriverStation2026.bind();
-    Binds.Controller.bind();
-    
-
+  
     Auto.initialize(
     new Auto.NamedCommand("Shoot", Shooter.get().Shoot(Field.Alliance_Find.hub)),
     
@@ -45,6 +42,8 @@ public class Robot extends TimedRobot {
     
     new Auto.NamedCommand("Reset Intake", Intake.get().doStow())
     );
+    Binds.DriverStation2026.bind();
+    Binds.Controller.bind();
     
     
     

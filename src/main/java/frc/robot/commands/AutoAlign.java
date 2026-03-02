@@ -47,10 +47,10 @@ public class AutoAlign extends Command {
   @Override
   public void execute() {
         //Drives the swerve using the FCFA request
-    Swerve.get().applyRequest(()->
+   Swerve.get().setControl(
         FCFARequest
-        .withVelocityX((HumanControls.DriverPanel.leftJoyY.getAsDouble()/2)*TunerConstants.MaxSpeed)
-        .withVelocityY((HumanControls.DriverPanel.leftJoyX.getAsDouble()/2)*TunerConstants.MaxSpeed)
+        .withVelocityX((HumanControls.SingleXboxController.leftJoyY.getAsDouble()/2)*TunerConstants.MaxSpeed)
+        .withVelocityY((HumanControls.SingleXboxController.leftJoyX.getAsDouble()/2)*TunerConstants.MaxSpeed)
         .withTargetDirection(Swerve.get().target_theta(targetPosition))
         .withHeadingPID(5,0,0)
         .withMaxAbsRotationalRate(DegreesPerSecond.of(360))

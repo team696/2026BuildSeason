@@ -92,6 +92,7 @@ public static final class Controller {
 	HumanControls.SingleXboxController.RB.whileTrue(new AutoAlign(Pass_2));//Auto Align to the corner again
 	HumanControls.SingleXboxController.LT.whileTrue(Intake.get().doIntake().alongWith(Hopper.get().run_Hopper())); //Intake
 	HumanControls.SingleXboxController.RT.whileTrue(Shooter.get().ShootDash().alongWith(Hopper.get().run_Hopper()));
+	HumanControls.SingleXboxController.B.whileTrue(Swerve.get().alignToClimb());
 
 
 
