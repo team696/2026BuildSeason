@@ -35,11 +35,12 @@ public class Climber extends SubsystemBase {
 
   public Climber(){
   mClimb.getConfigurator().apply(BotConstants.Climber.cfg_Climber);
+  if(!isZeroed){this.zeroEncoder();}
   }
 
  public Command doRetract() {
   return run(()->{
-  mClimb.setControl(climberPosition.withPosition(110));
+ this.setVelocity(-.5);
   });
 }
   public Command doExtend(){
@@ -47,7 +48,6 @@ public class Climber extends SubsystemBase {
   mClimb.setControl(climberPosition.withPosition(0)); 
   });
   }
-
 
   public void setVelocity(double rps) {
     mClimb.setControl(climberVelocity.withVelocity(rps));
@@ -57,12 +57,9 @@ public void stop() {
     mClimb.setControl(climberVelocity.withVelocity(0));
 }
 
-public double getStatorCurrent() {
-    return mClimb.getStatorCurrent().getValueAsDouble();
-}
-
 public void zeroEncoder() {
     mClimb.setPosition(0);
+    this.setIsZeroed(true);
 }
 
 public void setIsZeroed(boolean zeroed) {
