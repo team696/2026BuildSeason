@@ -80,6 +80,7 @@ public static final class Controller {
 			.withVelocityX(getDriveForward())
 			.withVelocityY(getDriveRight())
 			.withRotationalRate(getRotationClockwise()))); //Standard driving
+			
 		Climber.get().setDefaultCommand(Climber.get().doExtend()); //Default to go up
 		Shooter.get().setDefaultCommand(Shooter.get().idle()); //Shooter rollers idle
 		Intake.get().setDefaultCommand(Intake.get().doStow());
