@@ -20,6 +20,7 @@ import edu.wpi.first.units.measure.AngularVelocity;
 import edu.wpi.first.wpilibj.motorcontrol.Talon;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.util.BotConstants;
 import frc.robot.util.Field;
@@ -83,18 +84,19 @@ public class Shooter extends SubsystemBase {
   public Command Shoot(Translation2d desired_pose){
       return runEnd(()->{
         double distMeters=Swerve.get().distTo(desired_pose);
-        setHoodAngle(BotConstants.Hood.shooterTable.get(distMeters));
-        set_velocity(BotConstants.Shooter.velocityTable.get(distMeters));
+        m_Shooter.setControl(shooterVelocityController.withVelocity(BotConstants.Shooter.velocityTable.get(distMeters)));
+            //m_Shooter.setVoltage(5.0);
+        m_Hood.setControl(hoodAngleController.withPosition(BotConstants.Shooter.velocityTable.get(distMeters)));
         if(getRollerVelocity()<0.01){
           intake_shooter(80);//man why did they make it so high
-          Hopper.get().run_Hopper();
         }
 
       },
       ()->{
-        Stop();
-        idle();
-        Hopper.get().Stop();
+            m_Shooter.stopMotor();
+            m_Hood.stopMotor();
+            m_ShooterIntake.stopMotor();
+            m_Shooter_2.stopMotor();
       });
     }
 

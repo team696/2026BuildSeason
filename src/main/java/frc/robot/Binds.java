@@ -90,8 +90,8 @@ public static final class Controller {
 	HumanControls.SingleXboxController.A.whileTrue(Climber.get().doRetract()); //Hold A to go down
 	HumanControls.SingleXboxController.LB.whileTrue(new AutoAlign(Pass_1)); //Auto Align to conrer
 	HumanControls.SingleXboxController.RB.whileTrue(new AutoAlign(Pass_2));//Auto Align to the corner again
-	HumanControls.SingleXboxController.LT.whileTrue(Intake.get().doIntake()); //Intake
-	HumanControls.SingleXboxController.RT.whileTrue(Shooter.get().ShootDash());
+	HumanControls.SingleXboxController.LT.whileTrue(Intake.get().doIntake().alongWith(Hopper.get().run_Hopper())); //Intake
+	HumanControls.SingleXboxController.RT.whileTrue(Shooter.get().ShootDash().alongWith(Hopper.get().run_Hopper()));
 
 
 

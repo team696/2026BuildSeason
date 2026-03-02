@@ -32,7 +32,7 @@ public class Hopper extends SubsystemBase {
   /** Creates a new Hopper. */
   public Hopper() {
     //Motor config
-    m_Hopper.getConfigurator().apply(BotConstants.cfg_Roller);
+    m_Hopper.getConfigurator().apply(BotConstants.Hopper.cfg_Hopper);
 
   }
 

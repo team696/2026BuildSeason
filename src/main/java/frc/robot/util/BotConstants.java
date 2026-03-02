@@ -63,6 +63,10 @@ public class BotConstants {
         public static TalonFXConfiguration cfg_Hopper = new TalonFXConfiguration();
         static{
             cfg_Hopper.Slot0.kP = 1;
+            cfg_Hopper.MotionMagic.MotionMagicCruiseVelocity = 10;
+            cfg_Hopper.MotionMagic.MotionMagicAcceleration = 5;
+            
+
             
 
         }
