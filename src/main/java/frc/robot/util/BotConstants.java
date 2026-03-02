@@ -110,6 +110,8 @@ public class BotConstants {
         public static final InterpolatingDoubleTreeMap shooterTable = new InterpolatingDoubleTreeMap();
         static{
             cfg_Hood.Slot0.kP = 5.; //very snappy olala
+            cfg_Hood.MotionMagic.MotionMagicCruiseVelocity = 50;
+            cfg_Hood.MotionMagic.MotionMagicAcceleration = 20;
         }
 
         static{
