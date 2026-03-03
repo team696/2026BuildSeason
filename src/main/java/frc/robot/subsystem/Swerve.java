@@ -73,12 +73,12 @@ public final class Swerve extends TunerSwerveDrivetrain implements Subsystem, Se
         return false; // Rotating too fast, ignore
 
       if (latestResult.distToTag < 1) {
-        setVisionMeasurementStdDevs(VecBuilder.fill(0.001, 0.001, 0.001));
+        setVisionMeasurementStdDevs(VecBuilder.fill(0.08, 0.08, 0.08));
       } else {
         setVisionMeasurementStdDevs(
-            VecBuilder.fill(latestResult.ambiguity * Math.pow(latestResult.distToTag, 2)*0.01,
-                latestResult.ambiguity * Math.pow(latestResult.distToTag, 2)*0.01,
-                latestResult.ambiguity * Math.pow(latestResult.distToTag, 2)*0.01));
+            VecBuilder.fill(latestResult.ambiguity * Math.pow(latestResult.distToTag, 2)*0.03,
+                latestResult.ambiguity * Math.pow(latestResult.distToTag, 2)*0.03,
+                latestResult.ambiguity * Math.pow(latestResult.distToTag, 2)*0.03));
       }
       return true;
     }
