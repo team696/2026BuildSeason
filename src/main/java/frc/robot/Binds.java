@@ -87,13 +87,13 @@ public static final class Controller {
 		Hopper.get().setDefaultCommand(Hopper.get().Stop());
 		
 
-	HumanControls.SingleXboxController.X.whileTrue(new AutoAlign(hub)); //Auto align
-	HumanControls.SingleXboxController.A.whileTrue(Climber.get().doRetract()); //Hold A to go down
-	HumanControls.SingleXboxController.LB.whileTrue(new AutoAlign(Pass_1)); //Auto Align to conrer
-	HumanControls.SingleXboxController.RB.whileTrue(new AutoAlign(Pass_2));//Auto Align to the corner again
-	HumanControls.SingleXboxController.LT.whileTrue(Intake.get().doIntake().alongWith(Hopper.get().run_Hopper())); //Intake
-	HumanControls.SingleXboxController.RT.whileTrue(Shooter.get().ShootDash().alongWith(Hopper.get().run_Hopper()));
-	HumanControls.SingleXboxController.B.whileTrue(Swerve.get().alignToClimb());
+	// HumanControls.SingleXboxController.X.whileTrue(new AutoAlign(hub)); //Auto align
+	// HumanControls.SingleXboxController.A.whileTrue(Climber.get().doRetract()); //Hold A to go down
+	// HumanControls.SingleXboxController.LB.whileTrue(new AutoAlign(Pass_1)); //Auto Align to conrer
+	// HumanControls.SingleXboxController.RB.whileTrue(new AutoAlign(Pass_2));//Auto Align to the corner again
+	// HumanControls.SingleXboxController.LT.whileTrue(Intake.get().doIntake().alongWith(Hopper.get().run_Hopper())); //Intake
+	// HumanControls.SingleXboxController.RT.whileTrue(Shooter.get().ShootDash().alongWith(Hopper.get().run_Hopper()));
+	// HumanControls.SingleXboxController.B.whileTrue(Swerve.get().alignToClimb());
 
 
 
