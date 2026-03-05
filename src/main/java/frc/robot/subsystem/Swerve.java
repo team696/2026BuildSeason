@@ -78,7 +78,7 @@ public final class Swerve extends TunerSwerveDrivetrain implements Subsystem, Se
         return false; // Rotating too fast, ignore
 		SmartDashboard.putBoolean("Accepted", false);
       if (latestResult.distToTag < 1) {
-        setVisionMeasurementStdDevs(VecBuilder.fill(1.5, 1.5, 99.0));
+        setVisionMeasurementStdDevs(VecBuilder.fill(1.5, 1.5, 50.0));
 		SmartDashboard.putBoolean("Accepted", true);
       } else {
         setVisionMeasurementStdDevs(

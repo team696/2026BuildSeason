@@ -27,21 +27,23 @@ public class Robot extends TimedRobot {
   public Robot() {
     this.logger = new Telemetry(BotConstants.DriveConstants.MaxSpeed);
   
-    Auto.initialize(
-    new Auto.NamedCommand("Shoot", Shooter.get().Shoot(Field.Alliance_Find.hub)),
+    // Auto.initialize(
+    // new Auto.NamedCommand("Shoot", Shooter.get().Shoot(Field.Alliance_Find.hub)),
     
-    // new Auto.NamedCommand("Pass_1", Shooter.get().Shoot(
-    //     BotConstants.Shooter.velocityTable.get(DistanceFinder(Field.Alliance_Find.Pass_1)),
-    //     BotConstants.Hood.shooterTable.get(DistanceFinder(Field.Alliance_Find.Pass_1)))),
+    // // new Auto.NamedCommand("Pass_1", Shooter.get().Shoot(
+    // //     BotConstants.Shooter.velocityTable.get(DistanceFinder(Field.Alliance_Find.Pass_1)),
+    // //     BotConstants.Hood.shooterTable.get(DistanceFinder(Field.Alliance_Find.Pass_1)))),
     
-    // new Auto.NamedCommand("Pass_2", Shooter.get().Shoot(
-    //     BotConstants.Shooter.velocityTable.get(DistanceFinder(Field.Alliance_Find.Pass_2)),
-    //     BotConstants.Hood.shooterTable.get(DistanceFinder(Field.Alliance_Find.Pass_2)))),
+    // // new Auto.NamedCommand("Pass_2", Shooter.get().Shoot(
+    // //     BotConstants.Shooter.velocityTable.get(DistanceFinder(Field.Alliance_Find.Pass_2)),
+    // //     BotConstants.Hood.shooterTable.get(DistanceFinder(Field.Alliance_Find.Pass_2)))),
 
-    new Auto.NamedCommand("Intake", Intake.get().doIntake()),
+    // //new Auto.NamedCommand("Intake", Intake.get().doIntake()),
     
-    new Auto.NamedCommand("Reset Intake", Intake.get().doStow())
-    );
+    // //new Auto.NamedCommand("Reset Intake", Intake.get().doStow())
+    // );
+    Climber.get().zeroEncoder();
+    Shooter.get().zero_shooter();
     Binds.DriverStation2026.bind();
     Binds.Controller.bind();
     

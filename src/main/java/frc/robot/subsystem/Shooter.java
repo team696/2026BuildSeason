@@ -76,6 +76,10 @@ public class Shooter extends SubsystemBase {
     return run(()->{m_ShooterIntake.setControl(intakeRollerController.withVelocity(speed));});
   }
 
+  public void zero_shooter(){
+    m_Hood.setPosition(0);
+  }
+
   public Command idle(){
     return setHoodAngle(0);
   }

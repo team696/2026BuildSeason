@@ -8,6 +8,7 @@ import com.ctre.phoenix6.swerve.SwerveModule.DriveRequestType;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import frc.robot.commands.AutoAlign;
@@ -16,7 +17,6 @@ import frc.robot.subsystem.Hopper;
 import frc.robot.subsystem.Intake;
 import frc.robot.subsystem.Shooter;
 import frc.robot.subsystem.Swerve;
-import frc.robot.subsystem.Intake.Pivot;
 import frc.robot.util.*;
 
 public class Binds {
@@ -75,16 +75,19 @@ public static final class Controller {
 	}	
 			
 	public static final void bind() {
+
 		Swerve.get().setDefaultCommand(Swerve.get().applyRequest(
 			() -> swerveFCDriveRequest
 			.withVelocityX(getDriveForward())
 			.withVelocityY(getDriveRight())
 			.withRotationalRate(getRotationClockwise()))); //Standard driving
-			
-		Climber.get().setDefaultCommand(Climber.get().doExtend()); //Default to go up
+		
+		
+		//Climber.get().setDefaultCommand(Climber.get().doExtend()); //Default to go up
 		//Shooter.get().setDefaultCommand(Shooter.get().idle()); //Shooter rollers idle
-		Intake.get().setDefaultCommand(Intake.get().doStow());
-		Hopper.get().setDefaultCommand(Hopper.get().Stop());
+		//Intake.get().setDefaultCommand(Intake.get().doStow());
+		//Hopper.get().setDefaultCommand(Hopper.get().Stop());
+
 		
 
 	//HumanControls.SingleXboxController.X.whileTrue(new AutoAlign(hub)); //Auto align
@@ -93,9 +96,10 @@ public static final class Controller {
 
 	//HumanControls.SingleXboxController.LB.whileTrue(new AutoAlign(Pass_1)); //Auto Align to conrer
 	//HumanControls.SingleXboxController.RB.whileTrue(new AutoAlign(Pass_2));//Auto Align to the corner again
-	//HumanControls.SingleXboxController.LT.whileTrue(Intake.get().doIntake().alongWith(Hopper.get().run_Hopper())); //Intake
-	//HumanControls.SingleXboxController.RT.whileTrue(Shooter.get().ShootDash().alongWith(Hopper.get().run_Hopper()));
+	//HumanControls.SingleXboxController.A.whileTrue(Intake.get().doIntake()); //Intake .alongWith(Hopper.get().run_Hopper())
+	//HumanControls.SingleXboxController.RT.whileTrue(Shooter.get().ShootDash()); //.alongWith(Hopper.get().run_Hopper())
 	//HumanControls.SingleXboxController.B.whileTrue(Swerve.get().alignToClimb());
+	HumanControls.SingleXboxController.Y.whileTrue(Intake.get().test());
 
 
 
