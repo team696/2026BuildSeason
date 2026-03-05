@@ -29,18 +29,18 @@ public class Climber extends SubsystemBase {
 
   private final TalonFX mClimb = new TalonFX(BotConstants.Climber.Climber_ID);
   private final MotionMagicVoltage climberPosition = new MotionMagicVoltage(0);
-  private final MotionMagicVelocityVoltage climberVelocity = new MotionMagicVelocityVoltage(0);
+  // private final MotionMagicVelocityVoltage climberVelocity = new MotionMagicVelocityVoltage(0);
 
-  boolean isZeroed;
+  // boolean isZeroed;
 
   public Climber(){
   mClimb.getConfigurator().apply(BotConstants.Climber.cfg_Climber);
-  if(!isZeroed){this.zeroEncoder();}
+  // if(!isZeroed){this.zeroEncoder();}
   }
 
  public Command doRetract() {
   return run(()->{
- this.setVelocity(-.5);
+    mClimb.setControl(climberPosition.withPosition(120));
   });
 }
   public Command doExtend(){
@@ -49,22 +49,22 @@ public class Climber extends SubsystemBase {
   });
   }
 
-  public void setVelocity(double rps) {
-    mClimb.setControl(climberVelocity.withVelocity(rps));
-}
+//   public void setVelocity(double rps) {
+//     mClimb.setControl(climberVelocity.withVelocity(rps));
+// }
 
 public void stop() {
-    mClimb.setControl(climberVelocity.withVelocity(0));
+    mClimb.setControl(climberPosition.withPosition(0));
 }
 
 public void zeroEncoder() {
     mClimb.setPosition(0);
-    this.setIsZeroed(true);
+    // this.setIsZeroed(true);
 }
 
-public void setIsZeroed(boolean zeroed) {
-    this.isZeroed = zeroed;
-}
+// public void setIsZeroed(boolean zeroed) {
+//     this.isZeroed = zeroed;
+// }
 
   @Override
   public void periodic() {

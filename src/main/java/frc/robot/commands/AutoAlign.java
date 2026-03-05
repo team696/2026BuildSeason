@@ -26,7 +26,6 @@ public class AutoAlign extends Command {
 					.withDriveRequestType(DriveRequestType.OpenLoopVoltage)
 					.withHeadingPID(3, 0, 0); 
 
-  HumanControls joystick = new HumanControls();
   private Translation2d targetPosition;
 
 
@@ -49,10 +48,9 @@ public class AutoAlign extends Command {
         //Drives the swerve using the FCFA request
    Swerve.get().setControl(
         FCFARequest
-        .withVelocityX((HumanControls.SingleXboxController.leftJoyY.getAsDouble()/2)*TunerConstants.MaxSpeed)
-        .withVelocityY((HumanControls.SingleXboxController.leftJoyX.getAsDouble()/2)*TunerConstants.MaxSpeed)
+        .withVelocityX((HumanControls.SingleXboxController.leftJoyY.getAsDouble()/2)*BotConstants.DriveConstants.MaxSpeed)
+        .withVelocityY((HumanControls.SingleXboxController.leftJoyX.getAsDouble()/2)*BotConstants.DriveConstants.MaxSpeed)
         .withTargetDirection(Swerve.get().target_theta(targetPosition))
-        .withHeadingPID(5,0,0)
         .withMaxAbsRotationalRate(DegreesPerSecond.of(360))
         .withRotationalDeadband(DegreesPerSecond.of(1)));
   }

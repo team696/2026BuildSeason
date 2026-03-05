@@ -44,14 +44,14 @@ public class BotConstants {
             cfg_Roller.CurrentLimits.SupplyCurrentLimitEnable = true;
             cfg_Roller.CurrentLimits.StatorCurrentLimit = 30.;
             
-
+//bundon is a chud
         }
         static{
-            cfg_Pivot.Slot0.kP = 7.;
+            cfg_Pivot.Slot0.kP = .55;
             cfg_Pivot.Slot0.kD = 0.0;
 
             cfg_Pivot.MotorOutput.NeutralMode = NeutralModeValue.Brake;
-            cfg_Pivot.MotorOutput.Inverted = InvertedValue.Clockwise_Positive;//Will try this out, if not work will go back to the that fucking negative pid value(wtf ctre)
+            //cfg_Pivot.MotorOutput.Inverted = InvertedValue.Clockwise_Positive;//Will try this out, if not work will go back to the that fucking negative pid value(wtf ctre)
             cfg_Pivot.CurrentLimits.StatorCurrentLimitEnable = true;
             cfg_Pivot.CurrentLimits.StatorCurrentLimit = 60.;
 

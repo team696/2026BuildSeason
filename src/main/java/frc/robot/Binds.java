@@ -28,8 +28,8 @@ public class Binds {
 			//Standard driving
 	private static final SwerveRequest.FieldCentric swerveFCDriveRequest = 
 		new SwerveRequest.FieldCentric()
-		.withDeadband(TunerConstants.MaxSpeed * 0.05)
-		.withRotationalDeadband(TunerConstants.MaxAngularRate * 0.05)
+		.withDeadband(BotConstants.DriveConstants.MaxSpeed * 0.05)
+		.withRotationalDeadband(BotConstants.DriveConstants.MaxAngularRate * 0.05)
 		.withDriveRequestType(DriveRequestType.OpenLoopVoltage);
 	
 			
@@ -82,18 +82,20 @@ public static final class Controller {
 			.withRotationalRate(getRotationClockwise()))); //Standard driving
 			
 		Climber.get().setDefaultCommand(Climber.get().doExtend()); //Default to go up
-		Shooter.get().setDefaultCommand(Shooter.get().idle()); //Shooter rollers idle
+		//Shooter.get().setDefaultCommand(Shooter.get().idle()); //Shooter rollers idle
 		Intake.get().setDefaultCommand(Intake.get().doStow());
 		Hopper.get().setDefaultCommand(Hopper.get().Stop());
 		
 
-	HumanControls.SingleXboxController.X.whileTrue(new AutoAlign(hub)); //Auto align
+	//HumanControls.SingleXboxController.X.whileTrue(new AutoAlign(hub)); //Auto align
 	HumanControls.SingleXboxController.A.whileTrue(Climber.get().doRetract()); //Hold A to go down
-	HumanControls.SingleXboxController.LB.whileTrue(new AutoAlign(Pass_1)); //Auto Align to conrer
-	HumanControls.SingleXboxController.RB.whileTrue(new AutoAlign(Pass_2));//Auto Align to the corner again
-	HumanControls.SingleXboxController.LT.whileTrue(Intake.get().doIntake().alongWith(Hopper.get().run_Hopper())); //Intake
-	HumanControls.SingleXboxController.RT.whileTrue(Shooter.get().ShootDash().alongWith(Hopper.get().run_Hopper()));
-	HumanControls.SingleXboxController.B.whileTrue(Swerve.get().alignToClimb());
+	HumanControls.SingleXboxController.B.whileTrue(Climber.get().doExtend()); //Hold B to go up
+
+	//HumanControls.SingleXboxController.LB.whileTrue(new AutoAlign(Pass_1)); //Auto Align to conrer
+	//HumanControls.SingleXboxController.RB.whileTrue(new AutoAlign(Pass_2));//Auto Align to the corner again
+	//HumanControls.SingleXboxController.LT.whileTrue(Intake.get().doIntake().alongWith(Hopper.get().run_Hopper())); //Intake
+	//HumanControls.SingleXboxController.RT.whileTrue(Shooter.get().ShootDash().alongWith(Hopper.get().run_Hopper()));
+	//HumanControls.SingleXboxController.B.whileTrue(Swerve.get().alignToClimb());
 
 
 

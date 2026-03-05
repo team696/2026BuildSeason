@@ -4,6 +4,8 @@ package frc.robot.subsystem;
 
 import java.util.function.Supplier;
 
+import javax.sound.midi.SysexMessage;
+
 import com.ctre.phoenix6.Utils;
 import com.ctre.phoenix6.swerve.SwerveDrivetrainConstants;
 import com.ctre.phoenix6.swerve.SwerveModuleConstants;
@@ -36,8 +38,9 @@ import frc.robot.util.LimeLightCam;
 public final class Swerve extends TunerSwerveDrivetrain implements Subsystem, Sendable {
 	private static Swerve m_Swerve;
 	private LimeLightCam frontCamera=new LimeLightCam("limelight-front");
-	private LimeLightCam leftCamera=new LimeLightCam("limelight-left");
-	private LimeLightCam rightCamera=new LimeLightCam("limelight-right");
+	//private LimeLightCam leftCamera=new LimeLightCam("limelight-left");
+	//private LimeLightCam rightCamera=new LimeLightCam("limelight-right");
+
 
 	public static synchronized Swerve get() {
 		if (m_Swerve == null)
@@ -51,14 +54,15 @@ public final class Swerve extends TunerSwerveDrivetrain implements Subsystem, Se
 		if (Utils.isSimulation()) {
 			simulationInit();
 		}
+		SmartDashboard.putBoolean("Accepted", false);
 	}
 
 	@Override
 	public void periodic() {
 		  // This runs 50 times per second
         frontCamera.addVisionEstimate(this::addVisionMeasurement, this::acceptEstimate);    
-		leftCamera.addVisionEstimate(this::addVisionMeasurement, this::acceptEstimate);    
-		rightCamera.addVisionEstimate(this::addVisionMeasurement, this::acceptEstimate);    
+		//leftCamera.addVisionEstimate(this::addVisionMeasurement, this::acceptEstimate);    
+		//rightCamera.addVisionEstimate(this::addVisionMeasurement, this::acceptEstimate);    
 		frontCamera.SetRobotOrientation(getPose().getRotation());
 	}
 
@@ -66,19 +70,22 @@ public final class Swerve extends TunerSwerveDrivetrain implements Subsystem, Se
     boolean acceptEstimate(AprilTagResult latestResult) {
         if (latestResult.distToTag > 3.5)
         return false;
-
-      if (latestResult.ambiguity > 0.6)
+		SmartDashboard.putBoolean("Accepted", false);
+      if (latestResult.ambiguity > 0.2)
         return false; // Too Ambiguous, Ignore
+		SmartDashboard.putBoolean("Accepted", false);
       if (getState().Speeds.omegaRadiansPerSecond > 2.5)
         return false; // Rotating too fast, ignore
-
+		SmartDashboard.putBoolean("Accepted", false);
       if (latestResult.distToTag < 1) {
-        setVisionMeasurementStdDevs(VecBuilder.fill(0.08, 0.08, 0.08));
+        setVisionMeasurementStdDevs(VecBuilder.fill(1.5, 1.5, 99.0));
+		SmartDashboard.putBoolean("Accepted", true);
       } else {
         setVisionMeasurementStdDevs(
-            VecBuilder.fill(latestResult.ambiguity * Math.pow(latestResult.distToTag, 2)*0.03,
-                latestResult.ambiguity * Math.pow(latestResult.distToTag, 2)*0.03,
-                latestResult.ambiguity * Math.pow(latestResult.distToTag, 2)*0.03));
+            VecBuilder.fill(latestResult.ambiguity * Math.pow(latestResult.distToTag, 2)*2.0,
+                latestResult.ambiguity * Math.pow(latestResult.distToTag, 2)*2.0,
+                latestResult.ambiguity * Math.pow(latestResult.distToTag, 2)*2.0));
+		SmartDashboard.putBoolean("Accepted", true);
       }
       return true;
     }
@@ -112,14 +119,14 @@ public final class Swerve extends TunerSwerveDrivetrain implements Subsystem, Se
       return new Rotation2d(Math.atan2(
         Field.hub_position_blue.getY() - Swerve.get().getPose().getY(),
         Field.hub_position_blue.getX() - Swerve.get().getPose().getX()
-        )).minus(Swerve.get().getPose().getRotation());
+	  	));
     }
 
 	public Rotation2d target_theta(Translation2d desiredpose){
 		return new Rotation2d(Math.atan2(
 			desiredpose.getY() - Swerve.get().getPose().getY(),
 			desiredpose.getX() - Swerve.get().getPose().getX()
-		)).minus(Swerve.get().getPose().getRotation());
+		));
 	}
 
 	
