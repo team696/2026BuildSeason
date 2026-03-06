@@ -85,7 +85,7 @@ public static final class Controller {
 		
 		//Climber.get().setDefaultCommand(Climber.get().doExtend()); //Default to go up
 		//Shooter.get().setDefaultCommand(Shooter.get().idle()); //Shooter rollers idle
-		//Intake.get().setDefaultCommand(Intake.get().doStow());
+		// Intake.get().setDefaultCommand(Intake.get().doStow());
 		//Hopper.get().setDefaultCommand(Hopper.get().Stop());
 
 		
@@ -99,7 +99,11 @@ public static final class Controller {
 	//HumanControls.SingleXboxController.A.whileTrue(Intake.get().doIntake()); //Intake .alongWith(Hopper.get().run_Hopper())
 	//HumanControls.SingleXboxController.RT.whileTrue(Shooter.get().ShootDash()); //.alongWith(Hopper.get().run_Hopper())
 	//HumanControls.SingleXboxController.B.whileTrue(Swerve.get().alignToClimb());
-	HumanControls.SingleXboxController.Y.whileTrue(Intake.get().test());
+	HumanControls.SingleXboxController.Y.whileTrue(Intake.get().test()); // on controller the button is X
+	HumanControls.SingleXboxController.Y.whileTrue(Hopper.get().run_Hopper());
+	HumanControls.SingleXboxController.X.whileTrue(Intake.get().doStow());
+
+
 
 
 

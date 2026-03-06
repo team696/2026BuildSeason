@@ -15,6 +15,7 @@ import frc.robot.subsystem.Climber;
 import frc.robot.subsystem.Intake;
 import frc.robot.subsystem.Shooter;
 import frc.robot.subsystem.Swerve;
+import frc.robot.util.Auto;
 import frc.robot.util.BotConstants;
 import frc.robot.util.Field;
 import frc.robot.util.Field.Alliance_Find;

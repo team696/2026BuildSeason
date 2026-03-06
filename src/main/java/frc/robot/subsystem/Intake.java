@@ -57,7 +57,8 @@ public class Intake extends SubsystemBase {
   private final TalonFX m_IntakePivot = new TalonFX(BotConstants.Intake.pivotID);
   private final TalonFX m_IntakeRoller = new TalonFX(BotConstants.Intake.intakeID);
   //Motor Controller
-  private final MotionMagicVoltage PivotPositionControl = new MotionMagicVoltage(0);
+  // private final MotionMagicVoltage PivotPositionControl = new MotionMagicVoltage(0);
+  private final PositionVoltage pivotPosition = new PositionVoltage(0).withSlot(0);
   private final MotionMagicVelocityVoltage intakeVelocityController  = new MotionMagicVelocityVoltage(0);
 
   public Intake() {
@@ -72,10 +73,12 @@ public class Intake extends SubsystemBase {
   }
 
   public Command test(){
-    return run(()->{
-      m_IntakeRoller.setControl(intakeVelocityController.withVelocity(60));
-      m_IntakePivot.setControl(PivotPositionControl.withPosition(4.0));
-    });
+    return this.runEnd(()->{
+      m_IntakeRoller.setControl(intakeVelocityController.withVelocity(40));
+      m_IntakePivot.setControl(pivotPosition.withPosition(-5));
+    },
+    ()->{m_IntakePivot.stopMotor();
+        m_IntakeRoller.stopMotor();});
   }
 
 
@@ -95,12 +98,13 @@ public class Intake extends SubsystemBase {
   //   });
   // }
 
-// public Command doStow() {
-//     return this.run(() -> {
-//         m_IntakeRoller.stopMotor(); this.positionIntake(0.);
-//         Hopper.get().Stop();
-//     });
-//   }
+public Command doStow() {
+    return this.runEnd(() -> {
+     m_IntakeRoller.setControl(intakeVelocityController.withVelocity(0));
+      m_IntakePivot.setControl(pivotPosition.withPosition(-.5));     
+    },
+    ()->{});
+  }
 
 @Override
 public void periodic() {
