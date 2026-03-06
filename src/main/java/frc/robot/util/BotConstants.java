@@ -33,36 +33,38 @@ public class BotConstants {
         public static TalonFXConfiguration cfg_Roller = new TalonFXConfiguration();
         public static TalonFXConfiguration cfg_Pivot = new TalonFXConfiguration();
         static{
-            cfg_Roller.Slot0.kP = .45;
+            cfg_Roller.Slot0.kP = 5;
             cfg_Roller.Slot0.kV = .1;
             cfg_Roller.Slot0.kS = .1;
             cfg_Roller.MotorOutput.Inverted = InvertedValue.Clockwise_Positive;
             cfg_Roller.MotorOutput.NeutralMode = NeutralModeValue.Coast;
             cfg_Roller.MotionMagic.MotionMagicAcceleration = 3000.0 / 60.0; //oscar wtf is this
             cfg_Roller.MotionMagic.MotionMagicCruiseVelocity = 6000.0 / 60.0;
-            cfg_Roller.CurrentLimits.StatorCurrentLimitEnable = false;
-            cfg_Roller.CurrentLimits.SupplyCurrentLimitEnable = true;
-            cfg_Roller.CurrentLimits.StatorCurrentLimit = 30.;
+            //cfg_Roller.CurrentLimits.StatorCurrentLimitEnable = false;
+            //cfg_Roller.CurrentLimits.SupplyCurrentLimitEnable = true;
+            //cfg_Roller.CurrentLimits.StatorCurrentLimit = 30.;
             
-
         }
         static{
-            cfg_Pivot.Slot0.kP = 7.;
+            cfg_Pivot.Slot0.kP = -5.;
             cfg_Pivot.Slot0.kD = 0.0;
 
             cfg_Pivot.MotorOutput.NeutralMode = NeutralModeValue.Brake;
-            cfg_Pivot.MotorOutput.Inverted = InvertedValue.Clockwise_Positive;//Will try this out, if not work will go back to the that fucking negative pid value(wtf ctre)
-            cfg_Pivot.CurrentLimits.StatorCurrentLimitEnable = true;
-            cfg_Pivot.CurrentLimits.StatorCurrentLimit = 60.;
+            cfg_Pivot.MotorOutput.Inverted = InvertedValue.Clockwise_Positive;
+            cfg_Pivot.MotionMagic.MotionMagicAcceleration = 20;
+            cfg_Pivot.MotionMagic.MotionMagicCruiseVelocity = 20;
+            //cfg_Pivot.MotorOutput.Inverted = InvertedValue.Clockwise_Positive;//Will try this out, if not work will go back to the that fucking negative pid value(wtf ctre)
+            //cfg_Pivot.CurrentLimits.StatorCurrentLimitEnable = true;
+            //cfg_Pivot.CurrentLimits.StatorCurrentLimit = 60.;
 
         }
     }
 
     public static class Hopper{
-        public static final int HopperID = 23;
+        public static final int HopperID = 25;
         public static TalonFXConfiguration cfg_Hopper = new TalonFXConfiguration();
         static{
-            cfg_Hopper.Slot0.kP = 1;
+            cfg_Hopper.Slot0.kP = 5;
             cfg_Hopper.MotionMagic.MotionMagicCruiseVelocity = 10;
             cfg_Hopper.MotionMagic.MotionMagicAcceleration = 5;
             
@@ -113,9 +115,9 @@ public class BotConstants {
          */
         public static final InterpolatingDoubleTreeMap shooterTable = new InterpolatingDoubleTreeMap();
         static{
-            cfg_Hood.Slot0.kP = 5.; //very snappy olala
-            cfg_Hood.MotionMagic.MotionMagicCruiseVelocity = 50;
-            cfg_Hood.MotionMagic.MotionMagicAcceleration = 20;
+            cfg_Hood.Slot0.kP = 7.; //very snappy olala
+            cfg_Hood.MotionMagic.MotionMagicCruiseVelocity = 100;
+            cfg_Hood.MotionMagic.MotionMagicAcceleration = 160;
         }
 
         static{
@@ -134,10 +136,11 @@ public class BotConstants {
         public static final TalonFXConfiguration cfg_Climber = new TalonFXConfiguration();
 
         static{
-            cfg_Climber.Slot0.kP = 0.5;
+            cfg_Climber.Slot0.kP = 7;
             cfg_Climber.Slot0.kV = 0.12; // Feedforward for velocity - needed for Motion Magic
-            cfg_Climber.MotionMagic.MotionMagicAcceleration = 3;
+            cfg_Climber.MotionMagic.MotionMagicAcceleration = 12;
             cfg_Climber.MotionMagic.MotionMagicCruiseVelocity = 50;//Random number, doesn't really matter too
+            cfg_Climber.MotorOutput.NeutralMode = NeutralModeValue.Brake;
         }
     
 

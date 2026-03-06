@@ -3,41 +3,32 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 2.443,
-        "y": 3.891
+        "x": 3.4608556547619047,
+        "y": 7.51950892857143
       },
       "prevControl": null,
       "nextControl": {
-        "x": 3.443,
-        "y": 3.891
+        "x": 9.460855654761904,
+        "y": 7.51950892857143
       },
       "isLocked": false,
       "linkedName": null
     },
     {
       "anchor": {
-        "x": 1.4445386904761903,
-        "y": 3.747886904761905
+        "x": 7.875,
+        "y": 5.125
       },
       "prevControl": {
-        "x": 0.4445386904761903,
-        "y": 3.747886904761905
+        "x": 7.375,
+        "y": 5.991025403784439
       },
       "nextControl": null,
       "isLocked": false,
       "linkedName": null
     }
   ],
-  "rotationTargets": [
-    {
-      "waypointRelativePos": 0.25,
-      "rotationDegrees": 180.0
-    },
-    {
-      "waypointRelativePos": 1.0,
-      "rotationDegrees": 180.0
-    }
-  ],
+  "rotationTargets": [],
   "constraintZones": [],
   "pointTowardsZones": [],
   "eventMarkers": [],
@@ -51,13 +42,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 180.0
+    "rotation": 90.0
   },
   "reversed": false,
-  "folder": null,
+  "folder": "Akiva Nut zone",
   "idealStartingState": {
     "velocity": 0,
-    "rotation": 0.0
+    "rotation": 90.0
   },
   "useDefaultConstraints": true
 }

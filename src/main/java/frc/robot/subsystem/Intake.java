@@ -6,6 +6,7 @@
 package frc.robot.subsystem;
 
 import com.ctre.phoenix6.controls.MotionMagicVelocityVoltage;
+import com.ctre.phoenix6.controls.MotionMagicVoltage;
 import com.ctre.phoenix6.controls.PositionVoltage;
 import com.ctre.phoenix6.hardware.TalonFX;
 
@@ -28,66 +29,81 @@ public class Intake extends SubsystemBase {
 
   /** Creates a new Intake. */
 
-  //Enum to determin state, values are temporary
-  public static enum State{
-    IDLE(0.0),
-    INTAKE(3000.0),
-    OUTTAKE(-3000.0);
+//   //Enum to determin state, values are temporary
+//   public static enum State{
+//     IDLE(0.0),
+//     INTAKE(3000.0),
+//     OUTTAKE(-3000.0);
 
-    public double roller_velocity;  // Renamed
-    State(double roller_velocity){
-        this.roller_velocity = roller_velocity;
-    }
-}
-  //Enum to determin pivot position, values are temporary
-  public enum Pivot{
-    STOW(0.00),
-    DEPLOY(5.5);
+//     public double roller_velocity;  // Renamed
+//     State(double roller_velocity){
+//         this.roller_velocity = roller_velocity;
+//     }
+// }
+//   //Enum to determin pivot position, values are temporary
+//   public enum Pivot{
+//     STOW(0.00),
+//     DEPLOY(5.5);
 
-    public double position;
+//     public double position;
 
-    Pivot(double position){
-      this.position = position;
-    }
-  }
+//     Pivot(double position){
+//       this.position = position;
+//     }
+//   }
   
 
   //Motors
-  private final TalonFX m_IntakePivot = new TalonFX(BotConstants.Intake.pivotID, BotConstants.Canivore);
-  private final TalonFX m_IntakeRoller = new TalonFX(BotConstants.Intake.intakeID, BotConstants.Canivore);
+  private final TalonFX m_IntakePivot = new TalonFX(BotConstants.Intake.pivotID);
+  private final TalonFX m_IntakeRoller = new TalonFX(BotConstants.Intake.intakeID);
   //Motor Controller
-  private final PositionVoltage PivotPositionControl = new PositionVoltage(0);
+  // private final MotionMagicVoltage PivotPositionControl = new MotionMagicVoltage(0);
+  private final PositionVoltage pivotPosition = new PositionVoltage(0).withSlot(0);
   private final MotionMagicVelocityVoltage intakeVelocityController  = new MotionMagicVelocityVoltage(0);
 
   public Intake() {
+
+    //SmartDashboard.putNumber("Intake pose", 0);
+		//SmartDashboard.putNumber("Roller speed", 0);
     m_IntakeRoller.getConfigurator().apply(BotConstants.Intake.cfg_Roller);
     m_IntakePivot.getConfigurator().apply(BotConstants.Intake.cfg_Pivot);
-    m_IntakePivot.setPosition(0.0);
+    //m_IntakePivot.setPosition(0.0);
 
-    this.setDefaultCommand(doStow());
+    //this.setDefaultCommand(doStow());
   }
 
-  public void runIntake(State state) {
-    m_IntakeRoller.setControl(intakeVelocityController.withVelocity(state.roller_velocity/60));
+  public Command test(){
+    return this.runEnd(()->{
+      m_IntakeRoller.setControl(intakeVelocityController.withVelocity(40));
+      m_IntakePivot.setControl(pivotPosition.withPosition(-5));
+    },
+    ()->{m_IntakePivot.stopMotor();
+        m_IntakeRoller.stopMotor();});
   }
 
-    public void positionIntake(double state) {
-    m_IntakePivot.setControl(PivotPositionControl.withPosition(state)); //
-    //vout.withOutput(-1 * pidController.calculate(m_IntakePivot.getPosition().getValueAsDouble(), state))
-  }
 
-  public Command doIntake() {
-    return this.run(() -> {
-        this.runIntake(State.INTAKE); this.positionIntake(5.7);
-        Hopper.get().run_Hopper();
-    });
-  }
+  // public void runIntake(State state) {
+  //   m_IntakeRoller.setControl(intakeVelocityController.withVelocity(state.roller_velocity/60));
+  // }
+
+  // public void positionIntake(double state) {
+  //   m_IntakePivot.setControl(PivotPositionControl.withPosition(state)); //
+  //   //vout.withOutput(-1 * pidController.calculate(m_IntakePivot.getPosition().getValueAsDouble(), state))
+  // }
+
+  // public Command doIntake() {
+  //   return this.run(() -> {
+  //       this.runIntake(State.INTAKE); this.positionIntake(5.7);
+  //       Hopper.get().run_Hopper();
+  //   });
+  // }
 
 public Command doStow() {
-    return this.run(() -> {
-        m_IntakeRoller.stopMotor(); this.positionIntake(0.);
-        Hopper.get().Stop();
-    });
+    return this.runEnd(() -> {
+     m_IntakeRoller.setControl(intakeVelocityController.withVelocity(0));
+      m_IntakePivot.setControl(pivotPosition.withPosition(-.5));     
+    },
+    ()->{});
   }
 
 @Override

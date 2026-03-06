@@ -3,41 +3,32 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 2.443,
-        "y": 3.891
+        "x": 0.525,
+        "y": 0.655
       },
       "prevControl": null,
       "nextControl": {
-        "x": 3.443,
-        "y": 3.891
+        "x": 0.4000000000000001,
+        "y": 0.4384936490538903
       },
       "isLocked": false,
       "linkedName": null
     },
     {
       "anchor": {
-        "x": 1.4445386904761903,
-        "y": 3.747886904761905
+        "x": 0.8,
+        "y": 0.8
       },
       "prevControl": {
-        "x": 0.4445386904761903,
-        "y": 3.747886904761905
+        "x": 0.9915111107797445,
+        "y": 0.960696902421635
       },
       "nextControl": null,
       "isLocked": false,
       "linkedName": null
     }
   ],
-  "rotationTargets": [
-    {
-      "waypointRelativePos": 0.25,
-      "rotationDegrees": 180.0
-    },
-    {
-      "waypointRelativePos": 1.0,
-      "rotationDegrees": 180.0
-    }
-  ],
+  "rotationTargets": [],
   "constraintZones": [],
   "pointTowardsZones": [],
   "eventMarkers": [],
@@ -51,10 +42,10 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 180.0
+    "rotation": 35.81116392264126
   },
   "reversed": false,
-  "folder": null,
+  "folder": "Akiva Clean",
   "idealStartingState": {
     "velocity": 0,
     "rotation": 0.0

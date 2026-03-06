@@ -6,6 +6,7 @@ package frc.robot.subsystem;
 
 import com.ctre.phoenix6.controls.MotionMagicVelocityVoltage;
 import com.ctre.phoenix6.controls.MotionMagicVoltage;
+import com.ctre.phoenix6.controls.VelocityVoltage;
 import com.ctre.phoenix6.hardware.TalonFX;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -29,42 +30,44 @@ public class Climber extends SubsystemBase {
 
   private final TalonFX mClimb = new TalonFX(BotConstants.Climber.Climber_ID);
   private final MotionMagicVoltage climberPosition = new MotionMagicVoltage(0);
-  private final MotionMagicVelocityVoltage climberVelocity = new MotionMagicVelocityVoltage(0);
+  //private final VelocityVoltage climberVelocityVoltage = new VelocityVoltage(0);
+  //private final MotionMagicVelocityVoltage climberVelocity = new MotionMagicVelocityVoltage(0);
 
-  boolean isZeroed;
+  // boolean isZeroed;
 
   public Climber(){
-  mClimb.getConfigurator().apply(BotConstants.Climber.cfg_Climber);
-  if(!isZeroed){this.zeroEncoder();}
+    mClimb.getConfigurator().apply(BotConstants.Climber.cfg_Climber);
+  // if(!isZeroed){this.zeroEncoder();}
   }
 
  public Command doRetract() {
   return run(()->{
- this.setVelocity(-.5);
+    // mClimb.setControl(climberVelocity.withVelocity(-20));
+    mClimb.setControl(climberPosition.withPosition(75));
+
   });
 }
-  public Command doExtend(){
+public Command doExtend(){
   return run(()->{
-  mClimb.setControl(climberPosition.withPosition(0)); 
-  });
+  mClimb.setControl(climberPosition.withPosition(0));  });
   }
 
-  public void setVelocity(double rps) {
-    mClimb.setControl(climberVelocity.withVelocity(rps));
-}
+//   public void setVelocity(double rps) {
+//     mClimb.setControl(climberVelocity.withVelocity(rps));
+// }
 
 public void stop() {
-    mClimb.setControl(climberVelocity.withVelocity(0));
+    mClimb.stopMotor();
 }
 
 public void zeroEncoder() {
     mClimb.setPosition(0);
-    this.setIsZeroed(true);
+    // this.setIsZeroed(true);
 }
 
-public void setIsZeroed(boolean zeroed) {
-    this.isZeroed = zeroed;
-}
+// public void setIsZeroed(boolean zeroed) {
+//     this.isZeroed = zeroed;
+// }
 
   @Override
   public void periodic() {

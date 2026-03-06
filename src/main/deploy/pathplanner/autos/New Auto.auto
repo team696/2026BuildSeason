@@ -5,40 +5,33 @@
     "data": {
       "commands": [
         {
-          "type": "path",
+          "type": "wait",
           "data": {
-            "pathName": "Trench Center Start"
+            "waitTime": 3.0
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "TrenchCenter-Intake"
+            "pathName": "Path 1"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "Trench Center- Shoot"
+            "pathName": "Path 2"
+          }
+        },
+        {
+          "type": "wait",
+          "data": {
+            "waitTime": 7.0
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "TrenchCenter-Climb"
-          }
-        },
-        {
-          "type": "parallel",
-          "data": {
-            "commands": [
-              {
-                "type": "named",
-                "data": {
-                  "name": "Climb L1"
-                }
-              }
-            ]
+            "pathName": "Path 3"
           }
         }
       ]
