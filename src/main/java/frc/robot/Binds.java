@@ -97,16 +97,10 @@ public static final class Controller {
 	//HumanControls.SingleXboxController.LB.whileTrue(new AutoAlign(Pass_1)); //Auto Align to conrer
 	//HumanControls.SingleXboxController.RB.whileTrue(new AutoAlign(Pass_2));//Auto Align to the corner again
 	//HumanControls.SingleXboxController.A.whileTrue(Intake.get().doIntake()); //Intake .alongWith(Hopper.get().run_Hopper())
-	//HumanControls.SingleXboxController.RT.whileTrue(Shooter.get().ShootDash()); //.alongWith(Hopper.get().run_Hopper())
+	HumanControls.SingleXboxController.RT.whileTrue(Shooter.get().ShootDash()); //.alongWith(Hopper.get().run_Hopper())
 	//HumanControls.SingleXboxController.B.whileTrue(Swerve.get().alignToClimb());
-	SmartDashboard.putData("yes", Intake.get().doIntake());
-	SmartDashboard.putData("no",Intake.get().doStow());
-	HumanControls.SingleXboxController.Y.whileTrue(Intake.get().doIntake()); // on controller the button is X
-	HumanControls.SingleXboxController.X.whileTrue(Intake.get().doStow());
- 
-	//HumanControls.SingleXboxController.Y.whileTrue(Hopper.get().run_Hopper());
-	//HumanControls.SingleXboxController.X.whileTrue(Intake.get().doStow());
-
+	HumanControls.SingleXboxController.Y.whileTrue(Intake.get().doIntake().alongWith(Hopper.get().run_Hopper())); // on controller the button is X
+	HumanControls.SingleXboxController.X.whileTrue(Intake.get().doStow().alongWith(Hopper.get().Stop()));
 
 
 

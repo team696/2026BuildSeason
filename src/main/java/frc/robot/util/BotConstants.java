@@ -33,13 +33,13 @@ public class BotConstants {
         public static TalonFXConfiguration cfg_Roller = new TalonFXConfiguration();
         public static TalonFXConfiguration cfg_Pivot = new TalonFXConfiguration();
         static{
-            cfg_Roller.Slot0.kP = 5;
-            cfg_Roller.Slot0.kV = .1;
-            cfg_Roller.Slot0.kS = .1;
+            cfg_Roller.Slot0.kP =0.5;
             cfg_Roller.MotorOutput.Inverted = InvertedValue.Clockwise_Positive;
             cfg_Roller.MotorOutput.NeutralMode = NeutralModeValue.Coast;
-            cfg_Roller.MotionMagic.MotionMagicAcceleration = 3000.0 / 60.0; //oscar wtf is this
-            cfg_Roller.MotionMagic.MotionMagicCruiseVelocity = 6000.0 / 60.0;
+            cfg_Roller.MotionMagic.MotionMagicAcceleration = 50; //oscar wtf is this
+            cfg_Roller.MotionMagic.MotionMagicCruiseVelocity = 100;
+            cfg_Roller.CurrentLimits.StatorCurrentLimit = 60;
+            
             //cfg_Roller.CurrentLimits.StatorCurrentLimitEnable = false;
             //cfg_Roller.CurrentLimits.SupplyCurrentLimitEnable = true;
             //cfg_Roller.CurrentLimits.StatorCurrentLimit = 30.;

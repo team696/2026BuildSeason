@@ -94,15 +94,15 @@ public class Intake extends SubsystemBase {
   public Command doIntake() {
     return this.run(() -> {
         this.runIntake(State.INTAKE); 
-        this.positionIntake(-3.5);
+        this.positionIntake(-5);
         Hopper.get().run_Hopper();
     });
   }
 
 public Command doStow() {
     return this.runEnd(() -> {
-     m_IntakeRoller.setControl(intakeVelocityController.withVelocity(0));
-      m_IntakePivot.setControl(pivotPosition.withPosition(-.5));     
+      m_IntakeRoller.stopMotor();
+      m_IntakePivot.setControl(pivotPosition.withPosition(0));     
     },
     ()->{});
   }
