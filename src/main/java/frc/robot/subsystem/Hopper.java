@@ -4,6 +4,7 @@
 
 package frc.robot.subsystem;
 
+import com.ctre.phoenix6.controls.DutyCycleOut;
 import com.ctre.phoenix6.controls.MotionMagicVelocityVoltage;
 import com.ctre.phoenix6.hardware.TalonFX;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -27,8 +28,9 @@ public class Hopper extends SubsystemBase {
 
   //Motor controller
   private static MotionMagicVelocityVoltage HopperController = new MotionMagicVelocityVoltage(0);
+  private static DutyCycleOut ahhh = new DutyCycleOut(0.25);
   //Motor initalized
-  private final TalonFX m_Hopper = new TalonFX(BotConstants.Hopper.HopperID);
+  public final TalonFX m_Hopper = new TalonFX(BotConstants.Hopper.HopperID);
   /** Creates a new Hopper. */
   public Hopper() {
     //Motor config
@@ -38,7 +40,7 @@ public class Hopper extends SubsystemBase {
 
   //Moves the belt that pushes all the balls towrads the shooter
   public Command run_Hopper(){
-    return runEnd(()->{m_Hopper.setControl(HopperController.withVelocity(56.5));},
+    return runEnd(()->{m_Hopper.setControl(ahhh);},
     ()->{m_Hopper.stopMotor();});
   }
 

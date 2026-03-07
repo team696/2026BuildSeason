@@ -64,8 +64,8 @@ public class BotConstants {
         public static final int HopperID = 25;
         public static TalonFXConfiguration cfg_Hopper = new TalonFXConfiguration();
         static{
-            cfg_Hopper.Slot0.kP = 5;
-            cfg_Hopper.MotionMagic.MotionMagicCruiseVelocity = 10;
+            cfg_Hopper.Slot0.kP = 1;
+            cfg_Hopper.MotionMagic.MotionMagicCruiseVelocity = 50;
             cfg_Hopper.MotionMagic.MotionMagicAcceleration = 5;
             
 
@@ -77,7 +77,7 @@ public class BotConstants {
     public static class Shooter{
         public static final int shooterflywheel_ID = 17;
         public static final int shooterflywheel2_ID = 18;
-        public static final int shooterIntake_ID = 19;
+        public static final int shooterIntake_ID = 50;
         public static final TalonFXConfiguration cfg_shooter = new TalonFXConfiguration();
         public static final TalonFXConfiguration cfg_shooter_intake = new TalonFXConfiguration();
         /**
@@ -89,7 +89,7 @@ public class BotConstants {
             cfg_shooter.Slot0.kV = 0.12;
             cfg_shooter_intake.Slot0.kP = 0.3;
             cfg_shooter_intake.Slot0.kV = 0.12;
-            cfg_shooter.MotionMagic.MotionMagicAcceleration = 100;
+            cfg_shooter.MotionMagic.MotionMagicAcceleration = 150;
             cfg_shooter.MotionMagic.MotionMagicCruiseVelocity = 160;
             cfg_shooter_intake.MotionMagic.MotionMagicCruiseVelocity = 160;
             cfg_shooter_intake.MotionMagic.MotionMagicAcceleration  = 100;

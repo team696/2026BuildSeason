@@ -68,25 +68,25 @@ public final class Swerve extends TunerSwerveDrivetrain implements Subsystem, Se
 
 	
     boolean acceptEstimate(AprilTagResult latestResult) {
-        if (latestResult.distToTag > 3.5)
-        return false;
-		SmartDashboard.putBoolean("Accepted", false);
-      if (latestResult.ambiguity > 0.2)
-        return false; // Too Ambiguous, Ignore
-		SmartDashboard.putBoolean("Accepted", false);
-      if (getState().Speeds.omegaRadiansPerSecond > 2.5)
-        return false; // Rotating too fast, ignore
-		SmartDashboard.putBoolean("Accepted", false);
-      if (latestResult.distToTag < 1) {
-        setVisionMeasurementStdDevs(VecBuilder.fill(1.5, 1.5, 50.0));
-		SmartDashboard.putBoolean("Accepted", true);
-      } else {
-        setVisionMeasurementStdDevs(
-            VecBuilder.fill(latestResult.ambiguity * Math.pow(latestResult.distToTag, 2)*2.0,
-                latestResult.ambiguity * Math.pow(latestResult.distToTag, 2)*2.0,
-                latestResult.ambiguity * Math.pow(latestResult.distToTag, 2)*2.0));
-		SmartDashboard.putBoolean("Accepted", true);
-      }
+    //     if (latestResult.distToTag > 3.5)
+    //     return false;
+	// 	SmartDashboard.putBoolean("Accepted", false);
+    //   if (latestResult.ambiguity > 0.6)
+    //     return false; // Too Ambiguous, Ignore
+	// 	SmartDashboard.putBoolean("Accepted", false);
+    //   if (getState().Speeds.omegaRadiansPerSecond > 2.5)
+    //     return false; // Rotating too fast, ignore
+	// 	SmartDashboard.putBoolean("Accepted", false);
+    //   if (latestResult.distToTag < 1) {
+    //     setVisionMeasurementStdDevs(VecBuilder.fill(1.5, 1.5, 50.0));
+	// 	SmartDashboard.putBoolean("Accepted", true);
+    //   } else {
+    //     setVisionMeasurementStdDevs(
+    //         VecBuilder.fill(latestResult.ambiguity * Math.pow(latestResult.distToTag, 2)*2.0,
+    //             latestResult.ambiguity * Math.pow(latestResult.distToTag, 2)*2.0,
+    //             latestResult.ambiguity * Math.pow(latestResult.distToTag, 2)*2.0));
+	// 	SmartDashboard.putBoolean("Accepted", true);
+    //   }
       return true;
     }
 

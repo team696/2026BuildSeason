@@ -5,9 +5,11 @@
 package frc.robot.subsystem;
 
 import com.ctre.phoenix6.StatusSignal;
+import com.ctre.phoenix6.controls.DutyCycleOut;
 import com.ctre.phoenix6.controls.Follower;
 import com.ctre.phoenix6.controls.MotionMagicVelocityVoltage;
 import com.ctre.phoenix6.controls.MotionMagicVoltage;
+import com.ctre.phoenix6.controls.VelocityVoltage;
 import com.ctre.phoenix6.hardware.TalonFX;
 import com.ctre.phoenix6.signals.MotorAlignmentValue;
 import com.pathplanner.lib.commands.FollowPathCommand;
@@ -47,8 +49,11 @@ public class Shooter extends SubsystemBase {
       //Controllers
       private final MotionMagicVelocityVoltage shooterVelocityController = new MotionMagicVelocityVoltage(0);
       private final MotionMagicVoltage hoodAngleController = new MotionMagicVoltage(0);
-      private final MotionMagicVelocityVoltage intakeRollerController = new MotionMagicVelocityVoltage(0);
+      private final VelocityVoltage intakeRollerController = new VelocityVoltage(0);
+      private static DutyCycleOut ahhh = new DutyCycleOut(0.25);
       //Data
+
+
       private StatusSignal<Angle> position_hood;
       private StatusSignal<AngularVelocity> velocity_roller;
 
@@ -57,6 +62,10 @@ public class Shooter extends SubsystemBase {
       m_Shooter.getConfigurator().apply(BotConstants.Shooter.cfg_shooter);
       m_Hood.getConfigurator().apply(BotConstants.Hood.cfg_Hood);
       m_ShooterIntake.getConfigurator().apply(BotConstants.Shooter.cfg_shooter_intake);
+      
+
+      SmartDashboard.putNumber("Launch Speed", 0);
+      SmartDashboard.putNumber("Hood angle", 0);
       
       position_hood = m_Hood.getPosition();
       velocity_roller = m_Shooter.getVelocity();
@@ -116,12 +125,14 @@ public class Shooter extends SubsystemBase {
             m_Hood.setControl(hoodAngleController.withPosition(position_hood));
             m_Shooter_2.setControl(new Follower(17, MotorAlignmentValue.Opposed));
             System.out.println(getRollerVelocity()+","+ velocity);
-            if((Math.abs(getRollerVelocity()-velocity)/velocity)<0.001){
+            if((Math.abs(getRollerVelocity()-velocity))<0.005){
               m_ShooterIntake.setControl(intakeRollerController.withVelocity(60));
+              Hopper.get().m_Hopper.setControl(ahhh);
             }
 
         },
         () -> {
+            Hopper.get().m_Hopper.stopMotor();
             m_Shooter.stopMotor();
             m_Hood.stopMotor();
             m_ShooterIntake.stopMotor();

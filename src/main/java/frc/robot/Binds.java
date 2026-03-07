@@ -91,17 +91,17 @@ public static final class Controller {
 		
 
 	//HumanControls.SingleXboxController.X.whileTrue(new AutoAlign(hub)); //Auto align
-	HumanControls.SingleXboxController.A.whileTrue(Climber.get().doRetract()); //Hold A to go down
-	HumanControls.SingleXboxController.B.whileTrue(Climber.get().doExtend()); //Hold B to go up
+	//HumanControls.SingleXboxController.A.whileTrue(Climber.get().doRetract()); //Hold A to go down
+	//HumanControls.SingleXboxController.B.whileTrue(Climber.get().doExtend()); //Hold B to go up
 
 	//HumanControls.SingleXboxController.LB.whileTrue(new AutoAlign(Pass_1)); //Auto Align to conrer
 	//HumanControls.SingleXboxController.RB.whileTrue(new AutoAlign(Pass_2));//Auto Align to the corner again
 	//HumanControls.SingleXboxController.A.whileTrue(Intake.get().doIntake()); //Intake .alongWith(Hopper.get().run_Hopper())
-	//HumanControls.SingleXboxController.RT.whileTrue(Shooter.get().ShootDash()); //.alongWith(Hopper.get().run_Hopper())
+	HumanControls.SingleXboxController.RT.whileTrue(Shooter.get().ShootDash()); //.alongWith(Hopper.get().run_Hopper())
 	//HumanControls.SingleXboxController.B.whileTrue(Swerve.get().alignToClimb());
-	HumanControls.SingleXboxController.Y.whileTrue(Intake.get().test()); // on controller the button is X
-	HumanControls.SingleXboxController.Y.whileTrue(Hopper.get().run_Hopper());
-	HumanControls.SingleXboxController.X.whileTrue(Intake.get().doStow());
+	//HumanControls.SingleXboxController.Y.whileTrue(Intake.get().test()); // on controller the button is X
+	//HumanControls.SingleXboxController.Y.whileTrue(Hopper.get().run_Hopper());
+	//HumanControls.SingleXboxController.X.whileTrue(Intake.get().doStow());
 
 
 
