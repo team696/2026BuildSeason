@@ -29,35 +29,35 @@ public class Intake extends SubsystemBase {
 
   /** Creates a new Intake. */
 
-//   //Enum to determin state, values are temporary
-//   public static enum State{
-//     IDLE(0.0),
-//     INTAKE(3000.0),
-//     OUTTAKE(-3000.0);
+  //Enum to determin state, values are temporary
+  public static enum State{
+    IDLE(0.0),
+    INTAKE(3000.0),
+    OUTTAKE(-3000.0);
 
-//     public double roller_velocity;  // Renamed
-//     State(double roller_velocity){
-//         this.roller_velocity = roller_velocity;
-//     }
-// }
-//   //Enum to determin pivot position, values are temporary
-//   public enum Pivot{
-//     STOW(0.00),
-//     DEPLOY(5.5);
+    public double roller_velocity;  // Renamed
+    State(double roller_velocity){
+        this.roller_velocity = roller_velocity;
+    }
+}
+  //Enum to determin pivot position, values are temporary
+  public enum Pivot{
+    STOW(0.00),
+    DEPLOY(5.5);
 
-//     public double position;
+    public double position;
 
-//     Pivot(double position){
-//       this.position = position;
-//     }
-//   }
+    Pivot(double position){
+      this.position = position;
+    }
+  }
   
 
   //Motors
   private final TalonFX m_IntakePivot = new TalonFX(BotConstants.Intake.pivotID);
   private final TalonFX m_IntakeRoller = new TalonFX(BotConstants.Intake.intakeID);
   //Motor Controller
-  // private final MotionMagicVoltage PivotPositionControl = new MotionMagicVoltage(0);
+   private final MotionMagicVoltage PivotPositionControl = new MotionMagicVoltage(0);
   private final PositionVoltage pivotPosition = new PositionVoltage(0).withSlot(0);
   private final MotionMagicVelocityVoltage intakeVelocityController  = new MotionMagicVelocityVoltage(0);
 
@@ -82,21 +82,22 @@ public class Intake extends SubsystemBase {
   }
 
 
-  // public void runIntake(State state) {
-  //   m_IntakeRoller.setControl(intakeVelocityController.withVelocity(state.roller_velocity/60));
-  // }
+  public void runIntake(State state) {
+    m_IntakeRoller.setControl(intakeVelocityController.withVelocity(state.roller_velocity/60));
+  }
 
-  // public void positionIntake(double state) {
-  //   m_IntakePivot.setControl(PivotPositionControl.withPosition(state)); //
-  //   //vout.withOutput(-1 * pidController.calculate(m_IntakePivot.getPosition().getValueAsDouble(), state))
-  // }
+  public void positionIntake(double state) {
+    m_IntakePivot.setControl(PivotPositionControl.withPosition(state)); //
+    //vout.withOutput(-1 * pidController.calculate(m_IntakePivot.getPosition().getValueAsDouble(), state))
+  }
 
-  // public Command doIntake() {
-  //   return this.run(() -> {
-  //       this.runIntake(State.INTAKE); this.positionIntake(5.7);
-  //       Hopper.get().run_Hopper();
-  //   });
-  // }
+  public Command doIntake() {
+    return this.run(() -> {
+        this.runIntake(State.INTAKE); 
+        this.positionIntake(-3.5);
+        Hopper.get().run_Hopper();
+    });
+  }
 
 public Command doStow() {
     return this.runEnd(() -> {

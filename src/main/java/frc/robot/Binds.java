@@ -64,14 +64,14 @@ public static final class Controller {
 	
 	//Xbox controller methods, simplifies and cleans up the bind() method a lot
 	private static double getDriveForward() {
-		return HumanControls.SingleXboxController.leftJoyY.getAsDouble() * BotConstants.DriveConstants.MaxSpeed;
+		return 0.0;//HumanControls.SingleXboxController.leftJoyY.getAsDouble() * BotConstants.DriveConstants.MaxSpeed;
 	}
 	
 	private static double getDriveRight() {
-		return HumanControls.SingleXboxController.leftJoyX.getAsDouble() * BotConstants.DriveConstants.MaxSpeed;
+		return 0.0;//HumanControls.SingleXboxController.leftJoyX.getAsDouble() * BotConstants.DriveConstants.MaxSpeed;
 	}
 	private static double getRotationClockwise() {
-		return HumanControls.SingleXboxController.rightJoyX.getAsDouble() * BotConstants.DriveConstants.MaxAngularRate;
+		return 0.0;//HumanControls.SingleXboxController.rightJoyX.getAsDouble() * BotConstants.DriveConstants.MaxAngularRate;
 	}	
 			
 	public static final void bind() {
@@ -97,9 +97,13 @@ public static final class Controller {
 	//HumanControls.SingleXboxController.LB.whileTrue(new AutoAlign(Pass_1)); //Auto Align to conrer
 	//HumanControls.SingleXboxController.RB.whileTrue(new AutoAlign(Pass_2));//Auto Align to the corner again
 	//HumanControls.SingleXboxController.A.whileTrue(Intake.get().doIntake()); //Intake .alongWith(Hopper.get().run_Hopper())
-	HumanControls.SingleXboxController.RT.whileTrue(Shooter.get().ShootDash()); //.alongWith(Hopper.get().run_Hopper())
+	//HumanControls.SingleXboxController.RT.whileTrue(Shooter.get().ShootDash()); //.alongWith(Hopper.get().run_Hopper())
 	//HumanControls.SingleXboxController.B.whileTrue(Swerve.get().alignToClimb());
-	//HumanControls.SingleXboxController.Y.whileTrue(Intake.get().test()); // on controller the button is X
+	SmartDashboard.putData("yes", Intake.get().doIntake());
+	SmartDashboard.putData("no",Intake.get().doStow());
+	HumanControls.SingleXboxController.Y.whileTrue(Intake.get().doIntake()); // on controller the button is X
+	HumanControls.SingleXboxController.X.whileTrue(Intake.get().doStow());
+ 
 	//HumanControls.SingleXboxController.Y.whileTrue(Hopper.get().run_Hopper());
 	//HumanControls.SingleXboxController.X.whileTrue(Intake.get().doStow());
 

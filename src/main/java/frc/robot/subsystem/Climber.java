@@ -35,6 +35,8 @@ public class Climber extends SubsystemBase {
 
   // boolean isZeroed;
 
+  
+
   public Climber(){
     mClimb.getConfigurator().apply(BotConstants.Climber.cfg_Climber);
   // if(!isZeroed){this.zeroEncoder();}

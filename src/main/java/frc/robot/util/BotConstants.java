@@ -47,7 +47,7 @@ public class BotConstants {
         }
         static{
             cfg_Pivot.Slot0.kP = -5.;
-            cfg_Pivot.Slot0.kD = 0.0;
+            //cfg_Pivot.Slot0.kD = 0.0;
 
             cfg_Pivot.MotorOutput.NeutralMode = NeutralModeValue.Brake;
             cfg_Pivot.MotorOutput.Inverted = InvertedValue.Clockwise_Positive;
