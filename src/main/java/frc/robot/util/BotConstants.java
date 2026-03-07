@@ -39,23 +39,23 @@ public class BotConstants {
             cfg_Roller.MotionMagic.MotionMagicAcceleration = 50; //oscar wtf is this
             cfg_Roller.MotionMagic.MotionMagicCruiseVelocity = 100;
             cfg_Roller.CurrentLimits.StatorCurrentLimit = 60;
-            
+
             //cfg_Roller.CurrentLimits.StatorCurrentLimitEnable = false;
             //cfg_Roller.CurrentLimits.SupplyCurrentLimitEnable = true;
             //cfg_Roller.CurrentLimits.StatorCurrentLimit = 30.;
             
         }
         static{
-            cfg_Pivot.Slot0.kP = -5.;
-            //cfg_Pivot.Slot0.kD = 0.0;
+            cfg_Pivot.Slot0.kP = -7.;
+            
 
             cfg_Pivot.MotorOutput.NeutralMode = NeutralModeValue.Brake;
             cfg_Pivot.MotorOutput.Inverted = InvertedValue.Clockwise_Positive;
-            cfg_Pivot.MotionMagic.MotionMagicAcceleration = 20;
-            cfg_Pivot.MotionMagic.MotionMagicCruiseVelocity = 20;
+            cfg_Pivot.MotionMagic.MotionMagicAcceleration = 10;
+            cfg_Pivot.MotionMagic.MotionMagicCruiseVelocity = 5;
             //cfg_Pivot.MotorOutput.Inverted = InvertedValue.Clockwise_Positive;//Will try this out, if not work will go back to the that fucking negative pid value(wtf ctre)
-            //cfg_Pivot.CurrentLimits.StatorCurrentLimitEnable = true;
-            //cfg_Pivot.CurrentLimits.StatorCurrentLimit = 60.;
+            cfg_Pivot.CurrentLimits.StatorCurrentLimitEnable = true;
+            cfg_Pivot.CurrentLimits.StatorCurrentLimit = 30.;
 
         }
     }
@@ -64,9 +64,11 @@ public class BotConstants {
         public static final int HopperID = 25;
         public static TalonFXConfiguration cfg_Hopper = new TalonFXConfiguration();
         static{
-            cfg_Hopper.Slot0.kP = 1;
-            cfg_Hopper.MotionMagic.MotionMagicCruiseVelocity = 50;
-            cfg_Hopper.MotionMagic.MotionMagicAcceleration = 5;
+            cfg_Hopper.Slot0.kP = 0.5;
+            cfg_Hopper.MotionMagic.MotionMagicCruiseVelocity = 100;
+            cfg_Hopper.MotionMagic.MotionMagicAcceleration = 50;
+            cfg_Hopper.CurrentLimits.StatorCurrentLimitEnable = true;
+            cfg_Hopper.CurrentLimits.StatorCurrentLimit = 100;
             
 
             

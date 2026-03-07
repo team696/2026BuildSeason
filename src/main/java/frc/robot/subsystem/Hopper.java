@@ -40,7 +40,7 @@ public class Hopper extends SubsystemBase {
 
   //Moves the belt that pushes all the balls towrads the shooter
   public Command run_Hopper(){
-    return runEnd(()->{m_Hopper.setControl(ahhh);},
+    return runEnd(()->{m_Hopper.setControl(HopperController.withVelocity(40));},
     ()->{m_Hopper.stopMotor();});
   }
 
