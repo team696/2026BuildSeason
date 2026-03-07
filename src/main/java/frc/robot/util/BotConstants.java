@@ -46,16 +46,16 @@ public class BotConstants {
             
         }
         static{
-            cfg_Pivot.Slot0.kP = -7.;
+            cfg_Pivot.Slot0.kP = -10.;
             
 
             cfg_Pivot.MotorOutput.NeutralMode = NeutralModeValue.Brake;
             cfg_Pivot.MotorOutput.Inverted = InvertedValue.Clockwise_Positive;
             cfg_Pivot.MotionMagic.MotionMagicAcceleration = 10;
-            cfg_Pivot.MotionMagic.MotionMagicCruiseVelocity = 5;
+            cfg_Pivot.MotionMagic.MotionMagicCruiseVelocity = 10;
             //cfg_Pivot.MotorOutput.Inverted = InvertedValue.Clockwise_Positive;//Will try this out, if not work will go back to the that fucking negative pid value(wtf ctre)
             cfg_Pivot.CurrentLimits.StatorCurrentLimitEnable = true;
-            cfg_Pivot.CurrentLimits.StatorCurrentLimit = 30.;
+            cfg_Pivot.CurrentLimits.StatorCurrentLimit = 60.;
 
         }
     }
