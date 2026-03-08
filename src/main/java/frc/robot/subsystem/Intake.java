@@ -91,12 +91,15 @@ public class Intake extends SubsystemBase {
     //vout.withOutput(-1 * pidController.calculate(m_IntakePivot.getPosition().getValueAsDouble(), state))
   }
 
+  public Command zeroEncoder() {
+    return run(()->{m_IntakePivot.setPosition(0);});
+}
+
   public Command doIntake() {
-    return this.runEnd(() -> {
+    return this.run(() -> {
         this.runIntake(State.INTAKE); 
-        this.positionIntake(-5.6);
-    }, ()->{
-      m_IntakeRoller.stopMotor();
+        this.positionIntake(-5.7);
+        Hopper.get().run_Hopper();
     });
   }
 

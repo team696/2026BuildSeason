@@ -19,7 +19,6 @@ import frc.robot.TunerConstants;
 public class BotConstants {
     public static CANBus riobus;
     public static CANBus Canivore;
-    public static TalonFXConfiguration cfg_Roller = new TalonFXConfiguration();
     
     static{
         riobus = new CANBus("rio");
@@ -33,7 +32,7 @@ public class BotConstants {
         public static TalonFXConfiguration cfg_Roller = new TalonFXConfiguration();
         public static TalonFXConfiguration cfg_Pivot = new TalonFXConfiguration();
         static{
-            cfg_Roller.Slot0.kP =0.5;
+            cfg_Roller.Slot0.kP =0.6;
             cfg_Roller.MotorOutput.Inverted = InvertedValue.Clockwise_Positive;
             cfg_Roller.MotorOutput.NeutralMode = NeutralModeValue.Coast;
             cfg_Roller.MotionMagic.MotionMagicAcceleration = 50; //oscar wtf is this
@@ -143,6 +142,8 @@ public class BotConstants {
             cfg_Climber.MotionMagic.MotionMagicAcceleration = 12;
             cfg_Climber.MotionMagic.MotionMagicCruiseVelocity = 50;//Random number, doesn't really matter too
             cfg_Climber.MotorOutput.NeutralMode = NeutralModeValue.Brake;
+            cfg_Climber.CurrentLimits.StatorCurrentLimitEnable = true;
+            cfg_Climber.CurrentLimits.StatorCurrentLimit = 120;
         }
     
 

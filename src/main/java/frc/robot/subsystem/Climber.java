@@ -4,11 +4,15 @@
 
 package frc.robot.subsystem;
 
+import java.io.ObjectInputFilter.Status;
+
+import com.ctre.phoenix6.StatusSignal;
 import com.ctre.phoenix6.controls.MotionMagicVelocityVoltage;
 import com.ctre.phoenix6.controls.MotionMagicVoltage;
 import com.ctre.phoenix6.controls.VelocityVoltage;
 import com.ctre.phoenix6.hardware.TalonFX;
 
+import edu.wpi.first.units.measure.Current;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -28,16 +32,19 @@ public class Climber extends SubsystemBase {
     return Climber;
   }
 
-  private final TalonFX mClimb = new TalonFX(BotConstants.Climber.Climber_ID);
+  public final TalonFX mClimb = new TalonFX(BotConstants.Climber.Climber_ID); //Public so it can be accessed by the ZeroClimber Command
   private final MotionMagicVoltage climberPosition = new MotionMagicVoltage(0);
   //private final VelocityVoltage climberVelocityVoltage = new VelocityVoltage(0);
   //private final MotionMagicVelocityVoltage climberVelocity = new MotionMagicVelocityVoltage(0);
 
   // boolean isZeroed;
 
+  private StatusSignal<Current> ClimberAmps;
+
   
 
   public Climber(){
+    ClimberAmps = mClimb.getStatorCurrent();
     mClimb.getConfigurator().apply(BotConstants.Climber.cfg_Climber);
   // if(!isZeroed){this.zeroEncoder();}
   }
@@ -46,6 +53,7 @@ public class Climber extends SubsystemBase {
   return run(()->{
     // mClimb.setControl(climberVelocity.withVelocity(-20));
     mClimb.setControl(climberPosition.withPosition(75));
+
 
   });
 }
@@ -71,8 +79,14 @@ public void zeroEncoder() {
 //     this.isZeroed = zeroed;
 // }
 
+public double getCurrentClimber(){
+  return ClimberAmps.refresh().getValueAsDouble();
+}
+
   @Override
   public void periodic() {
+    double test = getCurrentClimber();
+    //System.out.print(test);
     // Monitor climber position and current
    
   }

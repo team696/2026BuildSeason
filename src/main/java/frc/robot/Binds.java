@@ -12,6 +12,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import frc.robot.commands.AutoAlign;
+import frc.robot.commands.ZeroClimber;
 import frc.robot.subsystem.Climber;
 import frc.robot.subsystem.Hopper;
 import frc.robot.subsystem.Intake;
@@ -93,6 +94,7 @@ public static final class Controller {
 	//HumanControls.SingleXboxController.X.whileTrue(new AutoAlign(hub)); //Auto align
 	//HumanControls.SingleXboxController.A.whileTrue(Climber.get().doRetract()); //Hold A to go down
 	//HumanControls.SingleXboxController.B.whileTrue(Climber.get().doExtend()); //Hold B to go up
+	//HumanControls.SingleXboxController.A.onTrue(new ZeroClimber());
 
 	//HumanControls.SingleXboxController.LB.whileTrue(new AutoAlign(Pass_1)); //Auto Align to conrer
 	//HumanControls.SingleXboxController.RB.whileTrue(new AutoAlign(Pass_2));//Auto Align to the corner again
@@ -100,7 +102,9 @@ public static final class Controller {
 	HumanControls.SingleXboxController.RT.whileTrue(Shooter.get().ShootDash()); //.alongWith(Hopper.get().run_Hopper())
 	//HumanControls.SingleXboxController.B.whileTrue(Swerve.get().alignToClimb());
 	HumanControls.SingleXboxController.Y.whileTrue(Intake.get().doIntake().alongWith(Hopper.get().run_Hopper())); // on controller the button is X
-	HumanControls.SingleXboxController.X.whileTrue(Intake.get().doStow().alongWith(Hopper.get().Stop()));
+	HumanControls.SingleXboxController.X.whileTrue(Intake.get().doStow());
+	HumanControls.SingleXboxController.A.whileTrue(Intake.get().zeroEncoder());
+	HumanControls.SingleXboxController.B.whileTrue(Hopper.get().run_Hopper());
 
 
 

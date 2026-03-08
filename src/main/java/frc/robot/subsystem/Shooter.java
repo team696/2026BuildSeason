@@ -124,8 +124,9 @@ public class Shooter extends SubsystemBase {
             //m_Shooter.setVoltage(5.0);
             m_Hood.setControl(hoodAngleController.withPosition(position_hood));
             m_Shooter_2.setControl(new Follower(17, MotorAlignmentValue.Opposed));
+            SmartDashboard.putNumber("Velocity", getRollerVelocity());
             System.out.println(getRollerVelocity()+","+ velocity);
-            if((Math.abs(getRollerVelocity()-velocity))<0.005){
+            if((Math.abs(getRollerVelocity()-velocity))<3){
               m_ShooterIntake.setControl(intakeRollerController.withVelocity(60));
               Hopper.get().m_Hopper.setControl(ahhh);
             }
