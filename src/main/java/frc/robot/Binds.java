@@ -101,7 +101,7 @@ public static final class Controller {
 	//HumanControls.SingleXboxController.A.whileTrue(Intake.get().doIntake()); //Intake .alongWith(Hopper.get().run_Hopper())
 	HumanControls.SingleXboxController.RT.whileTrue(Shooter.get().ShootDash()); //.alongWith(Hopper.get().run_Hopper())
 	//HumanControls.SingleXboxController.B.whileTrue(Swerve.get().alignToClimb());
-	HumanControls.SingleXboxController.Y.whileTrue(Intake.get().doIntake().alongWith(Hopper.get().run_Hopper())); // on controller the button is X
+	HumanControls.SingleXboxController.Y.whileTrue(Intake.get().doIntake()); // on controller the button is X
 	HumanControls.SingleXboxController.X.whileTrue(Intake.get().doStow());
 	HumanControls.SingleXboxController.A.whileTrue(Intake.get().zeroEncoder());
 	HumanControls.SingleXboxController.B.whileTrue(Hopper.get().run_Hopper());

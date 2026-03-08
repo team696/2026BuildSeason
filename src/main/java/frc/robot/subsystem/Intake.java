@@ -98,7 +98,7 @@ public class Intake extends SubsystemBase {
   public Command doIntake() {
     return this.run(() -> {
         this.runIntake(State.INTAKE); 
-        this.positionIntake(-5.7);
+        this.positionIntake(-5.9);
         Hopper.get().run_Hopper();
     });
   }
