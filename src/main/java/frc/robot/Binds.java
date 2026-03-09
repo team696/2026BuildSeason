@@ -2,23 +2,21 @@ package frc.robot;
 
 import java.util.Optional;
 
-import com.ctre.phoenix6.swerve.SwerveRequest;
 import com.ctre.phoenix6.swerve.SwerveModule.DriveRequestType;
+import com.ctre.phoenix6.swerve.SwerveRequest;
 
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import frc.robot.commands.AutoAlign;
-import frc.robot.commands.ZeroClimber;
-import frc.robot.subsystem.Climber;
+import frc.robot.commands.GyroReset;
 import frc.robot.subsystem.Hopper;
 import frc.robot.subsystem.Intake;
 import frc.robot.subsystem.Shooter;
 import frc.robot.subsystem.Swerve;
-import frc.robot.util.*;
+import frc.robot.util.BotConstants;
+import frc.robot.util.Field;
 
 public class Binds {
 
@@ -29,7 +27,7 @@ public class Binds {
 			//Standard driving
 	private static final SwerveRequest.FieldCentric swerveFCDriveRequest = 
 		new SwerveRequest.FieldCentric()
-		.withDeadband(BotConstants.DriveConstants.MaxSpeed * 0.05)
+		.withDeadband(BotConstants.DriveConstants.MaxSpeed * 0.1)
 		.withRotationalDeadband(BotConstants.DriveConstants.MaxAngularRate * 0.05)
 		.withDriveRequestType(DriveRequestType.OpenLoopVoltage);
 	
@@ -49,12 +47,30 @@ public static final class DriverStation2026 {
 			()-> swerveFCDriveRequest
 				.withVelocityX(HumanControls.DriverPanel.leftJoyY.getAsDouble()*BotConstants.DriveConstants.MaxSpeed)
 				.withVelocityY(HumanControls.DriverPanel.leftJoyX.getAsDouble()*BotConstants.DriveConstants.MaxSpeed)
-				.withRotationalRate(HumanControls.DriverPanel.rightJoyX.getAsDouble()*BotConstants.DriveConstants.MaxAngularRate))); // Standard driving
+				.withRotationalRate(-HumanControls.DriverPanel.rightJoyX.getAsDouble()*BotConstants.DriveConstants.MaxAngularRate))) ; // Standard driving
 			
-			// Reset Gyro
-			HumanControls.DriverPanel.resetGyro.onTrue(new InstantCommand(() -> Swerve.get().seedFieldCentric()));
+		HumanControls.DriverPanel.OtherButton.whileTrue(new AutoAlign(hub));
+			
 		}
 	}
+
+public static final class OperatorPanel{
+	static{
+		DriverStation.silenceJoystickConnectionWarning(true);
+	}
+	public static final void bind(){
+		Shooter.get().setDefaultCommand(Shooter.get().idle()); //Shooter rollers idle
+		Intake.get().setDefaultCommand(Intake.get().doStow());
+
+		HumanControls.OperatorPanel.SouceCoral.whileTrue(Intake.get().doIntake().alongWith(Hopper.get().run_Hopper()));
+		//HumanControls.OperatorPanel.Barge.whileTrue(Intake.get().doStow());
+		HumanControls.OperatorPanel.GroundCoral.whileTrue(Shooter.get().ShootDash());
+		HumanControls.OperatorPanel.gyro.onTrue(new GyroReset(Swerve.get()));
+		HumanControls.OperatorPanel.releaseCoral.whileTrue(new AutoAlign(Pass_1));
+		HumanControls.OperatorPanel.pickupAlgae.whileTrue(new AutoAlign(Pass_2));
+	}
+
+}
 			
 			
 			
@@ -65,14 +81,14 @@ public static final class Controller {
 	
 	//Xbox controller methods, simplifies and cleans up the bind() method a lot
 	private static double getDriveForward() {
-		return 0.0;//HumanControls.SingleXboxController.leftJoyY.getAsDouble() * BotConstants.DriveConstants.MaxSpeed;
+		return HumanControls.SingleXboxController.leftJoyY.getAsDouble() * BotConstants.DriveConstants.MaxSpeed;
 	}
 	
 	private static double getDriveRight() {
-		return 0.0;//HumanControls.SingleXboxController.leftJoyX.getAsDouble() * BotConstants.DriveConstants.MaxSpeed;
+		return HumanControls.SingleXboxController.leftJoyX.getAsDouble() * BotConstants.DriveConstants.MaxSpeed;
 	}
 	private static double getRotationClockwise() {
-		return 0.0;//HumanControls.SingleXboxController.rightJoyX.getAsDouble() * BotConstants.DriveConstants.MaxAngularRate;
+		return HumanControls.SingleXboxController.rightJoyX.getAsDouble() * BotConstants.DriveConstants.MaxAngularRate;
 	}	
 			
 	public static final void bind() {
@@ -85,26 +101,25 @@ public static final class Controller {
 		
 		
 		//Climber.get().setDefaultCommand(Climber.get().doExtend()); //Default to go up
-		//Shooter.get().setDefaultCommand(Shooter.get().idle()); //Shooter rollers idle
-		// Intake.get().setDefaultCommand(Intake.get().doStow());
+		Shooter.get().setDefaultCommand(Shooter.get().idle()); //Shooter rollers idle
+		Intake.get().setDefaultCommand(Intake.get().doStow());
 		//Hopper.get().setDefaultCommand(Hopper.get().Stop());
 
 		
 
-	//HumanControls.SingleXboxController.X.whileTrue(new AutoAlign(hub)); //Auto align
+	HumanControls.SingleXboxController.X.whileTrue(new AutoAlign(hub)); //Auto align
 	//HumanControls.SingleXboxController.A.whileTrue(Climber.get().doRetract()); //Hold A to go down
 	//HumanControls.SingleXboxController.B.whileTrue(Climber.get().doExtend()); //Hold B to go up
 	//HumanControls.SingleXboxController.A.onTrue(new ZeroClimber());
 
 	//HumanControls.SingleXboxController.LB.whileTrue(new AutoAlign(Pass_1)); //Auto Align to conrer
 	//HumanControls.SingleXboxController.RB.whileTrue(new AutoAlign(Pass_2));//Auto Align to the corner again
-	//HumanControls.SingleXboxController.A.whileTrue(Intake.get().doIntake()); //Intake .alongWith(Hopper.get().run_Hopper())
+	HumanControls.SingleXboxController.LT.whileTrue(Intake.get().doIntake()); //Intake .alongWith(Hopper.get().run_Hopper())
 	HumanControls.SingleXboxController.RT.whileTrue(Shooter.get().ShootDash()); //.alongWith(Hopper.get().run_Hopper())
 	//HumanControls.SingleXboxController.B.whileTrue(Swerve.get().alignToClimb());
-	HumanControls.SingleXboxController.Y.whileTrue(Intake.get().doIntake()); // on controller the button is X
-	HumanControls.SingleXboxController.X.whileTrue(Intake.get().doStow());
-	HumanControls.SingleXboxController.A.whileTrue(Intake.get().zeroEncoder());
-	HumanControls.SingleXboxController.B.whileTrue(Hopper.get().run_Hopper());
+	//HumanControls.SingleXboxController.X.whileTrue(Intake.get().doStow());
+	//HumanControls.SingleXboxController..whileTrue(Intake.get().zeroEncoder());
+	//HumanControls.SingleXboxController.B.whileTrue(Hopper.get().run_Hopper());
 
 
 

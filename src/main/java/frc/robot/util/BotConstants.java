@@ -86,8 +86,9 @@ public class BotConstants {
          */
         public static final InterpolatingDoubleTreeMap velocityTable = new InterpolatingDoubleTreeMap();
         static{
-            cfg_shooter.Slot0.kP = 0.7;
-            cfg_shooter.Slot0.kS = 0.7;
+            cfg_shooter.Slot0.kP = 0.5;
+            // cfg_shooter.Slot0.kS = 0.2;
+            cfg_shooter.Slot0.kV = 0.1;
             cfg_shooter_intake.Slot0.kP = 0.3;
             cfg_shooter_intake.Slot0.kV = 0.12;
             cfg_shooter.MotionMagic.MotionMagicAcceleration = 150;

@@ -19,11 +19,11 @@ public class HumanControls {
     public static final class DriverPanel{
         public static final Joystick DriverPanel=new Joystick(0);
         public static final JoystickButton resetGyro=new JoystickButton(DriverPanel, 13);
-        public static final JoystickButton OtherButton=new JoystickButton(DriverPanel,14);
+        public static final JoystickButton OtherButton=new JoystickButton(DriverPanel,2);
 
-        public static final DoubleSupplier leftJoyY = ()->-DriverPanel.getRawAxis(2);
-        public  static final DoubleSupplier leftJoyX = ()->DriverPanel.getRawAxis(3);
-        public  static final DoubleSupplier rightJoyX = ()->DriverPanel.getRawAxis(0)/3;
+        public static final DoubleSupplier leftJoyY = ()->-DriverPanel.getRawAxis(3);
+        public  static final DoubleSupplier leftJoyX = ()->DriverPanel.getRawAxis(2);
+        public  static final DoubleSupplier rightJoyX = ()->DriverPanel.getRawAxis(0)/2;
     }
 
     public static final class OperatorPanel{

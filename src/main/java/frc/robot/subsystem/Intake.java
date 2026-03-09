@@ -10,6 +10,11 @@ import com.ctre.phoenix6.controls.MotionMagicVoltage;
 import com.ctre.phoenix6.controls.PositionVoltage;
 import com.ctre.phoenix6.hardware.TalonFX;
 
+import edu.wpi.first.math.VecBuilder;
+import edu.wpi.first.math.system.plant.DCMotor;
+import edu.wpi.first.math.system.plant.LinearSystemId;
+import edu.wpi.first.wpilibj.simulation.FlywheelSim;
+import edu.wpi.first.wpilibj.simulation.SingleJointedArmSim;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -32,8 +37,8 @@ public class Intake extends SubsystemBase {
   //Enum to determin state, values are temporary
   public static enum State{
     IDLE(0.0),
-    INTAKE(3000.0),
-    OUTTAKE(-3000.0);
+    INTAKE(5000.0),
+    OUTTAKE(-5000.0);
 
     public double roller_velocity;  // Renamed
     State(double roller_velocity){
@@ -61,13 +66,16 @@ public class Intake extends SubsystemBase {
   private final PositionVoltage pivotPosition = new PositionVoltage(0).withSlot(0);
   private final MotionMagicVelocityVoltage intakeVelocityController  = new MotionMagicVelocityVoltage(0);
 
+
+  private final FlywheelSim m_FlywheelSim = new FlywheelSim(LinearSystemId.createFlywheelSystem(DCMotor.getKrakenX60(2), 0.008, 1.0), DCMotor.getKrakenX60(2), 0.008);
+  private final SingleJointedArmSim m_IntakePivotSim = new SingleJointedArmSim(DCMotor.getKrakenX60(1), 15, 1.846666667, 0.28, -2.555, 0.0, false, 0.0);
+
   public Intake() {
 
-    //SmartDashboard.putNumber("Intake pose", 0);
-		//SmartDashboard.putNumber("Roller speed", 0);
+
     m_IntakeRoller.getConfigurator().apply(BotConstants.Intake.cfg_Roller);
     m_IntakePivot.getConfigurator().apply(BotConstants.Intake.cfg_Pivot);
-    //m_IntakePivot.setPosition(0.0);
+    m_IntakePivot.setPosition(0.0);
 
     //this.setDefaultCommand(doStow());
   }
@@ -104,15 +112,38 @@ public class Intake extends SubsystemBase {
   }
 
 public Command doStow() {
-    return this.runEnd(() -> {
+    return this.run(() -> {
       m_IntakeRoller.stopMotor();
       m_IntakePivot.setControl(pivotPosition.withPosition(0));     
-    },
-    ()->{});
+    });
   }
 
 @Override
+public void simulationPeriodic(){
+    double rollervoltage = m_IntakeRoller.getSimState().getMotorVoltage();
+    m_FlywheelSim.setInputVoltage(rollervoltage);
+    m_FlywheelSim.update(0.020); 
+
+    m_IntakeRoller.getSimState().setRotorVelocity(
+        m_FlywheelSim.getAngularVelocityRadPerSec() / (2 * Math.PI) 
+    );
+    m_IntakeRoller.getSimState().setSupplyVoltage(12.0);
+
+    double pivotVoltage = m_IntakePivot.getSimState().getMotorVoltage();
+    m_IntakePivotSim.setInput(pivotVoltage);
+    
+    m_IntakePivotSim.update(0.020);
+
+    double motorPos = -1.0*(m_IntakePivotSim.getAngleRads() * 15.0) / (2 * Math.PI);
+    m_IntakePivot.getSimState().setRawRotorPosition(motorPos);
+    
+    
+    m_IntakePivot.getSimState().setSupplyVoltage(12.0);
+}
+
+@Override
 public void periodic() {
-  
+    SmartDashboard.putNumber("Intake pose", m_IntakePivot.getPosition().getValueAsDouble());
+		SmartDashboard.putNumber("Roller speed", m_IntakeRoller.getVelocity().getValueAsDouble());
 }
 }

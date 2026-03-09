@@ -43,10 +43,15 @@ public class Robot extends TimedRobot {
     
     // //new Auto.NamedCommand("Reset Intake", Intake.get().doStow())
     );
+    
+    Binds.DriverStation2026.bind();
+    Binds.OperatorPanel.bind();
+    
     Climber.get().zeroEncoder();
     Shooter.get().zero_shooter();
-    //Binds.DriverStation2026.bind();
-    Binds.Controller.bind();
+    Intake.get().zeroEncoder();
+
+    //Binds.Controller.bind();
     
     
     

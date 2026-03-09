@@ -17,9 +17,12 @@ import com.ctre.phoenix6.controls.Follower;
 
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Translation2d;
+import edu.wpi.first.math.system.plant.DCMotor;
+import edu.wpi.first.math.system.plant.LinearSystemId;
 import edu.wpi.first.units.measure.Angle;
 import edu.wpi.first.units.measure.AngularVelocity;
 import edu.wpi.first.wpilibj.motorcontrol.Talon;
+import edu.wpi.first.wpilibj.simulation.FlywheelSim;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
@@ -51,9 +54,13 @@ public class Shooter extends SubsystemBase {
       private final MotionMagicVoltage hoodAngleController = new MotionMagicVoltage(0);
       private final VelocityVoltage intakeRollerController = new VelocityVoltage(0);
       private static DutyCycleOut ahhh = new DutyCycleOut(0.25);
+
+
+
+      //Simulation
+      private final FlywheelSim m_FlywheelSim = new FlywheelSim(LinearSystemId.createFlywheelSystem(DCMotor.getKrakenX60(2), 0.008, 1.0), DCMotor.getKrakenX60(2), 0.008);
+
       //Data
-
-
       private StatusSignal<Angle> position_hood;
       private StatusSignal<AngularVelocity> velocity_roller;
 
@@ -97,23 +104,23 @@ public class Shooter extends SubsystemBase {
   public Command Shoot(Translation2d desired_pose){
       return runEnd(()->{
         double distMeters=Swerve.get().distTo(desired_pose);
+        double velocity = BotConstants.Shooter.velocityTable.get(distMeters);
+
         m_Shooter.setControl(shooterVelocityController.withVelocity(BotConstants.Shooter.velocityTable.get(distMeters)));
             //m_Shooter.setVoltage(5.0);
-        m_Hood.setControl(hoodAngleController.withPosition(BotConstants.Shooter.velocityTable.get(distMeters)));
-        if(getRollerVelocity()<0.01){
-          intake_shooter(80);//man why did they make it so high
-        }
+        //m_Hood.setControl(hoodAngleController.withPosition(BotConstants.Shooter.velocityTable.get(distMeters)));
+        if((Math.abs(getRollerVelocity()-velocity))<3){
+              m_ShooterIntake.setControl(intakeRollerController.withVelocity(100));
+              Hopper.get().m_Hopper.setControl(ahhh);
+            }
 
       },
       ()->{
-            m_Shooter.stopMotor();
-            m_Hood.stopMotor();
-            m_ShooterIntake.stopMotor();
-            m_Shooter_2.stopMotor();
+            this.Stop();
       });
     }
 
-   //Took sami's version for testing purposes. Might change
+   //Took sami's version for testing purposes. Will get rid of
     public Command ShootDash(){
     return runEnd(
         () -> {
@@ -125,11 +132,13 @@ public class Shooter extends SubsystemBase {
             m_Hood.setControl(hoodAngleController.withPosition(position_hood));
             m_Shooter_2.setControl(new Follower(17, MotorAlignmentValue.Opposed));
             System.out.println(getRollerVelocity()+","+ velocity);
-            SmartDashboard.putNumber("Velocity", getRollerVelocity());
-            if((Math.abs(getRollerVelocity()-velocity))<0.75){
+            // SmartDashboard.putNumber("Velocity", getRollerVelocity());
+
+            if((Math.abs(getRollerVelocity()-velocity))<3){
               m_ShooterIntake.setControl(intakeRollerController.withVelocity(100));
               Hopper.get().m_Hopper.setControl(ahhh);
             }
+            SmartDashboard.putNumber("Indexer", m_ShooterIntake.getVelocity().getValueAsDouble());
 
         },
         () -> {
@@ -161,10 +170,35 @@ public class Shooter extends SubsystemBase {
     return velocity_roller.refresh().getValueAsDouble();
   }
 
+
+  @Override
+  public void simulationPeriodic(){
+      // 1. Get the voltage from the TalonFX SimState
+  // This is the voltage the PID controller is CURRENTLY sending to the motor
+  double motorVoltage = m_Shooter.getSimState().getMotorVoltage();
+
+  // 2. Update the physics model
+  m_FlywheelSim.setInputVoltage(motorVoltage);
+  m_FlywheelSim.update(0.020); // standard 20ms loop
+
+  // 3. Update the TalonFX sensor simulation
+  // This makes m_Shooter.getVelocity() actually return the simulated speed
+    m_Shooter.getSimState().setRotorVelocity(
+    m_FlywheelSim.getAngularVelocityRadPerSec() / (2 * Math.PI) // convert rad/s to Rotations/s
+  );
+  
+  // Update supply voltage so the motor thinks it has power
+    m_Shooter.getSimState().setSupplyVoltage(12.0);
+  }
+  
   @Override
   public void periodic() {
     //Data stuff used in Autoalign
     getHoodPosition();
     getRollerVelocity();
+
+    SmartDashboard.putNumber("Velocity", getRollerVelocity());
+
+
   }
 }
