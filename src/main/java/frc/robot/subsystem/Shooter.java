@@ -53,7 +53,7 @@ public class Shooter extends SubsystemBase {
       private final MotionMagicVelocityVoltage shooterVelocityController = new MotionMagicVelocityVoltage(0);
       private final MotionMagicVoltage hoodAngleController = new MotionMagicVoltage(0);
       private final VelocityVoltage intakeRollerController = new VelocityVoltage(0);
-      private static DutyCycleOut ahhh = new DutyCycleOut(0.25);
+
 
 
 
@@ -73,6 +73,7 @@ public class Shooter extends SubsystemBase {
 
       SmartDashboard.putNumber("Launch Speed", 0);
       SmartDashboard.putNumber("Hood angle", 0);
+      SmartDashboard.putNumber("Indexer speed", 0);
       
       position_hood = m_Hood.getPosition();
       velocity_roller = m_Shooter.getVelocity();
@@ -110,8 +111,8 @@ public class Shooter extends SubsystemBase {
             //m_Shooter.setVoltage(5.0);
         //m_Hood.setControl(hoodAngleController.withPosition(BotConstants.Shooter.velocityTable.get(distMeters)));
         if((Math.abs(getRollerVelocity()-velocity))<3){
-              m_ShooterIntake.setControl(intakeRollerController.withVelocity(100));
-              Hopper.get().m_Hopper.setControl(ahhh);
+              m_ShooterIntake.setControl(intakeRollerController.withVelocity(SmartDashboard.getNumber("Indexer speed", 0)));
+              Hopper.get().m_Hopper.setControl(Hopper.HopperController.withVelocity(SmartDashboard.getNumber("Hopper speed", 0)));
             }
 
       },
@@ -135,8 +136,8 @@ public class Shooter extends SubsystemBase {
             // SmartDashboard.putNumber("Velocity", getRollerVelocity());
 
             if((Math.abs(getRollerVelocity()-velocity))<3){
-              m_ShooterIntake.setControl(intakeRollerController.withVelocity(100));
-              Hopper.get().m_Hopper.setControl(ahhh);
+              m_ShooterIntake.setControl(intakeRollerController.withVelocity(SmartDashboard.getNumber("Indexer speed", 0)));
+              Hopper.get().m_Hopper.setControl(Hopper.get().HopperController.withVelocity(SmartDashboard.getNumber("Hopper speed", 0)));
             }
             SmartDashboard.putNumber("Indexer", m_ShooterIntake.getVelocity().getValueAsDouble());
 

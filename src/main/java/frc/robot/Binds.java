@@ -62,7 +62,7 @@ public static final class OperatorPanel{
 		Shooter.get().setDefaultCommand(Shooter.get().idle()); //Shooter rollers idle
 		Intake.get().setDefaultCommand(Intake.get().doStow());
 
-		HumanControls.OperatorPanel.SouceCoral.whileTrue(Intake.get().doIntake().alongWith(Hopper.get().run_Hopper()));
+		HumanControls.OperatorPanel.SouceCoral.whileTrue(Intake.get().doIntake().alongWith(Hopper.get().testHopper()));
 		//HumanControls.OperatorPanel.Barge.whileTrue(Intake.get().doStow());
 		HumanControls.OperatorPanel.GroundCoral.whileTrue(Shooter.get().ShootDash());
 		HumanControls.OperatorPanel.gyro.onTrue(new GyroReset(Swerve.get()));
@@ -114,7 +114,7 @@ public static final class Controller {
 
 	//HumanControls.SingleXboxController.LB.whileTrue(new AutoAlign(Pass_1)); //Auto Align to conrer
 	//HumanControls.SingleXboxController.RB.whileTrue(new AutoAlign(Pass_2));//Auto Align to the corner again
-	HumanControls.SingleXboxController.LT.whileTrue(Intake.get().doIntake()); //Intake .alongWith(Hopper.get().run_Hopper())
+	HumanControls.SingleXboxController.LT.whileTrue(Intake.get().doIntake().alongWith(Hopper.get().run_Hopper(50))); //Intake 
 	HumanControls.SingleXboxController.RT.whileTrue(Shooter.get().ShootDash()); //.alongWith(Hopper.get().run_Hopper())
 	//HumanControls.SingleXboxController.B.whileTrue(Swerve.get().alignToClimb());
 	//HumanControls.SingleXboxController.X.whileTrue(Intake.get().doStow());

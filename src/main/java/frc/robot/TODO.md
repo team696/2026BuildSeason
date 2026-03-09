@@ -1,4 +1,18 @@
-Week 1:
+Screw the schedule, this is what we need to do NOW:
+    -Get better intake pose[]
+    -Better climbing zeroing[]
+    -Replace Gyro reset[]
+    -Autos[]
+
+
+
+
+
+
+
+
+
+<!-- Week 1:
  -Build a skeleton(named files n stuff)[x]
  -Initialize motors and necessary devices[]
  
@@ -20,4 +34,4 @@ Week 2(Hopefully the CAD is done):
 -Week 6:
     Hopefully drive 
 
-armen test 2
+armen test 2 -->
