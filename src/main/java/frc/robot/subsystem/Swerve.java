@@ -64,6 +64,7 @@ public final class Swerve extends TunerSwerveDrivetrain implements Subsystem, Se
 		//leftCamera.addVisionEstimate(this::addVisionMeasurement, this::acceptEstimate);    
 		//rightCamera.addVisionEstimate(this::addVisionMeasurement, this::acceptEstimate);    
 		frontCamera.SetRobotOrientation(getPose().getRotation());
+		SmartDashboard.putNumber("Distance to hub", this.distTo(Field.Alliance_Find.hub));
 	}
 
 	

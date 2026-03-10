@@ -21,7 +21,7 @@ public class LimeLightCam extends BaseCam {
 
   private NetworkTable _ntTable;
 
-  private boolean useMegaTag2 = false;
+  private boolean useMegaTag2 = true;
 
   public LimeLightCam(String name, int[] TagsToCheck, boolean useMegaTag2) {
     this.name = name;
@@ -44,7 +44,7 @@ public class LimeLightCam extends BaseCam {
   }
 
   public LimeLightCam(String name) {
-    this(name, new int[] {}, false);
+    this(name, new int[] {}, true);
   }
 
   public LimeLightCam(String name, boolean useMegaTag2) {

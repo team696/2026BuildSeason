@@ -64,7 +64,7 @@ public static final class OperatorPanel{
 
 		HumanControls.OperatorPanel.SouceCoral.whileTrue(Intake.get().doIntake().alongWith(Hopper.get().testHopper()));
 		//HumanControls.OperatorPanel.Barge.whileTrue(Intake.get().doStow());
-		HumanControls.OperatorPanel.GroundCoral.whileTrue(Shooter.get().ShootDash());
+		HumanControls.OperatorPanel.GroundCoral.whileTrue(Shooter.get().Shoot(hub));
 		HumanControls.OperatorPanel.gyro.onTrue(new GyroReset(Swerve.get()));
 		HumanControls.OperatorPanel.releaseCoral.whileTrue(new AutoAlign(Pass_1));
 		HumanControls.OperatorPanel.pickupAlgae.whileTrue(new AutoAlign(Pass_2));

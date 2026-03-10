@@ -92,19 +92,18 @@ public class BotConstants {
             cfg_shooter.Slot0.kV = 0.16;
             cfg_shooter_intake.Slot0.kP = 0.3;
             cfg_shooter_intake.Slot0.kV = 0.12;
-            cfg_shooter.MotionMagic.MotionMagicAcceleration = 150;
-            cfg_shooter.MotionMagic.MotionMagicCruiseVelocity = 160;
+            cfg_shooter.MotionMagic.MotionMagicAcceleration = 200;
+            cfg_shooter.MotionMagic.MotionMagicCruiseVelocity = 200;
             cfg_shooter_intake.MotionMagic.MotionMagicCruiseVelocity = 160;
-            cfg_shooter_intake.MotionMagic.MotionMagicAcceleration  = 100;
+            cfg_shooter_intake.MotionMagic.MotionMagicAcceleration  = 160;
         }
 
         static{
-            velocityTable.put(0.0, 0.0);
-            velocityTable.put(1.0, 1.0);
-            velocityTable.put(1.0, 1.0);
-            velocityTable.put(1.0, 1.0);
-            velocityTable.put(1.0, 1.0);
-            velocityTable.put(1.0, 1.0);
+            velocityTable.put(2.153688, -23.0);
+            velocityTable.put(2.69777, -24.0);
+            velocityTable.put(2.73, -24.5);
+            velocityTable.put(3.308, -28.0);
+            velocityTable.put(3.45, -28.0);
 
         }
 

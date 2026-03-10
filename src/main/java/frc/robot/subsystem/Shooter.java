@@ -107,17 +107,19 @@ public class Shooter extends SubsystemBase {
         double distMeters=Swerve.get().distTo(desired_pose);
         double velocity = BotConstants.Shooter.velocityTable.get(distMeters);
 
-        m_Shooter.setControl(shooterVelocityController.withVelocity(BotConstants.Shooter.velocityTable.get(distMeters)));
-            //m_Shooter.setVoltage(5.0);
-        //m_Hood.setControl(hoodAngleController.withPosition(BotConstants.Shooter.velocityTable.get(distMeters)));
-        if((Math.abs(getRollerVelocity()-velocity))<3){
-              m_ShooterIntake.setControl(intakeRollerController.withVelocity(SmartDashboard.getNumber("Indexer speed", 0)));
-              Hopper.get().m_Hopper.setControl(Hopper.HopperController.withVelocity(SmartDashboard.getNumber("Hopper speed", 0)));
+        m_Shooter.setControl(shooterVelocityController.withVelocity(velocity-1));
+        if((Math.abs(getRollerVelocity()-velocity))<0.4){
+              m_ShooterIntake.setControl(intakeRollerController.withVelocity(40));
+              Hopper.get().m_Hopper.setControl(Hopper.HopperController.withVelocity(15));
             }
 
       },
       ()->{
-            this.Stop();
+            Hopper.get().m_Hopper.stopMotor();
+            m_Shooter.stopMotor();
+            m_Hood.stopMotor();
+            m_ShooterIntake.stopMotor();
+            m_Shooter_2.stopMotor();
       });
     }
 
@@ -135,7 +137,7 @@ public class Shooter extends SubsystemBase {
             System.out.println(getRollerVelocity()+","+ velocity);
             // SmartDashboard.putNumber("Velocity", getRollerVelocity());
 
-            if((Math.abs(getRollerVelocity()-velocity))<3){
+            if((Math.abs(getRollerVelocity()-velocity))<1){
               m_ShooterIntake.setControl(intakeRollerController.withVelocity(SmartDashboard.getNumber("Indexer speed", 0)));
               Hopper.get().m_Hopper.setControl(Hopper.get().HopperController.withVelocity(SmartDashboard.getNumber("Hopper speed", 0)));
             }
