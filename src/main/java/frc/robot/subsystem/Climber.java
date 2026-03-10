@@ -9,9 +9,11 @@ import java.io.ObjectInputFilter.Status;
 import com.ctre.phoenix6.StatusSignal;
 import com.ctre.phoenix6.controls.MotionMagicVelocityVoltage;
 import com.ctre.phoenix6.controls.MotionMagicVoltage;
+import com.ctre.phoenix6.controls.PositionVoltage;
 import com.ctre.phoenix6.controls.VelocityVoltage;
 import com.ctre.phoenix6.hardware.TalonFX;
 
+import edu.wpi.first.units.measure.Angle;
 import edu.wpi.first.units.measure.Current;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -40,11 +42,13 @@ public class Climber extends SubsystemBase {
   // boolean isZeroed;
 
   private StatusSignal<Current> ClimberAmps;
+  private StatusSignal<Angle> ClimberRotations;
 
   
 
   public Climber(){
     ClimberAmps = mClimb.getStatorCurrent();
+    ClimberRotations = mClimb.getPosition();
     mClimb.getConfigurator().apply(BotConstants.Climber.cfg_Climber);
   // if(!isZeroed){this.zeroEncoder();}
   }
@@ -52,14 +56,14 @@ public class Climber extends SubsystemBase {
  public Command doRetract() {
   return run(()->{
     // mClimb.setControl(climberVelocity.withVelocity(-20));
-    mClimb.setControl(climberPosition.withPosition(75));
+    mClimb.setControl(climberPosition.withPosition(-15));
 
 
   });
 }
 public Command doExtend(){
   return run(()->{
-  mClimb.setControl(climberPosition.withPosition(0));  });
+  mClimb.setControl(climberPosition.withPosition(-120));  });
   }
 
 //   public void setVelocity(double rps) {
@@ -83,10 +87,16 @@ public double getCurrentClimber(){
   return ClimberAmps.refresh().getValueAsDouble();
 }
 
+public double getPositionClimber(){
+  return ClimberRotations.refresh().getValueAsDouble();
+}
+
   @Override
   public void periodic() {
     double test = getCurrentClimber();
     //System.out.print(test);
+    SmartDashboard.putNumber("Climber Position", this.getPositionClimber());
+    SmartDashboard.putNumber("Climber Current", this.getCurrentClimber());
     // Monitor climber position and current
    
   }

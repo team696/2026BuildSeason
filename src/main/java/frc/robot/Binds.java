@@ -11,6 +11,8 @@ import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import frc.robot.commands.AutoAlign;
 import frc.robot.commands.GyroReset;
+import frc.robot.commands.ZeroClimber;
+import frc.robot.subsystem.Climber;
 import frc.robot.subsystem.Hopper;
 import frc.robot.subsystem.Intake;
 import frc.robot.subsystem.Shooter;
@@ -68,6 +70,9 @@ public static final class OperatorPanel{
 		HumanControls.OperatorPanel.gyro.onTrue(new GyroReset(Swerve.get()));
 		HumanControls.OperatorPanel.releaseCoral.whileTrue(new AutoAlign(Pass_1));
 		HumanControls.OperatorPanel.pickupAlgae.whileTrue(new AutoAlign(Pass_2));
+		HumanControls.OperatorPanel.L3.whileTrue(new ZeroClimber());
+		HumanControls.OperatorPanel.L1.whileTrue(Climber.get().doExtend());
+		HumanControls.OperatorPanel.L2.whileTrue(Climber.get().doRetract());
 	}
 
 }
