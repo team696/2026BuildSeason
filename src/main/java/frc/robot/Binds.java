@@ -73,6 +73,7 @@ public static final class OperatorPanel{
 		HumanControls.OperatorPanel.L3.whileTrue(new ZeroClimber());
 		HumanControls.OperatorPanel.L1.whileTrue(Climber.get().doExtend());
 		HumanControls.OperatorPanel.L2.whileTrue(Climber.get().doRetract());
+		HumanControls.OperatorPanel.L4.whileTrue(Swerve.get().alignToClimb());
 	}
 
 }

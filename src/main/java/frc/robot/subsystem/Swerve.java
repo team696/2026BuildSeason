@@ -179,10 +179,10 @@ public final class Swerve extends TunerSwerveDrivetrain implements Subsystem, Se
 	// represents the goal holonomic rotation
 	Pose2d targetPose = Field.Alliance_Find.climb_tower;
 
-	// Create the constraints to use while pathfinding
+	// Only for AutoAlign to climb command: Create the constraints to use while pathfinding
 	PathConstraints constraints = new PathConstraints(
-        2.0, 4.0,
-        Units.degreesToRadians(540), Units.degreesToRadians(720));
+        1.0, 0.1,
+        Units.degreesToRadians(5), Units.degreesToRadians(10));
 
 	public Command alignToClimb(){
 	// Since AutoBuilder is configured, we can use it to build pathfinding commands
