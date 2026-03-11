@@ -181,7 +181,7 @@ public final class Swerve extends TunerSwerveDrivetrain implements Subsystem, Se
 
 	// Only for AutoAlign to climb command: Create the constraints to use while pathfinding
 	PathConstraints constraints = new PathConstraints(
-        1.0, 0.1,
+        2.5, 0.3,
         Units.degreesToRadians(5), Units.degreesToRadians(10));
 
 	public Command alignToClimb(){

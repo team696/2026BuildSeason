@@ -31,7 +31,10 @@ public class Field {
 	public final static Translation2d hub_position_blue = new Translation2d(4.616, 4.048);
 	public final static Translation2d pass_position_blue_1 = new Translation2d(1.060,7.369);
 	public final static Translation2d pass_position_blue_2 = new Translation2d(0.825,0.740);
-	public final static Pose2d climb_tower_blue = new Pose2d(1.045+0.02,4.28-0.06, Rotation2d.fromDegrees(1.60)); // units are meters
+	
+	// Auto climb position
+	// Preston's values: 1.045+0.04,4.28-0.1
+	public final static Pose2d climb_tower_blue = new Pose2d(1.075, 4.278, Rotation2d.fromDegrees(1.60)); // units are meters
 
 	public final static Translation2d hub_position_red = new Translation2d(11.924, 4.048);
 	public final static Translation2d pass_position_red_1 = new Translation2d(15.48, 7.369);
