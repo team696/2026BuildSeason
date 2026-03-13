@@ -8,6 +8,7 @@ import com.ctre.phoenix6.swerve.SwerveRequest;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
+import edu.wpi.first.wpilibj2.command.ConditionalCommand;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import frc.robot.commands.AutoAlign;
 import frc.robot.commands.GyroReset;
@@ -27,6 +28,7 @@ public class Binds {
 	public static Translation2d Pass_1 = Field.Alliance_Find.Pass_1;
 	public static Translation2d Pass_2 = Field.Alliance_Find.Pass_2;
 			//Standard driving
+			
 	private static final SwerveRequest.FieldCentric swerveFCDriveRequest = 
 		new SwerveRequest.FieldCentric()
 		.withDeadband(BotConstants.DriveConstants.MaxSpeed * 0.1)
@@ -73,8 +75,10 @@ public static final class OperatorPanel{
 		HumanControls.OperatorPanel.L3.whileTrue(new ZeroClimber());
 		HumanControls.OperatorPanel.L1.whileTrue(Climber.get().doExtend());
 		HumanControls.OperatorPanel.L2.whileTrue(Climber.get().doRetract());
+		HumanControls.OperatorPanel.Barge.whileTrue(Climber.get().gotToZero());
 		// L4 button seems to be flakey, changing to processor button
-		HumanControls.OperatorPanel.Processor.whileTrue(Swerve.get().alignToClimb());
+		HumanControls.OperatorPanel.Processor.and(HumanControls.OperatorPanel.deepOrSwitch).whileTrue(Swerve.get().alignToClimb());
+		HumanControls.OperatorPanel.Processor.whileTrue(new ConditionalCommand(Swerve.get().alignToClimb(), Climber.get().gotToZero(), HumanControls.OperatorPanel.deepOrSwitch));
 	}
 
 }

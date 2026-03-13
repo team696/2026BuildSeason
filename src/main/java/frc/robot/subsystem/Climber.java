@@ -50,20 +50,26 @@ public class Climber extends SubsystemBase {
     ClimberAmps = mClimb.getStatorCurrent();
     ClimberRotations = mClimb.getPosition();
     mClimb.getConfigurator().apply(BotConstants.Climber.cfg_Climber);
+    SmartDashboard.putNumber("Climber Height", 0);
   // if(!isZeroed){this.zeroEncoder();}
   }
+
+  public Command gotToZero(){
+    return run(()->{mClimb.setControl(climberPosition.withPosition(0));});
+  }
+
 
  public Command doRetract() {
   return run(()->{
     // mClimb.setControl(climberVelocity.withVelocity(-20));
-    mClimb.setControl(climberPosition.withPosition(-15));
+    mClimb.setControl(climberPosition.withPosition(-107));
 
 
   });
 }
 public Command doExtend(){
   return run(()->{
-  mClimb.setControl(climberPosition.withPosition(-120));  });
+  mClimb.setControl(climberPosition.withPosition(-270));  });
   }
 
 //   public void setVelocity(double rps) {

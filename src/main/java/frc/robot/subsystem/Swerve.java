@@ -79,7 +79,7 @@ public final class Swerve extends TunerSwerveDrivetrain implements Subsystem, Se
         return false; // Rotating too fast, ignore
 		SmartDashboard.putBoolean("Accepted", false);
       if (latestResult.distToTag < 1) {
-        setVisionMeasurementStdDevs(VecBuilder.fill(1.5, 1.5, 50.0));
+        setVisionMeasurementStdDevs(VecBuilder.fill(1.5, 1.5, 1.5));
 		SmartDashboard.putBoolean("Accepted", true);
       } else {
         setVisionMeasurementStdDevs(
@@ -181,15 +181,20 @@ public final class Swerve extends TunerSwerveDrivetrain implements Subsystem, Se
 
 	// Only for AutoAlign to climb command: Create the constraints to use while pathfinding
 	PathConstraints constraints = new PathConstraints(
-        2.5, 0.3,
+        2.5, 0.7,
         Units.degreesToRadians(5), Units.degreesToRadians(10));
-
+	public Translation2d getVecToPose(Pose2d target){
+		Translation2d dist = Swerve.get().getPose().minus(targetPose).getTranslation(); 
+		return dist;
+	}
 	public Command alignToClimb(){
 	// Since AutoBuilder is configured, we can use it to build pathfinding commands
+	SwerveRequest.FieldCentric fs = new SwerveRequest.FieldCentric();
+	final double p = 3;
 	return AutoBuilder.pathfindToPose(
         targetPose,
         constraints,
-        0.0); // Goal end velocity in meters/sec
+        0.0).andThen(Swerve.get().applyRequest(()->fs.withVelocityX(p*getVecToPose(targetPose).getX()).withVelocityY(p*getVecToPose(targetPose).getY()))); // Goal end velocity in meters/sec
 }
 
 }

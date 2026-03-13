@@ -45,7 +45,7 @@ public class BotConstants {
             
         }
         static{
-            cfg_Pivot.Slot0.kP = -10.; //What :skull:
+            cfg_Pivot.Slot0.kP = -12.; //What :skull:
             
 
             cfg_Pivot.MotorOutput.NeutralMode = NeutralModeValue.Brake;

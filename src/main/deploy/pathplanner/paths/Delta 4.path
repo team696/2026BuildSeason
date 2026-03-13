@@ -3,52 +3,57 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 0.525,
-        "y": 0.655
+        "x": 7.859556344276841,
+        "y": 2.083380656610469
       },
       "prevControl": null,
       "nextControl": {
-        "x": 0.4000000000000001,
-        "y": 0.4384936490538903
+        "x": 6.1855900621118005,
+        "y": 1.713176574977816
       },
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "Delta 3 End"
     },
     {
       "anchor": {
-        "x": 0.8,
-        "y": 0.8
+        "x": 2.1294409937888195,
+        "y": 4.014880212954747
       },
       "prevControl": {
-        "x": 0.9915111107797445,
-        "y": 0.960696902421635
+        "x": 2.3708784383318537,
+        "y": 2.2604347826086952
       },
       "nextControl": null,
       "isLocked": false,
       "linkedName": null
     }
   ],
-  "rotationTargets": [],
+  "rotationTargets": [
+    {
+      "waypointRelativePos": 0.7135278514588851,
+      "rotationDegrees": 180.0
+    }
+  ],
   "constraintZones": [],
   "pointTowardsZones": [],
   "eventMarkers": [],
   "globalConstraints": {
-    "maxVelocity": 2.5,
-    "maxAcceleration": 3.0,
+    "maxVelocity": 3.0,
+    "maxAcceleration": 3.1,
     "maxAngularVelocity": 540.0,
-    "maxAngularAcceleration": 720.0,
+    "maxAngularAcceleration": 355.0,
     "nominalVoltage": 12.0,
     "unlimited": false
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 35.81116392264126
+    "rotation": 0.0
   },
   "reversed": false,
-  "folder": "Akiva Clean",
+  "folder": "Max",
   "idealStartingState": {
     "velocity": 0,
-    "rotation": 0.0
+    "rotation": 180.0
   },
   "useDefaultConstraints": true
 }
