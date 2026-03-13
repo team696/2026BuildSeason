@@ -39,7 +39,7 @@ public final class Swerve extends TunerSwerveDrivetrain implements Subsystem, Se
 	private static Swerve m_Swerve;
 	private LimeLightCam frontCamera=new LimeLightCam("limelight-front");
 	//private LimeLightCam leftCamera=new LimeLightCam("limelight-left");
-	//private LimeLightCam rightCamera=new LimeLightCam("limelight-right");
+	private LimeLightCam backCamera=new LimeLightCam("limelight-back");
 
 
 	public static synchronized Swerve get() {
@@ -62,7 +62,7 @@ public final class Swerve extends TunerSwerveDrivetrain implements Subsystem, Se
 		  // This runs 50 times per second
         frontCamera.addVisionEstimate(this::addVisionMeasurement, this::acceptEstimate);    
 		//leftCamera.addVisionEstimate(this::addVisionMeasurement, this::acceptEstimate);    
-		//rightCamera.addVisionEstimate(this::addVisionMeasurement, this::acceptEstimate);    
+		backCamera.addVisionEstimate(this::addVisionMeasurement, this::acceptEstimate);    
 		frontCamera.SetRobotOrientation(getPose().getRotation());
 		SmartDashboard.putNumber("Distance to hub", this.distTo(Field.Alliance_Find.hub));
 	}
@@ -181,7 +181,7 @@ public final class Swerve extends TunerSwerveDrivetrain implements Subsystem, Se
 
 	// Only for AutoAlign to climb command: Create the constraints to use while pathfinding
 	PathConstraints constraints = new PathConstraints(
-        2.5, 0.7,
+        0.5, 0.7,
         Units.degreesToRadians(5), Units.degreesToRadians(10));
 	public Translation2d getVecToPose(Pose2d target){
 		Translation2d dist = Swerve.get().getPose().minus(targetPose).getTranslation(); 
@@ -189,12 +189,13 @@ public final class Swerve extends TunerSwerveDrivetrain implements Subsystem, Se
 	}
 	public Command alignToClimb(){
 	// Since AutoBuilder is configured, we can use it to build pathfinding commands
-	SwerveRequest.FieldCentric fs = new SwerveRequest.FieldCentric();
-	final double p = 3;
+	//SwerveRequest.FieldCentric fs = new SwerveRequest.FieldCentric();
+	//final double p = 3;
 	return AutoBuilder.pathfindToPose(
         targetPose,
         constraints,
-        0.0).andThen(Swerve.get().applyRequest(()->fs.withVelocityX(p*getVecToPose(targetPose).getX()).withVelocityY(p*getVecToPose(targetPose).getY()))); // Goal end velocity in meters/sec
+         0.0);
+		//.andThen(Swerve.get().applyRequest(()->fs.withVelocityX(p*getVecToPose(targetPose).getX()).withVelocityY(p*getVecToPose(targetPose).getY()))); // Goal end velocity in meters/sec
 }
 
 }

@@ -75,7 +75,7 @@ public static final class OperatorPanel{
 		HumanControls.OperatorPanel.L3.whileTrue(new ZeroClimber());
 		HumanControls.OperatorPanel.L1.whileTrue(Climber.get().doExtend());
 		HumanControls.OperatorPanel.L2.whileTrue(Climber.get().doRetract());
-		HumanControls.OperatorPanel.Barge.whileTrue(Climber.get().gotToZero());
+		//HumanControls.OperatorPanel.Barge.whileTrue(Climber.get().gotToZero());
 
 
 		// L4 button seems to be flakey, changing to processor button
