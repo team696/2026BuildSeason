@@ -13,8 +13,10 @@ import com.ctre.phoenix6.swerve.SwerveRequest;
 import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.path.PathConstraints;
 
+import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.math.Matrix;
 import edu.wpi.first.math.VecBuilder;
+import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Translation2d;
@@ -23,24 +25,32 @@ import edu.wpi.first.math.numbers.N3;
 import edu.wpi.first.math.util.Units;
 import edu.wpi.first.util.sendable.Sendable;
 import edu.wpi.first.util.sendable.SendableBuilder;
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Notifier;
 import edu.wpi.first.wpilibj.RobotController;
 import edu.wpi.first.wpilibj.smartdashboard.Field2d;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import edu.wpi.first.wpilibj2.command.Subsystem;
 import frc.robot.TunerConstants;
 import frc.robot.TunerConstants.TunerSwerveDrivetrain;
 import frc.robot.util.BaseCam.AprilTagResult;
 import frc.robot.util.Field;
 import frc.robot.util.LimeLightCam;
+import frc.robot.util.LimelightHelpers;
 
 public final class Swerve extends TunerSwerveDrivetrain implements Subsystem, Sendable {
 	private static Swerve m_Swerve;
 	private LimeLightCam frontCamera=new LimeLightCam("limelight-front");
+	private LimeLightCam driverCamera = new LimeLightCam("limelight-divePOV", new int[]{31, 32},true);
+
 	//private LimeLightCam leftCamera=new LimeLightCam("limelight-left");
 	private LimeLightCam backCamera=new LimeLightCam("limelight-back");
 
+
+	double semiCircleSetDistance = 1.0; //in meters
+	PIDController moveToController = new PIDController(0, 0, 0);
 
 	public static synchronized Swerve get() {
 		if (m_Swerve == null)
@@ -60,13 +70,21 @@ public final class Swerve extends TunerSwerveDrivetrain implements Subsystem, Se
 	@Override
 	public void periodic() {
 		  // This runs 50 times per second
-        frontCamera.addVisionEstimate(this::addVisionMeasurement, this::acceptEstimate);    
+		  SmartDashboard.putNumber("Distance to hub", this.distTo(Field.Alliance_Find.hub));
+        frontCamera.addVisionEstimate(this::addVisionMeasurement, this::acceptEstimate); 
+		this.cameraLocalization();
 		//leftCamera.addVisionEstimate(this::addVisionMeasurement, this::acceptEstimate);    
 		backCamera.addVisionEstimate(this::addVisionMeasurement, this::acceptEstimate);    
 		frontCamera.SetRobotOrientation(getPose().getRotation());
-		SmartDashboard.putNumber("Distance to hub", this.distTo(Field.Alliance_Find.hub));
 	}
 
+
+	void cameraLocalization(){
+		frontCamera.addVisionEstimate(this::addVisionMeasurement, this::acceptEstimate); 
+		if (DriverStation.isTeleop() && CommandScheduler.getInstance().isScheduled(Swerve.get().alignToClimb())) {
+    		driverCamera.addVisionEstimate(this::addVisionMeasurement, this::acceptEstimate);
+ 			} 
+	}
 	
     boolean acceptEstimate(AprilTagResult latestResult) {
         if (latestResult.distToTag > 3.5)
@@ -79,7 +97,7 @@ public final class Swerve extends TunerSwerveDrivetrain implements Subsystem, Se
         return false; // Rotating too fast, ignore
 		SmartDashboard.putBoolean("Accepted", false);
       if (latestResult.distToTag < 1) {
-        setVisionMeasurementStdDevs(VecBuilder.fill(1.5, 1.5, 1.5));
+        setVisionMeasurementStdDevs(VecBuilder.fill(1.5, 1.5, 50.0));
 		SmartDashboard.putBoolean("Accepted", true);
       } else {
         setVisionMeasurementStdDevs(
@@ -100,6 +118,10 @@ public final class Swerve extends TunerSwerveDrivetrain implements Subsystem, Se
 	public Command applyRequest(Supplier<SwerveRequest> requestSupplier) {
 		return run(() -> this.setControl(requestSupplier.get()));
 	}
+
+void pidToDistance(){
+	moveToController.calculate(kNumConfigAttempts);
+}
 
 
 	@Override
