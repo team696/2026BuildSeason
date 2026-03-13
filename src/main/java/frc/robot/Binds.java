@@ -31,7 +31,7 @@ public class Binds {
 			
 	private static final SwerveRequest.FieldCentric swerveFCDriveRequest = 
 		new SwerveRequest.FieldCentric()
-		.withDeadband(BotConstants.DriveConstants.MaxSpeed * 0.1)
+		.withDeadband(BotConstants.DriveConstants.MaxSpeed * 0.08)  // was maxspeed *.1
 		.withRotationalDeadband(BotConstants.DriveConstants.MaxAngularRate * 0.05)
 		.withDriveRequestType(DriveRequestType.OpenLoopVoltage);
 	
@@ -76,6 +76,8 @@ public static final class OperatorPanel{
 		HumanControls.OperatorPanel.L1.whileTrue(Climber.get().doExtend());
 		HumanControls.OperatorPanel.L2.whileTrue(Climber.get().doRetract());
 		HumanControls.OperatorPanel.Barge.whileTrue(Climber.get().gotToZero());
+
+
 		// L4 button seems to be flakey, changing to processor button
 		HumanControls.OperatorPanel.Processor.and(HumanControls.OperatorPanel.deepOrSwitch).whileTrue(Swerve.get().alignToClimb());
 		HumanControls.OperatorPanel.Processor.whileTrue(new ConditionalCommand(Swerve.get().alignToClimb(), Climber.get().gotToZero(), HumanControls.OperatorPanel.deepOrSwitch));

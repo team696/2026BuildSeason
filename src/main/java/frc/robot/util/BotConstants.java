@@ -140,8 +140,8 @@ public class BotConstants {
         static{
             cfg_Climber.Slot0.kP = 7;
             cfg_Climber.Slot0.kV = 0.12; // Feedforward for velocity - needed for Motion Magic
-            cfg_Climber.MotionMagic.MotionMagicAcceleration = 15;
-            cfg_Climber.MotionMagic.MotionMagicCruiseVelocity = 250;//Random number, doesn't really matter too
+            cfg_Climber.MotionMagic.MotionMagicAcceleration = 30;
+            cfg_Climber.MotionMagic.MotionMagicCruiseVelocity = 60;//Random number, doesn't really matter too
             cfg_Climber.MotorOutput.NeutralMode = NeutralModeValue.Brake;
             cfg_Climber.CurrentLimits.StatorCurrentLimitEnable = true;
             cfg_Climber.CurrentLimits.StatorCurrentLimit = 20;

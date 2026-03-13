@@ -16,7 +16,7 @@ import frc.robot.util.BotConstants;
 public class ZeroClimber extends Command {
   /** Creates a new ZeroClimber. */
 
-  private final DutyCycleOut ZeroingControl = new DutyCycleOut(0.08);
+  private final DutyCycleOut ZeroingControl = new DutyCycleOut(0.25);
   public double current;
 
   public ZeroClimber() {
@@ -50,7 +50,7 @@ public class ZeroClimber extends Command {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    if(current >= 3.9){
+    if(current >= 5){
       Climber.get().zeroEncoder();
       return true;
     } 

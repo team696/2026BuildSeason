@@ -62,14 +62,14 @@ public class Climber extends SubsystemBase {
  public Command doRetract() {
   return run(()->{
     // mClimb.setControl(climberVelocity.withVelocity(-20));
-    mClimb.setControl(climberPosition.withPosition(-107));
+    mClimb.setControl(climberPosition.withPosition(-100));
 
 
   });
 }
 public Command doExtend(){
   return run(()->{
-  mClimb.setControl(climberPosition.withPosition(-270));  });
+  mClimb.setControl(climberPosition.withPosition(-235));  });
   }
 
 //   public void setVelocity(double rps) {
