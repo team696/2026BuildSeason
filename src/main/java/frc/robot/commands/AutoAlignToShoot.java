@@ -31,8 +31,8 @@ public class AutoAlignToShoot extends Command {
 
   private Translation2d targetPosition;
 
-  private double semiCircleSetDistance = Units.inchesToMeters(222); //in meters
-	private PIDController moveToController = new PIDController(2, 0, 0);
+  private double semiCircleSetDistance = Units.inchesToMeters(91.055); //in meters
+	private PIDController moveToController = new PIDController(1., 0, 0);
 
   public AutoAlignToShoot(Translation2d targetPosition) {
       this.targetPosition = targetPosition;
@@ -52,7 +52,7 @@ public class AutoAlignToShoot extends Command {
   public void execute() {
         //Drives the swerve using the FCFA request
     double distance = Swerve.get().distTo(targetPosition);
-    Translation2d dir = new Translation2d(1, Swerve.get().target_theta(targetPosition))
+    Translation2d dir = new Translation2d(-1, Swerve.get().target_theta(targetPosition))
                         .times(moveToController.calculate(distance, this.semiCircleSetDistance));
 
    Swerve.get().setControl(
