@@ -3,38 +3,59 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 7.7,
-        "y": 6.8
+        "x": 3.4934821428571428,
+        "y": 7.284598214285714
       },
       "prevControl": null,
       "nextControl": {
-        "x": 7.936046246165152,
-        "y": 6.71764607069884
+        "x": 4.256941964285712,
+        "y": 7.330275297619047
       },
       "isLocked": false,
       "linkedName": null
     },
     {
       "anchor": {
-        "x": 7.8,
-        "y": 4.5
+        "x": 6.46249255952381,
+        "y": 7.408578869047619
       },
       "prevControl": {
-        "x": 7.667822504362447,
-        "y": 4.712200635359522
+        "x": 4.997173216524352,
+        "y": 7.384557240473858
+      },
+      "nextControl": {
+        "x": 8.05466517857143,
+        "y": 7.434680059523809
+      },
+      "isLocked": false,
+      "linkedName": null
+    },
+    {
+      "anchor": {
+        "x": 7.7284002976190465,
+        "y": 4.485245535714286
+      },
+      "prevControl": {
+        "x": 7.761026785714286,
+        "y": 5.366160714285715
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "Testing 1 end"
     }
   ],
-  "rotationTargets": [],
+  "rotationTargets": [
+    {
+      "waypointRelativePos": 0.9575596816976132,
+      "rotationDegrees": 0.0
+    }
+  ],
   "constraintZones": [],
   "pointTowardsZones": [],
   "eventMarkers": [
     {
       "name": "Intake",
-      "waypointRelativePos": 0,
+      "waypointRelativePos": 1.2958904109589056,
       "endWaypointRelativePos": null,
       "command": null
     }
@@ -52,10 +73,10 @@
     "rotation": 90.0
   },
   "reversed": false,
-  "folder": null,
+  "folder": "Test",
   "idealStartingState": {
     "velocity": 0,
-    "rotation": 90.0
+    "rotation": 0.0
   },
   "useDefaultConstraints": true
 }

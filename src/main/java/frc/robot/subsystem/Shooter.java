@@ -108,10 +108,14 @@ public class Shooter extends SubsystemBase {
         double velocity = BotConstants.Shooter.velocityTable.get(distMeters);
 
         m_Shooter.setControl(shooterVelocityController.withVelocity(velocity-1));
-        if((Math.abs(getRollerVelocity()-velocity))<0.4){
+        if((Math.abs(getRollerVelocity()-velocity))<1 && Math.abs(Swerve.get().distTo(Field.Alliance_Find.hub))<2.2 && Math.abs(Swerve.get().distTo(Field.Alliance_Find.hub))>1.8){
               m_ShooterIntake.setControl(intakeRollerController.withVelocity(40));
-              Hopper.get().m_Hopper.setControl(Hopper.HopperController.withVelocity(15));
+              Hopper.get().m_Hopper.setControl(Hopper.ahhh);
             }
+        else{
+          m_ShooterIntake.stopMotor();
+          Hopper.get().m_Hopper.stopMotor();
+        }
 
       },
       ()->{
