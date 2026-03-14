@@ -106,7 +106,7 @@ public class Intake extends SubsystemBase {
   public Command doIntake() {
     return this.run(() -> {
         this.runIntake(State.INTAKE); 
-        this.positionIntake(-6);
+        this.positionIntake(-6.1);
     });
   }
 
@@ -144,6 +144,7 @@ public void simulationPeriodic(){
 
 @Override
 public void periodic() {
+    SmartDashboard.putNumber("Intake Pivot current", m_IntakePivot.getStatorCurrent().getValueAsDouble());
     SmartDashboard.putNumber("Intake pose", m_IntakePivot.getPosition().getValueAsDouble());
 		SmartDashboard.putNumber("Roller speed", m_IntakeRoller.getVelocity().getValueAsDouble());
 }
