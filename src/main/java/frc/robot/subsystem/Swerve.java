@@ -43,7 +43,7 @@ import frc.robot.util.LimelightHelpers;
 public final class Swerve extends TunerSwerveDrivetrain implements Subsystem, Sendable {
 	private static Swerve m_Swerve;
 	private LimeLightCam frontCamera=new LimeLightCam("limelight-front");
-	private LimeLightCam driverCamera = new LimeLightCam("limelight-divePOV", new int[]{31, 32},true);
+	//private LimeLightCam driverCamera = new LimeLightCam("limelight-divePOV", new int[]{31, 32},true);
 
 	//private LimeLightCam leftCamera=new LimeLightCam("limelight-left");
 	private LimeLightCam backCamera=new LimeLightCam("limelight-back");
@@ -72,7 +72,7 @@ public final class Swerve extends TunerSwerveDrivetrain implements Subsystem, Se
 		  // This runs 50 times per second
 		  SmartDashboard.putNumber("Distance to hub", this.distTo(Field.Alliance_Find.hub));
         frontCamera.addVisionEstimate(this::addVisionMeasurement, this::acceptEstimate); 
-		this.cameraLocalization();
+		//this.cameraLocalization();
 		//leftCamera.addVisionEstimate(this::addVisionMeasurement, this::acceptEstimate);    
 		backCamera.addVisionEstimate(this::addVisionMeasurement, this::acceptEstimate);    
 		frontCamera.SetRobotOrientation(getPose().getRotation());
@@ -82,7 +82,7 @@ public final class Swerve extends TunerSwerveDrivetrain implements Subsystem, Se
 	void cameraLocalization(){
 		frontCamera.addVisionEstimate(this::addVisionMeasurement, this::acceptEstimate); 
 		if (DriverStation.isTeleop() && CommandScheduler.getInstance().isScheduled(Swerve.get().alignToClimb())) {
-    		driverCamera.addVisionEstimate(this::addVisionMeasurement, this::acceptEstimate);
+    		//driverCamera.addVisionEstimate(this::addVisionMeasurement, this::acceptEstimate);
  			} 
 	}
 	
@@ -97,13 +97,13 @@ public final class Swerve extends TunerSwerveDrivetrain implements Subsystem, Se
         return false; // Rotating too fast, ignore
 		SmartDashboard.putBoolean("Accepted", false);
       if (latestResult.distToTag < 1) {
-        setVisionMeasurementStdDevs(VecBuilder.fill(1.5, 1.5, 50.0));
+        setVisionMeasurementStdDevs(VecBuilder.fill(2.0, 2.0, 50.0));
 		SmartDashboard.putBoolean("Accepted", true);
       } else {
         setVisionMeasurementStdDevs(
-            VecBuilder.fill(latestResult.ambiguity * Math.pow(latestResult.distToTag, 2)*2.0,
-                latestResult.ambiguity * Math.pow(latestResult.distToTag, 2)*2.0,
-                latestResult.ambiguity * Math.pow(latestResult.distToTag, 2)*2.0));
+            VecBuilder.fill(latestResult.ambiguity * Math.pow(latestResult.distToTag, 2)*3.0,
+                latestResult.ambiguity * Math.pow(latestResult.distToTag, 2)*3.0,
+                latestResult.ambiguity * Math.pow(latestResult.distToTag, 2)*3.0));
 		SmartDashboard.putBoolean("Accepted", true);
       }
       return true;
