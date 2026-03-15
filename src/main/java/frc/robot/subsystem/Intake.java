@@ -37,8 +37,7 @@ public class Intake extends SubsystemBase {
   //Enum to determin state, values are temporary
   public static enum State{
     IDLE(0.0),
-    INTAKE(65.0),
-    OUTTAKE(-65.0);
+    INTAKE(70.0);
 
     public double roller_velocity;  // Renamed
     State(double roller_velocity){
@@ -109,14 +108,14 @@ public Command doStow() {
       m_IntakePivot.setControl(pivotPosition.withPosition(0));     
     },
     ()->{
-      
+
     }
     );
   }
   public Command doIntake() {
     return this.runEnd(() -> {
         this.runIntake(State.INTAKE); 
-        this.positionIntake(-6.1); 
+        this.positionIntake(-6); 
     }, 
     ()->{
         this.doStow();});

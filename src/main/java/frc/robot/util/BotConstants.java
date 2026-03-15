@@ -32,12 +32,12 @@ public class BotConstants {
         public static TalonFXConfiguration cfg_Roller = new TalonFXConfiguration();
         public static TalonFXConfiguration cfg_Pivot = new TalonFXConfiguration();
         static{
-            cfg_Roller.Slot0.kP =0.6;
+            cfg_Roller.Slot0.kP =2;
             cfg_Roller.MotorOutput.Inverted = InvertedValue.Clockwise_Positive;
             cfg_Roller.MotorOutput.NeutralMode = NeutralModeValue.Coast;
             cfg_Roller.MotionMagic.MotionMagicAcceleration = 50;
             cfg_Roller.MotionMagic.MotionMagicCruiseVelocity = 100;
-            cfg_Roller.CurrentLimits.StatorCurrentLimit = 60;
+            cfg_Roller.CurrentLimits.StatorCurrentLimit = 120;
 
             //cfg_Roller.CurrentLimits.StatorCurrentLimitEnable = false;
             //cfg_Roller.CurrentLimits.SupplyCurrentLimitEnable = true;
@@ -50,7 +50,7 @@ public class BotConstants {
 
             cfg_Pivot.MotorOutput.NeutralMode = NeutralModeValue.Brake;
             cfg_Pivot.MotorOutput.Inverted = InvertedValue.Clockwise_Positive;
-            cfg_Pivot.MotionMagic.MotionMagicAcceleration = 10;
+            cfg_Pivot.MotionMagic.MotionMagicAcceleration = 20;
             cfg_Pivot.MotionMagic.MotionMagicCruiseVelocity = 20;
             //cfg_Pivot.MotorOutput.Inverted = InvertedValue.Clockwise_Positive;//Will try this out, if not work will go back to the that fucking negative pid value(wtf ctre)
             cfg_Pivot.CurrentLimits.StatorCurrentLimitEnable = true;

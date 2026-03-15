@@ -31,7 +31,7 @@ public class Robot extends TimedRobot {
     this.logger = new Telemetry(BotConstants.DriveConstants.MaxSpeed);
   
     Auto.initialize(
-    new Auto.NamedCommand("Shoot", Shooter.get().Shoot(Field.Alliance_Find.hub)),
+    new Auto.NamedCommand("Shoot", Shooter.get().Shoot(Field.Alliance_Find.hub).withTimeout(4)),
     
     // new Auto.NamedCommand("Pass_1", Shooter.get().Shoot(
     //     BotConstants.Shooter.velocityTable.get(DistanceFinder(Field.Alliance_Find.Pass_1)),
@@ -41,19 +41,20 @@ public class Robot extends TimedRobot {
     //     BotConstants.Shooter.velocityTable.get(DistanceFinder(Field.Alliance_Find.Pass_2)),
     //     BotConstants.Hood.shooterTable.get(DistanceFinder(Field.Alliance_Find.Pass_2)))),
 
-    new Auto.NamedCommand("Intake_", Intake.get().doIntake().withTimeout(2)),
+    new Auto.NamedCommand("Intake_", Intake.get().doIntake().withTimeout(2.0)),
     
-    new Auto.NamedCommand("Do stow", Intake.get().doStow().withTimeout(2))
+    new Auto.NamedCommand("Do stow", Intake.get().doStow().withTimeout(0.5))
     );
     
     Binds.DriverStation2026.bind();
     Binds.OperatorPanel.bind();
+    //Binds.Controller.bind();
     
     Climber.get().zeroEncoder();
     Shooter.get().zero_shooter();
     Intake.get().zeroEncoder();
 
-    //Binds.Controller.bind();
+
     
     
     
