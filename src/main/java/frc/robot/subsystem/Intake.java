@@ -103,19 +103,26 @@ public class Intake extends SubsystemBase {
     return run(()->{m_IntakePivot.setPosition(0);});
 }
 
-  public Command doIntake() {
-    return this.run(() -> {
-        this.runIntake(State.INTAKE); 
-        this.positionIntake(-6.1);
-    });
-  }
-
 public Command doStow() {
-    return this.run(() -> {
+    return this.runEnd(() -> {
       m_IntakeRoller.stopMotor();
       m_IntakePivot.setControl(pivotPosition.withPosition(0));     
-    });
+    },
+    ()->{
+      
+    }
+    );
   }
+  public Command doIntake() {
+    return this.runEnd(() -> {
+        this.runIntake(State.INTAKE); 
+        this.positionIntake(-6.1); 
+    }, 
+    ()->{
+        this.doStow();});
+  }
+
+
 
 
 //Sim stuff need to delete

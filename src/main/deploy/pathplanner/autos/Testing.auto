@@ -5,9 +5,41 @@
     "data": {
       "commands": [
         {
-          "type": "path",
+          "type": "parallel",
           "data": {
-            "pathName": "Testing 1"
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "Testing 1"
+                }
+              },
+              {
+                "type": "sequential",
+                "data": {
+                  "commands": [
+                    {
+                      "type": "named",
+                      "data": {
+                        "name": "Intake_"
+                      }
+                    },
+                    {
+                      "type": "wait",
+                      "data": {
+                        "waitTime": 1.0
+                      }
+                    },
+                    {
+                      "type": "named",
+                      "data": {
+                        "name": "Do stow"
+                      }
+                    }
+                  ]
+                }
+              }
+            ]
           }
         },
         {

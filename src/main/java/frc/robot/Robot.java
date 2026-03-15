@@ -12,6 +12,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+
 import frc.robot.subsystem.Climber;
 import frc.robot.subsystem.Intake;
 import frc.robot.subsystem.Shooter;
@@ -40,9 +41,9 @@ public class Robot extends TimedRobot {
     //     BotConstants.Shooter.velocityTable.get(DistanceFinder(Field.Alliance_Find.Pass_2)),
     //     BotConstants.Hood.shooterTable.get(DistanceFinder(Field.Alliance_Find.Pass_2)))),
 
-    new Auto.NamedCommand("Intake", Intake.get().doIntake()),
+    new Auto.NamedCommand("Intake_", Intake.get().doIntake().withTimeout(2)),
     
-    new Auto.NamedCommand("Reset Intake", Intake.get().doStow())
+    new Auto.NamedCommand("Do stow", Intake.get().doStow().withTimeout(2))
     );
     
     Binds.DriverStation2026.bind();
