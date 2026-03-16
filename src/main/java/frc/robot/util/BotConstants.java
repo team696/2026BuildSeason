@@ -86,6 +86,8 @@ public class BotConstants {
          * Interpolates between the robot's distance from the hub (in meters) and the velocity of the shooter rollers (in rotations/second)
          */
         public static final InterpolatingDoubleTreeMap velocityTable = new InterpolatingDoubleTreeMap();
+        public static final InterpolatingDoubleTreeMap fixedVelocityTable = new InterpolatingDoubleTreeMap();
+
         static{
             cfg_shooter.Slot0.kP = 0.53;
             // cfg_shooter.Slot0.kS = 0.2;
@@ -105,6 +107,15 @@ public class BotConstants {
             velocityTable.put(3.308, -28.0);
             velocityTable.put(3.45, -28.0);
 
+            fixedVelocityTable.put(0.0,0.0);
+            fixedVelocityTable.put(0.0,0.0);
+            fixedVelocityTable.put(0.0,0.0);
+            fixedVelocityTable.put(0.0,0.0);
+            fixedVelocityTable.put(0.0,0.0);
+            fixedVelocityTable.put(0.0,0.0);
+            fixedVelocityTable.put(0.0,0.0);
+            fixedVelocityTable.put(0.0,0.0);
+            
         }
 
     }

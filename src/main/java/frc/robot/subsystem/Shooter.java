@@ -128,6 +128,32 @@ public class Shooter extends SubsystemBase {
       });
     }
 
+    public Command fixedShoot(Translation2d desired_pose){
+      return runEnd(()->{
+        double distMeters=Swerve.get().distTo(desired_pose);
+        double velocity = BotConstants.Shooter.fixedVelocityTable.get(distMeters);
+
+        this.set_velocity(velocity);
+
+        m_Shooter.setControl(shooterVelocityController.withVelocity(velocity));
+        if((Math.abs(getRollerVelocity()-velocity))<1 && Math.abs(Swerve.get().distTo(Field.Alliance_Find.hub))<3.0 && Math.abs(Swerve.get().distTo(Field.Alliance_Find.hub))>2.1){
+              m_ShooterIntake.setControl(intakeRollerController.withVelocity(40));
+              Hopper.get().m_Hopper.setControl(Hopper.ahhh);
+            }
+        else{
+          m_ShooterIntake.stopMotor();
+          Hopper.get().m_Hopper.stopMotor();
+        }
+
+      },
+      ()->{
+          m_Shooter.stopMotor();
+          m_Shooter_2.stopMotor();
+          m_ShooterIntake.stopMotor();
+          Hopper.get().m_Hopper.stopMotor();
+      });
+    }
+
    //Took sami's version for testing purposes. Will get rid of
     public Command ShootDash(){
     return runEnd(
