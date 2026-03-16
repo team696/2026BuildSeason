@@ -7,31 +7,19 @@
         {
           "type": "path",
           "data": {
-            "pathName": "Test 1"
+            "pathName": "Climb Test 1"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "Test 2"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "Test 3"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "Test 4"
+            "pathName": "Climb Test 2"
           }
         }
       ]
     }
   },
-  "resetOdom": false,
+  "resetOdom": true,
   "folder": null,
   "choreoAuto": false
 }

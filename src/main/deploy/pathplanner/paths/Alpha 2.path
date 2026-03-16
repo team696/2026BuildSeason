@@ -12,7 +12,7 @@
         "y": 5.300907738095239
       },
       "isLocked": false,
-      "linkedName": "Testing 1 end"
+      "linkedName": "End of Alpha 1"
     },
     {
       "anchor": {
@@ -41,7 +41,7 @@
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "End of Alpha 2"
     }
   ],
   "rotationTargets": [
@@ -74,10 +74,10 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": -61.44166219803485
+    "rotation": -67.14812993958334
   },
   "reversed": false,
-  "folder": "Testing",
+  "folder": "Alpha",
   "idealStartingState": {
     "velocity": 0,
     "rotation": 90.0

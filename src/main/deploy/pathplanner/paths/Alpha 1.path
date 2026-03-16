@@ -3,54 +3,50 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 7.7284002976190465,
-        "y": 4.485245535714286
+        "x": 3.4934821428571428,
+        "y": 7.284598214285714
       },
       "prevControl": null,
       "nextControl": {
-        "x": 7.682723214285714,
-        "y": 5.300907738095239
-      },
-      "isLocked": false,
-      "linkedName": "Testing 1 end"
-    },
-    {
-      "anchor": {
-        "x": 5.815385980479148,
-        "y": 7.3386690328305235
-      },
-      "prevControl": {
-        "x": 8.236271397145815,
-        "y": 7.345194330449571
-      },
-      "nextControl": {
-        "x": 3.0351291744211575,
-        "y": 7.331175079175381
+        "x": 4.256941964285712,
+        "y": 7.330275297619047
       },
       "isLocked": false,
       "linkedName": null
     },
     {
       "anchor": {
-        "x": 3.1933184523809524,
-        "y": 6.123433895297248
+        "x": 6.46249255952381,
+        "y": 7.408578869047619
       },
       "prevControl": {
-        "x": 2.9453571428571426,
-        "y": 7.206294642857143
+        "x": 4.997173216524352,
+        "y": 7.384557240473858
+      },
+      "nextControl": {
+        "x": 8.05466517857143,
+        "y": 7.434680059523809
+      },
+      "isLocked": false,
+      "linkedName": null
+    },
+    {
+      "anchor": {
+        "x": 7.7284002976190465,
+        "y": 4.485245535714286
+      },
+      "prevControl": {
+        "x": 7.761026785714286,
+        "y": 5.366160714285715
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "End of Alpha 1"
     }
   ],
   "rotationTargets": [
     {
-      "waypointRelativePos": 0.5,
-      "rotationDegrees": 0.0
-    },
-    {
-      "waypointRelativePos": 1.682432432432434,
+      "waypointRelativePos": 0.9575596816976132,
       "rotationDegrees": 0.0
     }
   ],
@@ -58,9 +54,9 @@
   "pointTowardsZones": [],
   "eventMarkers": [
     {
-      "name": "Reset Intake",
-      "waypointRelativePos": 0,
-      "endWaypointRelativePos": null,
+      "name": "",
+      "waypointRelativePos": 1.4899328859060421,
+      "endWaypointRelativePos": 1.9261744966442964,
       "command": null
     }
   ],
@@ -74,13 +70,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": -61.44166219803485
+    "rotation": 90.0
   },
   "reversed": false,
-  "folder": "Testing",
+  "folder": "Alpha",
   "idealStartingState": {
     "velocity": 0,
-    "rotation": 90.0
+    "rotation": 0.0
   },
   "useDefaultConstraints": true
 }

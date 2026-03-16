@@ -4,40 +4,40 @@
     {
       "anchor": {
         "x": 7.7284002976190465,
-        "y": 4.485245535714286
+        "y": 2.096986607142858
       },
       "prevControl": null,
       "nextControl": {
-        "x": 7.682723214285714,
-        "y": 5.300907738095239
+        "x": 7.663147321428571,
+        "y": 0.8506547619047626
       },
       "isLocked": false,
-      "linkedName": "Testing 1 end"
+      "linkedName": "End of Alpha 3"
     },
     {
       "anchor": {
-        "x": 5.815385980479148,
-        "y": 7.3386690328305235
+        "x": 4.478802083333333,
+        "y": 0.6222693452380952
       },
       "prevControl": {
-        "x": 8.236271397145815,
-        "y": 7.345194330449571
+        "x": 5.444546130952381,
+        "y": 0.6222693452380952
       },
       "nextControl": {
-        "x": 3.0351291744211575,
-        "y": 7.331175079175381
+        "x": 2.8407444165420674,
+        "y": 0.6222693452380954
       },
       "isLocked": false,
       "linkedName": null
     },
     {
       "anchor": {
-        "x": 3.1933184523809524,
-        "y": 6.123433895297248
+        "x": 2.5864657738095236,
+        "y": 3.0235788690476193
       },
       "prevControl": {
-        "x": 2.9453571428571426,
-        "y": 7.206294642857143
+        "x": 1.9861383928571428,
+        "y": 2.7429910714285723
       },
       "nextControl": null,
       "isLocked": false,
@@ -46,24 +46,17 @@
   ],
   "rotationTargets": [
     {
-      "waypointRelativePos": 0.5,
+      "waypointRelativePos": 0.650900900900901,
       "rotationDegrees": 0.0
     },
     {
-      "waypointRelativePos": 1.682432432432434,
+      "waypointRelativePos": 1.4864864864864895,
       "rotationDegrees": 0.0
     }
   ],
   "constraintZones": [],
   "pointTowardsZones": [],
-  "eventMarkers": [
-    {
-      "name": "Reset Intake",
-      "waypointRelativePos": 0,
-      "endWaypointRelativePos": null,
-      "command": null
-    }
-  ],
+  "eventMarkers": [],
   "globalConstraints": {
     "maxVelocity": 2.0,
     "maxAcceleration": 2.0,
@@ -74,10 +67,10 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": -61.44166219803485
+    "rotation": 17.525568373722926
   },
   "reversed": false,
-  "folder": "Testing",
+  "folder": "Alpha",
   "idealStartingState": {
     "velocity": 0,
     "rotation": 90.0

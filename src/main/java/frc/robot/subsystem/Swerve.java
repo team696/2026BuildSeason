@@ -10,7 +10,11 @@ import com.ctre.phoenix6.Utils;
 import com.ctre.phoenix6.swerve.SwerveDrivetrainConstants;
 import com.ctre.phoenix6.swerve.SwerveModuleConstants;
 import com.ctre.phoenix6.swerve.SwerveRequest;
+import com.ctre.phoenix6.swerve.utility.WheelForceCalculator.Feedforwards;
 import com.pathplanner.lib.auto.AutoBuilder;
+import com.pathplanner.lib.config.PIDConstants;
+import com.pathplanner.lib.config.RobotConfig;
+import com.pathplanner.lib.controllers.PPHolonomicDriveController;
 import com.pathplanner.lib.path.PathConstraints;
 
 import edu.wpi.first.cameraserver.CameraServer;
@@ -28,6 +32,7 @@ import edu.wpi.first.util.sendable.SendableBuilder;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Notifier;
 import edu.wpi.first.wpilibj.RobotController;
+import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj.smartdashboard.Field2d;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -65,6 +70,28 @@ public final class Swerve extends TunerSwerveDrivetrain implements Subsystem, Se
 			simulationInit();
 		}
 		SmartDashboard.putBoolean("Accepted", false);
+
+		RobotConfig config;
+
+		try{
+			config = RobotConfig.fromGUISettings();
+		}catch(Exception e){
+			e.printStackTrace();
+			config = null; //Will fix later
+		}
+		
+
+		AutoBuilder.configure(
+			this::getPose, 
+			this::resetPose, 
+			()->this.getState().Speeds, //ctre man
+			(speeds, feedforwards) -> this.setControl(new SwerveRequest.ApplyRobotSpeeds().withSpeeds(speeds)), 
+			new PPHolonomicDriveController(
+				new PIDConstants(5.0,0,0), 
+				new PIDConstants(5.0,0,0)), 
+			config, 
+			()-> DriverStation.getAlliance().orElse(Alliance.Blue) == Alliance.Red ,
+			this);
 	}
 
 	@Override
@@ -201,23 +228,15 @@ void pidToDistance(){
 	// represents the goal holonomic rotation
 	Pose2d targetPose = Field.Alliance_Find.climb_tower;
 
-	// Only for AutoAlign to climb command: Create the constraints to use while pathfinding
 	PathConstraints constraints = new PathConstraints(
         0.5, 0.7,
         Units.degreesToRadians(5), Units.degreesToRadians(10));
-	public Translation2d getVecToPose(Pose2d target){
-		Translation2d dist = Swerve.get().getPose().minus(targetPose).getTranslation(); 
-		return dist;
-	}
+
 	public Command alignToClimb(){
-	// Since AutoBuilder is configured, we can use it to build pathfinding commands
-	//SwerveRequest.FieldCentric fs = new SwerveRequest.FieldCentric();
-	//final double p = 3;
 	return AutoBuilder.pathfindToPose(
         targetPose,
         constraints,
          0.0);
-		//.andThen(Swerve.get().applyRequest(()->fs.withVelocityX(p*getVecToPose(targetPose).getX()).withVelocityY(p*getVecToPose(targetPose).getY()))); // Goal end velocity in meters/sec
 }
 
 }
