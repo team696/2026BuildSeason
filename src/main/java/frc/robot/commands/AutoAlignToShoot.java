@@ -32,7 +32,7 @@ public class AutoAlignToShoot extends Command {
   private Translation2d targetPosition;
 
   private double semiCircleSetDistance = Units.inchesToMeters(91.055); //in meters
-	private PIDController moveToController = new PIDController(1., 0, 0);
+	private PIDController moveToController = new PIDController(1.5, 0, 0);
 
   public AutoAlignToShoot(Translation2d targetPosition) {
       this.targetPosition = targetPosition;
@@ -75,7 +75,7 @@ public class AutoAlignToShoot extends Command {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-     if (Math.abs(Swerve.get().distTo(targetPosition) - this.semiCircleSetDistance) <.05)
+     if (Math.abs(Swerve.get().distTo(targetPosition) - this.semiCircleSetDistance) <.01)
       return true;
     return false;
   }
