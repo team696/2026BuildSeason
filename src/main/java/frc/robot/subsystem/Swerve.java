@@ -87,8 +87,8 @@ public final class Swerve extends TunerSwerveDrivetrain implements Subsystem, Se
 			()->this.getState().Speeds, //ctre man
 			(speeds, feedforwards) -> this.setControl(new SwerveRequest.ApplyRobotSpeeds().withSpeeds(speeds)), 
 			new PPHolonomicDriveController(
-				new PIDConstants(5.0,0,0), 
-				new PIDConstants(5.0,0,0)), 
+				new PIDConstants(2,0,0), 
+				new PIDConstants(2,0,0)), 
 			config, 
 			()-> DriverStation.getAlliance().orElse(Alliance.Blue) == Alliance.Red ,
 			this);

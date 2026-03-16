@@ -8,8 +8,8 @@
       },
       "prevControl": null,
       "nextControl": {
-        "x": 2.893154761904762,
-        "y": 7.806622023809524
+        "x": 2.5076929902395744,
+        "y": 7.789352262644188
       },
       "isLocked": false,
       "linkedName": "End of Alpha 2"
@@ -80,7 +80,7 @@
   "folder": "Alpha",
   "idealStartingState": {
     "velocity": 0,
-    "rotation": -67.14812993958334
+    "rotation": -59.20000000000001
   },
   "useDefaultConstraints": true
 }
