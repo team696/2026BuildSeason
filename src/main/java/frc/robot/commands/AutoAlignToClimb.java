@@ -10,6 +10,7 @@ import com.ctre.phoenix6.swerve.SwerveModule.DriveRequestType;
 import com.ctre.phoenix6.swerve.SwerveRequest;
 
 import edu.wpi.first.math.controller.PIDController;
+import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -20,7 +21,7 @@ import frc.robot.util.BotConstants;
 import frc.robot.util.Field;
 
 /* You should consider using the more terse Command factories API instead https://docs.wpilib.org/en/stable/docs/software/commandbased/organizing-command-based.html#defining-commands */
-public class AutoAlignToShoot extends Command {
+public class AutoAlignToClimb extends Command {
   /** Creates a new AutoAlign. */
   private final static SwerveRequest.FieldCentricFacingAngle FCFARequest = 
 					new SwerveRequest.FieldCentricFacingAngle()
@@ -29,18 +30,18 @@ public class AutoAlignToShoot extends Command {
 					.withDriveRequestType(DriveRequestType.OpenLoopVoltage)
 					.withHeadingPID(3, 0, 0); 
 
-  private Translation2d targetPosition;
+  private Pose2d targetPosition;
 
-  private double semiCircleSetDistance = Units.inchesToMeters(91.055); //in meters
+  private double semiCircleSetDistance = Units.inchesToMeters(0.05); //in meters
 	private PIDController moveToController = new PIDController(1.5, 0, 0);
 
-  public AutoAlignToShoot(Translation2d targetPosition) {
+  public AutoAlignToClimb(Pose2d targetPosition) {
       this.targetPosition = targetPosition;
       addRequirements(Swerve.get());
 
     // Use addRequirements() here to declare subsystem dependencies.
   }
-
+Translation2d translationClimb = new Translation2d(targetPosition.getX(), targetPosition.getY());
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
@@ -51,15 +52,15 @@ public class AutoAlignToShoot extends Command {
   @Override
   public void execute() {
         //Drives the swerve using the FCFA request
-    double distance = Swerve.get().distTo(targetPosition);
-    Translation2d dir = new Translation2d(-1, Swerve.get().target_theta(targetPosition))
+    double distance = Swerve.get().distTo(translationClimb);
+    Translation2d dir = new Translation2d(1, Swerve.get().target_theta(translationClimb))
                         .times(moveToController.calculate(distance, this.semiCircleSetDistance));
 
    Swerve.get().setControl(
         FCFARequest
         .withVelocityX(dir.getX())
         .withVelocityY(dir.getY())
-        .withTargetDirection(Swerve.get().target_theta(targetPosition))
+        .withTargetDirection(Swerve.get().target_theta(translationClimb))
         .withMaxAbsRotationalRate(DegreesPerSecond.of(360))
         .withRotationalDeadband(DegreesPerSecond.of(1)));
       

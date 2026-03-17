@@ -5,12 +5,14 @@ import java.util.Optional;
 import com.ctre.phoenix6.swerve.SwerveModule.DriveRequestType;
 import com.ctre.phoenix6.swerve.SwerveRequest;
 
+import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj2.command.ConditionalCommand;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import frc.robot.commands.AutoAlign;
+import frc.robot.commands.AutoAlignToClimb;
 import frc.robot.commands.AutoAlignToShoot;
 import frc.robot.commands.GyroReset;
 import frc.robot.commands.ZeroClimber;
@@ -28,6 +30,7 @@ public class Binds {
 	public static Translation2d hub = Field.Alliance_Find.hub;
 	public static Translation2d Pass_1 = Field.Alliance_Find.Pass_1;
 	public static Translation2d Pass_2 = Field.Alliance_Find.Pass_2;
+	public static Pose2d climb = Field.Alliance_Find.climb_tower;
 			//Standard driving
 			
 	private static final SwerveRequest.FieldCentric swerveFCDriveRequest = 
@@ -76,7 +79,9 @@ public static final class OperatorPanel{
 		HumanControls.OperatorPanel.L3.whileTrue(new ZeroClimber());
 		HumanControls.OperatorPanel.L1.whileTrue(Climber.get().doExtend());
 		HumanControls.OperatorPanel.L2.whileTrue(Climber.get().doRetract());
-		HumanControls.OperatorPanel.Climb1.whileTrue(new AutoAlignToShoot(hub).andThen(Shooter.get().Shoot(hub)));
+		// HumanControls.OperatorPanel.Climb1.whileTrue(new AutoAlignToShoot(hub).andThen(Shooter.get().Shoot(hub)));
+		// HumanControls.OperatorPanel.Climb1.whileTrue(new AutoAlignToClimb(climb));
+		HumanControls.OperatorPanel.Climb1.whileTrue(Swerve.get().alignToClimb());
 
 
 		// L4 button seems to be flakey, changing to processor button
