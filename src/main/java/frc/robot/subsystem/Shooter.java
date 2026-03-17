@@ -107,9 +107,12 @@ public class Shooter extends SubsystemBase {
         double distMeters=Swerve.get().distTo(desired_pose);
         double velocity = BotConstants.Shooter.velocityTable.get(distMeters);
 
-        this.set_velocity(velocity);
-
+        // this.set_velocity(velocity);
+        
         m_Shooter.setControl(shooterVelocityController.withVelocity(velocity));
+        m_Shooter_2.setControl(new Follower(BotConstants.Shooter.shooterflywheel_ID,MotorAlignmentValue.Opposed));
+
+        // m_Shooter.setControl(shooterVelocityController.withVelocity(velocity));
         if((Math.abs(getRollerVelocity()-velocity))<1 && Math.abs(Swerve.get().distTo(Field.Alliance_Find.hub))<3.0 && Math.abs(Swerve.get().distTo(Field.Alliance_Find.hub))>2.1){
               m_ShooterIntake.setControl(intakeRollerController.withVelocity(40));
               Hopper.get().m_Hopper.setControl(Hopper.ahhh);
