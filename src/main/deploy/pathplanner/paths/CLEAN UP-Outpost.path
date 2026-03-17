@@ -3,16 +3,16 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 3.0,
+        "x": 2.45,
         "y": 4.0
       },
       "prevControl": null,
       "nextControl": {
-        "x": 3.2133865579427474,
+        "x": 2.6633865579427476,
         "y": 4.130254277815919
       },
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "End of Clean Up Shoot 1"
     },
     {
       "anchor": {
@@ -25,7 +25,7 @@
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "End of Clean Up Outpost"
     }
   ],
   "rotationTargets": [],
@@ -33,10 +33,10 @@
   "pointTowardsZones": [],
   "eventMarkers": [],
   "globalConstraints": {
-    "maxVelocity": 2.0,
-    "maxAcceleration": 2.0,
-    "maxAngularVelocity": 60.0,
-    "maxAngularAcceleration": 40.0,
+    "maxVelocity": 2.5,
+    "maxAcceleration": 2.2,
+    "maxAngularVelocity": 90.0,
+    "maxAngularAcceleration": 50.0,
     "nominalVoltage": 12.0,
     "unlimited": false
   },
@@ -45,10 +45,10 @@
     "rotation": 0.0
   },
   "reversed": false,
-  "folder": null,
+  "folder": "CLEAN UP",
   "idealStartingState": {
     "velocity": 0,
-    "rotation": 90.0
+    "rotation": 0.0
   },
   "useDefaultConstraints": true
 }
