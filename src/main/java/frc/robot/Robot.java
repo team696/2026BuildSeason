@@ -33,17 +33,13 @@ public class Robot extends TimedRobot {
     Auto.initialize(
     new Auto.NamedCommand("Shoot", Shooter.get().Shoot(Field.Alliance_Find.hub).withTimeout(4)),
     
-    // new Auto.NamedCommand("Pass_1", Shooter.get().Shoot(
-    //     BotConstants.Shooter.velocityTable.get(DistanceFinder(Field.Alliance_Find.Pass_1)),
-    //     BotConstants.Hood.shooterTable.get(DistanceFinder(Field.Alliance_Find.Pass_1)))),
-    
-    // new Auto.NamedCommand("Pass_2", Shooter.get().Shoot(
-    //     BotConstants.Shooter.velocityTable.get(DistanceFinder(Field.Alliance_Find.Pass_2)),
-    //     BotConstants.Hood.shooterTable.get(DistanceFinder(Field.Alliance_Find.Pass_2)))),
-
     new Auto.NamedCommand("Intake_", Intake.get().doIntake().withTimeout(2.0)),
     
-    new Auto.NamedCommand("Do stow", Intake.get().doStow().withTimeout(0.5))
+    new Auto.NamedCommand("Do stow", Intake.get().doStow().withTimeout(0.5)),
+
+    new Auto.NamedCommand("Extend Climber", Climber.get().doExtend().withTimeout(2.0)),
+
+    new Auto.NamedCommand("Retract Climber", Climber.get().doRetract().withTimeout(2.0))
     );
     
     Binds.DriverStation2026.bind();
@@ -86,6 +82,8 @@ public double DistanceFinder(Translation2d targetPosition){
 		if (m_autonomousCommand != null) {
 			CommandScheduler.getInstance().schedule(m_autonomousCommand);
 		}
+
+    Climber.get().gotToZero();
 	}
 
 

@@ -3,12 +3,12 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 0.5,
+        "x": 0.56,
         "y": 7.1
       },
       "prevControl": null,
       "nextControl": {
-        "x": 0.5220689548392734,
+        "x": 0.5820689548392735,
         "y": 7.452663850509601
       },
       "isLocked": false,
@@ -16,16 +16,16 @@
     },
     {
       "anchor": {
-        "x": 0.5,
-        "y": 4.8
+        "x": 0.59,
+        "y": 4.956
       },
       "prevControl": {
-        "x": 0.2806435775874375,
-        "y": 5.322428685200694
+        "x": 0.3706435775874375,
+        "y": 5.4784286852006945
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "End of Clean Up Depot"
     }
   ],
   "rotationTargets": [],
@@ -40,10 +40,10 @@
     }
   ],
   "globalConstraints": {
-    "maxVelocity": 2.0,
-    "maxAcceleration": 2.0,
-    "maxAngularVelocity": 60.0,
-    "maxAngularAcceleration": 40.0,
+    "maxVelocity": 2.5,
+    "maxAcceleration": 2.2,
+    "maxAngularVelocity": 90.0,
+    "maxAngularAcceleration": 50.0,
     "nominalVoltage": 12.0,
     "unlimited": false
   },
@@ -52,7 +52,7 @@
     "rotation": 90.0
   },
   "reversed": false,
-  "folder": null,
+  "folder": "CLEAN UP",
   "idealStartingState": {
     "velocity": 0,
     "rotation": 90.0
