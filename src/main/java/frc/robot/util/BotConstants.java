@@ -32,7 +32,7 @@ public class BotConstants {
         public static TalonFXConfiguration cfg_Roller = new TalonFXConfiguration();
         public static TalonFXConfiguration cfg_Pivot = new TalonFXConfiguration();
         static{
-            cfg_Roller.Slot0.kP =2;
+            cfg_Roller.Slot0.kP = 0.9;
             cfg_Roller.MotorOutput.Inverted = InvertedValue.Clockwise_Positive;
             cfg_Roller.MotorOutput.NeutralMode = NeutralModeValue.Coast;
             cfg_Roller.MotionMagic.MotionMagicAcceleration = 50;
@@ -45,7 +45,7 @@ public class BotConstants {
             
         }
         static{
-            cfg_Pivot.Slot0.kP = -2.; //What :skull:
+            cfg_Pivot.Slot0.kP = 1.5; //YES ITS NORNMAL PID VALUES NOW
             
 
             cfg_Pivot.MotorOutput.NeutralMode = NeutralModeValue.Brake;
