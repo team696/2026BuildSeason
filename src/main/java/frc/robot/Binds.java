@@ -12,9 +12,9 @@ import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj2.command.ConditionalCommand;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import frc.robot.commands.AutoAlign;
-import frc.robot.commands.AutoAlignToClimb;
 import frc.robot.commands.AutoAlignToShoot;
 import frc.robot.commands.GyroReset;
+import frc.robot.commands.PathFindToClimb;
 import frc.robot.commands.ZeroClimber;
 import frc.robot.subsystem.Climber;
 import frc.robot.subsystem.Hopper;
@@ -81,7 +81,7 @@ public static final class OperatorPanel{
 		HumanControls.OperatorPanel.L2.whileTrue(Climber.get().doRetract());
 		// HumanControls.OperatorPanel.Climb1.whileTrue(new AutoAlignToShoot(hub).andThen(Shooter.get().Shoot(hub)));
 		// HumanControls.OperatorPanel.Climb1.whileTrue(new AutoAlignToClimb(climb));
-		HumanControls.OperatorPanel.Climb1.whileTrue(Swerve.get().alignToClimb());
+		HumanControls.OperatorPanel.Climb1.onTrue(new PathFindToClimb(Field.before_Tower_Blue).andThen(new PathFindToClimb()));
 
 
 		// L4 button seems to be flakey, changing to processor button
