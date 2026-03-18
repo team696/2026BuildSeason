@@ -202,6 +202,7 @@ public class Shooter extends SubsystemBase {
     m_Shooter.getSimState().setSupplyVoltage(12.0);
   }
   
+
   @Override
   public void periodic() {
     //Data stuff used in Autoalign
