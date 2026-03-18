@@ -10,6 +10,7 @@ import com.ctre.phoenix6.swerve.SwerveModule.DriveRequestType;
 import com.ctre.phoenix6.swerve.SwerveRequest;
 
 import edu.wpi.first.math.controller.PIDController;
+import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -59,7 +60,8 @@ public class AutoAlignToShoot extends Command {
         FCFARequest
         .withVelocityX(dir.getX())
         .withVelocityY(dir.getY())
-        .withTargetDirection(Swerve.get().target_theta(targetPosition))
+        .withTargetDirection(Swerve.get().target_theta(targetPosition).
+        minus(new Rotation2d(Units.degreesToRadians(.87)))) // need an offset of .87 degrees
         .withMaxAbsRotationalRate(DegreesPerSecond.of(360))
         .withRotationalDeadband(DegreesPerSecond.of(1)));
       
