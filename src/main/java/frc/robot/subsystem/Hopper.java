@@ -7,6 +7,8 @@ package frc.robot.subsystem;
 import com.ctre.phoenix6.controls.DutyCycleOut;
 import com.ctre.phoenix6.controls.MotionMagicVelocityVoltage;
 import com.ctre.phoenix6.hardware.TalonFX;
+import com.ctre.phoenix6.sim.TalonFXSSimState;
+import com.ctre.phoenix6.sim.TalonFXSimState;
 import com.ctre.phoenix6.swerve.SwerveModuleConstants.SteerMotorArrangement;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -30,10 +32,13 @@ public class Hopper extends SubsystemBase {
   }
 
   //Motor controller
-  public static MotionMagicVelocityVoltage HopperController = new MotionMagicVelocityVoltage(0);
-  public static DutyCycleOut ahhh = new DutyCycleOut(0.22);
+  private static MotionMagicVelocityVoltage HopperController = new MotionMagicVelocityVoltage(0);
+  private static DutyCycleOut ahhh = new DutyCycleOut(0.22);
   //Motor initalized
-  public final TalonFX m_Hopper = new TalonFX(BotConstants.Hopper.HopperID);
+  private final TalonFX m_Hopper = new TalonFX(BotConstants.Hopper.HopperID);
+  
+
+
   /** Creates a new Hopper. */
   public Hopper() {
     //Motor config
@@ -44,9 +49,14 @@ public class Hopper extends SubsystemBase {
   }
 
   //Moves the belt that pushes all the balls towrads the shooter
-  public Command run_Hopper(double speed){
-    return runEnd(()->{m_Hopper.setControl(HopperController.withVelocity(speed));},
-    ()->{m_Hopper.stopMotor();});
+  public void run_Hopper(){
+    m_Hopper.setControl(ahhh);
+  }
+
+  public Command run_Hopper_Command(){
+    return runEnd(
+      ()->{m_Hopper.setControl(ahhh);},
+      ()->{m_Hopper.stopMotor();});
   }
 
   public Command testHopper(){
@@ -58,6 +68,8 @@ public class Hopper extends SubsystemBase {
   public Command Stop(){
     return run(()->{m_Hopper.stopMotor();});
   }
+
+
 
   @Override
   public void periodic() {

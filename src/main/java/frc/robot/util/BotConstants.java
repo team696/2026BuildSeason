@@ -27,8 +27,9 @@ public class BotConstants {
 
 //All these values are temporary.
     public static class Intake{
-        public static final int pivotID = 22;
+        public static final int pivotID = 23;
         public static final int intakeID = 21;
+        public static final int intakeID_2 = 22;
         public static TalonFXConfiguration cfg_Roller = new TalonFXConfiguration();
         public static TalonFXConfiguration cfg_Pivot = new TalonFXConfiguration();
         static{
@@ -63,10 +64,10 @@ public class BotConstants {
         public static final int HopperID = 25;
         public static TalonFXConfiguration cfg_Hopper = new TalonFXConfiguration();
         static{
-            cfg_Hopper.Slot0.kP = 0.5;
+            cfg_Hopper.Slot0.kP = 1;
             cfg_Hopper.Slot0.kV = .1;
             cfg_Hopper.MotionMagic.MotionMagicCruiseVelocity = 100;
-            cfg_Hopper.MotionMagic.MotionMagicAcceleration = 50;
+            cfg_Hopper.MotionMagic.MotionMagicAcceleration = 10;
             cfg_Hopper.CurrentLimits.StatorCurrentLimitEnable = true;
             cfg_Hopper.CurrentLimits.StatorCurrentLimit = 100;
             
@@ -79,7 +80,7 @@ public class BotConstants {
     public static class Shooter{
         public static final int shooterflywheel_ID = 17;
         public static final int shooterflywheel2_ID = 18;
-        public static final int shooterIntake_ID = 50;
+        public static final int shooterIntake_ID = 19;
         public static final TalonFXConfiguration cfg_shooter = new TalonFXConfiguration();
         public static final TalonFXConfiguration cfg_shooter_intake = new TalonFXConfiguration();
         /**
@@ -107,42 +108,11 @@ public class BotConstants {
             velocityTable.put(3.308, -28.0);
             velocityTable.put(3.45, -28.0);
 
-            fixedVelocityTable.put(0.0,0.0);
-            fixedVelocityTable.put(0.0,0.0);
-            fixedVelocityTable.put(0.0,0.0);
-            fixedVelocityTable.put(0.0,0.0);
-            fixedVelocityTable.put(0.0,0.0);
-            fixedVelocityTable.put(0.0,0.0);
-            fixedVelocityTable.put(0.0,0.0);
-            fixedVelocityTable.put(0.0,0.0);
             
         }
 
     }
 
-    public static class Hood{
-        public static final int Hood_ID = 16;
-        public static final TalonFXConfiguration cfg_Hood = new TalonFXConfiguration();
-        /**
-         * Interpolates between distance from the hub (in meters) and the angle of the shooter (in degrees)
-         */
-        public static final InterpolatingDoubleTreeMap shooterTable = new InterpolatingDoubleTreeMap();
-        static{
-            cfg_Hood.Slot0.kP = 7.; //very snappy olala
-            cfg_Hood.MotionMagic.MotionMagicCruiseVelocity = 100;
-            cfg_Hood.MotionMagic.MotionMagicAcceleration = 160;
-        }
-
-        static{
-            shooterTable.put(0.0,0.0);
-            shooterTable.put(1.0,1.0);
-            shooterTable.put(1.0,1.0);
-            shooterTable.put(1.0,1.0);
-            shooterTable.put(1.0,1.0);
-            
-        }
-
-    }
 
     public static class Climber{
         public static final int Climber_ID = 30; //Make sure to change to like 20 to make the code nicer

@@ -1,7 +1,11 @@
 Screw the schedule, this is what we need to do NOW:
-    -Get better intake pose[]
-    -Better climbing zeroing[]
-    -Replace Gyro reset[]
+    -Change the backspin motor speed on the shooter for backspin/frontspin[]
+         -Make a copy of interpolating table for the velocity, add an offset to compensate for any problems[]
+    -Change the intake similar to the shooter[]
+    -Make the shooter run at a constant speed to speed up easier(preferably 1000 rpm)[]
+    -Get better intake pose[x]
+    -Better climbing zeroing[x]
+    -Replace Gyro reset[?]
     -Autos[]
 
 

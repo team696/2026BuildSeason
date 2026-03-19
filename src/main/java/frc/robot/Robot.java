@@ -47,7 +47,6 @@ public class Robot extends TimedRobot {
     //Binds.Controller.bind();
     
     Climber.get().zeroEncoder();
-    Shooter.get().zero_shooter();
     Intake.get().zeroEncoder();
 
 

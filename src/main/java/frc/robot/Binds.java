@@ -69,8 +69,9 @@ public static final class OperatorPanel{
 	public static final void bind(){
 		Shooter.get().setDefaultCommand(Shooter.get().idle()); //Shooter rollers idle
 		Intake.get().setDefaultCommand(Intake.get().doStow());
+		Hopper.get().setDefaultCommand(Hopper.get().Stop());
 
-		HumanControls.OperatorPanel.SouceCoral.whileTrue(Intake.get().doIntake().alongWith(Hopper.get().testHopper()));
+		HumanControls.OperatorPanel.SouceCoral.whileTrue(Intake.get().doIntake().alongWith(Hopper.get().run_Hopper_Command()));
 		// HumanControls.OperatorPanel.GroundCoral.whileTrue(Shooter.get().Shoot(hub));
 		HumanControls.OperatorPanel.gyro.onTrue(new GyroReset(Swerve.get()));
 		HumanControls.OperatorPanel.releaseCoral.whileTrue(new AutoAlign(Pass_1));
@@ -78,9 +79,9 @@ public static final class OperatorPanel{
 		HumanControls.OperatorPanel.L3.whileTrue(new ZeroClimber());
 		HumanControls.OperatorPanel.L1.whileTrue(Climber.get().doExtend());
 		HumanControls.OperatorPanel.L2.whileTrue(Climber.get().doRetract());
-		HumanControls.OperatorPanel.Climb1.whileTrue(new AutoAlignToShoot(hub));
+		//HumanControls.OperatorPanel.Climb1.whileTrue(new AutoAlignToShoot(hub));
 		// HumanControls.OperatorPanel.Climb1.onTrue(new PathFindToClimb(Field.before_Tower_Blue).andThen(new PathFindToClimb()));
-		HumanControls.OperatorPanel.GroundCoral.whileTrue(Shooter.get().ShootDash(hub));
+		HumanControls.OperatorPanel.GroundCoral.whileTrue(Shooter.get().ShootDash());
 
 
 
@@ -120,8 +121,8 @@ public static final class Controller {
 		
 		
 		//Climber.get().setDefaultCommand(Climber.get().doExtend()); //Default to go up
-		Shooter.get().setDefaultCommand(Shooter.get().idle()); //Shooter rollers idle
-		Intake.get().setDefaultCommand(Intake.get().doStow());
+		//Shooter.get().setDefaultCommand(Shooter.get().idle()); //Shooter rollers idle
+		//Intake.get().setDefaultCommand(Intake.get().doStow());
 		//Hopper.get().setDefaultCommand(Hopper.get().Stop());
 
 		
@@ -133,7 +134,7 @@ public static final class Controller {
 
 	//HumanControls.SingleXboxController.LB.whileTrue(new AutoAlign(Pass_1)); //Auto Align to conrer
 	//HumanControls.SingleXboxController.RB.whileTrue(new AutoAlign(Pass_2));//Auto Align to the corner again
-	HumanControls.SingleXboxController.LB.whileTrue(Intake.get().doIntake().alongWith(Hopper.get().run_Hopper(50))); //Intake 
+	//HumanControls.SingleXboxController.LB.whileTrue(Intake.get().doIntake().alongWith(Hopper.get().run_Hopper(50))); //Intake 
 	HumanControls.SingleXboxController.RB.whileTrue(Shooter.get().Shoot(hub)); 
 	//HumanControls.SingleXboxController.B.whileTrue(Swerve.get().alignToClimb());
 	//HumanControls.SingleXboxController.X.whileTrue(Intake.get().doStow());

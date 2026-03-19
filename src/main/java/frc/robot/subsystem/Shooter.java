@@ -27,9 +27,9 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.util.BotConstants;
 import frc.robot.util.Field;
-import frc.robot.util.BotConstants.Hood;
 
 public class Shooter extends SubsystemBase {
 
@@ -47,11 +47,9 @@ public class Shooter extends SubsystemBase {
       //Motors
       private final TalonFX m_Shooter = new TalonFX(BotConstants.Shooter.shooterflywheel_ID);
       private final TalonFX m_Shooter_2 = new TalonFX(BotConstants.Shooter.shooterflywheel2_ID);
-      private final TalonFX m_Hood = new TalonFX(BotConstants.Hood.Hood_ID);
       private final TalonFX m_ShooterIntake = new TalonFX(BotConstants.Shooter.shooterIntake_ID);
       //Controllers
       private final MotionMagicVelocityVoltage shooterVelocityController = new MotionMagicVelocityVoltage(0);
-      private final MotionMagicVoltage hoodAngleController = new MotionMagicVoltage(0);
       private final VelocityVoltage intakeRollerController = new VelocityVoltage(0);
 
 
@@ -59,46 +57,41 @@ public class Shooter extends SubsystemBase {
 
       //Simulation
       private final FlywheelSim m_FlywheelSim = new FlywheelSim(LinearSystemId.createFlywheelSystem(DCMotor.getKrakenX60(2), 0.008, 1.0), DCMotor.getKrakenX60(2), 0.008);
+            private final FlywheelSim m_FLywheelSim2 = new FlywheelSim(LinearSystemId.createFlywheelSystem(DCMotor.getKrakenX60(1), 0.008, 1.0), DCMotor.getKrakenX60(2), 0.008);
 
       //Data
-      private StatusSignal<Angle> position_hood;
       private StatusSignal<AngularVelocity> velocity_roller;
 
   public Shooter() {
       //Config set up
       m_Shooter.getConfigurator().apply(BotConstants.Shooter.cfg_shooter);
-      m_Hood.getConfigurator().apply(BotConstants.Hood.cfg_Hood);
       m_ShooterIntake.getConfigurator().apply(BotConstants.Shooter.cfg_shooter_intake);
-      
 
       SmartDashboard.putNumber("Launch Speed", 0);
-      SmartDashboard.putNumber("Hood angle", 0);
+      SmartDashboard.putNumber("Front roller", 0);
       SmartDashboard.putNumber("Indexer speed", 0);
       
-      position_hood = m_Hood.getPosition();
+
+      
       velocity_roller = m_Shooter.getVelocity();
   }
 
-  //Sets the hood angle
-  public Command setHoodAngle(double position_hood){
-    return run(() -> {m_Hood.setControl( 
-      hoodAngleController.withPosition(position_hood));});
-  }
   //Sets the velocity
-  public Command set_velocity(double velocity){
-    return run(()->{ m_Shooter.setControl(shooterVelocityController.withVelocity(velocity)); m_Shooter_2.setControl(new Follower(BotConstants.Shooter.shooterflywheel_ID,MotorAlignmentValue.Opposed));});
-  }
-  //Intakes the ball for the shooter
-  public Command intake_shooter(double speed){
-    return run(()->{m_ShooterIntake.setControl(intakeRollerController.withVelocity(speed));});
+  public void set_velocity(double velocity){
+    m_Shooter.setControl(shooterVelocityController.withVelocity(velocity));
+    m_Shooter_2.setControl(new Follower(BotConstants.Shooter.shooterflywheel_ID,MotorAlignmentValue.Opposed)); //TODO: we must change this for 
   }
 
-  public void zero_shooter(){
-    m_Hood.setPosition(0);
+
+  //Intakes the ball for the shooter
+  public void intake_shooter(double speed){
+    m_ShooterIntake.setControl(intakeRollerController.withVelocity(speed));
   }
+
+
 
   public Command idle(){
-    return setHoodAngle(0);
+    return run(()->{set_velocity(0); Hopper.get().Stop();});
   }
 
 
@@ -107,50 +100,59 @@ public class Shooter extends SubsystemBase {
         double distMeters=Swerve.get().distTo(desired_pose);
         double velocity = BotConstants.Shooter.velocityTable.get(distMeters);
 
-        // this.set_velocity(velocity);
-        
-        m_Shooter.setControl(shooterVelocityController.withVelocity(velocity));
-        m_Shooter_2.setControl(new Follower(BotConstants.Shooter.shooterflywheel_ID,MotorAlignmentValue.Opposed));
+         this.set_velocity(velocity);
 
-        // m_Shooter.setControl(shooterVelocityController.withVelocity(velocity));
         if((Math.abs(getRollerVelocity()-velocity))<1 && Math.abs(Swerve.get().distTo(Field.Alliance_Find.hub))<3.0 && Math.abs(Swerve.get().distTo(Field.Alliance_Find.hub))>2.1){
-              m_ShooterIntake.setControl(intakeRollerController.withVelocity(40));
-              Hopper.get().m_Hopper.setControl(Hopper.ahhh);
+              this.intake_shooter(velocity);
+              Hopper.get().run_Hopper();
             }
         else{
           m_ShooterIntake.stopMotor();
-          Hopper.get().m_Hopper.stopMotor();
+          Hopper.get().Stop();
         }
 
       },
       ()->{
-          m_Shooter.stopMotor();
-          m_Shooter_2.stopMotor();
-          m_ShooterIntake.stopMotor();
-          Hopper.get().m_Hopper.stopMotor();
+          this.Stop();
+          Hopper.get().Stop();
       });
     }
 
-
-
-   public Command ShootDash(Translation2d desired_pose){
+  public Command ShootPass(Translation2d desired_pose){
       return runEnd(()->{
-        // double velocity = SmartDashboard.getNumber("Launch Speed", 0.0);
-        double velocity = -25.2; // found using smart dash boared
+        double distMeters=Swerve.get().distTo(desired_pose);
+        double velocity = BotConstants.Shooter.velocityTable.get(distMeters);
 
-        // this.set_velocity(velocity);
-        
-        m_Shooter.setControl(shooterVelocityController.withVelocity(velocity));
-        m_Shooter_2.setControl(new Follower(BotConstants.Shooter.shooterflywheel_ID,MotorAlignmentValue.Opposed));
+        this.set_velocity(velocity);
+        new WaitCommand(1.5);
+        this.intake_shooter(velocity);
+        Hopper.get().run_Hopper();
+  
 
-        // m_Shooter.setControl(shooterVelocityController.withVelocity(velocity));
-        if((Math.abs(getRollerVelocity()-velocity))<1 && Math.abs(Swerve.get().distTo(Field.Alliance_Find.hub))<3.0 && Math.abs(Swerve.get().distTo(Field.Alliance_Find.hub))>2.1){
-              m_ShooterIntake.setControl(intakeRollerController.withVelocity(40));
-              Hopper.get().m_Hopper.setControl(Hopper.ahhh);
+      },
+      ()->{
+          m_Shooter.stopMotor();
+          m_Shooter_2.stopMotor();
+          m_ShooterIntake.stopMotor();
+          Hopper.get().Stop();
+      });
+    }
+
+    public Command ShootDash(){
+      return runEnd(()->{
+        double velocity = SmartDashboard.getNumber("Launch Speed", 0.0);
+        double intakespeed = SmartDashboard.getNumber("Indexer speed", 0.0);
+
+        this.set_velocity(velocity);
+
+
+        if((Math.abs(getRollerVelocity()-velocity))<1){
+              this.intake_shooter(intakespeed);
+              Hopper.get().run_Hopper();
             }
         else{
           m_ShooterIntake.stopMotor();
-          Hopper.get().m_Hopper.stopMotor();
+          Hopper.get().Stop();
         }
 
       },
@@ -158,24 +160,20 @@ public class Shooter extends SubsystemBase {
           m_Shooter.stopMotor();
           m_Shooter_2.stopMotor();
           m_ShooterIntake.stopMotor();
-          Hopper.get().m_Hopper.stopMotor();
+          Hopper.get().Stop();
       });
     }
+
+    
 
   //Stops everything
-  public Command Stop(){
-    return run(()->{
+  public void Stop(){
       m_Shooter.stopMotor();
       m_Shooter_2.stopMotor();
-      m_Hood.stopMotor();
       m_ShooterIntake.stopMotor();
-    });
   }
 
   //Data stuff
-  public double getHoodPosition(){
-    return position_hood.refresh().getValueAsDouble();
-  }
  
   public double getRollerVelocity(){
     return velocity_roller.refresh().getValueAsDouble();
@@ -187,10 +185,14 @@ public class Shooter extends SubsystemBase {
       // 1. Get the voltage from the TalonFX SimState
   // This is the voltage the PID controller is CURRENTLY sending to the motor
   double motorVoltage = m_Shooter.getSimState().getMotorVoltage();
+  double indexerVoltage = m_ShooterIntake.getSimState().getMotorVoltage();
 
   // 2. Update the physics model
   m_FlywheelSim.setInputVoltage(motorVoltage);
   m_FlywheelSim.update(0.020); // standard 20ms loop
+
+  m_FLywheelSim2.setInputVoltage(indexerVoltage);
+  
 
   // 3. Update the TalonFX sensor simulation
   // This makes m_Shooter.getVelocity() actually return the simulated speed
@@ -202,11 +204,9 @@ public class Shooter extends SubsystemBase {
     m_Shooter.getSimState().setSupplyVoltage(12.0);
   }
   
-
   @Override
   public void periodic() {
     //Data stuff used in Autoalign
-    getHoodPosition();
     getRollerVelocity();
 
     SmartDashboard.putNumber("Velocity", getRollerVelocity());

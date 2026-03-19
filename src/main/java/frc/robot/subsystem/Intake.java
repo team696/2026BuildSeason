@@ -47,7 +47,7 @@ public class Intake extends SubsystemBase {
   //Enum to determin pivot position, values are temporary
   public enum Pivot{
     STOW(0.00),
-    DEPLOY(5.5);
+    DEPLOY(-5.5);
 
     public double position;
 
@@ -58,8 +58,10 @@ public class Intake extends SubsystemBase {
   
 
   //Motors
-  private final TalonFX m_IntakePivot = new TalonFX(BotConstants.Intake.pivotID);
   private final TalonFX m_IntakeRoller = new TalonFX(BotConstants.Intake.intakeID);
+  private final TalonFX m_IntakeRoller_2 = new TalonFX(BotConstants.Intake.intakeID_2);
+  private final TalonFX m_IntakePivot = new TalonFX(BotConstants.Intake.pivotID);
+
   //Motor Controller
    private final MotionMagicVoltage PivotPositionControl = new MotionMagicVoltage(0);
   private final PositionVoltage pivotPosition = new PositionVoltage(0).withSlot(0);
@@ -73,6 +75,7 @@ public class Intake extends SubsystemBase {
 
 
     m_IntakeRoller.getConfigurator().apply(BotConstants.Intake.cfg_Roller);
+    m_IntakeRoller_2.getConfigurator().apply(BotConstants.Intake.cfg_Roller);
     m_IntakePivot.getConfigurator().apply(BotConstants.Intake.cfg_Pivot);
     m_IntakePivot.setPosition(0.0);
 
@@ -91,11 +94,11 @@ public class Intake extends SubsystemBase {
 
   public void runIntake(State state) {
     m_IntakeRoller.setControl(intakeVelocityController.withVelocity(state.roller_velocity));
+    m_IntakeRoller.setControl(intakeVelocityController.withVelocity(state.roller_velocity*-1));
   }
 
-  public void positionIntake(double state) {
-    m_IntakePivot.setControl(PivotPositionControl.withPosition(state)); //
-    //vout.withOutput(-1 * pidController.calculate(m_IntakePivot.getPosition().getValueAsDouble(), state))
+  public void positionIntake(Pivot pivot) {
+    m_IntakePivot.setControl(PivotPositionControl.withPosition(pivot.position)); //
   }
 
   public Command zeroEncoder() {
@@ -103,28 +106,24 @@ public class Intake extends SubsystemBase {
 }
 
 public Command doStow() {
-    return this.runEnd(() -> {
+    return this.run(() -> {
       m_IntakeRoller.stopMotor();
+      m_IntakeRoller_2.stopMotor();
       m_IntakePivot.setControl(pivotPosition.withPosition(0));     
-    },
-    ()->{
-
-    }
-    );
+    });
   }
+
   public Command doIntake() {
-    return this.runEnd(() -> {
+    return this.run(() -> {
         this.runIntake(State.INTAKE); 
-        this.positionIntake(-6); 
-    }, 
-    ()->{
-        this.doStow();});
+        this.positionIntake(Pivot.DEPLOY); 
+    });
   }
 
 
 
 
-//Sim stuff need to delete
+//Sim stuff, need to set tis up for the rest of the sub system for testing at home and playing around with the values
 @Override
 public void simulationPeriodic(){
     double rollervoltage = m_IntakeRoller.getSimState().getMotorVoltage();
