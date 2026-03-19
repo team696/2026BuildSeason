@@ -68,14 +68,14 @@ public static final class OperatorPanel{
 	}
 	public static final void bind(){
 		Shooter.get().setDefaultCommand(Shooter.get().idle()); //Shooter rollers idle
-		Intake.get().setDefaultCommand(Intake.get().doStow());
-		Hopper.get().setDefaultCommand(Hopper.get().Stop());
+		// Intake.get().setDefaultCommand(Intake.get().doStow());
+		Hopper.get().setDefaultCommand(Hopper.get().idleHopper());
 
 		HumanControls.OperatorPanel.SouceCoral.whileTrue(Intake.get().doIntake().alongWith(Hopper.get().run_Hopper_Command()));
 		// HumanControls.OperatorPanel.GroundCoral.whileTrue(Shooter.get().Shoot(hub));
 		HumanControls.OperatorPanel.gyro.onTrue(new GyroReset(Swerve.get()));
 		HumanControls.OperatorPanel.releaseCoral.whileTrue(new AutoAlign(Pass_1));
-		HumanControls.OperatorPanel.pickupAlgae.whileTrue(new AutoAlign(Pass_2));
+		// HumanControls.OperatorPanel.pickupAlgae.whileTrue(new AutoAlign(Pass_2));
 		HumanControls.OperatorPanel.L3.whileTrue(new ZeroClimber());
 		HumanControls.OperatorPanel.L1.whileTrue(Climber.get().doExtend());
 		HumanControls.OperatorPanel.L2.whileTrue(Climber.get().doRetract());
