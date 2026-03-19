@@ -69,7 +69,7 @@ public static final class OperatorPanel{
 	public static final void bind(){
 		Shooter.get().setDefaultCommand(Shooter.get().idle()); //Shooter rollers idle
 		// Intake.get().setDefaultCommand(Intake.get().doStow());
-		Hopper.get().setDefaultCommand(Hopper.get().idleHopper());
+		// Hopper.get().setDefaultCommand(Hopper.get().idleHopper());
 
 		HumanControls.OperatorPanel.SouceCoral.whileTrue(Intake.get().doIntake().alongWith(Hopper.get().run_Hopper_Command()));
 		// HumanControls.OperatorPanel.GroundCoral.whileTrue(Shooter.get().Shoot(hub));

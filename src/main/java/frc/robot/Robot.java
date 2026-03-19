@@ -5,6 +5,8 @@
 package frc.robot;
 
 
+import edu.wpi.first.cameraserver.CameraServer;
+import edu.wpi.first.cscore.UsbCamera;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.units.measure.Distance;
 import edu.wpi.first.wpilibj.TimedRobot;
@@ -95,6 +97,9 @@ public double DistanceFinder(Translation2d targetPosition){
 
   @Override
   public void teleopInit() {
+   UsbCamera cam = CameraServer.startAutomaticCapture(0);
+    cam.setResolution(160, 120);
+  cam.setFPS(10); 
     if (m_autonomousCommand != null) {
       m_autonomousCommand.cancel();
     }
