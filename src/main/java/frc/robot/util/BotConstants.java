@@ -43,9 +43,7 @@ public class BotConstants {
             //cfg_Roller.CurrentLimits.StatorCurrentLimitEnable = false;
             //cfg_Roller.CurrentLimits.SupplyCurrentLimitEnable = true;
             //cfg_Roller.CurrentLimits.StatorCurrentLimit = 30.;
-            
-        }
-        static{
+
             cfg_Pivot.Slot0.kP = 1.5; //YES ITS NORNMAL PID VALUES NOW
             
 
@@ -90,9 +88,9 @@ public class BotConstants {
         public static final InterpolatingDoubleTreeMap fixedVelocityTable = new InterpolatingDoubleTreeMap();
 
         static{
-            cfg_shooter.Slot0.kP = 0.53;
+            cfg_shooter.Slot0.kP = 0.1;
             // cfg_shooter.Slot0.kS = 0.2;
-            cfg_shooter.Slot0.kV = 0.16;
+            cfg_shooter.Slot0.kV = 0.14;
             cfg_shooter_intake.Slot0.kP = 0.3;
             cfg_shooter_intake.Slot0.kV = 0.12;
             cfg_shooter.MotionMagic.MotionMagicAcceleration = 200;

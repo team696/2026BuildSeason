@@ -37,7 +37,7 @@ public class Intake extends SubsystemBase {
   //Enum to determin state, values are temporary
   public static enum State{
     IDLE(0.0),
-    INTAKE(70.0);
+    INTAKE(35.0);
 
     public double roller_velocity;  // Renamed
     State(double roller_velocity){
@@ -66,6 +66,8 @@ public class Intake extends SubsystemBase {
    private final MotionMagicVoltage PivotPositionControl = new MotionMagicVoltage(0);
   private final PositionVoltage pivotPosition = new PositionVoltage(0).withSlot(0);
   private final MotionMagicVelocityVoltage intakeVelocityController  = new MotionMagicVelocityVoltage(0);
+    private final MotionMagicVelocityVoltage intakeVelocityController2  = new MotionMagicVelocityVoltage(0);
+
 
 
   private final FlywheelSim m_FlywheelSim = new FlywheelSim(LinearSystemId.createFlywheelSystem(DCMotor.getKrakenX60(2), 0.008, 1.0), DCMotor.getKrakenX60(2), 0.008);
@@ -78,7 +80,7 @@ public class Intake extends SubsystemBase {
     m_IntakeRoller_2.getConfigurator().apply(BotConstants.Intake.cfg_Roller);
     m_IntakePivot.getConfigurator().apply(BotConstants.Intake.cfg_Pivot);
     m_IntakePivot.setPosition(0.0);
-
+    
     //this.setDefaultCommand(doStow());
   }
 
@@ -93,8 +95,8 @@ public class Intake extends SubsystemBase {
 
 
   public void runIntake(State state) {
-    m_IntakeRoller.setControl(intakeVelocityController.withVelocity(state.roller_velocity));
-    m_IntakeRoller.setControl(intakeVelocityController.withVelocity(state.roller_velocity*-1));
+    m_IntakeRoller.setControl(intakeVelocityController.withVelocity(state.roller_velocity*-1 * 0.75));
+    m_IntakeRoller_2.setControl(intakeVelocityController2.withVelocity(state.roller_velocity*-1));
   }
 
   public void positionIntake(Pivot pivot) {

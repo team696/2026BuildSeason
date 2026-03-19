@@ -145,14 +145,13 @@ public class Shooter extends SubsystemBase {
 
         this.set_velocity(velocity);
 
-
-        if((Math.abs(getRollerVelocity()-velocity))<1){
-              this.intake_shooter(intakespeed);
               Hopper.get().run_Hopper();
+
+        if((Math.abs(getRollerVelocity()-velocity))<3){
+              this.intake_shooter(intakespeed);
             }
         else{
           m_ShooterIntake.stopMotor();
-          Hopper.get().Stop();
         }
 
       },
@@ -171,6 +170,8 @@ public class Shooter extends SubsystemBase {
       m_Shooter.stopMotor();
       m_Shooter_2.stopMotor();
       m_ShooterIntake.stopMotor();
+                Hopper.get().Stop();
+
   }
 
   //Data stuff
