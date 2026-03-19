@@ -11,10 +11,12 @@ import com.ctre.phoenix6.sim.TalonFXSSimState;
 import com.ctre.phoenix6.sim.TalonFXSimState;
 import com.ctre.phoenix6.swerve.SwerveModuleConstants.SteerMotorArrangement;
 
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.util.BotConstants;
+import frc.robot.util.BotConstants.DriveConstants;
 
 
 
@@ -56,6 +58,12 @@ public class Hopper extends SubsystemBase {
   public Command run_Hopper_Command(){
     return runEnd(
       ()->{m_Hopper.setControl(ahhh);},
+      ()->{m_Hopper.stopMotor();});
+  }
+
+  public Command idleHopper(){
+    return runEnd(
+      ()->{m_Hopper.setControl(new DutyCycleOut((0.025*Math.sin(DriverStation.getMatchTime())+0.3)));},
       ()->{m_Hopper.stopMotor();});
   }
 

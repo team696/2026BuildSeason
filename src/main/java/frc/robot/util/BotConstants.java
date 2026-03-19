@@ -45,7 +45,8 @@ public class BotConstants {
             //cfg_Roller.CurrentLimits.StatorCurrentLimit = 30.;
 
             cfg_Pivot.Slot0.kP = 1.5; //YES ITS NORNMAL PID VALUES NOW
-            
+            cfg_Pivot.Slot1.kP = .2; //YES ITS NORNMAL PID VALUES NOW
+
 
             cfg_Pivot.MotorOutput.NeutralMode = NeutralModeValue.Brake;
             cfg_Pivot.MotorOutput.Inverted = InvertedValue.Clockwise_Positive;

@@ -84,14 +84,7 @@ public class Intake extends SubsystemBase {
     //this.setDefaultCommand(doStow());
   }
 
-  public Command test(){
-    return this.runEnd(()->{
-      m_IntakeRoller.setControl(intakeVelocityController.withVelocity(40));
-      m_IntakePivot.setControl(pivotPosition.withPosition(-5));
-    },
-    ()->{m_IntakePivot.stopMotor();
-        m_IntakeRoller.stopMotor();});
-  }
+
 
 
   public void runIntake(State state) {
@@ -108,7 +101,8 @@ public class Intake extends SubsystemBase {
 }
 
 public Command doStow() {
-    return this.run(() -> {
+  m_IntakePivot.getConfigurator().apply(BotConstants.Intake.cfg_Pivot.Slot1);
+  return this.run(() -> {
       m_IntakeRoller.stopMotor();
       m_IntakeRoller_2.stopMotor();
       m_IntakePivot.setControl(pivotPosition.withPosition(0));     
@@ -116,6 +110,7 @@ public Command doStow() {
   }
 
   public Command doIntake() {
+    m_IntakePivot.getConfigurator().apply(BotConstants.Intake.cfg_Pivot);
     return this.run(() -> {
         this.runIntake(State.INTAKE); 
         this.positionIntake(Pivot.DEPLOY); 
