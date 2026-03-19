@@ -42,9 +42,9 @@ public class Robot extends TimedRobot {
     new Auto.NamedCommand("Retract Climber", Climber.get().doRetract().withTimeout(2.0))
     );
     
-    Binds.DriverStation2026.bind();
-    Binds.OperatorPanel.bind();
-    //Binds.Controller.bind();
+    // Binds.DriverStation2026.bind(); // Joysticks
+    // Binds.OperatorPanel.bind();
+    Binds.Controller.bind();  // X Box controller
     
     Climber.get().zeroEncoder();
     Shooter.get().zero_shooter();
