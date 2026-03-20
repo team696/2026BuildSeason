@@ -53,7 +53,7 @@ public class Intake extends SubsystemBase {
     public double position;
 
     Pivot(double position){
-      this.position = position;
+      this.position = position+0.08;
     }
   }
   
