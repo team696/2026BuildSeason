@@ -67,7 +67,7 @@ public static final class OperatorPanel{
 		DriverStation.silenceJoystickConnectionWarning(true);
 	}
 	public static final void bind(){
-		Hopper.get().setDefaultCommand(Hopper.get().oscilateHopper());
+		Hopper.get().setDefaultCommand(Hopper.get().run_Hopper_Command());
 		Shooter.get().setDefaultCommand(Shooter.get().idle()); //Shooter rollers idle
 		// Intake.get().setDefaultCommand(Intake.get().doStow());
 		// Hopper.get().setDefaultCommand(Hopper.get().idleHopper());
@@ -86,6 +86,7 @@ public static final class OperatorPanel{
 
 HumanControls.OperatorPanel.SouceCoral.onTrue(Intake.get().doIntake());
 HumanControls.OperatorPanel.GroundCoral.onTrue(Intake.get().doStow());
+HumanControls.OperatorPanel.L1.whileTrue(Intake.get().doOscilateIntake());
 
 		// L4 button seems to be flakey, changing to processor button
 		HumanControls.OperatorPanel.Processor.and(HumanControls.OperatorPanel.deepOrSwitch).whileTrue(Swerve.get().alignToClimb());

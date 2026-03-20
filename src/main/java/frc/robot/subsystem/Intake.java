@@ -13,6 +13,8 @@ import com.ctre.phoenix6.hardware.TalonFX;
 import edu.wpi.first.math.VecBuilder;
 import edu.wpi.first.math.system.plant.DCMotor;
 import edu.wpi.first.math.system.plant.LinearSystemId;
+import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.simulation.FlywheelSim;
 import edu.wpi.first.wpilibj.simulation.SingleJointedArmSim;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -123,6 +125,13 @@ public Command doHardStop() {
     });
   }
 
+public Command doOscilateIntake() {
+  return this.run(() -> {
+      m_IntakeRoller.stopMotor();
+      m_IntakeRoller_2.stopMotor();
+      m_IntakePivot.setControl(pivotPosition.withPosition(.1*Math.sin(Timer.getFPGATimestamp()*5)+(Pivot.STOW.position+.1)).withSlot(1));     
+    });
+  }
 
 
 
