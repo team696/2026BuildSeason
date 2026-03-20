@@ -8,6 +8,8 @@ import static edu.wpi.first.units.Units.*;
 
 import com.ctre.phoenix6.CANBus;
 import com.ctre.phoenix6.configs.TalonFXConfiguration;
+import com.ctre.phoenix6.signals.FeedbackSensorSourceValue;
+import com.ctre.phoenix6.signals.GravityTypeValue;
 import com.ctre.phoenix6.signals.InvertedValue;
 import com.ctre.phoenix6.signals.NeutralModeValue;
 
@@ -33,7 +35,7 @@ public class BotConstants {
         public static TalonFXConfiguration cfg_Roller = new TalonFXConfiguration();
         public static TalonFXConfiguration cfg_Pivot = new TalonFXConfiguration();
         static{
-            cfg_Roller.Slot0.kP = 0.9;
+            cfg_Roller.Slot0.kP = 0.5;
             cfg_Roller.MotorOutput.Inverted = InvertedValue.Clockwise_Positive;
             cfg_Roller.MotorOutput.NeutralMode = NeutralModeValue.Coast;
             cfg_Roller.MotionMagic.MotionMagicAcceleration = 50;
@@ -44,9 +46,13 @@ public class BotConstants {
             //cfg_Roller.CurrentLimits.SupplyCurrentLimitEnable = true;
             //cfg_Roller.CurrentLimits.StatorCurrentLimit = 30.;
 
-            cfg_Pivot.Slot0.kP = 1.; //YES ITS NORNMAL PID VALUES NOW
-            cfg_Pivot.Slot1.kP = .1; //YES ITS NORNMAL PID VALUES NOW
-            cfg_Pivot.Slot1.kV = 0.05;
+            cfg_Pivot.Slot0.kP = 8.; //YES ITS NORNMAL PID VALUES NOW
+            cfg_Pivot.Slot1.kP = 7.; //YES ITS NORNMAL PID VALUES NOW
+            cfg_Pivot.Slot1.kG = -.08*12;
+            cfg_Pivot.Slot1.GravityType = GravityTypeValue.Arm_Cosine;
+            
+            cfg_Pivot.Feedback.SensorToMechanismRatio = 15;
+
 
             cfg_Pivot.MotorOutput.NeutralMode = NeutralModeValue.Brake;
             cfg_Pivot.MotorOutput.Inverted = InvertedValue.CounterClockwise_Positive;
