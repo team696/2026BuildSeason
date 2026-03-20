@@ -47,7 +47,7 @@ public class Intake extends SubsystemBase {
   //Enum to determin pivot position, values are temporary
   public enum Pivot{
     STOW(0.00),
-    DEPLOY(-5.5);
+    DEPLOY(5.5); //position flipped cuz now we counter clock wise positive
 
     public double position;
 
@@ -64,21 +64,21 @@ public class Intake extends SubsystemBase {
 
   //Motor Controller
    private final MotionMagicVoltage PivotPositionControl = new MotionMagicVoltage(0);
-  private final PositionVoltage pivotPosition = new PositionVoltage(0).withSlot(0);
+  private final MotionMagicVoltage pivotPosition = new MotionMagicVoltage(0);
   private final MotionMagicVelocityVoltage intakeVelocityController  = new MotionMagicVelocityVoltage(0);
     private final MotionMagicVelocityVoltage intakeVelocityController2  = new MotionMagicVelocityVoltage(0);
 
 
 
   private final FlywheelSim m_FlywheelSim = new FlywheelSim(LinearSystemId.createFlywheelSystem(DCMotor.getKrakenX60(2), 0.008, 1.0), DCMotor.getKrakenX60(2), 0.008);
-  private final SingleJointedArmSim m_IntakePivotSim = new SingleJointedArmSim(DCMotor.getKrakenX60(1), 15, 1.846666667, 0.28, -2.555, 0.0, false, 0.0);
+  private final SingleJointedArmSim m_IntakePivotSim = new SingleJointedArmSim(DCMotor.getKrakenX60(1), 15, 1.846666667, 0.28, 0, 2.5555, false, 0.0);
 
   public Intake() {
 
 
     m_IntakeRoller.getConfigurator().apply(BotConstants.Intake.cfg_Roller);
     m_IntakeRoller_2.getConfigurator().apply(BotConstants.Intake.cfg_Roller);
-    m_IntakePivot.getConfigurator().apply(BotConstants.Intake.cfg_Pivot_Deploy);
+    m_IntakePivot.getConfigurator().apply(BotConstants.Intake.cfg_Pivot);
     m_IntakePivot.setPosition(0.0);
     
     //this.setDefaultCommand(doStow());
@@ -93,7 +93,7 @@ public class Intake extends SubsystemBase {
   }
 
   public void positionIntake(Pivot pivot) {
-    m_IntakePivot.setControl(PivotPositionControl.withPosition(pivot.position)); //
+    m_IntakePivot.setControl(PivotPositionControl.withPosition(pivot.position).withSlot(0)); //
   }
 
   public Command zeroEncoder() {
@@ -101,25 +101,22 @@ public class Intake extends SubsystemBase {
 }
 
 public Command doStow() {
-  m_IntakePivot.getConfigurator().apply(BotConstants.Intake.cfg_Pivot_Deploy);
   return this.run(() -> {
       m_IntakeRoller.stopMotor();
       m_IntakeRoller_2.stopMotor();
-      m_IntakePivot.setControl(pivotPosition.withPosition(-1.299316));     
+      m_IntakePivot.setControl(pivotPosition.withPosition(-1.299316).withSlot(1));     
     });
   }
 
 public Command doHardStop() {
-  m_IntakePivot.getConfigurator().apply(BotConstants.Intake.cfg_Pivot_Deploy);
   return this.run(() -> {
       m_IntakeRoller.stopMotor();
       m_IntakeRoller_2.stopMotor();
-      m_IntakePivot.setControl(pivotPosition.withPosition(0));     
+      m_IntakePivot.setControl(pivotPosition.withPosition(0).withSlot(1));     
     });
   }
 
   public Command doIntake() {
-    m_IntakePivot.getConfigurator().apply(BotConstants.Intake.cfg_Pivot_Deploy);
     return this.run(() -> {
         this.runIntake(State.INTAKE); 
         this.positionIntake(Pivot.DEPLOY); 
@@ -146,7 +143,7 @@ public void simulationPeriodic(){
     
     m_IntakePivotSim.update(0.020);
 
-    double motorPos = -1.0*(m_IntakePivotSim.getAngleRads() * 15.0) / (2 * Math.PI);
+    double motorPos = (m_IntakePivotSim.getAngleRads() * 15.0) / (2 * Math.PI);
     m_IntakePivot.getSimState().setRawRotorPosition(motorPos);
     
     
