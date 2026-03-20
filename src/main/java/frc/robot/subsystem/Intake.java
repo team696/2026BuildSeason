@@ -37,7 +37,7 @@ public class Intake extends SubsystemBase {
   //Enum to determin state, values are temporary
   public static enum State{
     IDLE(0.0),
-    INTAKE(35.0);
+    INTAKE(42.0);
 
     public double roller_velocity;  // Renamed
     State(double roller_velocity){
@@ -78,7 +78,7 @@ public class Intake extends SubsystemBase {
 
     m_IntakeRoller.getConfigurator().apply(BotConstants.Intake.cfg_Roller);
     m_IntakeRoller_2.getConfigurator().apply(BotConstants.Intake.cfg_Roller);
-    m_IntakePivot.getConfigurator().apply(BotConstants.Intake.cfg_Pivot);
+    m_IntakePivot.getConfigurator().apply(BotConstants.Intake.cfg_Pivot_Deploy);
     m_IntakePivot.setPosition(0.0);
     
     //this.setDefaultCommand(doStow());
@@ -88,8 +88,8 @@ public class Intake extends SubsystemBase {
 
 
   public void runIntake(State state) {
-    m_IntakeRoller.setControl(intakeVelocityController.withVelocity(state.roller_velocity*-1 * 0.75));
-    m_IntakeRoller_2.setControl(intakeVelocityController2.withVelocity(state.roller_velocity*-1));
+    m_IntakeRoller.setControl(intakeVelocityController.withVelocity(state.roller_velocity*-1));
+    m_IntakeRoller_2.setControl(intakeVelocityController2.withVelocity(state.roller_velocity*-1*.2));
   }
 
   public void positionIntake(Pivot pivot) {
@@ -101,7 +101,16 @@ public class Intake extends SubsystemBase {
 }
 
 public Command doStow() {
-  m_IntakePivot.getConfigurator().apply(BotConstants.Intake.cfg_Pivot.Slot1);
+  m_IntakePivot.getConfigurator().apply(BotConstants.Intake.cfg_Pivot_Deploy);
+  return this.run(() -> {
+      m_IntakeRoller.stopMotor();
+      m_IntakeRoller_2.stopMotor();
+      m_IntakePivot.setControl(pivotPosition.withPosition(-1.299316));     
+    });
+  }
+
+public Command doHardStop() {
+  m_IntakePivot.getConfigurator().apply(BotConstants.Intake.cfg_Pivot_Deploy);
   return this.run(() -> {
       m_IntakeRoller.stopMotor();
       m_IntakeRoller_2.stopMotor();
@@ -110,7 +119,7 @@ public Command doStow() {
   }
 
   public Command doIntake() {
-    m_IntakePivot.getConfigurator().apply(BotConstants.Intake.cfg_Pivot);
+    m_IntakePivot.getConfigurator().apply(BotConstants.Intake.cfg_Pivot_Deploy);
     return this.run(() -> {
         this.runIntake(State.INTAKE); 
         this.positionIntake(Pivot.DEPLOY); 

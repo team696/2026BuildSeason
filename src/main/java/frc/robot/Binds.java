@@ -71,19 +71,20 @@ public static final class OperatorPanel{
 		// Intake.get().setDefaultCommand(Intake.get().doStow());
 		// Hopper.get().setDefaultCommand(Hopper.get().idleHopper());
 
-		HumanControls.OperatorPanel.SouceCoral.whileTrue(Intake.get().doIntake().alongWith(Hopper.get().run_Hopper_Command()));
-		// HumanControls.OperatorPanel.GroundCoral.whileTrue(Shooter.get().Shoot(hub));
-		HumanControls.OperatorPanel.gyro.onTrue(new GyroReset(Swerve.get()));
-		HumanControls.OperatorPanel.releaseCoral.whileTrue(new AutoAlign(Pass_1));
-		// HumanControls.OperatorPanel.pickupAlgae.whileTrue(new AutoAlign(Pass_2));
-		HumanControls.OperatorPanel.L3.whileTrue(new ZeroClimber());
-		HumanControls.OperatorPanel.L1.whileTrue(Climber.get().doExtend());
-		HumanControls.OperatorPanel.L2.whileTrue(Climber.get().doRetract());
-		//HumanControls.OperatorPanel.Climb1.whileTrue(new AutoAlignToShoot(hub));
-		// HumanControls.OperatorPanel.Climb1.onTrue(new PathFindToClimb(Field.before_Tower_Blue).andThen(new PathFindToClimb()));
-		HumanControls.OperatorPanel.GroundCoral.whileTrue(Shooter.get().ShootDash());
+		// HumanControls.OperatorPanel.SouceCoral.whileTrue(Intake.get().doIntake().alongWith(Hopper.get().run_Hopper_Command()));
+		// // HumanControls.OperatorPanel.GroundCoral.whileTrue(Shooter.get().Shoot(hub));
+		// HumanControls.OperatorPanel.gyro.onTrue(new GyroReset(Swerve.get()));
+		// HumanControls.OperatorPanel.releaseCoral.whileTrue(new AutoAlign(Pass_1));
+		// // HumanControls.OperatorPanel.pickupAlgae.whileTrue(new AutoAlign(Pass_2));
+		// HumanControls.OperatorPanel.L3.whileTrue(new ZeroClimber());
+		// HumanControls.OperatorPanel.L1.whileTrue(Climber.get().doExtend());
+		// HumanControls.OperatorPanel.L2.whileTrue(Climber.get().doRetract());
+		// //HumanControls.OperatorPanel.Climb1.whileTrue(new AutoAlignToShoot(hub));
+		// // HumanControls.OperatorPanel.Climb1.onTrue(new PathFindToClimb(Field.before_Tower_Blue).andThen(new PathFindToClimb()));
+		// HumanControls.OperatorPanel.GroundCoral.whileTrue(Shooter.get().ShootDash());
 
-
+HumanControls.OperatorPanel.SouceCoral.onTrue(Intake.get().doIntake());
+HumanControls.OperatorPanel.GroundCoral.onTrue(Intake.get().doStow());
 
 		// L4 button seems to be flakey, changing to processor button
 		HumanControls.OperatorPanel.Processor.and(HumanControls.OperatorPanel.deepOrSwitch).whileTrue(Swerve.get().alignToClimb());

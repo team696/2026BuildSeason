@@ -61,9 +61,9 @@ public class Hopper extends SubsystemBase {
       ()->{m_Hopper.stopMotor();});
   }
 
-  public Command idleHopper(){
+  public Command oscilateHopper(){
     return runEnd(
-      ()->{m_Hopper.setControl(new DutyCycleOut((0.025*Math.sin(DriverStation.getMatchTime())+0.3)));},
+      ()->{m_Hopper.setControl(new DutyCycleOut((0.3*Math.sin(DriverStation.getMatchTime()/4)+0.4)));},
       ()->{m_Hopper.stopMotor();});
   }
 

@@ -97,9 +97,10 @@ public double DistanceFinder(Translation2d targetPosition){
 
   @Override
   public void teleopInit() {
-   UsbCamera cam = CameraServer.startAutomaticCapture(0);
-    cam.setResolution(160, 120);
-  cam.setFPS(10); 
+  //  UsbCamera cam = CameraServer.startAutomaticCapture(0);
+  //   cam.setResolution(160, 120);
+  // cam.setFPS(10); 
+  // Intake.get().m_IntakePivot.getConfigurator().apply(BotConstants.Intake.cfg_Pivot_Deploy);
     if (m_autonomousCommand != null) {
       m_autonomousCommand.cancel();
     }
