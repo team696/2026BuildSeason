@@ -9,6 +9,7 @@ import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.cscore.UsbCamera;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.units.measure.Distance;
+import edu.wpi.first.util.PixelFormat;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -51,15 +52,18 @@ public class Robot extends TimedRobot {
     Climber.get().zeroEncoder();
     Intake.get().zeroEncoder();
 
-
+    UsbCamera cam = CameraServer.startAutomaticCapture(0);
+    cam.setFPS(24);
+    cam.setResolution(120, 120);
     
-    
-    
+  
   }
 
 public double DistanceFinder(Translation2d targetPosition){
     return Swerve.get().getPose().getTranslation().getDistance(targetPosition);
   }
+
+  
 
   @Override
   public void robotPeriodic() {
@@ -97,9 +101,7 @@ public double DistanceFinder(Translation2d targetPosition){
 
   @Override
   public void teleopInit() {
-  //  UsbCamera cam = CameraServer.startAutomaticCapture(0);
-  //   cam.setResolution(160, 120);
-  // cam.setFPS(10); 
+
   // Intake.get().m_IntakePivot.getConfigurator().apply(BotConstants.Intake.cfg_Pivot_Deploy);
     if (m_autonomousCommand != null) {
       m_autonomousCommand.cancel();
