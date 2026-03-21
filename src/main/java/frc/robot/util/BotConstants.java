@@ -91,7 +91,8 @@ public class BotConstants {
         /**
          * Interpolates between the robot's distance from the hub (in meters) and the velocity of the shooter rollers (in rotations/second)
          */
-        public static final InterpolatingDoubleTreeMap velocityTable = new InterpolatingDoubleTreeMap();
+        public static final InterpolatingDoubleTreeMap ShooterTable = new InterpolatingDoubleTreeMap();
+        public static final InterpolatingDoubleTreeMap backSpinTable = new InterpolatingDoubleTreeMap();
         public static final InterpolatingDoubleTreeMap fixedVelocityTable = new InterpolatingDoubleTreeMap();
 
         static{
@@ -103,17 +104,21 @@ public class BotConstants {
             cfg_shooter.MotionMagic.MotionMagicAcceleration = 200;
             cfg_shooter.MotionMagic.MotionMagicCruiseVelocity = 200;
             cfg_shooter_intake.MotionMagic.MotionMagicCruiseVelocity = 160;
-            cfg_shooter_intake.MotionMagic.MotionMagicAcceleration  = 160;
+            cfg_shooter_intake.MotionMagic.MotionMagicAcceleration  = 200;
         }
 
         static{
-            velocityTable.put(2.153688, -23.0);
-            velocityTable.put(2.69777, -24.0);
-            velocityTable.put(2.73, -24.5);
-            velocityTable.put(3.308, -28.0);
-            velocityTable.put(3.45, -28.0);
+            ShooterTable.put(2.257, -30.0);
+            ShooterTable.put(2.206, -30.0);
+            ShooterTable.put(1.607, -25.0);
+            ShooterTable.put(3.060, -30.5);
+            ShooterTable.put(2.744, -29.5);
 
-            
+            backSpinTable.put(2.257, -20.0); // key is distance to hub, value is the small roller velocity
+            backSpinTable.put(2.206, -20.0);
+            backSpinTable.put(1.607, -22.0);
+            backSpinTable.put(3.060, -29.5);
+            backSpinTable.put(2.744, -27.0);
         }
 
     }

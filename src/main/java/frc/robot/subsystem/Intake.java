@@ -91,7 +91,7 @@ public class Intake extends SubsystemBase {
 
   public void runIntake(State state) {
     m_IntakeRoller.setControl(intakeVelocityController.withVelocity(state.roller_velocity*-1));
-    m_IntakeRoller_2.setControl(intakeVelocityController2.withVelocity(state.roller_velocity*-1*.7));
+    m_IntakeRoller_2.setControl(intakeVelocityController2.withVelocity(state.roller_velocity*-1*1.5));
   }
 
   public void positionIntake(Pivot pivot) {
@@ -129,7 +129,7 @@ public Command doOscilateIntake() {
   return this.run(() -> {
       m_IntakeRoller.stopMotor();
       m_IntakeRoller_2.stopMotor();
-      m_IntakePivot.setControl(pivotPosition.withPosition(.1*Math.sin(Timer.getFPGATimestamp()*5)+(Pivot.STOW.position+.1)).withSlot(1));     
+      m_IntakePivot.setControl(pivotPosition.withPosition(.15*Math.sin(Timer.getFPGATimestamp()*10)+(Pivot.STOW.position+.1)).withSlot(1));     
     });
   }
 

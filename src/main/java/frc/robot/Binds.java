@@ -67,7 +67,7 @@ public static final class OperatorPanel{
 		DriverStation.silenceJoystickConnectionWarning(true);
 	}
 	public static final void bind(){
-		Hopper.get().setDefaultCommand(Hopper.get().run_Hopper_Command());
+		Hopper.get().setDefaultCommand(Hopper.get().run_Hopper_Reverse());
 		Shooter.get().setDefaultCommand(Shooter.get().idle()); //Shooter rollers idle
 		// Intake.get().setDefaultCommand(Intake.get().doStow());
 		// Hopper.get().setDefaultCommand(Hopper.get().idleHopper());

@@ -98,7 +98,7 @@ public class Shooter extends SubsystemBase {
   public Command Shoot(Translation2d desired_pose){
       return runEnd(()->{
         double distMeters=Swerve.get().distTo(desired_pose);
-        double velocity = BotConstants.Shooter.velocityTable.get(distMeters);
+        double velocity = BotConstants.Shooter.ShooterTable.get(distMeters);
 
          this.set_velocity(velocity);
 
@@ -121,7 +121,7 @@ public class Shooter extends SubsystemBase {
   public Command ShootPass(Translation2d desired_pose){
       return runEnd(()->{
         double distMeters=Swerve.get().distTo(desired_pose);
-        double velocity = BotConstants.Shooter.velocityTable.get(distMeters);
+        double velocity = BotConstants.Shooter.ShooterTable.get(distMeters);
 
         this.set_velocity(velocity);
         new WaitCommand(1.5);
