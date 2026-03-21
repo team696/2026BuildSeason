@@ -13,6 +13,8 @@ import com.ctre.phoenix6.hardware.TalonFX;
 import edu.wpi.first.math.VecBuilder;
 import edu.wpi.first.math.system.plant.DCMotor;
 import edu.wpi.first.math.system.plant.LinearSystemId;
+import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.simulation.FlywheelSim;
 import edu.wpi.first.wpilibj.simulation.SingleJointedArmSim;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -37,7 +39,7 @@ public class Intake extends SubsystemBase {
   //Enum to determin state, values are temporary
   public static enum State{
     IDLE(0.0),
-    INTAKE(42.0);
+    INTAKE(54.0);
 
     public double roller_velocity;  // Renamed
     State(double roller_velocity){
@@ -46,13 +48,14 @@ public class Intake extends SubsystemBase {
 }
   //Enum to determin pivot position, values are temporary
   public enum Pivot{
-    STOW(0.00),
-    DEPLOY(-5.5);
+    STOP(-.38),
+    STOW(-.3),
+    DEPLOY(0.); //position flipped cuz now we counter clock wise positive
 
     public double position;
 
     Pivot(double position){
-      this.position = position;
+      this.position = position+0.08;
     }
   }
   
@@ -64,22 +67,21 @@ public class Intake extends SubsystemBase {
 
   //Motor Controller
    private final MotionMagicVoltage PivotPositionControl = new MotionMagicVoltage(0);
-  private final PositionVoltage pivotPosition = new PositionVoltage(0).withSlot(0);
+  private final MotionMagicVoltage pivotPosition = new MotionMagicVoltage(0);
   private final MotionMagicVelocityVoltage intakeVelocityController  = new MotionMagicVelocityVoltage(0);
     private final MotionMagicVelocityVoltage intakeVelocityController2  = new MotionMagicVelocityVoltage(0);
-
+  
 
 
   private final FlywheelSim m_FlywheelSim = new FlywheelSim(LinearSystemId.createFlywheelSystem(DCMotor.getKrakenX60(2), 0.008, 1.0), DCMotor.getKrakenX60(2), 0.008);
-  private final SingleJointedArmSim m_IntakePivotSim = new SingleJointedArmSim(DCMotor.getKrakenX60(1), 15, 1.846666667, 0.28, -2.555, 0.0, false, 0.0);
+  private final SingleJointedArmSim m_IntakePivotSim = new SingleJointedArmSim(DCMotor.getKrakenX60(1), 15, 1.846666667, 0.28, 0, 2.5555, false, 0.0);
 
   public Intake() {
 
-
     m_IntakeRoller.getConfigurator().apply(BotConstants.Intake.cfg_Roller);
     m_IntakeRoller_2.getConfigurator().apply(BotConstants.Intake.cfg_Roller);
-    m_IntakePivot.getConfigurator().apply(BotConstants.Intake.cfg_Pivot_Deploy);
-    m_IntakePivot.setPosition(0.0);
+    m_IntakePivot.getConfigurator().apply(BotConstants.Intake.cfg_Pivot);
+    m_IntakePivot.setPosition(Pivot.STOP.position);
     
     //this.setDefaultCommand(doStow());
   }
@@ -89,11 +91,11 @@ public class Intake extends SubsystemBase {
 
   public void runIntake(State state) {
     m_IntakeRoller.setControl(intakeVelocityController.withVelocity(state.roller_velocity*-1));
-    m_IntakeRoller_2.setControl(intakeVelocityController2.withVelocity(state.roller_velocity*-1*.2));
+    m_IntakeRoller_2.setControl(intakeVelocityController2.withVelocity(state.roller_velocity*-1*.7));
   }
 
   public void positionIntake(Pivot pivot) {
-    m_IntakePivot.setControl(PivotPositionControl.withPosition(pivot.position)); //
+    m_IntakePivot.setControl(PivotPositionControl.withPosition(pivot.position).withSlot(0)); //
   }
 
   public Command zeroEncoder() {
@@ -101,31 +103,35 @@ public class Intake extends SubsystemBase {
 }
 
 public Command doStow() {
-  m_IntakePivot.getConfigurator().apply(BotConstants.Intake.cfg_Pivot_Deploy);
   return this.run(() -> {
       m_IntakeRoller.stopMotor();
       m_IntakeRoller_2.stopMotor();
-      m_IntakePivot.setControl(pivotPosition.withPosition(-1.299316));     
+      m_IntakePivot.setControl(pivotPosition.withPosition(Pivot.STOW.position).withSlot(1));     
     });
   }
 
 public Command doHardStop() {
-  m_IntakePivot.getConfigurator().apply(BotConstants.Intake.cfg_Pivot_Deploy);
   return this.run(() -> {
       m_IntakeRoller.stopMotor();
       m_IntakeRoller_2.stopMotor();
-      m_IntakePivot.setControl(pivotPosition.withPosition(0));     
+      m_IntakePivot.setControl(pivotPosition.withPosition(Pivot.STOP.position).withSlot(1));     
     });
   }
 
   public Command doIntake() {
-    m_IntakePivot.getConfigurator().apply(BotConstants.Intake.cfg_Pivot_Deploy);
     return this.run(() -> {
         this.runIntake(State.INTAKE); 
         this.positionIntake(Pivot.DEPLOY); 
     });
   }
 
+public Command doOscilateIntake() {
+  return this.run(() -> {
+      m_IntakeRoller.stopMotor();
+      m_IntakeRoller_2.stopMotor();
+      m_IntakePivot.setControl(pivotPosition.withPosition(.1*Math.sin(Timer.getFPGATimestamp()*5)+(Pivot.STOW.position+.1)).withSlot(1));     
+    });
+  }
 
 
 
@@ -146,7 +152,7 @@ public void simulationPeriodic(){
     
     m_IntakePivotSim.update(0.020);
 
-    double motorPos = -1.0*(m_IntakePivotSim.getAngleRads() * 15.0) / (2 * Math.PI);
+    double motorPos = (m_IntakePivotSim.getAngleRads() * 15.0) / (2 * Math.PI);
     m_IntakePivot.getSimState().setRawRotorPosition(motorPos);
     
     

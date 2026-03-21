@@ -8,6 +8,8 @@ import static edu.wpi.first.units.Units.*;
 
 import com.ctre.phoenix6.CANBus;
 import com.ctre.phoenix6.configs.TalonFXConfiguration;
+import com.ctre.phoenix6.signals.FeedbackSensorSourceValue;
+import com.ctre.phoenix6.signals.GravityTypeValue;
 import com.ctre.phoenix6.signals.InvertedValue;
 import com.ctre.phoenix6.signals.NeutralModeValue;
 
@@ -31,11 +33,9 @@ public class BotConstants {
         public static final int intakeID = 21;
         public static final int intakeID_2 = 22;
         public static TalonFXConfiguration cfg_Roller = new TalonFXConfiguration();
-        public static TalonFXConfiguration cfg_Pivot_Deploy = new TalonFXConfiguration();
-         public static TalonFXConfiguration cfg_Pivot_Stow = new TalonFXConfiguration();
-
+        public static TalonFXConfiguration cfg_Pivot = new TalonFXConfiguration();
         static{
-            cfg_Roller.Slot0.kP = 0.9;
+            cfg_Roller.Slot0.kP = 0.5;
             cfg_Roller.MotorOutput.Inverted = InvertedValue.Clockwise_Positive;
             cfg_Roller.MotorOutput.NeutralMode = NeutralModeValue.Coast;
             cfg_Roller.MotionMagic.MotionMagicAcceleration = 50;
@@ -46,26 +46,21 @@ public class BotConstants {
             //cfg_Roller.CurrentLimits.SupplyCurrentLimitEnable = true;
             //cfg_Roller.CurrentLimits.StatorCurrentLimit = 30.;
 
-            cfg_Pivot_Deploy.Slot0.kP = 7; //YES ITS NORNMAL PID VALUES NOW
+            cfg_Pivot.Slot0.kP = 8.; //YES ITS NORNMAL PID VALUES NOW
+            cfg_Pivot.Slot1.kP = 6.; //YES ITS NORNMAL PID VALUES NOW
+            cfg_Pivot.Slot1.kG = -.08*12;
+            cfg_Pivot.Slot1.GravityType = GravityTypeValue.Arm_Cosine;
             
-            cfg_Pivot_Stow.Slot0.kP = 1.5; 
+            cfg_Pivot.Feedback.SensorToMechanismRatio = 15;
 
 
-            cfg_Pivot_Deploy.MotorOutput.NeutralMode = NeutralModeValue.Brake;
-            cfg_Pivot_Deploy.MotorOutput.Inverted = InvertedValue.Clockwise_Positive;
-            cfg_Pivot_Deploy.MotionMagic.MotionMagicAcceleration = 20;
-            cfg_Pivot_Deploy.MotionMagic.MotionMagicCruiseVelocity = 20;
+            cfg_Pivot.MotorOutput.NeutralMode = NeutralModeValue.Brake;
+            cfg_Pivot.MotorOutput.Inverted = InvertedValue.CounterClockwise_Positive;
+            cfg_Pivot.MotionMagic.MotionMagicAcceleration = 20;
+            cfg_Pivot.MotionMagic.MotionMagicCruiseVelocity = 20;
             //cfg_Pivot.MotorOutput.Inverted = InvertedValue.Clockwise_Positive;//Will try this out, if not work will go back to the that fucking negative pid value(wtf ctre)
-            cfg_Pivot_Deploy.CurrentLimits.StatorCurrentLimitEnable = true;
-            cfg_Pivot_Deploy.CurrentLimits.StatorCurrentLimit = 60;
-
-            cfg_Pivot_Stow.MotorOutput.NeutralMode = NeutralModeValue.Brake;
-            cfg_Pivot_Stow.MotorOutput.Inverted = InvertedValue.Clockwise_Positive;
-            cfg_Pivot_Stow.MotionMagic.MotionMagicAcceleration = 1;
-            cfg_Pivot_Stow.MotionMagic.MotionMagicCruiseVelocity = 5;
-            //cfg_Pivot.MotorOutput.Inverted = InvertedValue.Clockwise_Positive;//Will try this out, if not work will go back to the that fucking negative pid value(wtf ctre)
-            cfg_Pivot_Stow.CurrentLimits.StatorCurrentLimitEnable = true;
-            cfg_Pivot_Stow.CurrentLimits.StatorCurrentLimit = 60;
+            cfg_Pivot.CurrentLimits.StatorCurrentLimitEnable = true;
+            cfg_Pivot.CurrentLimits.StatorCurrentLimit = 60;
 
         }
     }
