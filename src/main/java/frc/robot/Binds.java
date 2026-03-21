@@ -87,6 +87,7 @@ public static final class OperatorPanel{
 HumanControls.OperatorPanel.SouceCoral.onTrue(Intake.get().doIntake());
 HumanControls.OperatorPanel.GroundCoral.onTrue(Intake.get().doStow());
 HumanControls.OperatorPanel.L1.whileTrue(Intake.get().doOscilateIntake());
+HumanControls.OperatorPanel.L2.whileTrue(Shooter.get().ShootDash());
 
 		// L4 button seems to be flakey, changing to processor button
 		HumanControls.OperatorPanel.Processor.and(HumanControls.OperatorPanel.deepOrSwitch).whileTrue(Swerve.get().alignToClimb());
