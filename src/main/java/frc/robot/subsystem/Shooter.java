@@ -61,11 +61,18 @@ public class Shooter extends SubsystemBase {
 
       //Data
       private StatusSignal<AngularVelocity> velocity_roller;
+      private StatusSignal<AngularVelocity> indexer_velocity;
 
   public Shooter() {
       //Config set up
       m_Shooter.getConfigurator().apply(BotConstants.Shooter.cfg_shooter);
       m_ShooterIntake.getConfigurator().apply(BotConstants.Shooter.cfg_shooter_intake);
+
+        SmartDashboard.putNumber("Desired velocity", 0);
+        SmartDashboard.putNumber("Desired Backspin", 0);
+        SmartDashboard.putNumber("Indexer Velocity", 0);
+
+        
 
       SmartDashboard.putNumber("Launch Speed", 0);
       SmartDashboard.putNumber("Front roller", 0);
@@ -74,6 +81,7 @@ public class Shooter extends SubsystemBase {
 
       
       velocity_roller = m_Shooter.getVelocity();
+      indexer_velocity = m_ShooterIntake.getVelocity();
   }
 
   //Sets the velocity
@@ -102,7 +110,7 @@ public class Shooter extends SubsystemBase {
         double intakespeed = BotConstants.Shooter.backSpinTable.get(distMeters);
 
         SmartDashboard.putNumber("Desired velocity", velocity);
-        SmartDashboard.putNumber("Desired Back spin roller", intakespeed);
+        SmartDashboard.putNumber("Desired Backspin", intakespeed);
 
          this.set_velocity(velocity);
 
@@ -185,6 +193,10 @@ public class Shooter extends SubsystemBase {
     return velocity_roller.refresh().getValueAsDouble();
   }
 
+  public double getIndexerVelocity(){
+    return indexer_velocity.refresh().getValueAsDouble();
+  }
+
 
   @Override
   public void simulationPeriodic(){
@@ -214,8 +226,10 @@ public class Shooter extends SubsystemBase {
   public void periodic() {
     //Data stuff used in Autoalign
     getRollerVelocity();
+    getIndexerVelocity();
 
     SmartDashboard.putNumber("Velocity", getRollerVelocity());
+    SmartDashboard.putNumber("Indexer Velocity", getIndexerVelocity());
 
 
   }

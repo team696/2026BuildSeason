@@ -100,7 +100,7 @@ public class BotConstants {
             cfg_shooter.Slot0.kP = 0.5;
             cfg_shooter.Slot0.kS = 0.5;
             cfg_shooter.Slot0.kV = 0.14;
-            cfg_shooter_intake.Slot0.kP = 0.3;
+            cfg_shooter_intake.Slot0.kP = 0.5;
             cfg_shooter_intake.Slot0.kV = 0.12;
             cfg_shooter.MotionMagic.MotionMagicAcceleration = 200;
             cfg_shooter.MotionMagic.MotionMagicCruiseVelocity = 200;

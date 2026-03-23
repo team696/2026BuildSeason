@@ -101,8 +101,8 @@ public double getPositionClimber(){
   public void periodic() {
     double test = getCurrentClimber();
     //System.out.print(test);
-    SmartDashboard.putNumber("Climber Position", this.getPositionClimber());
-    SmartDashboard.putNumber("Climber Current", this.getCurrentClimber());
+    // SmartDashboard.putNumber("Climber Position", this.getPositionClimber());
+    // SmartDashboard.putNumber("Climber Current", this.getCurrentClimber());
     // Monitor climber position and current
    
   }
