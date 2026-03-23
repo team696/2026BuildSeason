@@ -99,23 +99,28 @@
           }
         },
         {
-          "type": "sequential",
+          "type": "parallel",
           "data": {
             "commands": [
               {
-                "type": "parallel",
+                "type": "path",
                 "data": {
-                  "commands": [
-                    {
-                      "type": "path",
-                      "data": {
-                        "pathName": "CLEAN UP- Climb"
-                      }
-                    }
-                  ]
+                  "pathName": "CLEAN UP- Climb"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "Extend Climber"
                 }
               }
             ]
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "Retract Climber"
           }
         }
       ]

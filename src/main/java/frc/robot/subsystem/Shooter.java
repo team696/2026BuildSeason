@@ -79,7 +79,7 @@ public class Shooter extends SubsystemBase {
   //Sets the velocity
   public void set_velocity(double velocity){
     m_Shooter.setControl(shooterVelocityController.withVelocity(velocity));
-    m_Shooter_2.setControl(new Follower(BotConstants.Shooter.shooterflywheel_ID,MotorAlignmentValue.Opposed)); //TODO: we must change this for 
+    m_Shooter_2.setControl(new Follower(BotConstants.Shooter.shooterflywheel_ID,MotorAlignmentValue.Opposed)); 
   }
 
 
@@ -91,7 +91,7 @@ public class Shooter extends SubsystemBase {
 
 
   public Command idle(){
-    return run(()->{set_velocity(0); Hopper.get().Stop();});
+    return run(()->{this.Stop(); Hopper.get().Stop();});
   }
 
 
@@ -99,11 +99,15 @@ public class Shooter extends SubsystemBase {
       return runEnd(()->{
         double distMeters=Swerve.get().distTo(desired_pose);
         double velocity = BotConstants.Shooter.ShooterTable.get(distMeters);
+        double intakespeed = BotConstants.Shooter.backSpinTable.get(distMeters);
+
+        SmartDashboard.putNumber("Desired velocity", velocity);
+        SmartDashboard.putNumber("Desired Back spin roller", intakespeed);
 
          this.set_velocity(velocity);
 
-        if((Math.abs(getRollerVelocity()-velocity))<1 && Math.abs(Swerve.get().distTo(Field.Alliance_Find.hub))<3.0 && Math.abs(Swerve.get().distTo(Field.Alliance_Find.hub))>2.1){
-              this.intake_shooter(velocity);
+        if((Math.abs(getRollerVelocity()-velocity))<2){
+              this.intake_shooter(intakespeed);
               Hopper.get().run_Hopper();
             }
         else{
@@ -122,10 +126,11 @@ public class Shooter extends SubsystemBase {
       return runEnd(()->{
         double distMeters=Swerve.get().distTo(desired_pose);
         double velocity = BotConstants.Shooter.ShooterTable.get(distMeters);
+        double intakespeed = BotConstants.Shooter.backSpinTable.get(distMeters);
 
         this.set_velocity(velocity);
         new WaitCommand(1.5);
-        this.intake_shooter(velocity);
+        this.intake_shooter(intakespeed);
         Hopper.get().run_Hopper();
   
 
@@ -145,7 +150,7 @@ public class Shooter extends SubsystemBase {
 
         this.set_velocity(velocity);
 
-              Hopper.get().run_Hopper();
+        Hopper.get().run_Hopper();
 
         if((Math.abs(getRollerVelocity()-velocity))<3){
               this.intake_shooter(intakespeed);
@@ -170,7 +175,7 @@ public class Shooter extends SubsystemBase {
       m_Shooter.stopMotor();
       m_Shooter_2.stopMotor();
       m_ShooterIntake.stopMotor();
-                Hopper.get().Stop();
+      Hopper.get().Stop();
 
   }
 

@@ -5,6 +5,8 @@
 package frc.robot;
 
 
+import com.ctre.phoenix6.SignalLogger;
+
 import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.cscore.UsbCamera;
 import edu.wpi.first.math.geometry.Translation2d;
@@ -51,10 +53,10 @@ public class Robot extends TimedRobot {
     
     Climber.get().zeroEncoder();
     Intake.get().zeroEncoder();
-
-    UsbCamera cam = CameraServer.startAutomaticCapture(0);
+    SignalLogger.start();
+    /*UsbCamera cam = CameraServer.startAutomaticCapture(0);
     cam.setFPS(24);
-    cam.setResolution(120, 120);
+    cam.setResolution(120, 120);*/
     
   
   }

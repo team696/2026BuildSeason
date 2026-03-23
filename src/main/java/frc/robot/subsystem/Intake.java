@@ -39,7 +39,7 @@ public class Intake extends SubsystemBase {
   //Enum to determin state, values are temporary
   public static enum State{
     IDLE(0.0),
-    INTAKE(54.0);
+    INTAKE(50.0);
 
     public double roller_velocity;  // Renamed
     State(double roller_velocity){
@@ -48,8 +48,7 @@ public class Intake extends SubsystemBase {
 }
   //Enum to determin pivot position, values are temporary
   public enum Pivot{
-    STOP(-.38),
-    STOW(-.3),
+    STOW(-.38),
     DEPLOY(0.); //position flipped cuz now we counter clock wise positive
 
     public double position;
@@ -81,7 +80,7 @@ public class Intake extends SubsystemBase {
     m_IntakeRoller.getConfigurator().apply(BotConstants.Intake.cfg_Roller);
     m_IntakeRoller_2.getConfigurator().apply(BotConstants.Intake.cfg_Roller);
     m_IntakePivot.getConfigurator().apply(BotConstants.Intake.cfg_Pivot);
-    m_IntakePivot.setPosition(Pivot.STOP.position);
+    m_IntakePivot.setPosition(Pivot.STOW.position);
     
     //this.setDefaultCommand(doStow());
   }
@@ -110,18 +109,12 @@ public Command doStow() {
     });
   }
 
-public Command doHardStop() {
-  return this.run(() -> {
-      m_IntakeRoller.stopMotor();
-      m_IntakeRoller_2.stopMotor();
-      m_IntakePivot.setControl(pivotPosition.withPosition(Pivot.STOP.position).withSlot(1));     
-    });
-  }
 
   public Command doIntake() {
     return this.run(() -> {
         this.runIntake(State.INTAKE); 
         this.positionIntake(Pivot.DEPLOY); 
+        Hopper.get().run_Hopper();
     });
   }
 

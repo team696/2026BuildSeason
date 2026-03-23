@@ -47,8 +47,9 @@ public class BotConstants {
             //cfg_Roller.CurrentLimits.StatorCurrentLimit = 30.;
 
             cfg_Pivot.Slot0.kP = 8.; //YES ITS NORNMAL PID VALUES NOW
-            cfg_Pivot.Slot1.kP = 6.; //YES ITS NORNMAL PID VALUES NOW
+            cfg_Pivot.Slot1.kP = 10.; //YES ITS NORNMAL PID VALUES NOW
             cfg_Pivot.Slot1.kG = -.08*12;
+            cfg_Pivot.Slot1.kI=.001; //Was 0
             cfg_Pivot.Slot1.GravityType = GravityTypeValue.Arm_Cosine;
             
             cfg_Pivot.Feedback.SensorToMechanismRatio = 15;
@@ -60,7 +61,7 @@ public class BotConstants {
             cfg_Pivot.MotionMagic.MotionMagicCruiseVelocity = 20;
             //cfg_Pivot.MotorOutput.Inverted = InvertedValue.Clockwise_Positive;//Will try this out, if not work will go back to the that fucking negative pid value(wtf ctre)
             cfg_Pivot.CurrentLimits.StatorCurrentLimitEnable = true;
-            cfg_Pivot.CurrentLimits.StatorCurrentLimit = 60;
+            cfg_Pivot.CurrentLimits.StatorCurrentLimit = 80; //was 60
 
         }
     }
@@ -96,15 +97,16 @@ public class BotConstants {
         public static final InterpolatingDoubleTreeMap fixedVelocityTable = new InterpolatingDoubleTreeMap();
 
         static{
-            cfg_shooter.Slot0.kP = 0.1;
-            // cfg_shooter.Slot0.kS = 0.2;
+            cfg_shooter.Slot0.kP = 0.5;
+            cfg_shooter.Slot0.kS = 0.5;
             cfg_shooter.Slot0.kV = 0.14;
             cfg_shooter_intake.Slot0.kP = 0.3;
             cfg_shooter_intake.Slot0.kV = 0.12;
             cfg_shooter.MotionMagic.MotionMagicAcceleration = 200;
             cfg_shooter.MotionMagic.MotionMagicCruiseVelocity = 200;
             cfg_shooter_intake.MotionMagic.MotionMagicCruiseVelocity = 160;
-            cfg_shooter_intake.MotionMagic.MotionMagicAcceleration  = 200;
+            cfg_shooter_intake.MotionMagic.MotionMagicAcceleration  = 160;
+            cfg_shooter.CurrentLimits.StatorCurrentLimit = 150;
         }
 
         static{
@@ -144,7 +146,7 @@ public class BotConstants {
     public static class DriveConstants{
         public final static double MaxSpeed = TunerConstants.kSpeedAt12Volts.in(MetersPerSecond); // kSpeedAt12Volts desired top speed
     
-	    public final  static double MaxAngularRate = RotationsPerSecond.of(0.75).in(RadiansPerSecond); // 3/4 of a rotation per second max angular velocity
+	    public final  static double MaxAngularRate = RotationsPerSecond.of(2.4).in(RadiansPerSecond); // 3/4 of a rotation per second max angular velocity
 	
 	    public static final double kToleranceDegree = 0.5;
 	    public static final double kToleranceSpeed = 0.01;
