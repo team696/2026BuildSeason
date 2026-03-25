@@ -131,10 +131,10 @@ public class BotConstants {
         public static final TalonFXConfiguration cfg_Climber = new TalonFXConfiguration();
 
         static{
-            cfg_Climber.Slot0.kP = 7;
+            cfg_Climber.Slot0.kP = 2.5;
             cfg_Climber.Slot0.kV = 0.12; // Feedforward for velocity - needed for Motion Magic
-            cfg_Climber.MotionMagic.MotionMagicAcceleration = 100; //Bumped this up cuz oml it is so slow
-            cfg_Climber.MotionMagic.MotionMagicCruiseVelocity = 100;//Random number, doesn't really matter too
+            cfg_Climber.MotionMagic.MotionMagicAcceleration = 160; //Bumped this up cuz oml it is so slow
+            cfg_Climber.MotionMagic.MotionMagicCruiseVelocity = 200;//Random number, doesn't really matter too
             cfg_Climber.MotorOutput.NeutralMode = NeutralModeValue.Brake;
             cfg_Climber.CurrentLimits.StatorCurrentLimitEnable = true;
             cfg_Climber.CurrentLimits.StatorCurrentLimit = 20;

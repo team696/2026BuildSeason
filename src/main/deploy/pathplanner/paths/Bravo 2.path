@@ -3,29 +3,45 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 0.6,
-        "y": 0.65
+        "x": 7.6985980479148175,
+        "y": 3.628580301685891
       },
       "prevControl": null,
       "nextControl": {
-        "x": 0.7812456366324895,
-        "y": 0.8432894983054916
+        "x": 6.781135758651286,
+        "y": 1.2061579414374433
       },
       "isLocked": false,
-      "linkedName": "End of Clean Up Outpost"
+      "linkedName": "End of Bravo 1"
     },
     {
       "anchor": {
-        "x": 2.77,
-        "y": 4.0
+        "x": 5.4532298136645965,
+        "y": 0.6830434782608688
       },
       "prevControl": {
-        "x": 2.9560379327583846,
-        "y": 4.252954319146732
+        "x": 7.006894137152998,
+        "y": 0.5418012670346516
+      },
+      "nextControl": {
+        "x": 4.656486246672582,
+        "y": 0.7554747116237783
+      },
+      "isLocked": false,
+      "linkedName": null
+    },
+    {
+      "anchor": {
+        "x": 3.03885536823425,
+        "y": 0.8681455190771954
+      },
+      "prevControl": {
+        "x": 3.8758385093167695,
+        "y": 0.7232830523513747
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "End of Clean Up Shoot 2"
+      "linkedName": null
     }
   ],
   "rotationTargets": [],
@@ -42,13 +58,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 0.0
+    "rotation": 67.0678995624102
   },
   "reversed": false,
-  "folder": "CLEAN UP",
+  "folder": "Bravo",
   "idealStartingState": {
     "velocity": 0,
-    "rotation": 0.0
+    "rotation": -90.0
   },
   "useDefaultConstraints": true
 }

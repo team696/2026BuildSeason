@@ -145,7 +145,7 @@ public void simulationPeriodic(){
     
     m_IntakePivotSim.update(0.020);
 
-    double motorPos = (m_IntakePivotSim.getAngleRads() * 15.0) / (2 * Math.PI);
+    double motorPos = (m_IntakePivotSim.getAngleRads()) / (2 * Math.PI);
     m_IntakePivot.getSimState().setRawRotorPosition(motorPos);
     
     

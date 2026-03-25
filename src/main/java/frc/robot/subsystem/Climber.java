@@ -4,6 +4,8 @@
 
 package frc.robot.subsystem;
 
+import static edu.wpi.first.units.Units.Volts;
+
 import java.io.ObjectInputFilter.Status;
 
 import com.ctre.phoenix6.StatusSignal;
@@ -12,9 +14,15 @@ import com.ctre.phoenix6.controls.MotionMagicVoltage;
 import com.ctre.phoenix6.controls.PositionVoltage;
 import com.ctre.phoenix6.controls.VelocityVoltage;
 import com.ctre.phoenix6.hardware.TalonFX;
+import com.ctre.phoenix6.sim.ChassisReference;
+import com.ctre.phoenix6.sim.TalonFXSimState;
 
+import edu.wpi.first.math.system.plant.DCMotor;
+import edu.wpi.first.math.system.plant.LinearSystemId;
 import edu.wpi.first.units.measure.Angle;
 import edu.wpi.first.units.measure.Current;
+import edu.wpi.first.wpilibj.RobotController;
+import edu.wpi.first.wpilibj.simulation.DCMotorSim;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -39,11 +47,16 @@ public class Climber extends SubsystemBase {
   //private final VelocityVoltage climberVelocityVoltage = new VelocityVoltage(0);
   //private final MotionMagicVelocityVoltage climberVelocity = new MotionMagicVelocityVoltage(0);
 
-  // boolean isZeroed;
+  // boolean isZeroed
 
   private StatusSignal<Current> ClimberAmps;
   private StatusSignal<Angle> ClimberRotations;
 
+  private final DCMotorSim m_motorSimModel = new DCMotorSim(
+   LinearSystemId.createDCMotorSystem(
+      DCMotor.getKrakenX60Foc(1), 0.001, 125
+   ),
+   DCMotor.getKrakenX60Foc(1));
   
 
   public Climber(){
@@ -62,14 +75,14 @@ public class Climber extends SubsystemBase {
  public Command doRetract() {
   return run(()->{
     // mClimb.setControl(climberVelocity.withVelocity(-20));
-    mClimb.setControl(climberPosition.withPosition(-100));
+    mClimb.setControl(climberPosition.withPosition(-145));
 
 
   });
 }
 public Command doExtend(){
   return run(()->{
-  mClimb.setControl(climberPosition.withPosition(-235));  });
+  mClimb.setControl(climberPosition.withPosition(-390));  });
   }
 
 //   public void setVelocity(double rps) {
@@ -97,12 +110,34 @@ public double getPositionClimber(){
   return ClimberRotations.refresh().getValueAsDouble();
 }
 
+public void simulationInit(){
+  var talonFXSim = mClimb.getSimState();
+  talonFXSim.Orientation = ChassisReference.CounterClockwise_Positive;
+  talonFXSim.setMotorType(TalonFXSimState.MotorType.KrakenX60);
+}
+
+public void simulationPeriodic(){
+  var talonFXSim = mClimb.getSimState();
+
+  talonFXSim.setSupplyVoltage(RobotController.getBatteryVoltage());
+  var motorVoltage = talonFXSim.getMotorVoltageMeasure();
+
+  m_motorSimModel.setInputVoltage(motorVoltage.in(Volts));
+  m_motorSimModel.update(0.02);
+
+    double mechanismPos = m_motorSimModel.getAngularPositionRotations();
+    double mechanismVel = m_motorSimModel.getAngularVelocityRPM() / 60.0;
+
+    talonFXSim.setRawRotorPosition(mechanismPos * 125.0);
+    talonFXSim.setRotorVelocity(mechanismVel * 125.0);
+
+}
+
   @Override
   public void periodic() {
-    double test = getCurrentClimber();
     //System.out.print(test);
-    // SmartDashboard.putNumber("Climber Position", this.getPositionClimber());
-    // SmartDashboard.putNumber("Climber Current", this.getCurrentClimber());
+    SmartDashboard.putNumber("Climber Position", this.getPositionClimber());
+    //SmartDashboard.putNumber("Climber Current", this.getCurrentClimber());
     // Monitor climber position and current
    
   }

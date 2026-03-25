@@ -3,16 +3,16 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 2.77,
+        "x": 2.45,
         "y": 4.0
       },
       "prevControl": null,
       "nextControl": {
-        "x": 2.3708784383318537,
+        "x": 2.050878438331854,
         "y": 4.570186335403726
       },
       "isLocked": false,
-      "linkedName": "End of Clean Up Shoot 2"
+      "linkedName": "End of Clean Up Shoot 1"
     },
     {
       "anchor": {

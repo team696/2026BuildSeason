@@ -36,13 +36,13 @@ public class Robot extends TimedRobot {
     this.logger = new Telemetry(BotConstants.DriveConstants.MaxSpeed);
   
     Auto.initialize(
-    new Auto.NamedCommand("Shoot", Shooter.get().Shoot(Field.Alliance_Find.hub).withTimeout(4)),
+    new Auto.NamedCommand("Shoot", Shooter.get().Shoot(Field.Alliance_Find.hub).withTimeout(4.0)),
     
-    new Auto.NamedCommand("Intake_", Intake.get().doIntake().withTimeout(2.0)),
+    new Auto.NamedCommand("Intake_", Intake.get().doIntake().withTimeout(2)),
     
     new Auto.NamedCommand("Do stow", Intake.get().doStow().withTimeout(0.5)),
 
-    new Auto.NamedCommand("Extend Climber", Climber.get().doExtend().withTimeout(2.0)),
+    new Auto.NamedCommand("Extend Climber", Climber.get().doExtend().withTimeout(3.0)),
 
     new Auto.NamedCommand("Retract Climber", Climber.get().doRetract().withTimeout(2.0))
     );
@@ -90,7 +90,7 @@ public double DistanceFinder(Translation2d targetPosition){
 			CommandScheduler.getInstance().schedule(m_autonomousCommand);
 		}
 
-    Climber.get().gotToZero();
+    //Climber.get().gotToZero();
 	}
 
 
@@ -108,6 +108,8 @@ public double DistanceFinder(Translation2d targetPosition){
     if (m_autonomousCommand != null) {
       m_autonomousCommand.cancel();
     }
+
+    Climber.get().doExtend();
   }
 
   @Override
