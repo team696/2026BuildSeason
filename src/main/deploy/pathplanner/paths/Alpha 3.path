@@ -3,25 +3,25 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 3.1084895833333333,
+        "x": 3.128065476190476,
         "y": 5.43141369047619
       },
       "prevControl": null,
       "nextControl": {
-        "x": 2.4168080357142854,
-        "y": 4.700580357142858
+        "x": 1.3858110119047615,
+        "y": 5.777254464285715
       },
       "isLocked": false,
       "linkedName": "End of Alpha 2"
     },
     {
       "anchor": {
-        "x": 1.226,
+        "x": 1.14,
         "y": 4.435
       },
       "prevControl": {
-        "x": 1.744702380952381,
-        "y": 4.607700892857143
+        "x": 1.144375,
+        "y": 4.88328869047619
       },
       "nextControl": null,
       "isLocked": false,
@@ -33,7 +33,7 @@
   "pointTowardsZones": [],
   "eventMarkers": [],
   "globalConstraints": {
-    "maxVelocity": 1.5,
+    "maxVelocity": 1.2,
     "maxAcceleration": 2.2,
     "maxAngularVelocity": 45.0,
     "maxAngularAcceleration": 50.0,
