@@ -125,8 +125,8 @@ public Command doOscilateIntake() {
       m_IntakeRoller_2.stopMotor();
 
       double time = Timer.getFPGATimestamp();
-      double frequency = 10.0; // Adjust this to change speed
-      double oscillator = (0.25 * Math.sin(time * frequency)) - 0.25;
+      double frequency = 5.0; // Adjust this to change speed (AST changed, was 10.0)
+      double oscillator = (.4 * Math.sin(time * frequency)) - 0.25;  // AST changed was 0.25*sin(x) -.25
 
       m_IntakePivot.setControl(pivotPosition.withPosition(oscillator).withSlot(0));     
       this.runIntake(State.OSILATE);

@@ -12,6 +12,8 @@ import edu.wpi.first.cscore.UsbCamera;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.units.measure.Distance;
 import edu.wpi.first.util.PixelFormat;
+import edu.wpi.first.wpilibj.PowerDistribution;
+import edu.wpi.first.wpilibj.PowerDistribution.ModuleType;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -32,6 +34,9 @@ public class Robot extends TimedRobot {
 
   private final Telemetry logger;
   
+  private final PowerDistribution m_pdh = new PowerDistribution(1, ModuleType.kRev);
+
+
   public Robot() {
     this.logger = new Telemetry(BotConstants.DriveConstants.MaxSpeed);
   
@@ -73,6 +78,12 @@ public double DistanceFinder(Translation2d targetPosition){
 
   @Override
   public void robotPeriodic() {
+    
+    // Publish total telemetry
+    SmartDashboard.putNumber("PDH Total Current", m_pdh.getTotalCurrent());
+    SmartDashboard.putNumber("PDH Voltage", m_pdh.getVoltage());
+    SmartDashboard.putNumber("PDH Temperature", m_pdh.getTemperature());
+    
     logger.telemeterize(Swerve.get().getState());
     CommandScheduler.getInstance().run();
   }
