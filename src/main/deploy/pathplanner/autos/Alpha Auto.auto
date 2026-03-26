@@ -27,7 +27,7 @@
                     {
                       "type": "wait",
                       "data": {
-                        "waitTime": 1.25
+                        "waitTime": 1.5
                       }
                     },
                     {
@@ -82,6 +82,12 @@
                 "data": {
                   "name": "Extend Climber"
                 }
+              },
+              {
+                "type": "wait",
+                "data": {
+                  "waitTime": 4.0
+                }
               }
             ]
           }
@@ -100,6 +106,12 @@
                 "type": "named",
                 "data": {
                   "name": "Do stow"
+                }
+              },
+              {
+                "type": "wait",
+                "data": {
+                  "waitTime": 4.0
                 }
               }
             ]

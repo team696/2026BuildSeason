@@ -13,6 +13,7 @@ import edu.wpi.first.wpilibj2.command.ConditionalCommand;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import frc.robot.commands.AutoAlign;
 import frc.robot.commands.AutoAlignToShoot;
+import frc.robot.commands.AutoAligntoClimb;
 import frc.robot.commands.GyroReset;
 import frc.robot.commands.PathFindToClimb;
 import frc.robot.commands.ShootCommand;
@@ -90,7 +91,7 @@ public static final class OperatorPanel{
 
 		// L4 button seems to be flakey, changing to processor button
 		HumanControls.OperatorPanel.Processor.and(HumanControls.OperatorPanel.deepOrSwitch).whileTrue(Swerve.get().alignToClimb());
-		HumanControls.OperatorPanel.Processor.whileTrue(new ConditionalCommand(Swerve.get().alignToClimb(), Climber.get().gotToZero(), HumanControls.OperatorPanel.deepOrSwitch));
+		HumanControls.OperatorPanel.Processor.whileTrue(new ConditionalCommand(new AutoAligntoClimb(climb), Climber.get().gotToZero(), HumanControls.OperatorPanel.deepOrSwitch));
 	}
 
 }

@@ -34,7 +34,7 @@ public class Field {
 	
 	// Auto climb position
 	// Preston's values: 1.045+0.04,4.28-0.1
-	public final static Pose2d climb_tower_blue = new Pose2d(1.260, 4.657, Rotation2d.fromDegrees(0.0)); // units are meters
+	public final static Pose2d climb_tower_blue = new Pose2d(1.250, 4.43, Rotation2d.fromDegrees(0.0)); // units are meters
 	public final static Pose2d before_Tower_Blue = new Pose2d(2.4, 4.6, Rotation2d.fromDegrees(0.0)); // units are meters
 
 	public final static Translation2d hub_position_red = new Translation2d(11.924, 4.048);
