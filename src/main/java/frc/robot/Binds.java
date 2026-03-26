@@ -15,6 +15,7 @@ import frc.robot.commands.AutoAlign;
 import frc.robot.commands.AutoAlignToShoot;
 import frc.robot.commands.GyroReset;
 import frc.robot.commands.PathFindToClimb;
+import frc.robot.commands.ShootCommand;
 import frc.robot.commands.ZeroClimber;
 import frc.robot.subsystem.Climber;
 import frc.robot.subsystem.Hopper;
@@ -71,11 +72,11 @@ public static final class OperatorPanel{
 		Shooter.get().setDefaultCommand(Shooter.get().idle()); //Shooter rollers idle
 		Intake.get().setDefaultCommand(Intake.get().doStow());
 
-		HumanControls.OperatorPanel.SouceCoral.whileTrue(Intake.get().doIntake().alongWith(Hopper.get().run_Hopper_Command()));
-		HumanControls.OperatorPanel.GroundCoral.whileTrue(Shooter.get().Shoot(hub));
+		HumanControls.OperatorPanel.SouceCoral.whileTrue(Intake.get().doIntake());
+		HumanControls.OperatorPanel.GroundCoral.whileTrue(new ShootCommand(hub).alongWith(Intake.get().doOscilateIntake()));
 		HumanControls.OperatorPanel.gyro.onTrue(new GyroReset(Swerve.get()));
-		HumanControls.OperatorPanel.releaseCoral.whileTrue(new AutoAlign(Pass_1).alongWith(Shooter.get().ShootPass(Pass_1)));
-		HumanControls.OperatorPanel.pickupAlgae.whileTrue(new AutoAlign(Pass_2).alongWith(Shooter.get().ShootPass(Pass_2)));
+		HumanControls.OperatorPanel.releaseCoral.whileTrue(new AutoAlign(Pass_1).alongWith(Shooter.get().ShootPass(Pass_1).alongWith(Intake.get().doOscilateIntake())));
+		HumanControls.OperatorPanel.pickupAlgae.whileTrue(new AutoAlign(Pass_2).alongWith(Shooter.get().ShootPass(Pass_2).alongWith(Intake.get().doOscilateIntake()) ));
 		HumanControls.OperatorPanel.L3.whileTrue(new ZeroClimber());
 		HumanControls.OperatorPanel.L1.whileTrue(Climber.get().doExtend());
 		HumanControls.OperatorPanel.L2.whileTrue(Climber.get().doRetract());

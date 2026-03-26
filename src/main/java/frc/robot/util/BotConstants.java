@@ -38,8 +38,8 @@ public class BotConstants {
             cfg_Roller.Slot0.kP = 0.5;
             cfg_Roller.MotorOutput.Inverted = InvertedValue.Clockwise_Positive;
             cfg_Roller.MotorOutput.NeutralMode = NeutralModeValue.Coast;
-            cfg_Roller.MotionMagic.MotionMagicAcceleration = 50;
-            cfg_Roller.MotionMagic.MotionMagicCruiseVelocity = 100;
+            cfg_Roller.MotionMagic.MotionMagicAcceleration = 100;
+            cfg_Roller.MotionMagic.MotionMagicCruiseVelocity = 200;
             cfg_Roller.CurrentLimits.StatorCurrentLimit = 120;
 
             //cfg_Roller.CurrentLimits.StatorCurrentLimitEnable = false;
@@ -47,7 +47,7 @@ public class BotConstants {
             //cfg_Roller.CurrentLimits.StatorCurrentLimit = 30.;
 
             cfg_Pivot.Slot0.kP = 8.; //YES ITS NORNMAL PID VALUES NOW
-            cfg_Pivot.Slot1.kP = 10.; //YES ITS NORNMAL PID VALUES NOW
+            cfg_Pivot.Slot1.kP = 15.; 
             cfg_Pivot.Slot1.kG = -.08*12;
             cfg_Pivot.Slot1.kI=.001; //Was 0
             cfg_Pivot.Slot1.GravityType = GravityTypeValue.Arm_Cosine;
@@ -97,11 +97,11 @@ public class BotConstants {
         public static final InterpolatingDoubleTreeMap fixedVelocityTable = new InterpolatingDoubleTreeMap();
 
         static{
-            cfg_shooter.Slot0.kP = 0.5;
-            cfg_shooter.Slot0.kS = 0.5;
-            cfg_shooter.Slot0.kV = 0.14;
-            cfg_shooter_intake.Slot0.kP = 0.55;
-            cfg_shooter_intake.Slot0.kV = 0.25;
+            cfg_shooter.Slot0.kP = 0.2;
+            cfg_shooter.Slot0.kS = 0.1;
+            cfg_shooter.Slot0.kV = 0.13;
+            cfg_shooter_intake.Slot0.kP = 0.45;
+            cfg_shooter_intake.Slot0.kV = 0.12;
             cfg_shooter.MotionMagic.MotionMagicAcceleration = 200;
             cfg_shooter.MotionMagic.MotionMagicCruiseVelocity = 200;
             cfg_shooter_intake.MotionMagic.MotionMagicCruiseVelocity = 160;
@@ -110,17 +110,17 @@ public class BotConstants {
         }
 
         static{
-            ShooterTable.put(2.257, -28.0);
-            ShooterTable.put(2.206, -28.0);
+            ShooterTable.put(2.257, -30.0);
+            ShooterTable.put(2.206, -30.0);
             ShooterTable.put(1.607, -25.0);
-            ShooterTable.put(3.060, -29.5);
-            ShooterTable.put(2.744, -28.5);
+            ShooterTable.put(3.060, -30.5);
+            ShooterTable.put(2.744, -29.5);
 
-            backSpinTable.put(2.257, -18.0); // key is distance to hub, value is the small roller velocity
-            backSpinTable.put(2.206, -18.0);
+            backSpinTable.put(2.257, -20.0); // key is distance to hub, value is the small roller velocity
+            backSpinTable.put(2.206, -20.0);
             backSpinTable.put(1.607, -22.0);
-            backSpinTable.put(3.060, -28.5);
-            backSpinTable.put(2.744, -26.0);
+            backSpinTable.put(3.060, -29.5);
+            backSpinTable.put(2.744, -27.0);
         }
 
     }

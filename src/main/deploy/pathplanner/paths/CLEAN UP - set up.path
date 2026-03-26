@@ -3,25 +3,25 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 3.1933184523809524,
-        "y": 6.123433895297248
+        "x": 2.35,
+        "y": 5.011
       },
       "prevControl": null,
       "nextControl": {
-        "x": 3.3527240461401946,
-        "y": 5.165732031943212
+        "x": 2.348874266436806,
+        "y": 5.260997465435041
       },
       "isLocked": false,
-      "linkedName": "End of Alpha 2"
+      "linkedName": null
     },
     {
       "anchor": {
-        "x": 1.168,
-        "y": 4.468
+        "x": 2.35,
+        "y": 5.011
       },
       "prevControl": {
-        "x": 1.9345306122448944,
-        "y": 4.448659272404614
+        "x": 2.3511257335631943,
+        "y": 4.761002534564959
       },
       "nextControl": null,
       "isLocked": false,
@@ -42,13 +42,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 0.0
+    "rotation": -21.02
   },
   "reversed": false,
-  "folder": "Alpha",
+  "folder": "CLEAN UP",
   "idealStartingState": {
     "velocity": 0,
-    "rotation": -56.1806115020017
+    "rotation": -21.02
   },
   "useDefaultConstraints": true
 }

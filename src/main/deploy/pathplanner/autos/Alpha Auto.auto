@@ -74,7 +74,7 @@
               {
                 "type": "named",
                 "data": {
-                  "name": "Do stow"
+                  "name": "Oscilate"
                 }
               },
               {
@@ -95,14 +95,14 @@
                 "data": {
                   "pathName": "Alpha 3"
                 }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "Do stow"
+                }
               }
             ]
-          }
-        },
-        {
-          "type": "wait",
-          "data": {
-            "waitTime": 1.0
           }
         },
         {

@@ -3,13 +3,13 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 0.59,
-        "y": 4.956
+        "x": 0.47961845607808284,
+        "y": 5.96
       },
       "prevControl": null,
       "nextControl": {
-        "x": 1.6063265306122445,
-        "y": 5.157684117125111
+        "x": 1.4959449866903274,
+        "y": 6.161684117125111
       },
       "isLocked": false,
       "linkedName": "End of Clean Up Depot"
@@ -55,7 +55,7 @@
   "folder": "CLEAN UP",
   "idealStartingState": {
     "velocity": 0,
-    "rotation": 90.0
+    "rotation": 0.0
   },
   "useDefaultConstraints": true
 }

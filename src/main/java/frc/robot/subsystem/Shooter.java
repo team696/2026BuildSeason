@@ -99,14 +99,14 @@ public class Shooter extends SubsystemBase {
 
 
   public Command idle(){
-    return run(()->{this.Stop(); Hopper.get().Stop();});
+    return run(()->{this.Stop();; Hopper.get().Stop();});
   }
 
 
   public Command Shoot(Translation2d desired_pose){
       return runEnd(()->{
         double distMeters=Swerve.get().distTo(desired_pose);
-        double velocity = BotConstants.Shooter.ShooterTable.get(distMeters);
+        double velocity = BotConstants.Shooter.ShooterTable.get(distMeters) - 2;
         double intakespeed = BotConstants.Shooter.backSpinTable.get(distMeters);
 
         SmartDashboard.putNumber("Desired velocity", velocity);
@@ -114,7 +114,7 @@ public class Shooter extends SubsystemBase {
 
          this.set_velocity(velocity);
 
-        if((Math.abs(getRollerVelocity()-velocity))<2){
+        if((Math.abs(getRollerVelocity()-velocity))<1){
               this.intake_shooter(intakespeed);
               Hopper.get().run_Hopper();
             }
@@ -136,10 +136,16 @@ public class Shooter extends SubsystemBase {
         double velocity = -50.0;
         double intakespeed = -40;
 
-        this.set_velocity(velocity);
-        new WaitCommand(1.5);
-        this.intake_shooter(intakespeed);
-        Hopper.get().run_Hopper();
+         this.set_velocity(velocity);
+
+        if((Math.abs(getRollerVelocity()-velocity))<5){
+              this.intake_shooter(intakespeed);
+              Hopper.get().run_Hopper();
+            }
+        else{
+          m_ShooterIntake.stopMotor();
+          Hopper.get().Stop();
+        }
   
 
       },

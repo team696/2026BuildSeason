@@ -39,6 +39,7 @@ public class Intake extends SubsystemBase {
   //Enum to determin state, values are temporary
   public static enum State{
     IDLE(0.0),
+    OSILATE(25.0),
     INTAKE(50.0);
 
     public double roller_velocity;  // Renamed
@@ -90,7 +91,7 @@ public class Intake extends SubsystemBase {
 
   public void runIntake(State state) {
     m_IntakeRoller.setControl(intakeVelocityController.withVelocity(state.roller_velocity*-1));
-    m_IntakeRoller_2.setControl(intakeVelocityController2.withVelocity(state.roller_velocity*-1*1.5));
+    m_IntakeRoller_2.setControl(intakeVelocityController2.withVelocity(state.roller_velocity*-1*2));
   }
 
   public void positionIntake(Pivot pivot) {
@@ -114,7 +115,7 @@ public Command doStow() {
     return this.run(() -> {
         this.runIntake(State.INTAKE); 
         this.positionIntake(Pivot.DEPLOY); 
-        Hopper.get().run_Hopper();
+
     });
   }
 
@@ -122,7 +123,13 @@ public Command doOscilateIntake() {
   return this.run(() -> {
       m_IntakeRoller.stopMotor();
       m_IntakeRoller_2.stopMotor();
-      m_IntakePivot.setControl(pivotPosition.withPosition(.15*Math.sin(Timer.getFPGATimestamp()*10)+(Pivot.STOW.position+.1)).withSlot(1));     
+
+      double time = Timer.getFPGATimestamp();
+      double frequency = 10.0; // Adjust this to change speed
+      double oscillator = (0.19 * Math.sin(time * frequency)) - 0.19;
+
+      m_IntakePivot.setControl(pivotPosition.withPosition(oscillator).withSlot(0));     
+      this.runIntake(State.OSILATE);
     });
   }
 

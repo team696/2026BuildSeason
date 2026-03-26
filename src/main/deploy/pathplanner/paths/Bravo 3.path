@@ -3,16 +3,16 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 3.1933184523809524,
-        "y": 6.123433895297248
+        "x": 2.854002976190476,
+        "y": 3.1084077380952384
       },
       "prevControl": null,
       "nextControl": {
-        "x": 3.3527240461401946,
-        "y": 5.165732031943212
+        "x": 3.642448979591836,
+        "y": 4.3931322094055005
       },
       "isLocked": false,
-      "linkedName": "End of Alpha 2"
+      "linkedName": "end of bravo 2"
     },
     {
       "anchor": {
@@ -20,8 +20,8 @@
         "y": 4.468
       },
       "prevControl": {
-        "x": 1.9345306122448944,
-        "y": 4.448659272404614
+        "x": 2.5398846495119782,
+        "y": 4.642617568766636
       },
       "nextControl": null,
       "isLocked": false,
@@ -45,10 +45,10 @@
     "rotation": 0.0
   },
   "reversed": false,
-  "folder": "Alpha",
+  "folder": "Bravo",
   "idealStartingState": {
     "velocity": 0,
-    "rotation": -56.1806115020017
+    "rotation": 30.256437163529174
   },
   "useDefaultConstraints": true
 }

@@ -17,7 +17,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
-
+import frc.robot.commands.ShootCommand;
 import frc.robot.subsystem.Climber;
 import frc.robot.subsystem.Intake;
 import frc.robot.subsystem.Shooter;
@@ -36,13 +36,17 @@ public class Robot extends TimedRobot {
     this.logger = new Telemetry(BotConstants.DriveConstants.MaxSpeed);
   
     Auto.initialize(
-    new Auto.NamedCommand("Shoot", Shooter.get().Shoot(Field.Alliance_Find.hub).withTimeout(4.0)),
+    new Auto.NamedCommand("Shoot", new ShootCommand(Field.Alliance_Find.hub).withTimeout(3.0)),
+
+    new Auto.NamedCommand("Shorter Shoot", new ShootCommand(Field.Alliance_Find.hub).withTimeout(2.5)),
     
     new Auto.NamedCommand("Intake_", Intake.get().doIntake().withTimeout(2)),
     
     new Auto.NamedCommand("Do stow", Intake.get().doStow().withTimeout(0.5)),
 
     new Auto.NamedCommand("Extend Climber", Climber.get().doExtend().withTimeout(3.0)),
+
+    new Auto.NamedCommand("Oscilate", Intake.get().doOscilateIntake().withTimeout(4.0)),
 
     new Auto.NamedCommand("Retract Climber", Climber.get().doRetract().withTimeout(2.0))
     );
@@ -53,7 +57,7 @@ public class Robot extends TimedRobot {
     
     Climber.get().zeroEncoder();
     Intake.get().zeroEncoder();
-    SignalLogger.start();
+    //SignalLogger.start();
     /*UsbCamera cam = CameraServer.startAutomaticCapture(0);
     cam.setFPS(24);
     cam.setResolution(120, 120);*/

@@ -11,32 +11,32 @@
               {
                 "type": "path",
                 "data": {
-                  "pathName": "CLEAN UP - set up"
+                  "pathName": "Bravo 1"
                 }
               },
               {
-                "type": "named",
+                "type": "sequential",
                 "data": {
-                  "name": "Shorter Shoot"
-                }
-              }
-            ]
-          }
-        },
-        {
-          "type": "deadline",
-          "data": {
-            "commands": [
-              {
-                "type": "path",
-                "data": {
-                  "pathName": "CLEAN UP- Depot"
-                }
-              },
-              {
-                "type": "named",
-                "data": {
-                  "name": "Intake_"
+                  "commands": [
+                    {
+                      "type": "named",
+                      "data": {
+                        "name": "Intake_"
+                      }
+                    },
+                    {
+                      "type": "wait",
+                      "data": {
+                        "waitTime": 1.25
+                      }
+                    },
+                    {
+                      "type": "named",
+                      "data": {
+                        "name": "Do stow"
+                      }
+                    }
+                  ]
                 }
               }
             ]
@@ -49,13 +49,13 @@
               {
                 "type": "path",
                 "data": {
-                  "pathName": "CLEAN UP- SHOOT 1"
+                  "pathName": "Bravo 2"
                 }
               },
               {
                 "type": "named",
                 "data": {
-                  "name": "Do stow"
+                  "name": "Intake_"
                 }
               }
             ]
@@ -74,13 +74,13 @@
               {
                 "type": "named",
                 "data": {
-                  "name": "Extend Climber"
+                  "name": "Oscilate"
                 }
               },
               {
                 "type": "named",
                 "data": {
-                  "name": "Oscilate"
+                  "name": "Extend Climber"
                 }
               }
             ]
@@ -93,7 +93,7 @@
               {
                 "type": "path",
                 "data": {
-                  "pathName": "CLEAN UP- Climb"
+                  "pathName": "Bravo 3"
                 }
               },
               {
