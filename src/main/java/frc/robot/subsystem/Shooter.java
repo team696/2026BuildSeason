@@ -133,7 +133,7 @@ public class Shooter extends SubsystemBase {
   public Command ShootPass(Translation2d desired_pose){
       return runEnd(()->{
         // double distMeters=Swerve.get().distTo(desired_pose);
-        double velocity = -50.0;
+        double velocity = -45.0;
         double intakespeed = -40;
 
          this.set_velocity(velocity);

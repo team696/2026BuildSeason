@@ -36,8 +36,8 @@ public class Binds {
 			
 	private static final SwerveRequest.FieldCentric swerveFCDriveRequest = 
 		new SwerveRequest.FieldCentric()
-		.withDeadband(BotConstants.DriveConstants.MaxSpeed * 0.08)  // was maxspeed *.1
-		.withRotationalDeadband(BotConstants.DriveConstants.MaxAngularRate * 0.05)
+		.withDeadband(.1)  // was maxspeed *.1
+		.withRotationalDeadband(.05)
 		.withDriveRequestType(DriveRequestType.OpenLoopVoltage);
 	
 			
@@ -48,15 +48,18 @@ public static final class DriverStation2026 {
 	static {
 		DriverStation.silenceJoystickConnectionWarning(true);
 		}
-			
+	
+	static double square(double input) {
+		return input * input * Math.signum(input);
+	}
 			
 	public static final void bind() {
 					// Map Joysticks
 		Swerve.get().setDefaultCommand(Swerve.get().applyRequest(
 			()-> swerveFCDriveRequest
-				.withVelocityX(HumanControls.DriverPanel.leftJoyY.getAsDouble()*BotConstants.DriveConstants.MaxSpeed)
-				.withVelocityY(HumanControls.DriverPanel.leftJoyX.getAsDouble()*BotConstants.DriveConstants.MaxSpeed)
-				.withRotationalRate(-HumanControls.DriverPanel.rightJoyX.getAsDouble()*BotConstants.DriveConstants.MaxAngularRate))) ; // Standard driving
+				.withVelocityX(square(HumanControls.DriverPanel.leftJoyY.getAsDouble())*BotConstants.DriveConstants.MaxSpeed)
+				.withVelocityY(square(HumanControls.DriverPanel.leftJoyX.getAsDouble())*BotConstants.DriveConstants.MaxSpeed)
+				.withRotationalRate(square(-HumanControls.DriverPanel.rightJoyX.getAsDouble())*BotConstants.DriveConstants.MaxAngularRate))) ; // Standard driving
 			
 		HumanControls.DriverPanel.OtherButton.whileTrue(new AutoAlign(hub));
 			
@@ -75,8 +78,8 @@ public static final class OperatorPanel{
 		HumanControls.OperatorPanel.SouceCoral.whileTrue(Intake.get().doIntake());
 		HumanControls.OperatorPanel.GroundCoral.whileTrue(new ShootCommand(hub).alongWith(Intake.get().doOscilateIntake()));
 		HumanControls.OperatorPanel.gyro.onTrue(new GyroReset(Swerve.get()));
-		HumanControls.OperatorPanel.releaseCoral.whileTrue(new AutoAlign(Pass_1).alongWith(Shooter.get().ShootPass(Pass_1).alongWith(Intake.get().doOscilateIntake())));
-		HumanControls.OperatorPanel.pickupAlgae.whileTrue(new AutoAlign(Pass_2).alongWith(Shooter.get().ShootPass(Pass_2).alongWith(Intake.get().doOscilateIntake()) ));
+		HumanControls.OperatorPanel.releaseCoral.whileTrue(Shooter.get().ShootPass(Pass_1).alongWith(Intake.get().doOscilateIntake()));
+		HumanControls.OperatorPanel.pickupAlgae.whileTrue(Shooter.get().ShootPass(Pass_2).alongWith(Intake.get().doOscilateIntake()) );
 		HumanControls.OperatorPanel.L3.whileTrue(new ZeroClimber());
 		HumanControls.OperatorPanel.L1.whileTrue(Climber.get().doExtend());
 		HumanControls.OperatorPanel.L2.whileTrue(Climber.get().doRetract());

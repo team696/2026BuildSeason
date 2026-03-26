@@ -79,19 +79,6 @@ public final class Swerve extends TunerSwerveDrivetrain implements Subsystem, Se
 			e.printStackTrace();
 			config = null; //Will fix later
 		}
-		
-
-		AutoBuilder.configure(
-			this::getPose, 
-			this::resetPose, 
-			()->this.getState().Speeds, //ctre man
-			(speeds, feedforwards) -> this.setControl(new SwerveRequest.ApplyRobotSpeeds().withSpeeds(speeds)), 
-			new PPHolonomicDriveController(
-				new PIDConstants(2,0,0), 
-				new PIDConstants(2,0,0)), 
-			config, 
-			()-> DriverStation.getAlliance().orElse(Alliance.Blue) == Alliance.Red ,
-			this);
 	}
 
 	@Override
@@ -117,22 +104,21 @@ public final class Swerve extends TunerSwerveDrivetrain implements Subsystem, Se
         if (latestResult.distToTag > 3.5)
         return false;
 		SmartDashboard.putBoolean("Accepted", false);
-      if (latestResult.ambiguity > 0.6)
+      if (latestResult.ambiguity > 0.3)
         return false; // Too Ambiguous, Ignore
 		SmartDashboard.putBoolean("Accepted", false);
-      if (getState().Speeds.omegaRadiansPerSecond > 2.5)
+      if (getState().Speeds.omegaRadiansPerSecond > 1.5)
         return false; // Rotating too fast, ignore
 		SmartDashboard.putBoolean("Accepted", false);
-      if (latestResult.distToTag < 1) {
-        setVisionMeasurementStdDevs(VecBuilder.fill(2.0, 2.0, 50.0));
-		SmartDashboard.putBoolean("Accepted", true);
+      if (latestResult.distToTag < 0.5) {
+        setVisionMeasurementStdDevs(VecBuilder.fill(0.3, .3, 50.0));
       } else {
         setVisionMeasurementStdDevs(
             VecBuilder.fill(latestResult.ambiguity * Math.pow(latestResult.distToTag, 2)*3.0,
                 latestResult.ambiguity * Math.pow(latestResult.distToTag, 2)*3.0,
-                latestResult.ambiguity * Math.pow(latestResult.distToTag, 2)*3.0));
-		SmartDashboard.putBoolean("Accepted", true);
+                latestResult.ambiguity * Math.pow(latestResult.distToTag, 2)*1000.0));
       }
+	  SmartDashboard.putBoolean("Accepted", true);
       return true;
     }
 
