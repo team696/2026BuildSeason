@@ -43,7 +43,7 @@ public class Robot extends TimedRobot {
     Auto.initialize(
     new Auto.NamedCommand("Shoot", new ShootCommand(Field.Alliance_Find.hub).withTimeout(4.0)),
 
-    new Auto.NamedCommand("ShootForever", new ShootCommand(Field.Alliance_Find.hub).withTimeout(4.0)),
+    new Auto.NamedCommand("ShootForever", new ShootCommand(Field.Alliance_Find.hub)),
 
 
     new Auto.NamedCommand("Shorter Shoot", new ShootCommand(Field.Alliance_Find.hub).withTimeout(2.5)),

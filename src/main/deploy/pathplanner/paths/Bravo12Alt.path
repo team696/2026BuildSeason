@@ -1,0 +1,111 @@
+{
+  "version": "2025.0",
+  "waypoints": [
+    {
+      "anchor": {
+        "x": 4.041607142857143,
+        "y": 0.6222693452380952
+      },
+      "prevControl": null,
+      "nextControl": {
+        "x": 5.041607142857141,
+        "y": 0.6222693452380952
+      },
+      "isLocked": false,
+      "linkedName": null
+    },
+    {
+      "anchor": {
+        "x": 6.3058854166666665,
+        "y": 0.9550595238095241
+      },
+      "prevControl": {
+        "x": 5.378792918615329,
+        "y": 0.5070259971824465
+      },
+      "nextControl": {
+        "x": 7.2329779147180036,
+        "y": 1.4030930504366017
+      },
+      "isLocked": false,
+      "linkedName": null
+    },
+    {
+      "anchor": {
+        "x": 8.452708333333332,
+        "y": 2.93875
+      },
+      "prevControl": {
+        "x": 9.182400068972212,
+        "y": 2.239621268995208
+      },
+      "nextControl": {
+        "x": 7.206376488095238,
+        "y": 4.132879464285715
+      },
+      "isLocked": false,
+      "linkedName": null
+    },
+    {
+      "anchor": {
+        "x": 4.65498511904762,
+        "y": 2.6255357142857143
+      },
+      "prevControl": {
+        "x": 5.50327380952381,
+        "y": 2.6190104166666672
+      },
+      "nextControl": {
+        "x": 3.505658749181433,
+        "y": 2.634376686361607
+      },
+      "isLocked": false,
+      "linkedName": null
+    },
+    {
+      "anchor": {
+        "x": 2.854,
+        "y": 3.108
+      },
+      "prevControl": {
+        "x": 3.630513392857143,
+        "y": 2.716889880952382
+      },
+      "nextControl": null,
+      "isLocked": false,
+      "linkedName": "end of bravo 2"
+    }
+  ],
+  "rotationTargets": [
+    {
+      "waypointRelativePos": 0.5,
+      "rotationDegrees": 0.0
+    },
+    {
+      "waypointRelativePos": 1.2612612612612604,
+      "rotationDegrees": -119.99999999999999
+    }
+  ],
+  "constraintZones": [],
+  "pointTowardsZones": [],
+  "eventMarkers": [],
+  "globalConstraints": {
+    "maxVelocity": 2.5,
+    "maxAcceleration": 2.7,
+    "maxAngularVelocity": 90.0,
+    "maxAngularAcceleration": 50.0,
+    "nominalVoltage": 12.0,
+    "unlimited": false
+  },
+  "goalEndState": {
+    "velocity": 0,
+    "rotation": 30.256437163529174
+  },
+  "reversed": false,
+  "folder": "Bravo",
+  "idealStartingState": {
+    "velocity": 0,
+    "rotation": 0.0
+  },
+  "useDefaultConstraints": true
+}

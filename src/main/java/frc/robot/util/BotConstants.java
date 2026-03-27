@@ -46,8 +46,9 @@ public class BotConstants {
             //cfg_Roller.CurrentLimits.SupplyCurrentLimitEnable = true;
             //cfg_Roller.CurrentLimits.StatorCurrentLimit = 30.;
 
-            cfg_Pivot.Slot0.kP = 8.; //YES ITS NORNMAL PID VALUES NOW
+            cfg_Pivot.Slot0.kP = 15.; //YES ITS NORNMAL PID VALUES NOW - oscillate
             cfg_Pivot.Slot1.kP = 15.; 
+            cfg_Pivot.Slot0.kG = -.08*12 + .5; // - oscillate
             cfg_Pivot.Slot1.kG = -.08*12;
             cfg_Pivot.Slot1.kI=.001; //Was 0
             cfg_Pivot.Slot1.GravityType = GravityTypeValue.Arm_Cosine;
