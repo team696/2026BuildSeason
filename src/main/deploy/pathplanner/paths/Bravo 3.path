@@ -8,27 +8,32 @@
       },
       "prevControl": null,
       "nextControl": {
-        "x": 2.8474776785714284,
-        "y": 4.354739583333334
+        "x": 3.128065476190476,
+        "y": 1.6793675595238096
       },
       "isLocked": false,
       "linkedName": "end of bravo 2"
     },
     {
       "anchor": {
-        "x": 1.27,
-        "y": 4.43
+        "x": 1.052,
+        "y": 2.837
       },
       "prevControl": {
-        "x": 2.3484205856255542,
-        "y": 4.534622892635315
+        "x": 1.0791220238095238,
+        "y": 1.6597916666666672
       },
       "nextControl": null,
       "isLocked": false,
       "linkedName": null
     }
   ],
-  "rotationTargets": [],
+  "rotationTargets": [
+    {
+      "waypointRelativePos": 0.5427927927927931,
+      "rotationDegrees": 180.0
+    }
+  ],
   "constraintZones": [],
   "pointTowardsZones": [],
   "eventMarkers": [],
@@ -42,7 +47,7 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 0.0
+    "rotation": 180.0
   },
   "reversed": false,
   "folder": "Bravo",
