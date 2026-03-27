@@ -8,20 +8,20 @@
       },
       "prevControl": null,
       "nextControl": {
-        "x": 2.050878438331854,
-        "y": 4.570186335403726
+        "x": 2.4951116071428574,
+        "y": 4.746257440476191
       },
       "isLocked": false,
       "linkedName": "End of Clean Up Shoot 1"
     },
     {
       "anchor": {
-        "x": 1.27,
-        "y": 4.43
+        "x": 1.19,
+        "y": 4.57
       },
       "prevControl": {
-        "x": 2.1974889086069207,
-        "y": 4.788911268855367
+        "x": 2.1174889086069206,
+        "y": 4.928911268855368
       },
       "nextControl": null,
       "isLocked": false,

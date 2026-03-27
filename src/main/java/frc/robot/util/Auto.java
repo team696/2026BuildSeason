@@ -74,7 +74,7 @@ public class Auto {
 									.withWheelForceFeedforwardsX(feedforwards.robotRelativeForcesXNewtons())
 									.withWheelForceFeedforwardsY(feedforwards.robotRelativeForcesYNewtons())),
 					new PPHolonomicDriveController(
-							new PIDConstants(12.5, 0, 0),
+							new PIDConstants(15.5, 0, 0),
 							new PIDConstants(7, 0, 0)),
 					config,
 					// Assume the path needs to be flipped for Red vs Blue, this is normally the

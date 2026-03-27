@@ -43,6 +43,9 @@ public class Robot extends TimedRobot {
     Auto.initialize(
     new Auto.NamedCommand("Shoot", new ShootCommand(Field.Alliance_Find.hub).withTimeout(4.0)),
 
+    new Auto.NamedCommand("ShootForever", new ShootCommand(Field.Alliance_Find.hub).withTimeout(4.0)),
+
+
     new Auto.NamedCommand("Shorter Shoot", new ShootCommand(Field.Alliance_Find.hub).withTimeout(2.5)),
     
     new Auto.NamedCommand("Intake_", Intake.get().doIntake().withTimeout(2)),
@@ -52,6 +55,8 @@ public class Robot extends TimedRobot {
     new Auto.NamedCommand("Extend Climber", Climber.get().doExtend().withTimeout(3.0)),
 
     new Auto.NamedCommand("Oscilate", Intake.get().doOscilateIntake().withTimeout(4.0)),
+
+    new Auto.NamedCommand("OscilateForever", Intake.get().doOscilateIntake()),
 
     new Auto.NamedCommand("Retract Climber", Climber.get().doRetract().withTimeout(2.0))
     );

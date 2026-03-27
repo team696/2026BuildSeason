@@ -8,20 +8,20 @@
       },
       "prevControl": null,
       "nextControl": {
-        "x": 1.3858110119047615,
-        "y": 5.777254464285715
+        "x": 1.3923363095238093,
+        "y": 5.4770907738095245
       },
       "isLocked": false,
       "linkedName": "End of Alpha 2"
     },
     {
       "anchor": {
-        "x": 1.14,
-        "y": 4.435
+        "x": 1.04,
+        "y": 4.46
       },
       "prevControl": {
-        "x": 1.144375,
-        "y": 4.88328869047619
+        "x": 0.994375,
+        "y": 5.199502976190477
       },
       "nextControl": null,
       "isLocked": false,
