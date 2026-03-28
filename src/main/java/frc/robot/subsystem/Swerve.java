@@ -2,6 +2,8 @@
 
 package frc.robot.subsystem;
 
+import static edu.wpi.first.units.Units.Rotation;
+
 import java.util.function.Supplier;
 
 import javax.sound.midi.SysexMessage;
@@ -53,6 +55,12 @@ public final class Swerve extends TunerSwerveDrivetrain implements Subsystem, Se
 	//private LimeLightCam leftCamera=new LimeLightCam("limelight-left");
 	private LimeLightCam backCamera=new LimeLightCam("limelight-back");
 
+	  /* Blue alliance sees forward as 0 degrees (toward red alliance wall) */
+  private static final Rotation2d kBlueAlliancePerspectiveRotation = Rotation2d.kZero;
+  /* Red alliance sees forward as 180 degrees (toward blue alliance wall) */
+  private static final Rotation2d kRedAlliancePerspectiveRotation = Rotation2d.k180deg;
+  /* Keep track if we've ever applied the operator perspective before or not */
+  private boolean m_hasAppliedOperatorPerspective = false;
 
 	double semiCircleSetDistance = 1.0; //in meters
 	PIDController moveToController = new PIDController(0, 0, 0);
@@ -83,6 +91,15 @@ public final class Swerve extends TunerSwerveDrivetrain implements Subsystem, Se
 
 	@Override
 	public void periodic() {
+		    if (!m_hasAppliedOperatorPerspective || DriverStation.isDisabled()) {
+      DriverStation.getAlliance().ifPresent(allianceColor -> {
+        setOperatorPerspectiveForward(
+            allianceColor == Alliance.Red
+                ? kRedAlliancePerspectiveRotation
+                : kBlueAlliancePerspectiveRotation);
+        m_hasAppliedOperatorPerspective = true;
+      });
+    }
 		  // This runs 50 times per second
 		  SmartDashboard.putNumber("Distance to hub", this.distTo(Field.Alliance_Find.hub));
         frontCamera.addVisionEstimate(this::addVisionMeasurement, this::acceptEstimate); 

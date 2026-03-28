@@ -3,6 +3,7 @@ package frc.robot;
 import java.util.Optional;
 
 import com.ctre.phoenix6.swerve.SwerveModule.DriveRequestType;
+import com.ctre.phoenix6.swerve.SwerveRequest.ForwardPerspectiveValue;
 import com.ctre.phoenix6.swerve.SwerveRequest;
 
 import edu.wpi.first.math.geometry.Pose2d;
@@ -39,7 +40,8 @@ public class Binds {
 		new SwerveRequest.FieldCentric()
 		.withDeadband(.1)  // was maxspeed *.1
 		.withRotationalDeadband(.05)
-		.withDriveRequestType(DriveRequestType.OpenLoopVoltage);
+		.withDriveRequestType(DriveRequestType.OpenLoopVoltage)
+		.withForwardPerspective(ForwardPerspectiveValue.OperatorPerspective);
 	
 			
 			

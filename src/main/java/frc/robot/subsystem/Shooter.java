@@ -21,6 +21,7 @@ import edu.wpi.first.math.system.plant.DCMotor;
 import edu.wpi.first.math.system.plant.LinearSystemId;
 import edu.wpi.first.units.measure.Angle;
 import edu.wpi.first.units.measure.AngularVelocity;
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.motorcontrol.Talon;
 import edu.wpi.first.wpilibj.simulation.FlywheelSim;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -72,6 +73,8 @@ public class Shooter extends SubsystemBase {
         SmartDashboard.putNumber("Desired Backspin", 0);
         SmartDashboard.putNumber("Indexer Velocity", 0);
 
+        SmartDashboard.putNumber("Fudge Factor for Shooter", 0);
+
         
 
       SmartDashboard.putNumber("Launch Speed", 0);
@@ -105,10 +108,11 @@ public class Shooter extends SubsystemBase {
 
   public Command Shoot(Translation2d desired_pose){
       return runEnd(()->{
+        double fudgefactor = SmartDashboard.getNumber("Fudge Factor for Shooter", 0);
         double distMeters=Swerve.get().distTo(desired_pose);
-        double velocity = BotConstants.Shooter.ShooterTable.get(distMeters) - 2;
+        double velocity = BotConstants.Shooter.ShooterTable.get(distMeters) - fudgefactor;
         double intakespeed = BotConstants.Shooter.backSpinTable.get(distMeters);
-
+        DriverStation.reportWarning("Fudge Factor recieved:"+fudgefactor, false);
         SmartDashboard.putNumber("Desired velocity", velocity);
         SmartDashboard.putNumber("Desired Backspin", intakespeed);
 
