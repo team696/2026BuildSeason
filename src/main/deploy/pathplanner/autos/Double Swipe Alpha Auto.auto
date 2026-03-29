@@ -107,9 +107,22 @@
           }
         },
         {
-          "type": "path",
+          "type": "parallel",
           "data": {
-            "pathName": "Alpha 6"
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "Alpha 6"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "Intake_"
+                }
+              }
+            ]
           }
         },
         {

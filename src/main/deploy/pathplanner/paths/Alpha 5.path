@@ -8,32 +8,27 @@
       },
       "prevControl": null,
       "nextControl": {
-        "x": 7.0185492457852705,
-        "y": 4.586181695504289
+        "x": 7.404849157054127,
+        "y": 5.310594498669032
       },
       "isLocked": false,
       "linkedName": "End of Alpha 4"
     },
     {
       "anchor": {
-        "x": 6.680536823425022,
-        "y": 3.6849157054125996
+        "x": 9.513402839396628,
+        "y": 5.181827861579413
       },
       "prevControl": {
-        "x": 6.744920141969832,
-        "y": 4.24826974267968
+        "x": 8.748850931677019,
+        "y": 5.230115350488021
       },
       "nextControl": null,
       "isLocked": false,
       "linkedName": "End of Alpha 5"
     }
   ],
-  "rotationTargets": [
-    {
-      "waypointRelativePos": 0.4395750332005312,
-      "rotationDegrees": 90.0
-    }
-  ],
+  "rotationTargets": [],
   "constraintZones": [],
   "pointTowardsZones": [],
   "eventMarkers": [],
@@ -46,13 +41,13 @@
     "unlimited": false
   },
   "goalEndState": {
-    "velocity": 0,
-    "rotation": 90.0
+    "velocity": 1.5,
+    "rotation": 180.0
   },
   "reversed": false,
   "folder": "Alpha",
   "idealStartingState": {
-    "velocity": 0,
+    "velocity": 1.5,
     "rotation": 0.0
   },
   "useDefaultConstraints": false

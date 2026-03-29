@@ -3,13 +3,13 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 6.680536823425022,
-        "y": 3.6849157054125996
+        "x": 9.513402839396628,
+        "y": 5.181827861579413
       },
       "prevControl": null,
       "nextControl": {
-        "x": 6.672488908606921,
-        "y": 5.173779946761313
+        "x": 8.024538598047915,
+        "y": 5.246211180124224
       },
       "isLocked": false,
       "linkedName": "End of Alpha 5"
@@ -20,8 +20,8 @@
         "y": 5.431
       },
       "prevControl": {
-        "x": 6.210351375332742,
-        "y": 5.938018633540373
+        "x": 6.197661934338953,
+        "y": 5.399121561668145
       },
       "nextControl": null,
       "isLocked": false,
@@ -50,14 +50,14 @@
     "unlimited": false
   },
   "goalEndState": {
-    "velocity": 0,
+    "velocity": 0.0,
     "rotation": -39.96
   },
   "reversed": false,
   "folder": "Alpha",
   "idealStartingState": {
-    "velocity": 0,
-    "rotation": 90.0
+    "velocity": 1.5,
+    "rotation": 180.0
   },
   "useDefaultConstraints": true
 }

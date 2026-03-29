@@ -52,7 +52,7 @@
   "reversed": false,
   "folder": "Alpha",
   "idealStartingState": {
-    "velocity": 1.0,
+    "velocity": 1.5,
     "rotation": -39.95754893082905
   },
   "useDefaultConstraints": true
