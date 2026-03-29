@@ -4,6 +4,8 @@
 
 package frc.robot.subsystem;
 
+import java.util.function.Supplier;
+
 import com.ctre.phoenix6.StatusSignal;
 import com.ctre.phoenix6.controls.DutyCycleOut;
 import com.ctre.phoenix6.controls.Follower;
@@ -134,7 +136,7 @@ public class Shooter extends SubsystemBase {
       });
     }
 
-  public Command ShootPass(Translation2d desired_pose){
+  public Command ShootPass(){
       return runEnd(()->{
         // double distMeters=Swerve.get().distTo(desired_pose);
         double velocity = -45.0;
@@ -142,14 +144,8 @@ public class Shooter extends SubsystemBase {
 
          this.set_velocity(velocity);
 
-        if((Math.abs(getRollerVelocity()-velocity))<5){
-              this.intake_shooter(intakespeed);
-              Hopper.get().run_Hopper();
-            }
-        else{
-          m_ShooterIntake.stopMotor();
-          Hopper.get().Stop();
-        }
+        this.intake_shooter(intakespeed);
+        Hopper.get().run_Hopper();
   
 
       },

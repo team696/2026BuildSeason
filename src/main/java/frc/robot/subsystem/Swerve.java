@@ -101,7 +101,6 @@ public final class Swerve extends TunerSwerveDrivetrain implements Subsystem, Se
       });
     }
 		  // This runs 50 times per second
-		  SmartDashboard.putNumber("Distance to hub", this.distTo(Field.Alliance_Find.hub));
         frontCamera.addVisionEstimate(this::addVisionMeasurement, this::acceptEstimate); 
 		//this.cameraLocalization();
 		//leftCamera.addVisionEstimate(this::addVisionMeasurement, this::acceptEstimate);    
@@ -168,18 +167,17 @@ void pidToDistance(){
 				visionMeasurementStdDevs);
 	}
 
-	public Rotation2d target_theta_hub(){
-      return new Rotation2d(Math.atan2(
-        Field.hub_position_blue.getY() - Swerve.get().getPose().getY(),
-        Field.hub_position_blue.getX() - Swerve.get().getPose().getX()
-	  	));
-    }
 
 	public Rotation2d target_theta(Translation2d desiredpose){
-		return new Rotation2d(Math.atan2(
+		Rotation2d desiredRotation = new Rotation2d(Math.atan2(
 			desiredpose.getY() - Swerve.get().getPose().getY(),
 			desiredpose.getX() - Swerve.get().getPose().getX()
 		));
+
+		if(Field.Alliance_Find.alliance == Alliance.Red){
+			desiredRotation = desiredRotation.plus(Rotation2d.fromDegrees(180));
+		}
+		return desiredRotation;
 	}
 
 	

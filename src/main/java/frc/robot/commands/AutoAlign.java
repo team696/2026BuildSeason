@@ -6,6 +6,8 @@ package frc.robot.commands;
 
 import static edu.wpi.first.units.Units.DegreesPerSecond;
 
+import java.util.function.Supplier;
+
 import com.ctre.phoenix6.swerve.SwerveModule.DriveRequestType;
 import com.ctre.phoenix6.swerve.SwerveRequest;
 
@@ -26,10 +28,10 @@ public class AutoAlign extends Command {
 					.withDriveRequestType(DriveRequestType.OpenLoopVoltage)
 					.withHeadingPID(3, 0, 0); 
 
-  private Translation2d targetPosition;
+  private Supplier<Translation2d> targetPosition;
 
 
-  public AutoAlign(Translation2d targetPosition) {
+  public AutoAlign(Supplier<Translation2d> targetPosition) {
       this.targetPosition = targetPosition;
       addRequirements(Swerve.get());
 
@@ -50,7 +52,7 @@ public class AutoAlign extends Command {
         FCFARequest
         .withVelocityX((HumanControls.DriverPanel.leftJoyY.getAsDouble()/2)*BotConstants.DriveConstants.MaxSpeed)
         .withVelocityY((HumanControls.DriverPanel.leftJoyX.getAsDouble()/2)*BotConstants.DriveConstants.MaxSpeed)
-        .withTargetDirection(Swerve.get().target_theta(targetPosition))
+        .withTargetDirection(Swerve.get().target_theta(targetPosition.get()))
         .withMaxAbsRotationalRate(DegreesPerSecond.of(360))
         .withRotationalDeadband(DegreesPerSecond.of(1)));
   }

@@ -41,12 +41,12 @@ public class Robot extends TimedRobot {
     this.logger = new Telemetry(BotConstants.DriveConstants.MaxSpeed);
   
     Auto.initialize(
-    new Auto.NamedCommand("Shoot", new ShootCommand(Field.Alliance_Find.hub).withTimeout(4.0)),
+    new Auto.NamedCommand("Shoot", new ShootCommand(()->Field.Alliance_Find.hub).withTimeout(4.0)),
 
-    new Auto.NamedCommand("ShootForever", new ShootCommand(Field.Alliance_Find.hub)),
+    new Auto.NamedCommand("ShootForever", new ShootCommand(()->Field.Alliance_Find.hub)),
 
 
-    new Auto.NamedCommand("Shorter Shoot", new ShootCommand(Field.Alliance_Find.hub).withTimeout(2.5)),
+    new Auto.NamedCommand("Shorter Shoot", new ShootCommand(()->Field.Alliance_Find.hub).withTimeout(2.5)),
     
     new Auto.NamedCommand("Intake_", Intake.get().doIntake().withTimeout(2)),
     
@@ -83,7 +83,7 @@ public double DistanceFinder(Translation2d targetPosition){
 
   @Override
   public void robotPeriodic() {
-    
+    Field.Alliance_Find.setAlliance();
     // Publish total telemetry
     SmartDashboard.putNumber("PDH Total Current", m_pdh.getTotalCurrent());
     SmartDashboard.putNumber("PDH Voltage", m_pdh.getVoltage());
@@ -94,7 +94,8 @@ public double DistanceFinder(Translation2d targetPosition){
   }
 
   @Override
-  public void disabledInit() {}
+  public void disabledInit() {
+  }
 
   @Override
   public void disabledPeriodic() {}

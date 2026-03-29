@@ -46,37 +46,42 @@ public class Field {
 
 	public static class Alliance_Find{
 
-		public static Optional<Alliance> alliance = DriverStation.getAlliance();
-		public static Translation2d hub;
-		public static Translation2d Pass_1;
-		public static Translation2d Pass_2;
-		public static Pose2d climb_tower;
-
-		static {
+		public static Alliance alliance;
+		public static Alliance prev_alliance;
+		public static Translation2d hub = Field.hub_position_blue;
+		public static Translation2d Pass_1 = pass_position_blue_1;
+		public static Translation2d Pass_2 = pass_position_blue_2;
+		public static Pose2d climb_tower = climb_tower_blue;
+		static boolean updated = false;
+		public static void setAlliance() {
 			// Initialize the alliance-based values
-			try{
-				if(alliance.get() == Alliance.Red){
-					hub = Field.hub_position_red;
-					Pass_1 = Field.pass_position_red_1;
-					Pass_2 = Field.pass_position_red_2;
-					climb_tower = Field.climb_tower_red;
-				}
-				else if(alliance.get() == Alliance.Blue){
-					hub = Field.hub_position_blue;
-					Pass_1 = Field.pass_position_blue_1;
-					Pass_2 = Field.pass_position_blue_2;
-					climb_tower = Field.climb_tower_blue;
-				}
-				else{
-					System.out.print("You fucked up");
-				}
-			} catch (NoSuchElementException e){
-					DriverStation.reportWarning("Could not get alliance from driver station/FMS!", e.getStackTrace());
-					hub = Field.hub_position_blue;
-					Pass_1 = Field.pass_position_blue_1;
-					Pass_2 = Field.pass_position_blue_2;
-					climb_tower = Field.climb_tower_blue;
+			prev_alliance = alliance;
+			updated = false;
+			Optional<Alliance> tempAlliance = DriverStation.getAlliance();
+			if(tempAlliance.isEmpty()) {
+				alliance = Alliance.Blue;
+			} else {
+				alliance = tempAlliance.get();
 			}
+			if (prev_alliance != alliance) {
+				updated = true;
+			}
+			if (updated){
+			if(alliance == Alliance.Red){
+				hub = Field.hub_position_red;
+				Pass_1 = Field.pass_position_red_1;
+				Pass_2 = Field.pass_position_red_2;
+				climb_tower = Field.climb_tower_red;
+				System.out.println("Switched To Red!");
+			}
+			else if(alliance == Alliance.Blue){
+				hub = Field.hub_position_blue;
+				Pass_1 = Field.pass_position_blue_1;
+				Pass_2 = Field.pass_position_blue_2;
+				climb_tower = Field.climb_tower_blue;
+				System.out.println("Switched To Blue!");
+			}
+		}
 		}
 	}
 }

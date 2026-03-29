@@ -21,8 +21,8 @@ public class constants {
 	public static final Distance LENGTH = Feet.of(57.53);
 	public static final Distance WIDTH = Feet.of(26.75);
 
-	public final static Translation2d hub_position = new Translation2d(Units.inchesToMeters(182.11), 
-													Units.inchesToMeters(158.84));
+	// public final static Translation2d hub_position = new Translation2d(Units.inchesToMeters(182.11), 
+	// 												Units.inchesToMeters(158.84));
 
 	}
 

@@ -4,6 +4,8 @@
 
 package frc.robot.commands;
 
+import java.util.function.Supplier;
+
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -15,13 +17,12 @@ import frc.robot.util.BotConstants;
 /* You should consider using the more terse Command factories API instead https://docs.wpilib.org/en/stable/docs/software/commandbased/organizing-command-based.html#defining-commands */
 public class ShootCommand extends Command {
 
-  Translation2d desiredPose;
+  Supplier<Translation2d> desiredPose;
   boolean isAtspeed;
   /** Creates a new ShootCommand. */
-  public ShootCommand(Translation2d desired_pose) {
+  public ShootCommand(Supplier<Translation2d> desired_pose) {
 
     desiredPose = desired_pose;
-
 
     this.addRequirements(Shooter.get(),Hopper.get());
     // Use addRequirements() here to declare subsystem dependencies.
@@ -31,14 +32,13 @@ public class ShootCommand extends Command {
   @Override
   public void initialize() {
       isAtspeed = false;
-
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
       double fudgeFactor = SmartDashboard.getNumber("Fudge Factor for Shooter", 0);
-      double distMeters=Swerve.get().distTo(desiredPose);
+      double distMeters=Swerve.get().distTo(desiredPose.get());
       double velocity = BotConstants.Shooter.ShooterTable.get(distMeters) - fudgeFactor;
       double intakespeed = BotConstants.Shooter.backSpinTable.get(distMeters);
 

@@ -28,12 +28,6 @@ import frc.robot.util.BotConstants;
 import frc.robot.util.Field;
 
 public class Binds {
-
-	public static Optional<Alliance> alliance = DriverStation.getAlliance();
-	public static Translation2d hub = Field.Alliance_Find.hub;
-	public static Translation2d Pass_1 = Field.Alliance_Find.Pass_1;
-	public static Translation2d Pass_2 = Field.Alliance_Find.Pass_2;
-	public static Pose2d climb = Field.Alliance_Find.climb_tower;
 			//Standard driving
 			
 	private static final SwerveRequest.FieldCentric swerveFCDriveRequest = 
@@ -64,7 +58,7 @@ public static final class DriverStation2026 {
 				.withVelocityY(square(HumanControls.DriverPanel.leftJoyX.getAsDouble())*BotConstants.DriveConstants.MaxSpeed)
 				.withRotationalRate(square(-HumanControls.DriverPanel.rightJoyX.getAsDouble())*BotConstants.DriveConstants.MaxAngularRate))) ; // Standard driving
 			
-		HumanControls.DriverPanel.OtherButton.whileTrue(new AutoAlign(hub));
+		HumanControls.DriverPanel.OtherButton.whileTrue(new AutoAlign(()->Field.Alliance_Find.hub));
 			
 		}
 	}
@@ -79,10 +73,11 @@ public static final class OperatorPanel{
 		Intake.get().setDefaultCommand(Intake.get().doStow());
 
 		HumanControls.OperatorPanel.SouceCoral.whileTrue(Intake.get().doIntake());
-		HumanControls.OperatorPanel.GroundCoral.whileTrue(new ShootCommand(hub).alongWith(Intake.get().doOscilateIntake()));
+		HumanControls.OperatorPanel.GroundCoral.whileTrue(new ShootCommand(()->Field.Alliance_Find.hub).alongWith(Intake.get().doOscilateIntake()));
 		HumanControls.OperatorPanel.gyro.onTrue(new GyroReset(Swerve.get()));
-		HumanControls.OperatorPanel.releaseCoral.whileTrue(Shooter.get().ShootPass(Pass_1).alongWith(Intake.get().doOscilateIntake()));
-		HumanControls.OperatorPanel.pickupAlgae.whileTrue(Shooter.get().ShootPass(Pass_2).alongWith(Intake.get().doOscilateIntake()) );
+		HumanControls.OperatorPanel.releaseCoral.whileTrue(Shooter.get().ShootPass().alongWith(Intake.get().doOscilateIntake()));
+		HumanControls.OperatorPanel.pickupAlgae.whileTrue(Intake.get().doOuttake());
+		HumanControls.OperatorPanel.Barge.whileTrue(Intake.get().doOuttake());
 		HumanControls.OperatorPanel.L3.whileTrue(new ZeroClimber());
 		HumanControls.OperatorPanel.L1.whileTrue(Climber.get().doExtend());
 		HumanControls.OperatorPanel.L2.whileTrue(Climber.get().doRetract());
@@ -133,7 +128,7 @@ public static final class Controller {
 
 		
 
-	HumanControls.SingleXboxController.X.whileTrue(new AutoAlign(hub)); //Auto align
+	HumanControls.SingleXboxController.X.whileTrue(new AutoAlign(()->Field.Alliance_Find.hub)); //Auto align
 	//HumanControls.SingleXboxController.A.whileTrue(Climber.get().doRetract()); //Hold A to go down
 	//HumanControls.SingleXboxController.B.whileTrue(Climber.get().doExtend()); //Hold B to go up
 	//HumanControls.SingleXboxController.A.onTrue(new ZeroClimber());
@@ -141,7 +136,7 @@ public static final class Controller {
 	//HumanControls.SingleXboxController.LB.whileTrue(new AutoAlign(Pass_1)); //Auto Align to conrer
 	//HumanControls.SingleXboxController.RB.whileTrue(new AutoAlign(Pass_2));//Auto Align to the corner again
 	//HumanControls.SingleXboxController.LB.whileTrue(Intake.get().doIntake().alongWith(Hopper.get().run_Hopper(50))); //Intake 
-	HumanControls.SingleXboxController.RB.whileTrue(Shooter.get().Shoot(hub)); 
+	HumanControls.SingleXboxController.RB.whileTrue(Shooter.get().Shoot(Field.Alliance_Find.hub)); 
 	//HumanControls.SingleXboxController.B.whileTrue(Swerve.get().alignToClimb());
 	//HumanControls.SingleXboxController.X.whileTrue(Intake.get().doStow());
 	//HumanControls.SingleXboxController..whileTrue(Intake.get().zeroEncoder());

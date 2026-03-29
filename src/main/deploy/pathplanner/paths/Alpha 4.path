@@ -8,47 +8,52 @@
       },
       "prevControl": null,
       "nextControl": {
-        "x": 1.3923363095238093,
-        "y": 5.4770907738095245
+        "x": 4.128065476190476,
+        "y": 5.43141369047619
       },
       "isLocked": false,
       "linkedName": "End of Alpha 2"
     },
     {
       "anchor": {
-        "x": 1.06,
-        "y": 4.67
+        "x": 6.801255545696539,
+        "y": 5.3588819875776394
       },
       "prevControl": {
-        "x": 1.3931845238095237,
-        "y": 5.249895833333333
+        "x": 5.801255545696539,
+        "y": 5.3588819875776394
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "End of Alpha 4"
     }
   ],
-  "rotationTargets": [],
+  "rotationTargets": [
+    {
+      "waypointRelativePos": 0.13014608233731742,
+      "rotationDegrees": 0.0
+    }
+  ],
   "constraintZones": [],
   "pointTowardsZones": [],
   "eventMarkers": [],
   "globalConstraints": {
-    "maxVelocity": 1.2,
-    "maxAcceleration": 2.2,
-    "maxAngularVelocity": 45.0,
+    "maxVelocity": 2.5,
+    "maxAcceleration": 2.7,
+    "maxAngularVelocity": 90.0,
     "maxAngularAcceleration": 50.0,
     "nominalVoltage": 12.0,
     "unlimited": false
   },
   "goalEndState": {
-    "velocity": 0,
+    "velocity": 1.5,
     "rotation": 0.0
   },
   "reversed": false,
   "folder": "Alpha",
   "idealStartingState": {
-    "velocity": 0,
+    "velocity": 1.0,
     "rotation": -39.95754893082905
   },
-  "useDefaultConstraints": false
+  "useDefaultConstraints": true
 }

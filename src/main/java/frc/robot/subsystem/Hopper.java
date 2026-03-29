@@ -58,6 +58,10 @@ public class Hopper extends SubsystemBase {
     m_Hopper.setControl(ahhh);
   }
 
+  public void reverseHopper(){
+    m_Hopper.setControl(reverseCylce);
+  }
+
   public Command run_Hopper_Command(){
     return runEnd(
       ()->{m_Hopper.setControl(ahhh);},

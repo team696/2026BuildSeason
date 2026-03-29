@@ -40,7 +40,8 @@ public class Intake extends SubsystemBase {
   public static enum State{
     IDLE(0.0),
     OSILATE(25.0),
-    INTAKE(50.0);
+    INTAKE(50.0),
+    OUTTAKE(-50.0);
 
     public double roller_velocity;  // Renamed
     State(double roller_velocity){
@@ -116,6 +117,14 @@ public Command doStow() {
         this.runIntake(State.INTAKE); 
         this.positionIntake(Pivot.DEPLOY); 
 
+    });
+  }
+
+  public Command doOuttake(){
+    return this.run(()->{
+      this.runIntake(State.OUTTAKE);
+      this.positionIntake(Pivot.DEPLOY);
+      Hopper.get().reverseHopper();
     });
   }
 
