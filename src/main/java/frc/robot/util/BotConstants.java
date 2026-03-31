@@ -46,7 +46,7 @@ public class BotConstants {
             //cfg_Roller.CurrentLimits.SupplyCurrentLimitEnable = true;
             //cfg_Roller.CurrentLimits.StatorCurrentLimit = 30.;
 
-            cfg_Pivot.Slot0.kP = 15.; //YES ITS NORNMAL PID VALUES NOW - oscillate
+            cfg_Pivot.Slot0.kP = 17.; //YES ITS NORNMAL PID VALUES NOW - oscillate
             cfg_Pivot.Slot1.kP = 15.; 
             cfg_Pivot.Slot0.kG = -.08*12 + .5; // - oscillate
             cfg_Pivot.Slot1.kG = -.08*12;
@@ -62,7 +62,7 @@ public class BotConstants {
             cfg_Pivot.MotionMagic.MotionMagicCruiseVelocity = 20;
             //cfg_Pivot.MotorOutput.Inverted = InvertedValue.Clockwise_Positive;//Will try this out, if not work will go back to the that fucking negative pid value(wtf ctre)
             cfg_Pivot.CurrentLimits.StatorCurrentLimitEnable = true;
-            cfg_Pivot.CurrentLimits.StatorCurrentLimit = 80; //was 60
+            cfg_Pivot.CurrentLimits.StatorCurrentLimit = 120; //was 60
 
         }
     }

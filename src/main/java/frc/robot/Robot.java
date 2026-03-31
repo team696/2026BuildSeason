@@ -129,8 +129,10 @@ public double DistanceFinder(Translation2d targetPosition){
     if (m_autonomousCommand != null) {
       m_autonomousCommand.cancel();
     }
+    
+    /*Climber.get().doExtend();*/
 
-    Climber.get().doExtend();
+     Climber.get().gotToZero().schedule();
   }
 
   @Override

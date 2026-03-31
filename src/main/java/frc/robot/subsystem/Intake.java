@@ -20,6 +20,7 @@ import edu.wpi.first.wpilibj.simulation.SingleJointedArmSim;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.util.BotConstants;
 
 public class Intake extends SubsystemBase {
@@ -39,9 +40,9 @@ public class Intake extends SubsystemBase {
   //Enum to determin state, values are temporary
   public static enum State{
     IDLE(0.0),
-    OSILATE(25.0),
-    INTAKE(50.0),
-    OUTTAKE(-50.0);
+    OSILATE(-25.0),
+    INTAKE(-50.0),
+    OUTTAKE(75.0);
 
     public double roller_velocity;  // Renamed
     State(double roller_velocity){
@@ -113,11 +114,12 @@ public Command doStow() {
 
 
   public Command doIntake() {
-    return this.run(() -> {
-        this.runIntake(State.INTAKE); 
+    return this.runOnce(() -> {
         this.positionIntake(Pivot.DEPLOY); 
 
-    });
+    }).andThen(new WaitCommand(0.25)).andThen(this.run(()->{
+              this.runIntake(State.INTAKE); 
+    }));
   }
 
   public Command doOuttake(){
