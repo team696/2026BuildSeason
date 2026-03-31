@@ -3,32 +3,41 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 2.854002976190476,
-        "y": 3.1084077380952384
+        "x": 7.799196983141082,
+        "y": 3.108
       },
       "prevControl": null,
       "nextControl": {
-        "x": 3.128065476190476,
-        "y": 1.6793675595238096
+        "x": 7.603761639076859,
+        "y": 2.420647782563279
       },
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "End of Bravo 3 double swipe"
     },
     {
       "anchor": {
-        "x": 1.034,
-        "y": 2.822
+        "x": 3.075070984915705,
+        "y": 2.8076929902395737
       },
       "prevControl": {
-        "x": 0.9110401785714287,
-        "y": 1.4726398809523817
+        "x": 2.6748078852510595,
+        "y": 2.839620933786358
       },
       "nextControl": null,
       "isLocked": false,
       "linkedName": null
     }
   ],
-  "rotationTargets": [],
+  "rotationTargets": [
+    {
+      "waypointRelativePos": 0.4900398406374502,
+      "rotationDegrees": 0.0
+    },
+    {
+      "waypointRelativePos": 0.7237715803452855,
+      "rotationDegrees": 0.0
+    }
+  ],
   "constraintZones": [],
   "pointTowardsZones": [],
   "eventMarkers": [],
@@ -42,13 +51,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 180.0
+    "rotation": 41.08175113593266
   },
   "reversed": false,
   "folder": "Bravo",
   "idealStartingState": {
     "velocity": 0,
-    "rotation": 180.0
+    "rotation": -143.956509376647
   },
   "useDefaultConstraints": true
 }

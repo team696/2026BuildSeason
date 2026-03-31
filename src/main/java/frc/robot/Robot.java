@@ -41,7 +41,7 @@ public class Robot extends TimedRobot {
     this.logger = new Telemetry(BotConstants.DriveConstants.MaxSpeed);
   
     Auto.initialize(
-    new Auto.NamedCommand("Shoot", new ShootCommand(()->Field.Alliance_Find.hub).withTimeout(4.0)),
+    new Auto.NamedCommand("Shoot", new ShootCommand(()->Field.Alliance_Find.hub).withTimeout(3.5)),
 
     new Auto.NamedCommand("ShootForever", new ShootCommand(()->Field.Alliance_Find.hub)),
 

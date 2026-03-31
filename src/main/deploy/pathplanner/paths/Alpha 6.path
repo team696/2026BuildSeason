@@ -3,16 +3,16 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 9.513402839396628,
-        "y": 5.181827861579413
+        "x": 7.9038198757763976,
+        "y": 5.43141369047619
       },
       "prevControl": null,
       "nextControl": {
-        "x": 8.024538598047915,
-        "y": 5.246211180124224
+        "x": 6.414955634427685,
+        "y": 5.495797009021
       },
       "isLocked": false,
-      "linkedName": "End of Alpha 5"
+      "linkedName": "End of Alpha 4"
     },
     {
       "anchor": {
@@ -30,7 +30,7 @@
   ],
   "rotationTargets": [
     {
-      "waypointRelativePos": 0.5,
+      "waypointRelativePos": 0.7,
       "rotationDegrees": 0.0
     },
     {
@@ -42,10 +42,10 @@
   "pointTowardsZones": [],
   "eventMarkers": [],
   "globalConstraints": {
-    "maxVelocity": 2.5,
-    "maxAcceleration": 2.7,
-    "maxAngularVelocity": 90.0,
-    "maxAngularAcceleration": 50.0,
+    "maxVelocity": 2.9,
+    "maxAcceleration": 2.9,
+    "maxAngularVelocity": 120.0,
+    "maxAngularAcceleration": 100.0,
     "nominalVoltage": 12.0,
     "unlimited": false
   },
@@ -57,7 +57,7 @@
   "folder": "Alpha",
   "idealStartingState": {
     "velocity": 1.5,
-    "rotation": 180.0
+    "rotation": -152.61222636875095
   },
-  "useDefaultConstraints": true
+  "useDefaultConstraints": false
 }
