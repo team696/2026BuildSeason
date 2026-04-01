@@ -51,7 +51,8 @@ public class Intake extends SubsystemBase {
 }
   //Enum to determin pivot position, values are temporary
   public enum Pivot{
-    STOW(-.38),
+    ZERO(-.38),
+    STOW(-.19),
     DEPLOY(0.); //position flipped cuz now we counter clock wise positive
 
     public double position;

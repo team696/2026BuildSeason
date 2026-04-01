@@ -63,7 +63,7 @@
   "rotationTargets": [
     {
       "waypointRelativePos": 0.5315315315315314,
-      "rotationDegrees": 0.0
+      "rotationDegrees": 180.0
     }
   ],
   "constraintZones": [],
@@ -92,7 +92,7 @@
   "folder": "Alpha",
   "idealStartingState": {
     "velocity": 1.5,
-    "rotation": 0.0
+    "rotation": 180.0
   },
   "useDefaultConstraints": true
 }

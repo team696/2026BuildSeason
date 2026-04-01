@@ -43,9 +43,22 @@
           }
         },
         {
-          "type": "path",
+          "type": "parallel",
           "data": {
-            "pathName": "Bravo 2"
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "Bravo 2"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "Intake_"
+                }
+              }
+            ]
           }
         },
         {
@@ -87,9 +100,22 @@
           }
         },
         {
-          "type": "path",
+          "type": "parallel",
           "data": {
-            "pathName": "Bravo 4 Double Swpie"
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "Bravo 4 Double Swpie"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "Intake_"
+                }
+              }
+            ]
           }
         },
         {

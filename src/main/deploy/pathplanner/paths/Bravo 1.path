@@ -3,12 +3,12 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 3.2802928127772844,
+        "x": 3.6303771073646844,
         "y": 0.6669476486246664
       },
       "prevControl": null,
       "nextControl": {
-        "x": 6.0809671694764855,
+        "x": 6.431051464063885,
         "y": 0.578420585625554
       },
       "isLocked": false,
@@ -47,7 +47,7 @@
   "rotationTargets": [
     {
       "waypointRelativePos": 0.1896551724137928,
-      "rotationDegrees": 0.0
+      "rotationDegrees": 180.0
     }
   ],
   "constraintZones": [],
@@ -69,7 +69,7 @@
   "folder": "Bravo",
   "idealStartingState": {
     "velocity": 0,
-    "rotation": 0.0
+    "rotation": 180.0
   },
   "useDefaultConstraints": true
 }
