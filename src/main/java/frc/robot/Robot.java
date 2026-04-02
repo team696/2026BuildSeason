@@ -5,7 +5,14 @@
 package frc.robot;
 
 
+import com.ctre.phoenix.led.CANdle.LEDStripType;
+import com.ctre.phoenix.led.CANdle.VBatOutputMode;
 import com.ctre.phoenix6.SignalLogger;
+import com.ctre.phoenix6.configs.CANdleConfiguration;
+import com.ctre.phoenix6.controls.RainbowAnimation;
+import com.ctre.phoenix6.hardware.CANdle;
+import com.ctre.phoenix6.signals.LossOfSignalBehaviorValue;
+import com.ctre.phoenix6.signals.StripTypeValue;
 
 import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.cscore.UsbCamera;
@@ -35,10 +42,17 @@ public class Robot extends TimedRobot {
   
   private final PowerDistribution m_pdh = new PowerDistribution(1, ModuleType.kRev);
 
+  private final CANdle m_candle = new CANdle(0, "rio");
+
 
   public Robot() {
     this.logger = new Telemetry(BotConstants.DriveConstants.MaxSpeed);
-  
+    CANdleConfiguration configAll = new CANdleConfiguration();
+
+    configAll.LED.StripType = StripTypeValue.RGBW;
+    configAll.LED.LossOfSignalBehavior = LossOfSignalBehaviorValue.KeepRunning;
+    m_candle.getConfigurator().apply(configAll);
+
     Auto.initialize(
     new Auto.NamedCommand("Shoot", new ShootCommand(()->Field.Alliance_Find.hub).withTimeout(3.5)),
 
@@ -89,6 +103,9 @@ public double DistanceFinder(Translation2d targetPosition){
     
     logger.telemeterize(Swerve.get().getState());
     CommandScheduler.getInstance().run();
+
+    m_candle.setControl(new RainbowAnimation(0, 100));
+
   }
 
   @Override
