@@ -83,8 +83,6 @@ public static final class OperatorPanel{
 		//HumanControls.OperatorPanel.Climb1.onTrue(new PathFindToClimb(Field.before_Tower_Blue).andThen(new PathFindToClimb()));
 
 
-
-		// L4 button seems to be flakey, changing to processor button
 		
 	}
 
