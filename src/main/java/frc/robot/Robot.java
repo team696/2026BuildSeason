@@ -54,7 +54,9 @@ public class Robot extends TimedRobot {
 
     new Auto.NamedCommand("Oscilate", Intake.get().doOscilateIntake().withTimeout(4.0)),
 
-    new Auto.NamedCommand("OscilateForever", Intake.get().doOscilateIntake())
+    new Auto.NamedCommand("OscilateForever", Intake.get().doOscilateIntake()),
+
+    new Auto.NamedCommand("Outtake", Intake.get().doOuttake().withTimeout(3.5))
 
     );
     
