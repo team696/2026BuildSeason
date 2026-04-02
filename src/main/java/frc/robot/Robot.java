@@ -5,8 +5,9 @@
 package frc.robot;
 
 
-import com.ctre.phoenix.led.CANdle.LEDStripType;
-import com.ctre.phoenix.led.CANdle.VBatOutputMode;
+import com.ctre.phoenix6.hardware.CANdle;
+import com.ctre.phoenix6.configs.CANdleConfiguration;
+import com.ctre.phoenix6.controls.RainbowAnimation;
 import com.ctre.phoenix6.SignalLogger;
 import com.ctre.phoenix6.configs.CANdleConfiguration;
 import com.ctre.phoenix6.controls.RainbowAnimation;
