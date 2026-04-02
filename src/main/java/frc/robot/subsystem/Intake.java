@@ -133,12 +133,12 @@ public Command doStow() {
 
 public Command doOscilateIntake() {
   return this.run(() -> {
-      m_IntakeRoller.stopMotor();
-      m_IntakeRoller_2.stopMotor();
+      //m_IntakeRoller.stopMotor();
+      //m_IntakeRoller_2.stopMotor();
 
       double time = Timer.getFPGATimestamp();
       double frequency = 5.0; // Adjust this to change speed (AST changed, was 10.0)
-      double oscillator = (.25 * Math.sin(time * frequency)) - 0.1;  // AST changed was 0.25*sin(x) -.25
+      double oscillator = (.1 * Math.sin(time * frequency)) - 0.04;
 
       m_IntakePivot.setControl(pivotPosition.withPosition(oscillator).withSlot(2));     
       this.runIntake(State.OSILATE);
