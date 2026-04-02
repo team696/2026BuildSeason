@@ -32,12 +32,12 @@
     },
     {
       "anchor": {
-        "x": 7.715349702380951,
-        "y": 3.0366294642857143
+        "x": 7.712686746987952,
+        "y": 2.6143975903614454
       },
       "prevControl": {
-        "x": 7.819972595016267,
-        "y": 2.119167175022183
+        "x": 7.817309639623268,
+        "y": 1.696935301097914
       },
       "nextControl": null,
       "isLocked": false,
@@ -47,7 +47,7 @@
   "rotationTargets": [
     {
       "waypointRelativePos": 0.1896551724137928,
-      "rotationDegrees": 180.0
+      "rotationDegrees": 0.0
     }
   ],
   "constraintZones": [],
@@ -69,7 +69,7 @@
   "folder": "Bravo",
   "idealStartingState": {
     "velocity": 0,
-    "rotation": 180.0
+    "rotation": 0.0
   },
   "useDefaultConstraints": true
 }

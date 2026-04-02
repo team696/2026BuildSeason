@@ -54,6 +54,8 @@ public final class Swerve extends TunerSwerveDrivetrain implements Subsystem, Se
 
 	//private LimeLightCam leftCamera=new LimeLightCam("limelight-left");
 	private LimeLightCam backCamera=new LimeLightCam("limelight-back");
+	// send a field2d
+	private final Field2d field = new Field2d();
 
 	  /* Blue alliance sees forward as 0 degrees (toward red alliance wall) */
   private static final Rotation2d kBlueAlliancePerspectiveRotation = Rotation2d.kZero;
@@ -106,6 +108,9 @@ public final class Swerve extends TunerSwerveDrivetrain implements Subsystem, Se
 		//leftCamera.addVisionEstimate(this::addVisionMeasurement, this::acceptEstimate);    
 		backCamera.addVisionEstimate(this::addVisionMeasurement, this::acceptEstimate);    
 		frontCamera.SetRobotOrientation(getPose().getRotation());
+		field.setRobotPose(getPose());
+		SmartDashboard.putData("Robot Pose", field);
+		
 	}
 
 

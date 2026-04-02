@@ -37,7 +37,7 @@ public class Intake extends SubsystemBase {
 
   public static enum State{
     IDLE(0.0),
-    OSILATE(25.0),
+    OSILATE(50.0),
     INTAKE(60.0),
     OUTTAKE(-75.0); //S P E E D
 
@@ -48,8 +48,6 @@ public class Intake extends SubsystemBase {
 }
   //Enum to determin pivot position, values are temporary
   public enum Pivot{
-    
-    DEFENSE(-0.504),
     //STOW(-0.558),
     STOW(0),
     DEPLOY(-0.42); //position flipped cuz now we counter clock wise positive

@@ -66,6 +66,8 @@ public class Robot extends TimedRobot {
     
     new Auto.NamedCommand("Do stow", Intake.get().doStow().withTimeout(0.5)),
 
+    new Auto.NamedCommand("Rev up", Shooter.get().spinUpCommand()),
+
 
     new Auto.NamedCommand("Oscilate", Intake.get().doOscilateIntake().withTimeout(4.0)),
 

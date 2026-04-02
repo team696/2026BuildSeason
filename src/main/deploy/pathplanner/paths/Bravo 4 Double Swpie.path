@@ -3,13 +3,13 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 7.799196983141082,
-        "y": 3.108
+        "x": 7.712686746987952,
+        "y": 4.198915662650602
       },
       "prevControl": null,
       "nextControl": {
-        "x": 7.603761639076859,
-        "y": 2.420647782563279
+        "x": 7.876602409638554,
+        "y": 2.024301204819277
       },
       "isLocked": false,
       "linkedName": "End of Bravo 3 double swipe"
@@ -30,7 +30,11 @@
   ],
   "rotationTargets": [
     {
-      "waypointRelativePos": 0.3,
+      "waypointRelativePos": 0.46100386100385765,
+      "rotationDegrees": 0.0
+    },
+    {
+      "waypointRelativePos": 0.7637065637065633,
       "rotationDegrees": 0.0
     }
   ],
@@ -53,7 +57,7 @@
   "folder": "Bravo",
   "idealStartingState": {
     "velocity": 0,
-    "rotation": -143.956509376647
+    "rotation": -88.3634229583832
   },
   "useDefaultConstraints": true
 }

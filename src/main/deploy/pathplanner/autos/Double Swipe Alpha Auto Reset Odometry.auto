@@ -11,45 +11,7 @@
               {
                 "type": "path",
                 "data": {
-                  "pathName": "Bravo 1"
-                }
-              },
-              {
-                "type": "sequential",
-                "data": {
-                  "commands": [
-                    {
-                      "type": "named",
-                      "data": {
-                        "name": "Intake_"
-                      }
-                    },
-                    {
-                      "type": "wait",
-                      "data": {
-                        "waitTime": 1.0
-                      }
-                    },
-                    {
-                      "type": "named",
-                      "data": {
-                        "name": "Do stow"
-                      }
-                    }
-                  ]
-                }
-              }
-            ]
-          }
-        },
-        {
-          "type": "parallel",
-          "data": {
-            "commands": [
-              {
-                "type": "path",
-                "data": {
-                  "pathName": "Bravo 2"
+                  "pathName": "Alpha 1"
                 }
               },
               {
@@ -62,76 +24,69 @@
           }
         },
         {
+          "type": "path",
+          "data": {
+            "pathName": "Alpha 2"
+          }
+        },
+        {
           "type": "parallel",
           "data": {
             "commands": [
+              {
+                "type": "named",
+                "data": {
+                  "name": "Outtake"
+                }
+              },
               {
                 "type": "named",
                 "data": {
                   "name": "Shoot"
                 }
+              }
+            ]
+          }
+        },
+        {
+          "type": "parallel",
+          "data": {
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "Alpha 4"
+                }
               },
+              {
+                "type": "named",
+                "data": {
+                  "name": "Intake_"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Alpha 6"
+          }
+        },
+        {
+          "type": "parallel",
+          "data": {
+            "commands": [
               {
                 "type": "named",
                 "data": {
                   "name": "Oscilate"
                 }
-              }
-            ]
-          }
-        },
-        {
-          "type": "parallel",
-          "data": {
-            "commands": [
-              {
-                "type": "named",
-                "data": {
-                  "name": "Intake_"
-                }
               },
-              {
-                "type": "path",
-                "data": {
-                  "pathName": "Bravo 3 Double Swipe"
-                }
-              }
-            ]
-          }
-        },
-        {
-          "type": "parallel",
-          "data": {
-            "commands": [
-              {
-                "type": "path",
-                "data": {
-                  "pathName": "Bravo 4 Double Swpie"
-                }
-              },
-              {
-                "type": "named",
-                "data": {
-                  "name": "Intake_"
-                }
-              }
-            ]
-          }
-        },
-        {
-          "type": "parallel",
-          "data": {
-            "commands": [
               {
                 "type": "named",
                 "data": {
                   "name": "Shoot"
-                }
-              },
-              {
-                "type": "named",
-                "data": {
-                  "name": "Oscilate"
                 }
               }
             ]
