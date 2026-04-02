@@ -76,8 +76,8 @@ public static final class OperatorPanel{
 		HumanControls.OperatorPanel.releaseCoral.whileTrue(Shooter.get().ShootPass().alongWith(Intake.get().doOscilateIntake()));
 		HumanControls.OperatorPanel.pickupAlgae.whileTrue(Intake.get().doOuttake());
 		HumanControls.OperatorPanel.Barge.whileTrue(Intake.get().doOuttake());
-		HumanControls.OperatorPanel.deepOrSwitch.onTrue(new InstantCommand(()->Intake.get().setDefaultCommand(Intake.get().doDefense())));
-		HumanControls.OperatorPanel.deepOrSwitch.onFalse(new InstantCommand(()->Intake.get().setDefaultCommand(Intake.get().doStow())));
+		//HumanControls.OperatorPanel.deepOrSwitch.onTrue(new InstantCommand(()->Intake.get().setDefaultCommand(Intake.get().doDefense())));
+		//HumanControls.OperatorPanel.deepOrSwitch.onFalse(new InstantCommand(()->Intake.get().setDefaultCommand(Intake.get().doStow())));
 
 		//HumanControls.OperatorPanel.Climb1.whileTrue(new AutoAlignToShoot(hub));
 		//HumanControls.OperatorPanel.Climb1.onTrue(new PathFindToClimb(Field.before_Tower_Blue).andThen(new PathFindToClimb()));

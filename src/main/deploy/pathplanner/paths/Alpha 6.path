@@ -3,16 +3,32 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 7.525567879325644,
-        "y": 4.666761313220941
+        "x": 8.801162377994677,
+        "y": 4.682857142857142
       },
       "prevControl": null,
       "nextControl": {
-        "x": 6.036703637976931,
-        "y": 4.731144631765751
+        "x": 7.5899511978704535,
+        "y": 5.109396628216502
       },
       "isLocked": false,
       "linkedName": "End of Alpha 4"
+    },
+    {
+      "anchor": {
+        "x": 6.5477462289263535,
+        "y": 5.431
+      },
+      "prevControl": {
+        "x": 7.01197171694765,
+        "y": 5.383235082076308
+      },
+      "nextControl": {
+        "x": 6.083520740905057,
+        "y": 5.478764917923692
+      },
+      "isLocked": false,
+      "linkedName": null
     },
     {
       "anchor": {
@@ -30,11 +46,11 @@
   ],
   "rotationTargets": [
     {
-      "waypointRelativePos": 0.7,
+      "waypointRelativePos": 1.4,
       "rotationDegrees": 0.0
     },
     {
-      "waypointRelativePos": 0.9442231075697207,
+      "waypointRelativePos": 1.9,
       "rotationDegrees": 0.0
     }
   ],

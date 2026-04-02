@@ -38,7 +38,7 @@ public class Intake extends SubsystemBase {
   public static enum State{
     IDLE(0.0),
     OSILATE(25.0),
-    INTAKE(50.0),
+    INTAKE(60.0),
     OUTTAKE(-75.0); //S P E E D
 
     public double roller_velocity; 
@@ -50,8 +50,9 @@ public class Intake extends SubsystemBase {
   public enum Pivot{
     
     DEFENSE(-0.504),
-    STOW(-0.558),
-    DEPLOY(-0.685); //position flipped cuz now we counter clock wise positive
+    //STOW(-0.558),
+    STOW(0),
+    DEPLOY(-0.42); //position flipped cuz now we counter clock wise positive
 
     public double position;
 
@@ -121,13 +122,6 @@ public Command doStow() {
     }));
   }
 
-  public Command doDefense(){
-    return this.run(()->{
-      this.positionIntake(Pivot.DEFENSE);
-      m_IntakeRoller.stopMotor();
-      m_IntakeRoller_2.stopMotor();
-    });
-  }
 
   public Command doOuttake(){
     return this.run(()->{
@@ -144,7 +138,7 @@ public Command doOscilateIntake() {
 
       double time = Timer.getFPGATimestamp();
       double frequency = 5.0; // Adjust this to change speed (AST changed, was 10.0)
-      double oscillator = (.3 * Math.sin(time * frequency)) - 0.25;  // AST changed was 0.25*sin(x) -.25
+      double oscillator = (.25 * Math.sin(time * frequency)) - 0.1;  // AST changed was 0.25*sin(x) -.25
 
       m_IntakePivot.setControl(pivotPosition.withPosition(oscillator).withSlot(0));     
       this.runIntake(State.OSILATE);

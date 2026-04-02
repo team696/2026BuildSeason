@@ -36,8 +36,8 @@ public class Hopper extends SubsystemBase {
 
   //Motor controller
   private static MotionMagicVelocityVoltage HopperController = new MotionMagicVelocityVoltage(0);
-  private static DutyCycleOut ahhh = new DutyCycleOut(0.20);
-    private static DutyCycleOut reverseCylce = new DutyCycleOut(-0.20);
+  private static DutyCycleOut ahhh = new DutyCycleOut(0.3);
+    private static DutyCycleOut reverseCylce = new DutyCycleOut(-0.30);
 
   //Motor initalized
   private final TalonFX m_Hopper = new TalonFX(BotConstants.Hopper.HopperID);
