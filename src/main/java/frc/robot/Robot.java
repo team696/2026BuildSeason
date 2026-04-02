@@ -20,7 +20,6 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import frc.robot.commands.ShootCommand;
-import frc.robot.subsystem.Climber;
 import frc.robot.subsystem.Intake;
 import frc.robot.subsystem.Shooter;
 import frc.robot.subsystem.Swerve;
@@ -52,20 +51,17 @@ public class Robot extends TimedRobot {
     
     new Auto.NamedCommand("Do stow", Intake.get().doStow().withTimeout(0.5)),
 
-    new Auto.NamedCommand("Extend Climber", Climber.get().doExtend().withTimeout(3.0)),
 
     new Auto.NamedCommand("Oscilate", Intake.get().doOscilateIntake().withTimeout(4.0)),
 
-    new Auto.NamedCommand("OscilateForever", Intake.get().doOscilateIntake()),
+    new Auto.NamedCommand("OscilateForever", Intake.get().doOscilateIntake())
 
-    new Auto.NamedCommand("Retract Climber", Climber.get().doRetract().withTimeout(2.0))
     );
     
     Binds.DriverStation2026.bind();
     Binds.OperatorPanel.bind();
     //Binds.Controller.bind();
     
-    Climber.get().zeroEncoder();
     Intake.get().zeroEncoder();
     //SignalLogger.start();
     /*UsbCamera cam = CameraServer.startAutomaticCapture(0);
@@ -132,7 +128,6 @@ public double DistanceFinder(Translation2d targetPosition){
     
     /*Climber.get().doExtend();*/
 
-     Climber.get().gotToZero().schedule();
   }
 
   @Override

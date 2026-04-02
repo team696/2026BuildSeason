@@ -7,13 +7,10 @@ package frc.robot.subsystem;
 
 import com.ctre.phoenix6.controls.MotionMagicVelocityVoltage;
 import com.ctre.phoenix6.controls.MotionMagicVoltage;
-import com.ctre.phoenix6.controls.PositionVoltage;
 import com.ctre.phoenix6.hardware.TalonFX;
 
-import edu.wpi.first.math.VecBuilder;
 import edu.wpi.first.math.system.plant.DCMotor;
 import edu.wpi.first.math.system.plant.LinearSystemId;
-import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.simulation.FlywheelSim;
 import edu.wpi.first.wpilibj.simulation.SingleJointedArmSim;
@@ -37,23 +34,24 @@ public class Intake extends SubsystemBase {
 
   /** Creates a new Intake. */
 
-  //Enum to determin state, values are temporary
+
   public static enum State{
     IDLE(0.0),
-    OSILATE(-25.0),
-    INTAKE(-50.0),
-    OUTTAKE(75.0);
+    OSILATE(25.0),
+    INTAKE(50.0),
+    OUTTAKE(-75.0); //S P E E D
 
-    public double roller_velocity;  // Renamed
+    public double roller_velocity; 
     State(double roller_velocity){
         this.roller_velocity = roller_velocity;
     }
 }
   //Enum to determin pivot position, values are temporary
   public enum Pivot{
-    ZERO(-.38),
-    STOW(-.19),
-    DEPLOY(0.); //position flipped cuz now we counter clock wise positive
+    
+    DEFENSE(-0.504),
+    STOW(-0.558),
+    DEPLOY(-0.685); //position flipped cuz now we counter clock wise positive
 
     public double position;
 
@@ -84,8 +82,8 @@ public class Intake extends SubsystemBase {
     m_IntakeRoller.getConfigurator().apply(BotConstants.Intake.cfg_Roller);
     m_IntakeRoller_2.getConfigurator().apply(BotConstants.Intake.cfg_Roller);
     m_IntakePivot.getConfigurator().apply(BotConstants.Intake.cfg_Pivot);
-    m_IntakePivot.setPosition(Pivot.STOW.position);
-    
+
+    m_IntakePivot.setPosition(0);
     //this.setDefaultCommand(doStow());
   }
 
@@ -121,6 +119,14 @@ public Command doStow() {
     }).andThen(new WaitCommand(0.25)).andThen(this.run(()->{
               this.runIntake(State.INTAKE); 
     }));
+  }
+
+  public Command doDefense(){
+    return this.run(()->{
+      this.positionIntake(Pivot.DEFENSE);
+      m_IntakeRoller.stopMotor();
+      m_IntakeRoller_2.stopMotor();
+    });
   }
 
   public Command doOuttake(){

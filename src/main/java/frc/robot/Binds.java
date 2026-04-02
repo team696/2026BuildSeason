@@ -14,12 +14,10 @@ import edu.wpi.first.wpilibj2.command.ConditionalCommand;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import frc.robot.commands.AutoAlign;
 import frc.robot.commands.AutoAlignToShoot;
-import frc.robot.commands.AutoAligntoClimb;
+
 import frc.robot.commands.GyroReset;
 import frc.robot.commands.PathFindToClimb;
 import frc.robot.commands.ShootCommand;
-import frc.robot.commands.ZeroClimber;
-import frc.robot.subsystem.Climber;
 import frc.robot.subsystem.Hopper;
 import frc.robot.subsystem.Intake;
 import frc.robot.subsystem.Shooter;
@@ -78,17 +76,16 @@ public static final class OperatorPanel{
 		HumanControls.OperatorPanel.releaseCoral.whileTrue(Shooter.get().ShootPass().alongWith(Intake.get().doOscilateIntake()));
 		HumanControls.OperatorPanel.pickupAlgae.whileTrue(Intake.get().doOuttake());
 		HumanControls.OperatorPanel.Barge.whileTrue(Intake.get().doOuttake());
-		HumanControls.OperatorPanel.L3.whileTrue(new ZeroClimber());
-		HumanControls.OperatorPanel.L1.whileTrue(Climber.get().doExtend());
-		HumanControls.OperatorPanel.L2.whileTrue(Climber.get().doRetract());
+		HumanControls.OperatorPanel.deepOrSwitch.onTrue(new InstantCommand(()->Intake.get().setDefaultCommand(Intake.get().doDefense())));
+		HumanControls.OperatorPanel.deepOrSwitch.onFalse(new InstantCommand(()->Intake.get().setDefaultCommand(Intake.get().doStow())));
+
 		//HumanControls.OperatorPanel.Climb1.whileTrue(new AutoAlignToShoot(hub));
 		//HumanControls.OperatorPanel.Climb1.onTrue(new PathFindToClimb(Field.before_Tower_Blue).andThen(new PathFindToClimb()));
 
 
 
 		// L4 button seems to be flakey, changing to processor button
-		HumanControls.OperatorPanel.Processor.and(HumanControls.OperatorPanel.deepOrSwitch).whileTrue(Swerve.get().alignToClimb());
-		HumanControls.OperatorPanel.Processor.whileTrue(new ConditionalCommand(Swerve.get().alignToClimb(), Climber.get().gotToZero(), HumanControls.OperatorPanel.deepOrSwitch));
+		
 	}
 
 }
