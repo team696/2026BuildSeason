@@ -3,28 +3,28 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 8.801162377994677,
-        "y": 4.682857142857142
+        "x": 6.209733806566105,
+        "y": 4.360940550133097
       },
       "prevControl": null,
       "nextControl": {
-        "x": 7.5899511978704535,
-        "y": 5.109396628216502
+        "x": 6.241925465838509,
+        "y": 4.707000887311446
       },
       "isLocked": false,
       "linkedName": "End of Alpha 4"
     },
     {
       "anchor": {
-        "x": 6.5477462289263535,
+        "x": 5.960248447204968,
         "y": 5.431
       },
       "prevControl": {
-        "x": 7.01197171694765,
+        "x": 6.424473935226264,
         "y": 5.383235082076308
       },
       "nextControl": {
-        "x": 6.083520740905057,
+        "x": 5.496022959183672,
         "y": 5.478764917923692
       },
       "isLocked": false,
@@ -67,13 +67,13 @@
   },
   "goalEndState": {
     "velocity": 0.0,
-    "rotation": -55.5597247580847
+    "rotation": -39.958
   },
   "reversed": false,
   "folder": "Alpha",
   "idealStartingState": {
     "velocity": 1.5,
-    "rotation": 135.00000000000009
+    "rotation": 90.0
   },
   "useDefaultConstraints": false
 }
