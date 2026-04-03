@@ -8,24 +8,24 @@
       },
       "prevControl": null,
       "nextControl": {
-        "x": 6.980530120481928,
-        "y": 2.352132530120481
+        "x": 7.131398002853067,
+        "y": 2.191241084165479
       },
       "isLocked": false,
       "linkedName": "End of Bravo 1"
     },
     {
       "anchor": {
-        "x": 5.953325301204819,
-        "y": 2.2756385542168687
+        "x": 5.811265060240963,
+        "y": 1.9805903614457838
       },
       "prevControl": {
-        "x": 6.733244495840505,
-        "y": 2.2976833584337375
+        "x": 6.509952649399309,
+        "y": 1.9935290205042713
       },
       "nextControl": {
-        "x": 5.10423760362815,
-        "y": 2.251638667837905
+        "x": 4.865488232790271,
+        "y": 1.9630759757522531
       },
       "isLocked": false,
       "linkedName": null
@@ -36,8 +36,8 @@
         "y": 3.1084077380952384
       },
       "prevControl": {
-        "x": 3.26510843373494,
-        "y": 2.0789397590361443
+        "x": 2.9482048192771084,
+        "y": 1.9587349397590366
       },
       "nextControl": null,
       "isLocked": false,
@@ -54,7 +54,21 @@
       "rotationDegrees": 0.0
     }
   ],
-  "constraintZones": [],
+  "constraintZones": [
+    {
+      "name": "Constraints Zone",
+      "minWaypointRelativePos": 1.07380073800738,
+      "maxWaypointRelativePos": 1.7281672816728164,
+      "constraints": {
+        "maxVelocity": 1.0,
+        "maxAcceleration": 2.7,
+        "maxAngularVelocity": 120.0,
+        "maxAngularAcceleration": 100.0,
+        "nominalVoltage": 12.0,
+        "unlimited": false
+      }
+    }
+  ],
   "pointTowardsZones": [],
   "eventMarkers": [],
   "globalConstraints": {
@@ -66,8 +80,8 @@
     "unlimited": false
   },
   "goalEndState": {
-    "velocity": 0.0,
-    "rotation": 30.256437163529174
+    "velocity": 1.5,
+    "rotation": 0.0
   },
   "reversed": false,
   "folder": "Bravo",

@@ -8,24 +8,24 @@
       },
       "prevControl": null,
       "nextControl": {
-        "x": 3.1034823584802935,
-        "y": 3.1240795773299688
+        "x": 3.198045649072753,
+        "y": 3.265149786019972
       },
       "isLocked": false,
       "linkedName": "end of bravo 2"
     },
     {
       "anchor": {
-        "x": 2.8600000000000003,
+        "x": 2.854,
         "y": 3.108
       },
       "prevControl": {
-        "x": 2.572889880952381,
-        "y": 3.0823065476190483
+        "x": 2.6040646166010397,
+        "y": 3.1136836718074337
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "end of bravo turn"
+      "linkedName": null
     }
   ],
   "rotationTargets": [],
@@ -35,20 +35,20 @@
   "globalConstraints": {
     "maxVelocity": 2.5,
     "maxAcceleration": 2.7,
-    "maxAngularVelocity": 420.0,
-    "maxAngularAcceleration": 200.0,
+    "maxAngularVelocity": 120.0,
+    "maxAngularAcceleration": 100.0,
     "nominalVoltage": 12.0,
     "unlimited": false
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 180.0
+    "rotation": 30.26
   },
   "reversed": false,
   "folder": "Bravo",
   "idealStartingState": {
     "velocity": 0,
-    "rotation": 30.256437163529174
+    "rotation": 0.0
   },
-  "useDefaultConstraints": false
+  "useDefaultConstraints": true
 }
