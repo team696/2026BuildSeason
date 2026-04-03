@@ -4,6 +4,7 @@
 
 package frc.robot.subsystem;
 
+import java.io.ObjectInputFilter.Status;
 import java.util.function.Supplier;
 
 import com.ctre.phoenix6.StatusSignal;
@@ -64,6 +65,7 @@ public class Shooter extends SubsystemBase {
 
       //Data
       private StatusSignal<AngularVelocity> velocity_roller;
+      private StatusSignal<AngularVelocity> velocity_roller_2;
       private StatusSignal<AngularVelocity> indexer_velocity;
 
   public Shooter() {
@@ -86,6 +88,7 @@ public class Shooter extends SubsystemBase {
 
       
       velocity_roller = m_Shooter.getVelocity();
+      velocity_roller_2 = m_Shooter_2.getVelocity();
       indexer_velocity = m_ShooterIntake.getVelocity();
   }
 
@@ -120,7 +123,7 @@ public class Shooter extends SubsystemBase {
 
          this.set_velocity(velocity);
 
-        if((Math.abs(getRollerVelocity()-velocity))<1){
+        if((Math.abs(getRollerVelocity()-velocity))<1.1){
               this.intake_shooter(intakespeed);
               Hopper.get().run_Hopper();
             }
@@ -193,6 +196,14 @@ public class Shooter extends SubsystemBase {
       });
   }
     
+  public Command reverse(){
+      return runEnd(()->{
+        this.set_velocity(30);
+      },
+      ()->{
+        m_Shooter.stopMotor();
+      });
+  }
 
   //Stops everything
   public void Stop(){
@@ -206,7 +217,7 @@ public class Shooter extends SubsystemBase {
   //Data stuff
  
   public double getRollerVelocity(){
-    return velocity_roller.refresh().getValueAsDouble();
+    return (velocity_roller.refresh().getValueAsDouble() + velocity_roller_2.refresh().getValueAsDouble()) / 2;
   }
 
   public double getIndexerVelocity(){

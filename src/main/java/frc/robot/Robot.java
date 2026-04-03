@@ -20,6 +20,7 @@ import edu.wpi.first.cscore.UsbCamera;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.units.measure.Distance;
 import edu.wpi.first.util.PixelFormat;
+import edu.wpi.first.wpilibj.DataLogManager;
 import edu.wpi.first.wpilibj.PowerDistribution;
 import edu.wpi.first.wpilibj.PowerDistribution.ModuleType;
 import edu.wpi.first.wpilibj.TimedRobot;
@@ -82,7 +83,8 @@ public class Robot extends TimedRobot {
     //Binds.Controller.bind();
     
     Intake.get().zeroEncoder();
-    //SignalLogger.start();
+    SignalLogger.start();
+    DataLogManager.start();
     /*UsbCamera cam = CameraServer.startAutomaticCapture(0);
     cam.setFPS(24);
     cam.setResolution(120, 120);*/
