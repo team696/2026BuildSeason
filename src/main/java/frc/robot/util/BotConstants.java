@@ -54,7 +54,7 @@ public class BotConstants {
             
             cfg_Pivot.Feedback.SensorToMechanismRatio = 15;
 
-            cfg_Pivot.Slot2.kP = 10;
+            cfg_Pivot.Slot2.kP = 11;
             cfg_Pivot.Slot2.kG = -0.08*12;
 
 

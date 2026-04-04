@@ -8,20 +8,20 @@
       },
       "prevControl": null,
       "nextControl": {
-        "x": 3.2752408250351985,
-        "y": 5.633501336542035
+        "x": 3.377106899513476,
+        "y": 5.409542031434081
       },
       "isLocked": false,
       "linkedName": "End of Alpha 2"
     },
     {
       "anchor": {
-        "x": 6.209733806566105,
-        "y": 4.360940550133097
+        "x": 7.593975155279503,
+        "y": 5.43141369047619
       },
       "prevControl": {
-        "x": 6.475314995563442,
-        "y": 5.777373558118899
+        "x": 6.475314995563443,
+        "y": 5.495696539485359
       },
       "nextControl": null,
       "isLocked": false,
@@ -51,7 +51,7 @@
   },
   "goalEndState": {
     "velocity": 0.0,
-    "rotation": 90.0
+    "rotation": 180.0
   },
   "reversed": false,
   "folder": "Alpha",

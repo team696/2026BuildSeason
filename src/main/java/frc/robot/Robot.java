@@ -7,12 +7,15 @@ package frc.robot;
 
 import com.ctre.phoenix6.hardware.CANdle;
 import com.ctre.phoenix6.configs.CANdleConfiguration;
+import com.ctre.phoenix6.controls.FireAnimation;
 import com.ctre.phoenix6.controls.RainbowAnimation;
+import com.ctre.phoenix6.controls.SingleFadeAnimation;
 import com.ctre.phoenix6.SignalLogger;
 import com.ctre.phoenix6.configs.CANdleConfiguration;
 import com.ctre.phoenix6.controls.RainbowAnimation;
 import com.ctre.phoenix6.hardware.CANdle;
 import com.ctre.phoenix6.signals.LossOfSignalBehaviorValue;
+import com.ctre.phoenix6.signals.RGBWColor;
 import com.ctre.phoenix6.signals.StripTypeValue;
 
 import edu.wpi.first.cameraserver.CameraServer;
@@ -26,6 +29,7 @@ import edu.wpi.first.wpilibj.PowerDistribution.ModuleType;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj.util.Color;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import frc.robot.commands.ShootCommand;
@@ -51,12 +55,12 @@ public class Robot extends TimedRobot {
     this.logger = new Telemetry(BotConstants.DriveConstants.MaxSpeed);
     CANdleConfiguration configAll = new CANdleConfiguration();
 
-    configAll.LED.StripType = StripTypeValue.RGBW;
+    configAll.LED.StripType = StripTypeValue.GRB;
     configAll.LED.LossOfSignalBehavior = LossOfSignalBehaviorValue.KeepRunning;
     m_candle.getConfigurator().apply(configAll);
 
     Auto.initialize(
-    new Auto.NamedCommand("Shoot", new ShootCommand(()->Field.Alliance_Find.hub).withTimeout(3.5)),
+    new Auto.NamedCommand("Shoot", new ShootCommand(()->Field.Alliance_Find.hub).withTimeout(5.5)),
 
     new Auto.NamedCommand("ShootForever", new ShootCommand(()->Field.Alliance_Find.hub)),
 
@@ -109,7 +113,7 @@ public double DistanceFinder(Translation2d targetPosition){
     logger.telemeterize(Swerve.get().getState());
     CommandScheduler.getInstance().run();
 
-    m_candle.setControl(new RainbowAnimation(0, 100));
+    m_candle.setControl(new SingleFadeAnimation(0, 100).withColor(new RGBWColor(Color.kRed)));
 
   }
 

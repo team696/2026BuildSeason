@@ -29,6 +29,8 @@ import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.numbers.N1;
 import edu.wpi.first.math.numbers.N3;
 import edu.wpi.first.math.util.Units;
+import edu.wpi.first.networktables.NetworkTableInstance;
+import edu.wpi.first.networktables.StructPublisher;
 import edu.wpi.first.util.sendable.Sendable;
 import edu.wpi.first.util.sendable.SendableBuilder;
 import edu.wpi.first.wpilibj.DriverStation;
@@ -120,26 +122,33 @@ public final class Swerve extends TunerSwerveDrivetrain implements Subsystem, Se
     		//driverCamera.addVisionEstimate(this::addVisionMeasurement, this::acceptEstimate);
  			} 
 	}
-	
+	StructPublisher<Pose2d> acceptedPose=NetworkTableInstance.getDefault().getStructTopic("Accepted Pose", Pose2d.struct).publish();
+	StructPublisher<Pose2d> rejectedPose=NetworkTableInstance.getDefault().getStructTopic("Rejected Pose", Pose2d.struct).publish();
+
     boolean acceptEstimate(AprilTagResult latestResult) {
         if (latestResult.distToTag > 3.5)
         return false;
 		SmartDashboard.putBoolean("Accepted", false);
+		rejectedPose.set(latestResult.pose);
       if (latestResult.ambiguity > 0.3)
         return false; // Too Ambiguous, Ignore
 		SmartDashboard.putBoolean("Accepted", false);
+		rejectedPose.set(latestResult.pose);
+
       if (getState().Speeds.omegaRadiansPerSecond > 1.5)
         return false; // Rotating too fast, ignore
 		SmartDashboard.putBoolean("Accepted", false);
+		rejectedPose.set(latestResult.pose);
       if (latestResult.distToTag < 0.5) {
         setVisionMeasurementStdDevs(VecBuilder.fill(0.3, .3, 50.0));
       } else {
         setVisionMeasurementStdDevs(
             VecBuilder.fill(latestResult.ambiguity * Math.pow(latestResult.distToTag, 2)*3.0,
                 latestResult.ambiguity * Math.pow(latestResult.distToTag, 2)*3.0,
-                latestResult.ambiguity * Math.pow(latestResult.distToTag, 2)*1000.0));
+                latestResult.ambiguity * Math.pow(latestResult.distToTag, 2)*3.0));
       }
 	  SmartDashboard.putBoolean("Accepted", true);
+	  acceptedPose.set(latestResult.pose);
       return true;
     }
 
