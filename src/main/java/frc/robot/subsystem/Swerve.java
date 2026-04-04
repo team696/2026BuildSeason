@@ -7,9 +7,12 @@ import static edu.wpi.first.units.Units.Rotation;
 import java.util.function.Supplier;
 
 import javax.sound.midi.SysexMessage;
+import javax.xml.transform.TransformerFactoryConfigurationError;
 
 import com.ctre.phoenix6.Utils;
+import com.ctre.phoenix6.configs.CurrentLimitsConfigs;
 import com.ctre.phoenix6.swerve.SwerveDrivetrainConstants;
+import com.ctre.phoenix6.swerve.SwerveModule;
 import com.ctre.phoenix6.swerve.SwerveModuleConstants;
 import com.ctre.phoenix6.swerve.SwerveRequest;
 import com.ctre.phoenix6.swerve.utility.WheelForceCalculator.Feedforwards;
@@ -68,6 +71,7 @@ public final class Swerve extends TunerSwerveDrivetrain implements Subsystem, Se
 
 	double semiCircleSetDistance = 1.0; //in meters
 	PIDController moveToController = new PIDController(0, 0, 0);
+	private final SwerveRequest.SwerveDriveBrake xModeRequest = new SwerveRequest.SwerveDriveBrake();
 
 	public static synchronized Swerve get() {
 		if (m_Swerve == null)
@@ -218,6 +222,31 @@ void pidToDistance(){
     return distTo(position.getTranslation());
   }
 
+  public void setDriveCurrentLimit(double amps){
+	CurrentLimitsConfigs currentlimitconfig = new CurrentLimitsConfigs();
+
+	for(int i = 0; i < 4; i++){
+		var module = this.getModule(i);
+		var driveMotor = module.getDriveMotor();
+		var turnMotor = module.getSteerMotor();
+		
+
+		driveMotor.getConfigurator().refresh(currentlimitconfig);
+		currentlimitconfig.StatorCurrentLimit = amps;
+		currentlimitconfig.StatorCurrentLimitEnable = true;
+		driveMotor.getConfigurator().apply(currentlimitconfig);
+
+		turnMotor.getConfigurator().refresh(currentlimitconfig);
+		currentlimitconfig.StatorCurrentLimit = amps;
+		currentlimitconfig.StatorCurrentLimitEnable = true;
+		turnMotor.getConfigurator().apply(currentlimitconfig);
+	}
+
+  }
+
+  public Command xMode(){
+	return applyRequest(() -> xModeRequest);
+  }
 	
 
 	double m_lastSimTime;
