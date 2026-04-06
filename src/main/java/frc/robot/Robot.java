@@ -87,8 +87,8 @@ public class Robot extends TimedRobot {
     //Binds.Controller.bind();
     
     Intake.get().zeroEncoder();
-    SignalLogger.start();
-    DataLogManager.start();
+    //SignalLogger.start();
+    //DataLogManager.start();
     /*UsbCamera cam = CameraServer.startAutomaticCapture(0);
     cam.setFPS(24);
     cam.setResolution(120, 120);*/

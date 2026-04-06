@@ -75,7 +75,7 @@ public static final class OperatorPanel{
 		HumanControls.OperatorPanel.gyro.onTrue(new GyroReset(Swerve.get()));
 		HumanControls.OperatorPanel.releaseCoral.whileTrue(Shooter.get().ShootPass().alongWith(Intake.get().doOscilateIntake()));
 		HumanControls.OperatorPanel.pickupAlgae.whileTrue(Intake.get().doOuttake());
-		HumanControls.OperatorPanel.L2.whileTrue(new DefenseBoost(80, 40));
+		//HumanControls.OperatorPanel.L2.whileTrue(new DefenseBoost(80, 40));
 		HumanControls.OperatorPanel.L3.whileTrue(Swerve.get().xMode());
 		//HumanControls.OperatorPanel.deepOrSwitch.onTrue(new InstantCommand(()->Intake.get().setDefaultCommand(Intake.get().doDefense())));
 		//HumanControls.OperatorPanel.deepOrSwitch.onFalse(new InstantCommand(()->Intake.get().setDefaultCommand(Intake.get().doStow())));

@@ -4,6 +4,7 @@ package frc.robot.util;
 import com.ctre.phoenix6.swerve.SwerveRequest;
 import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.auto.NamedCommands;
+import com.pathplanner.lib.commands.PathPlannerAuto;
 import com.pathplanner.lib.config.PIDConstants;
 import com.pathplanner.lib.config.RobotConfig;
 import com.pathplanner.lib.controllers.PPHolonomicDriveController;
@@ -31,6 +32,8 @@ public class Auto {
 		if (configureAutoBuilder()) {
 			autoChooser = AutoBuilder.buildAutoChooser();
 			SmartDashboard.putData("Auto Chooser", autoChooser);
+
+			autoChooser.addOption("Double Swipe Bravo Auto", new PathPlannerAuto("Double Swipe Alpha Auto", true));
 		}
 
 		initialized = true;

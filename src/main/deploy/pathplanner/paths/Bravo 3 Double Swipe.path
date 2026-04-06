@@ -72,8 +72,8 @@
   "reversed": false,
   "folder": "Bravo",
   "idealStartingState": {
-    "velocity": 1.5,
-    "rotation": 0.0
+    "velocity": 0.0,
+    "rotation": 26.04297788851878
   },
   "useDefaultConstraints": true
 }
