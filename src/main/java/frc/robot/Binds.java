@@ -121,7 +121,7 @@ public static final class Controller {
 	//HumanControls.SingleXboxController.LB.whileTrue(new AutoAlign(Pass_1)); //Auto Align to conrer
 	//HumanControls.SingleXboxController.RB.whileTrue(new AutoAlign(Pass_2));//Auto Align to the corner again
 	//HumanControls.SingleXboxController.LB.whileTrue(Intake.get().doIntake().alongWith(Hopper.get().run_Hopper(50))); //Intake 
-	HumanControls.SingleXboxController.RB.whileTrue(Shooter.get().Shoot(Field.Alliance_Find.hub)); 
+	//HumanControls.SingleXboxController.RB.whileTrue(Shooter.get().Shoot(Field.Alliance_Find.hub)); 
 	//HumanControls.SingleXboxController.B.whileTrue(Swerve.get().alignToClimb());
 	//HumanControls.SingleXboxController.X.whileTrue(Intake.get().doStow());
 	//HumanControls.SingleXboxController..whileTrue(Intake.get().zeroEncoder());
