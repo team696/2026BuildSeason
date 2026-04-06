@@ -6,28 +6,18 @@ package frc.robot;
 
 
 import com.ctre.phoenix6.hardware.CANdle;
-import com.ctre.phoenix6.configs.CANdleConfiguration;
-import com.ctre.phoenix6.controls.FireAnimation;
-import com.ctre.phoenix6.controls.RainbowAnimation;
-import com.ctre.phoenix6.controls.SingleFadeAnimation;
 import com.ctre.phoenix6.SignalLogger;
 import com.ctre.phoenix6.configs.CANdleConfiguration;
-import com.ctre.phoenix6.controls.RainbowAnimation;
-import com.ctre.phoenix6.hardware.CANdle;
+import com.ctre.phoenix6.controls.SingleFadeAnimation;
 import com.ctre.phoenix6.signals.LossOfSignalBehaviorValue;
 import com.ctre.phoenix6.signals.RGBWColor;
 import com.ctre.phoenix6.signals.StripTypeValue;
 
-import edu.wpi.first.cameraserver.CameraServer;
-import edu.wpi.first.cscore.UsbCamera;
 import edu.wpi.first.math.geometry.Translation2d;
-import edu.wpi.first.units.measure.Distance;
-import edu.wpi.first.util.PixelFormat;
 import edu.wpi.first.wpilibj.DataLogManager;
 import edu.wpi.first.wpilibj.PowerDistribution;
 import edu.wpi.first.wpilibj.PowerDistribution.ModuleType;
 import edu.wpi.first.wpilibj.TimedRobot;
-import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.util.Color;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -39,7 +29,6 @@ import frc.robot.subsystem.Swerve;
 import frc.robot.util.Auto;
 import frc.robot.util.BotConstants;
 import frc.robot.util.Field;
-import frc.robot.util.Field.Alliance_Find;
 
 public class Robot extends TimedRobot {
   private Command m_autonomousCommand;
@@ -87,8 +76,8 @@ public class Robot extends TimedRobot {
     //Binds.Controller.bind();
     
     Intake.get().zeroEncoder();
-    //SignalLogger.start();
-    //DataLogManager.start();
+    SignalLogger.start();
+    DataLogManager.start();
     /*UsbCamera cam = CameraServer.startAutomaticCapture(0);
     cam.setFPS(24);
     cam.setResolution(120, 120);*/

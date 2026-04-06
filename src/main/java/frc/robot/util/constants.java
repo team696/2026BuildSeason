@@ -2,12 +2,7 @@ package frc.robot.util;
 
 import static edu.wpi.first.units.Units.*;
 
-import com.ctre.phoenix6.configs.Slot0Configs;
-import com.ctre.phoenix6.signals.StaticFeedforwardSignValue;
 
-import edu.wpi.first.math.controller.PIDController;
-import edu.wpi.first.math.geometry.Translation2d;
-import edu.wpi.first.math.util.Units;
 import edu.wpi.first.units.measure.Distance;
 import edu.wpi.first.wpilibj.smartdashboard.Field2d;
 import frc.robot.TunerConstants;

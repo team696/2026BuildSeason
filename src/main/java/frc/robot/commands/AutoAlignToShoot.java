@@ -14,11 +14,8 @@ import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj2.command.Command;
-import frc.robot.HumanControls;
-import frc.robot.TunerConstants;
 import frc.robot.subsystem.Swerve;
 import frc.robot.util.BotConstants;
-import frc.robot.util.Field;
 
 /* You should consider using the more terse Command factories API instead https://docs.wpilib.org/en/stable/docs/software/commandbased/organizing-command-based.html#defining-commands */
 public class AutoAlignToShoot extends Command {

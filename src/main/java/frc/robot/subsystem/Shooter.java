@@ -4,36 +4,30 @@
 
 package frc.robot.subsystem;
 
-import java.io.ObjectInputFilter.Status;
-import java.util.function.Supplier;
 
 import com.ctre.phoenix6.StatusSignal;
-import com.ctre.phoenix6.controls.DutyCycleOut;
+
 import com.ctre.phoenix6.controls.Follower;
 import com.ctre.phoenix6.controls.MotionMagicVelocityVoltage;
-import com.ctre.phoenix6.controls.MotionMagicVoltage;
+
 import com.ctre.phoenix6.controls.VelocityVoltage;
 import com.ctre.phoenix6.hardware.TalonFX;
 import com.ctre.phoenix6.signals.MotorAlignmentValue;
-import com.pathplanner.lib.commands.FollowPathCommand;
-import com.ctre.phoenix6.controls.Follower;
 
-import edu.wpi.first.math.geometry.Pose2d;
-import edu.wpi.first.math.geometry.Translation2d;
+
 import edu.wpi.first.math.system.plant.DCMotor;
 import edu.wpi.first.math.system.plant.LinearSystemId;
-import edu.wpi.first.units.measure.Angle;
+
 import edu.wpi.first.units.measure.AngularVelocity;
-import edu.wpi.first.wpilibj.DriverStation;
-import edu.wpi.first.wpilibj.motorcontrol.Talon;
+
 import edu.wpi.first.wpilibj.simulation.FlywheelSim;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.CommandScheduler;
+
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import edu.wpi.first.wpilibj2.command.WaitCommand;
+
 import frc.robot.util.BotConstants;
-import frc.robot.util.Field;
+
 
 public class Shooter extends SubsystemBase {
 
@@ -110,34 +104,35 @@ public class Shooter extends SubsystemBase {
     return run(()->{this.Stop();; Hopper.get().Stop();});
   }
 
+  //Commented out, runtime overrun error
 
-  public Command Shoot(Translation2d desired_pose){
-      return runEnd(()->{
-        double fudgefactor = SmartDashboard.getNumber("Fudge Factor for Shooter", 0);
-        double distMeters=Swerve.get().distTo(desired_pose);
-        double velocity = BotConstants.Shooter.ShooterTable.get(distMeters) - fudgefactor;
-        double intakespeed = BotConstants.Shooter.backSpinTable.get(distMeters);
-        DriverStation.reportWarning("Fudge Factor recieved:"+fudgefactor, false);
-        SmartDashboard.putNumber("Desired velocity", velocity);
-        SmartDashboard.putNumber("Desired Backspin", intakespeed);
+  // public Command Shoot(Translation2d desired_pose){
+  //     return runEnd(()->{
+  //       double fudgefactor = SmartDashboard.getNumber("Fudge Factor for Shooter", 0);
+  //       double distMeters=Swerve.get().distTo(desired_pose);
+  //       double velocity = BotConstants.Shooter.ShooterTable.get(distMeters) - fudgefactor;
+  //       double intakespeed = BotConstants.Shooter.backSpinTable.get(distMeters);
+  //       DriverStation.reportWarning("Fudge Factor recieved:"+fudgefactor, false);
+  //       SmartDashboard.putNumber("Desired velocity", velocity);
+  //       SmartDashboard.putNumber("Desired Backspin", intakespeed);
 
-         this.set_velocity(velocity);
+  //        this.set_velocity(velocity);
 
-        if((Math.abs(getRollerVelocity()-velocity))<1.1){
-              this.intake_shooter(intakespeed);
-              Hopper.get().run_Hopper();
-            }
-        else{
-          m_ShooterIntake.stopMotor();
-          Hopper.get().Stop();
-        }
+  //       if((Math.abs(getRollerVelocity()-velocity))<1.1){
+  //             this.intake_shooter(intakespeed);
+  //             Hopper.get().run_Hopper();
+  //           }
+  //       else{
+  //         m_ShooterIntake.stopMotor();
+  //         Hopper.get().Stop();
+  //       }
 
-      },
-      ()->{
-          this.Stop();
-          Hopper.get().Stop();
-      });
-    }
+  //     },
+  //     ()->{
+  //         this.Stop();
+  //         Hopper.get().Stop();
+  //     });
+  //   }
 
   public Command ShootPass(){
       return runEnd(()->{

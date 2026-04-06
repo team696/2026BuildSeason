@@ -1,22 +1,12 @@
 package frc.robot;
 
-import java.util.Optional;
 
 import com.ctre.phoenix6.swerve.SwerveModule.DriveRequestType;
 import com.ctre.phoenix6.swerve.SwerveRequest.ForwardPerspectiveValue;
 import com.ctre.phoenix6.swerve.SwerveRequest;
-
-import edu.wpi.first.math.geometry.Pose2d;
-import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.wpilibj.DriverStation;
-import edu.wpi.first.wpilibj.DriverStation.Alliance;
-import edu.wpi.first.wpilibj2.command.ConditionalCommand;
-import edu.wpi.first.wpilibj2.command.InstantCommand;
 import frc.robot.commands.AutoAlign;
-import frc.robot.commands.AutoAlignToShoot;
-import frc.robot.commands.DefenseBoost;
 import frc.robot.commands.GyroReset;
-import frc.robot.commands.PathFindToClimb;
 import frc.robot.commands.ShootCommand;
 import frc.robot.subsystem.Hopper;
 import frc.robot.subsystem.Intake;
@@ -75,7 +65,6 @@ public static final class OperatorPanel{
 		HumanControls.OperatorPanel.gyro.onTrue(new GyroReset(Swerve.get()));
 		HumanControls.OperatorPanel.releaseCoral.whileTrue(Shooter.get().ShootPass().alongWith(Intake.get().doOscilateIntake()));
 		HumanControls.OperatorPanel.pickupAlgae.whileTrue(Intake.get().doOuttake());
-		//HumanControls.OperatorPanel.L2.whileTrue(new DefenseBoost(80, 40));
 		HumanControls.OperatorPanel.L3.whileTrue(Swerve.get().xMode());
 		//HumanControls.OperatorPanel.deepOrSwitch.onTrue(new InstantCommand(()->Intake.get().setDefaultCommand(Intake.get().doDefense())));
 		//HumanControls.OperatorPanel.deepOrSwitch.onFalse(new InstantCommand(()->Intake.get().setDefaultCommand(Intake.get().doStow())));

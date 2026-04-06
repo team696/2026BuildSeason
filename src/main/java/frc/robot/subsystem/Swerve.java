@@ -2,27 +2,20 @@
 
 package frc.robot.subsystem;
 
-import static edu.wpi.first.units.Units.Rotation;
 
 import java.util.function.Supplier;
 
-import javax.sound.midi.SysexMessage;
-import javax.xml.transform.TransformerFactoryConfigurationError;
 
 import com.ctre.phoenix6.Utils;
 import com.ctre.phoenix6.configs.CurrentLimitsConfigs;
 import com.ctre.phoenix6.swerve.SwerveDrivetrainConstants;
-import com.ctre.phoenix6.swerve.SwerveModule;
+
 import com.ctre.phoenix6.swerve.SwerveModuleConstants;
 import com.ctre.phoenix6.swerve.SwerveRequest;
-import com.ctre.phoenix6.swerve.utility.WheelForceCalculator.Feedforwards;
+
 import com.pathplanner.lib.auto.AutoBuilder;
-import com.pathplanner.lib.config.PIDConstants;
-import com.pathplanner.lib.config.RobotConfig;
-import com.pathplanner.lib.controllers.PPHolonomicDriveController;
 import com.pathplanner.lib.path.PathConstraints;
 
-import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.math.Matrix;
 import edu.wpi.first.math.VecBuilder;
 import edu.wpi.first.math.controller.PIDController;
@@ -50,7 +43,6 @@ import frc.robot.TunerConstants.TunerSwerveDrivetrain;
 import frc.robot.util.BaseCam.AprilTagResult;
 import frc.robot.util.Field;
 import frc.robot.util.LimeLightCam;
-import frc.robot.util.LimelightHelpers;
 
 public final class Swerve extends TunerSwerveDrivetrain implements Subsystem, Sendable {
 	private static Swerve m_Swerve;
@@ -87,14 +79,6 @@ public final class Swerve extends TunerSwerveDrivetrain implements Subsystem, Se
 		}
 		SmartDashboard.putBoolean("Accepted", false);
 
-		RobotConfig config;
-
-		try{
-			config = RobotConfig.fromGUISettings();
-		}catch(Exception e){
-			e.printStackTrace();
-			config = null; //Will fix later
-		}
 	}
 
 	@Override
