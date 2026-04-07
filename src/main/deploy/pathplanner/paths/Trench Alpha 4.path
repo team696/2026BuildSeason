@@ -20,12 +20,12 @@
         "y": 7.499627329192546
       },
       "prevControl": {
-        "x": 2.419165927240461,
-        "y": 7.483531499556344
+        "x": 2.427213842058562,
+        "y": 7.53181898846495
       },
       "nextControl": {
-        "x": 5.409139074637935,
-        "y": 7.505928302158573
+        "x": 5.409067579234069,
+        "y": 7.486979082642764
       },
       "isLocked": false,
       "linkedName": null
@@ -41,7 +41,7 @@
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "End of Alpha 4"
+      "linkedName": null
     }
   ],
   "rotationTargets": [
@@ -81,7 +81,7 @@
   },
   "goalEndState": {
     "velocity": 1.5,
-    "rotation": 92.16158815817704
+    "rotation": 90.0
   },
   "reversed": false,
   "folder": "Alpha",

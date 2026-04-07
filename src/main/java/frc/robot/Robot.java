@@ -57,6 +57,8 @@ public class Robot extends TimedRobot {
     new Auto.NamedCommand("Shorter Shoot", new ShootCommand(()->Field.Alliance_Find.hub).withTimeout(2.5)),
     
     new Auto.NamedCommand("Intake_", Intake.get().doIntake().withTimeout(2)),
+
+    new Auto.NamedCommand("Intake Forever", Intake.get().doIntake()),
     
     new Auto.NamedCommand("Do stow", Intake.get().doStow().withTimeout(0.5)),
 
@@ -71,9 +73,9 @@ public class Robot extends TimedRobot {
 
     );
     
-    Binds.DriverStation2026.bind();
+    //Binds.DriverStation2026.bind();
     Binds.OperatorPanel.bind();
-    //Binds.Controller.bind();
+    Binds.Controller.bind();
     
     Intake.get().zeroEncoder();
     SignalLogger.start();

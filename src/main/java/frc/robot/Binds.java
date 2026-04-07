@@ -46,7 +46,7 @@ public static final class DriverStation2026 {
 				.withVelocityY(square(HumanControls.DriverPanel.leftJoyX.getAsDouble())*BotConstants.DriveConstants.MaxSpeed)
 				.withRotationalRate(square(-HumanControls.DriverPanel.rightJoyX.getAsDouble())*BotConstants.DriveConstants.MaxAngularRate))) ; // Standard driving
 			
-		HumanControls.DriverPanel.OtherButton.whileTrue(new AutoAlign(()->Field.Alliance_Find.hub));
+		HumanControls.DriverPanel.OtherButton.whileTrue(new AutoAlign(()->Field.Alliance_Find.hub).alongWith(Shooter.get().spinUpCommand()));
 			
 		}
 	}
@@ -113,21 +113,10 @@ public static final class Controller {
 
 		
 
-	HumanControls.SingleXboxController.X.whileTrue(new AutoAlign(()->Field.Alliance_Find.hub)); //Auto align
-	//HumanControls.SingleXboxController.A.whileTrue(Climber.get().doRetract()); //Hold A to go down
-	//HumanControls.SingleXboxController.B.whileTrue(Climber.get().doExtend()); //Hold B to go up
-	//HumanControls.SingleXboxController.A.onTrue(new ZeroClimber());
-
-	//HumanControls.SingleXboxController.LB.whileTrue(new AutoAlign(Pass_1)); //Auto Align to conrer
-	//HumanControls.SingleXboxController.RB.whileTrue(new AutoAlign(Pass_2));//Auto Align to the corner again
-	//HumanControls.SingleXboxController.LB.whileTrue(Intake.get().doIntake().alongWith(Hopper.get().run_Hopper(50))); //Intake 
-	//HumanControls.SingleXboxController.RB.whileTrue(Shooter.get().Shoot(Field.Alliance_Find.hub)); 
-	//HumanControls.SingleXboxController.B.whileTrue(Swerve.get().alignToClimb());
-	//HumanControls.SingleXboxController.X.whileTrue(Intake.get().doStow());
-	//HumanControls.SingleXboxController..whileTrue(Intake.get().zeroEncoder());
-	//HumanControls.SingleXboxController.B.whileTrue(Hopper.get().run_Hopper());
-
-	
+	HumanControls.SingleXboxController.A.whileTrue(Shooter.get().spinUpCommand());
+	//HumanControls.SingleXboxController.B.whileTrue(new ShootCommand(()->Field.Alliance_Find.hub));
+	HumanControls.SingleXboxController.Y.whileTrue(Swerve.get().xMode());
+	 
 
 
 

@@ -232,7 +232,6 @@ void pidToDistance(){
 	return applyRequest(() -> xModeRequest);
   }
 	
-
 	double m_lastSimTime;
 	Notifier simUpdate;
 

@@ -188,11 +188,8 @@ public class Shooter extends SubsystemBase {
 
     // AST added command to spin up shooter roller during auto while driving
     public Command spinUpCommand(){
-      return runEnd(()->{
+      return run(()->{
         this.set_velocity(-15);
-      },
-      ()->{
-        m_Shooter.stopMotor();
       });
   }
     

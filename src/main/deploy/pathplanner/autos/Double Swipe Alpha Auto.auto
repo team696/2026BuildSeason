@@ -24,9 +24,22 @@
           }
         },
         {
-          "type": "path",
+          "type": "deadline",
           "data": {
-            "pathName": "Alpha 2"
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "Alpha 2"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "Rev up"
+                }
+              }
+            ]
           }
         },
         {
@@ -49,7 +62,7 @@
           }
         },
         {
-          "type": "parallel",
+          "type": "deadline",
           "data": {
             "commands": [
               {
@@ -61,7 +74,13 @@
               {
                 "type": "named",
                 "data": {
-                  "name": "Intake_"
+                  "name": "Intake Forever"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "Rev up"
                 }
               }
             ]
