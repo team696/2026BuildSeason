@@ -112,17 +112,19 @@ public class BotConstants {
         }
 
         static{
-            ShooterTable.put(2.257, -30.0);
-            ShooterTable.put(2.206, -30.0);
             ShooterTable.put(1.607, -25.0);
-            ShooterTable.put(3.060, -30.5);
+            ShooterTable.put(2.206, -30.0);
+            ShooterTable.put(2.257, -30.0);
             ShooterTable.put(2.744, -29.5);
+            ShooterTable.put(3.060, -30.5);
+            
 
-            backSpinTable.put(2.257, -20.0); // key is distance to hub, value is the small roller velocity
-            backSpinTable.put(2.206, -20.0);
             backSpinTable.put(1.607, -22.0);
-            backSpinTable.put(3.060, -29.5);
+            backSpinTable.put(2.206, -20.0);
+            backSpinTable.put(2.257, -20.0); // key is distance to hub, value is the small roller velocity
             backSpinTable.put(2.744, -27.0);
+            backSpinTable.put(3.060, -29.5);
+            
         }
 
     }

@@ -72,6 +72,8 @@ public static final class OperatorPanel{
 		//HumanControls.OperatorPanel.Climb1.whileTrue(new AutoAlignToShoot(hub));
 		//HumanControls.OperatorPanel.Climb1.onTrue(new PathFindToClimb(Field.before_Tower_Blue).andThen(new PathFindToClimb()));
 
+		HumanControls.OperatorPanel.L1.whileTrue(Shooter.get().spinUpCommand());  // Testing shooter spin up button
+
 
 		
 	}
