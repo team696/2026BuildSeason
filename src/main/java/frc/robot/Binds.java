@@ -66,12 +66,7 @@ public static final class OperatorPanel{
 		HumanControls.OperatorPanel.releaseCoral.whileTrue(Shooter.get().ShootPass().alongWith(Intake.get().doOscilateIntake()));
 		HumanControls.OperatorPanel.pickupAlgae.whileTrue(Intake.get().doOuttake());
 		HumanControls.OperatorPanel.L3.whileTrue(Swerve.get().xMode());
-		//HumanControls.OperatorPanel.deepOrSwitch.onTrue(new InstantCommand(()->Intake.get().setDefaultCommand(Intake.get().doDefense())));
-		//HumanControls.OperatorPanel.deepOrSwitch.onFalse(new InstantCommand(()->Intake.get().setDefaultCommand(Intake.get().doStow())));
-
-		//HumanControls.OperatorPanel.Climb1.whileTrue(new AutoAlignToShoot(hub));
-		//HumanControls.OperatorPanel.Climb1.onTrue(new PathFindToClimb(Field.before_Tower_Blue).andThen(new PathFindToClimb()));
-
+	
 		HumanControls.OperatorPanel.L1.whileTrue(Shooter.get().spinUpCommand());  // Testing shooter spin up button
 
 
@@ -108,16 +103,12 @@ public static final class Controller {
 			.withRotationalRate(getRotationClockwise()))); //Standard driving
 		
 		
-		//Climber.get().setDefaultCommand(Climber.get().doExtend()); //Default to go up
-		//Shooter.get().setDefaultCommand(Shooter.get().idle()); //Shooter rollers idle
-		//Intake.get().setDefaultCommand(Intake.get().doStow());
-		//Hopper.get().setDefaultCommand(Hopper.get().Stop());
-
+	
 		
 
-	HumanControls.SingleXboxController.A.whileTrue(Shooter.get().spinUpCommand());
-	//HumanControls.SingleXboxController.B.whileTrue(new ShootCommand(()->Field.Alliance_Find.hub));
-	HumanControls.SingleXboxController.Y.whileTrue(Swerve.get().xMode());
+	// HumanControls.SingleXboxController.A.whileTrue(Shooter.get().spinUpCommand());
+	// HumanControls.SingleXboxController.B.whileTrue(new ShootCommand(()->Field.Alliance_Find.hub));
+	// HumanControls.SingleXboxController.Y.whileTrue(Swerve.get().xMode());
 	 
 
 

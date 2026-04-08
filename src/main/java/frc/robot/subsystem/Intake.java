@@ -37,7 +37,6 @@ public class Intake extends SubsystemBase {
 
   public static enum State{
     IDLE(0.0),
-    OSILATE(50.0),
     INTAKE(60.0),
     OUTTAKE(-75.0); //S P E E D
 
@@ -115,7 +114,7 @@ public Command doStow() {
     return this.runOnce(() -> {
         this.positionIntake(Pivot.DEPLOY); 
 
-    }).andThen(new WaitCommand(0.25)).andThen(this.run(()->{
+    }).andThen(new WaitCommand(0.5)).andThen(this.run(()->{
               this.runIntake(State.INTAKE); 
     }));
   }
@@ -138,8 +137,7 @@ public Command doOscilateIntake() {
       double frequency = 5.0; // Adjust this to change speed (AST changed, was 10.0)
       double oscillator = (.2 * Math.sin(time * frequency)) - 0.04;
 
-      m_IntakePivot.setControl(pivotPosition.withPosition(oscillator).withSlot(2));     
-      this.runIntake(State.OSILATE);
+      m_IntakePivot.setControl(pivotPosition.withPosition(oscillator).withSlot(2)); 
     });
   }
 
