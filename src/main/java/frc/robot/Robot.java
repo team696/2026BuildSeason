@@ -73,9 +73,9 @@ public class Robot extends TimedRobot {
 
     );
     
-    //Binds.DriverStation2026.bind();
+    Binds.DriverStation2026.bind();
     Binds.OperatorPanel.bind();
-    Binds.Controller.bind();
+    //Binds.Controller.bind();
     
     Intake.get().zeroEncoder();
     SignalLogger.start();

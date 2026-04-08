@@ -67,18 +67,7 @@ public class Shooter extends SubsystemBase {
       m_Shooter.getConfigurator().apply(BotConstants.Shooter.cfg_shooter);
       m_ShooterIntake.getConfigurator().apply(BotConstants.Shooter.cfg_shooter_intake);
 
-        SmartDashboard.putNumber("Desired velocity", 0);
-        SmartDashboard.putNumber("Desired Backspin", 0);
-        SmartDashboard.putNumber("Indexer Velocity", 0);
 
-        SmartDashboard.putNumber("Fudge Factor for Shooter", 0);
-
-        
-
-      SmartDashboard.putNumber("Launch Speed", 0);
-      SmartDashboard.putNumber("Front roller", 0);
-      SmartDashboard.putNumber("Indexer speed", 0);
-      
 
       
       velocity_roller = m_Shooter.getVelocity();
@@ -160,30 +149,32 @@ public class Shooter extends SubsystemBase {
       });
     }
 
-    public Command ShootDash(){
-      return runEnd(()->{
-        double velocity = SmartDashboard.getNumber("Launch Speed", 0.0);
-        double intakespeed = SmartDashboard.getNumber("Indexer speed", 0.0);
 
-        this.set_velocity(velocity);
+    //Only meant for testing
+    // public Command ShootDash(){
+    //   return runEnd(()->{
+    //     double velocity = SmartDashboard.getNumber("Launch Speed", 0.0);
+    //     double intakespeed = SmartDashboard.getNumber("Indexer speed", 0.0);
 
-        Hopper.get().run_Hopper();
+    //     this.set_velocity(velocity);
 
-        if((Math.abs(getRollerVelocity()-velocity))<3){
-              this.intake_shooter(intakespeed);
-            }
-        else{
-          m_ShooterIntake.stopMotor();
-        }
+    //     Hopper.get().run_Hopper();
 
-      },
-      ()->{
-          m_Shooter.stopMotor();
-          m_Shooter_2.stopMotor();
-          m_ShooterIntake.stopMotor();
-          Hopper.get().Stop();
-      });
-    }
+    //     if((Math.abs(getRollerVelocity()-velocity))<3){
+    //           this.intake_shooter(intakespeed);
+    //         }
+    //     else{
+    //       m_ShooterIntake.stopMotor();
+    //     }
+
+    //   },
+    //   ()->{
+    //       m_Shooter.stopMotor();
+    //       m_Shooter_2.stopMotor();
+    //       m_ShooterIntake.stopMotor();
+    //       Hopper.get().Stop();
+    //   });
+    // }
 
 
     // AST added command to spin up shooter roller during auto while driving

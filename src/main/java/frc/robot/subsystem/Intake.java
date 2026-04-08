@@ -171,7 +171,6 @@ public void simulationPeriodic(){
 
 @Override
 public void periodic() {
-    SmartDashboard.putNumber("Intake Pivot current", m_IntakePivot.getStatorCurrent().getValueAsDouble());
     SmartDashboard.putNumber("Intake pose", m_IntakePivot.getPosition().getValueAsDouble());
 		SmartDashboard.putNumber("Roller speed", m_IntakeRoller.getVelocity().getValueAsDouble());
 }
