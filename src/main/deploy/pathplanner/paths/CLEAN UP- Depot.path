@@ -16,11 +16,11 @@
     },
     {
       "anchor": {
-        "x": 0.8173012048192771,
+        "x": 0.81,
         "y": 5.958277108433736
       },
       "prevControl": {
-        "x": 1.8871405800664958,
+        "x": 1.8798393752472187,
         "y": 6.0439759036144585
       },
       "nextControl": null,
@@ -28,12 +28,7 @@
       "linkedName": "End of Clean Up Depot"
     }
   ],
-  "rotationTargets": [
-    {
-      "waypointRelativePos": 0.10344827586206917,
-      "rotationDegrees": 0.0
-    }
-  ],
+  "rotationTargets": [],
   "constraintZones": [
     {
       "name": "Constraints Zone",

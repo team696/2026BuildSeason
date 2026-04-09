@@ -33,15 +33,15 @@
   "pointTowardsZones": [],
   "eventMarkers": [
     {
-      "name": "Intake",
+      "name": "",
       "waypointRelativePos": 0,
       "endWaypointRelativePos": null,
       "command": null
     }
   ],
   "globalConstraints": {
-    "maxVelocity": 2.5,
-    "maxAcceleration": 2.7,
+    "maxVelocity": 2.7,
+    "maxAcceleration": 2.9,
     "maxAngularVelocity": 120.0,
     "maxAngularAcceleration": 100.0,
     "nominalVoltage": 12.0,

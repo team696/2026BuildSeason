@@ -34,6 +34,7 @@ public class Auto {
 			SmartDashboard.putData("Auto Chooser", autoChooser);
 
 			autoChooser.addOption("Double Swipe Bravo Auto", new PathPlannerAuto("Double Swipe Alpha Auto", true));
+			autoChooser.addOption("Single Swipe Bravo Auto", new PathPlannerAuto("Single Swipe Alpha Auto", true));
 		}
 
 		initialized = true;

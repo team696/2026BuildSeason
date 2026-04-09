@@ -46,9 +46,12 @@ public class BotConstants {
             //cfg_Roller.CurrentLimits.StatorCurrentLimit = 30.;
 
             cfg_Pivot.Slot0.kP = 15.; //YES ITS NORNMAL PID VALUES NOW
+            // Disable gravity/ff in Slot0 so switching to Slot1 (which has kG)
+            // doesn't change the hold equilibrium. Slot1 can still have kG.
+            cfg_Pivot.Slot0.kG = 0.0;
             cfg_Pivot.Slot1.kP = 10; 
             cfg_Pivot.Slot1.kG = -.08*12;
-            cfg_Pivot.Slot1.kI=.001; //Was 0
+            //cfg_Pivot.Slot1.kI=.001; //Was 0
             cfg_Pivot.Slot1.GravityType = GravityTypeValue.Arm_Cosine;
             
             cfg_Pivot.Feedback.SensorToMechanismRatio = 15;
@@ -104,8 +107,8 @@ public class BotConstants {
             cfg_shooter.Slot0.kV = 0.13;
             cfg_shooter_intake.Slot0.kP = 0.45;
             cfg_shooter_intake.Slot0.kV = 0.12;
-            cfg_shooter.MotionMagic.MotionMagicAcceleration = 200;
-            cfg_shooter.MotionMagic.MotionMagicCruiseVelocity = 200;
+            cfg_shooter.MotionMagic.MotionMagicAcceleration = 300;
+            cfg_shooter.MotionMagic.MotionMagicCruiseVelocity = 300;
             cfg_shooter_intake.MotionMagic.MotionMagicCruiseVelocity = 160;
             cfg_shooter_intake.MotionMagic.MotionMagicAcceleration  = 160;
             cfg_shooter.CurrentLimits.StatorCurrentLimit = 150;
@@ -117,6 +120,7 @@ public class BotConstants {
             ShooterTable.put(2.257, -30.0);
             ShooterTable.put(2.744, -29.5);
             ShooterTable.put(3.060, -30.5);
+            //ShooterTable.put(3.28, -30.5);
             
 
             backSpinTable.put(1.607, -22.0);
@@ -124,6 +128,7 @@ public class BotConstants {
             backSpinTable.put(2.257, -20.0); // key is distance to hub, value is the small roller velocity
             backSpinTable.put(2.744, -27.0);
             backSpinTable.put(3.060, -29.5);
+            //backSpinTable.put(3.28, 28.5);
             
         }
 

@@ -49,12 +49,12 @@ public class Intake extends SubsystemBase {
   public enum Pivot{
     //STOW(-0.558),
     STOW(0),
-    DEPLOY(-0.42); //position flipped cuz now we counter clock wise positive
+    DEPLOY(-0.38); //position flipped cuz now we counter clock wise positive
 
     public double position;
 
     Pivot(double position){
-      this.position = position+0.08;
+      this.position = position;
     }
   }
   
@@ -81,9 +81,21 @@ public class Intake extends SubsystemBase {
     m_IntakeRoller_2.getConfigurator().apply(BotConstants.Intake.cfg_Roller);
     m_IntakePivot.getConfigurator().apply(BotConstants.Intake.cfg_Pivot);
 
-    m_IntakePivot.setPosition(0);
+    m_IntakePivot.setPosition(0);}
     //this.setDefaultCommand(doStow());
-  }
+    // initialize field publisher type so Shuffleboard treats it as Field2d
+
+  // Cached sensor values to avoid multiple refreshes per loop
+  private double cachedIntakePivotPosition = 0.0;
+  private double cachedRollerVelocity = 0.0;
+  // Debug/state tracking
+  private double lastTargetPosition = 0.0;
+  private int lastSlotUsed = 0;
+
+  // Visualization for simulation / Shuffleboard
+ 
+  // NetworkTables publishers for field pose visualization (Intake Pose)
+
 
 
 
@@ -94,7 +106,13 @@ public class Intake extends SubsystemBase {
   }
 
   public void positionIntake(Pivot pivot) {
+    lastTargetPosition = pivot.position;
+    lastSlotUsed = 0;
     m_IntakePivot.setControl(PivotPositionControl.withPosition(pivot.position).withSlot(0)); //
+  }
+
+  public void SlotZeroConfigIntake(){
+    m_IntakePivot.getConfigurator().apply(BotConstants.Intake.cfg_Pivot.Slot0);
   }
 
   public Command zeroEncoder() {
@@ -102,11 +120,25 @@ public class Intake extends SubsystemBase {
 }
 
 public Command doStow() {
-  return this.run(() -> {
+  // Staged move: move to an intermediate point first (halfway to target),
+  // wait to settle, then move to final stow. This slows motion without
+  // switching PID/feedforward slots.
+  return this.runOnce(() -> {
       m_IntakeRoller.stopMotor();
       m_IntakeRoller_2.stopMotor();
-      m_IntakePivot.setControl(pivotPosition.withPosition(Pivot.STOW.position).withSlot(1));     
-    });
+      double current = cachedIntakePivotPosition;
+      double target = Pivot.STOW.position;
+      double intermediate = (current + target) / 2.0; // halfway
+      // command intermediate using the same slot (0)
+      lastTargetPosition = intermediate;
+      lastSlotUsed = 0;
+      m_IntakePivot.setControl(PivotPositionControl.withPosition(intermediate).withSlot(0));
+    }).andThen(new WaitCommand(0.25)).andThen(this.run(() -> {
+      // final move to stow
+      lastTargetPosition = Pivot.STOW.position;
+      lastSlotUsed = 0;
+      m_IntakePivot.setControl(PivotPositionControl.withPosition(Pivot.STOW.position).withSlot(0));
+    }));
   }
 
 
@@ -132,6 +164,8 @@ public Command doOscilateIntake() {
   return this.run(() -> {
       //m_IntakeRoller.stopMotor();
       //m_IntakeRoller_2.stopMotor();
+
+      this.runIntake(State.IDLE);
 
       double time = Timer.getFPGATimestamp();
       double frequency = 5.0; // Adjust this to change speed (AST changed, was 10.0)
@@ -169,7 +203,25 @@ public void simulationPeriodic(){
 
 @Override
 public void periodic() {
-    SmartDashboard.putNumber("Intake pose", m_IntakePivot.getPosition().getValueAsDouble());
-		SmartDashboard.putNumber("Roller speed", m_IntakeRoller.getVelocity().getValueAsDouble());
+    // Refresh once per loop and cache values to reduce CAN/status calls from
+    // other places calling into these signals.
+    try {
+      cachedIntakePivotPosition = m_IntakePivot.getPosition().getValueAsDouble();
+    } catch (RuntimeException e) {
+      SmartDashboard.putString("Intake/PositionRefreshError", e.getMessage());
+    }
+    try {
+      cachedRollerVelocity = m_IntakeRoller.getVelocity().getValueAsDouble();
+    } catch (RuntimeException e) {
+      SmartDashboard.putString("Intake/RollerRefreshError", e.getMessage());
+    }
+
+    SmartDashboard.putNumber("Intake pose", cachedIntakePivotPosition);
+    SmartDashboard.putNumber("Roller speed", cachedRollerVelocity);
+    // Debug info for stow behavior
+    SmartDashboard.putNumber("Intake/TargetPosition", lastTargetPosition);
+    SmartDashboard.putNumber("Intake/ActiveSlot", lastSlotUsed);
+    // Update visualization: cached position is in rotations -> convert to radians
+  
 }
 }

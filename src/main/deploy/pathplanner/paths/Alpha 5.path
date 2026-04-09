@@ -3,13 +3,13 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 7.593975155279503,
-        "y": 5.43141369047619
+        "x": 6.912738095238095,
+        "y": 4.276436011904762
       },
       "prevControl": null,
       "nextControl": {
-        "x": 8.197568766637092,
-        "y": 5.383126201567583
+        "x": 7.516331706595685,
+        "y": 4.228148522996155
       },
       "isLocked": false,
       "linkedName": "End of Alpha 4"
@@ -48,7 +48,7 @@
   "folder": "Alpha",
   "idealStartingState": {
     "velocity": 1.5,
-    "rotation": 180.0
+    "rotation": 90.0
   },
   "useDefaultConstraints": false
 }

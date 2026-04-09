@@ -30,9 +30,8 @@ public class Hopper extends SubsystemBase {
   }
 
   //Motor controller
-  private static MotionMagicVelocityVoltage HopperController = new MotionMagicVelocityVoltage(0);
-  private static DutyCycleOut ahhh = new DutyCycleOut(0.5);
-    private static DutyCycleOut reverseCylce = new DutyCycleOut(-0.5);
+  private static DutyCycleOut HopperController = new DutyCycleOut(0.6);
+    private static DutyCycleOut reverseCylce = new DutyCycleOut(-0.6);
 
   //Motor initalized
   private final TalonFX m_Hopper = new TalonFX(BotConstants.Hopper.HopperID);
@@ -50,7 +49,7 @@ public class Hopper extends SubsystemBase {
 
   //Moves the belt that pushes all the balls towrads the shooter
   public void run_Hopper(){
-    m_Hopper.setControl(ahhh);
+    m_Hopper.setControl(HopperController);
   }
 
   public void reverseHopper(){
@@ -59,7 +58,7 @@ public class Hopper extends SubsystemBase {
 
   public Command run_Hopper_Command(){
     return runEnd(
-      ()->{m_Hopper.setControl(ahhh);},
+      ()->{m_Hopper.setControl(HopperController);},
       ()->{m_Hopper.stopMotor();});
   }
 
@@ -75,10 +74,6 @@ public class Hopper extends SubsystemBase {
       ()->{m_Hopper.stopMotor();});
   }
 
-  public Command testHopper(){
-        return runEnd(()->{m_Hopper.setControl(HopperController.withVelocity(SmartDashboard.getNumber("Hopper speed", 0)));},
-    ()->{m_Hopper.stopMotor();});
-  }
 
   //Stops
   public Command Stop(){

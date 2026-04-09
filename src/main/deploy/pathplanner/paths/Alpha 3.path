@@ -3,13 +3,13 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 3.128065476190476,
-        "y": 5.43141369047619
+        "x": 2.8279017857142854,
+        "y": 5.543984028393965
       },
       "prevControl": null,
       "nextControl": {
-        "x": 1.3923363095238093,
-        "y": 5.4770907738095245
+        "x": 1.0921726190476189,
+        "y": 5.5896611117273
       },
       "isLocked": false,
       "linkedName": "End of Alpha 2"
@@ -48,7 +48,7 @@
   "folder": "Alpha",
   "idealStartingState": {
     "velocity": 0,
-    "rotation": -39.95754893082905
+    "rotation": -43.0
   },
   "useDefaultConstraints": false
 }

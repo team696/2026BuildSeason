@@ -64,26 +64,24 @@ public class Robot extends TimedRobot {
 
     new Auto.NamedCommand("Rev up", Shooter.get().spinUpCommand()),
 
-
+    
     new Auto.NamedCommand("Oscilate", Intake.get().doOscilateIntake().withTimeout(4.0)),
 
     new Auto.NamedCommand("OscilateForever", Intake.get().doOscilateIntake()),
+
 
     new Auto.NamedCommand("Outtake", Intake.get().doOuttake().withTimeout(3.5))
 
     );
     
-    //Binds.DriverStation2026.bind();
+    Binds.DriverStation2026.bind();
     Binds.OperatorPanel.bind();
-    Binds.Controller.bind();
+    //Binds.Controller.bind();
     
     Intake.get().zeroEncoder();
-    SignalLogger.start();
-    DataLogManager.start();
-    /*UsbCamera cam = CameraServer.startAutomaticCapture(0);
-    cam.setFPS(24);
-    cam.setResolution(120, 120);*/
-    
+    Intake.get().SlotZeroConfigIntake();
+    //SignalLogger.start();
+    //DataLogManager.start();
   
   }
 
@@ -97,9 +95,10 @@ public double DistanceFinder(Translation2d targetPosition){
   public void robotPeriodic() {
     Field.Alliance_Find.setAlliance();
     // Publish total telemetry
-    SmartDashboard.putNumber("PDH Total Current", m_pdh.getTotalCurrent());
-    SmartDashboard.putNumber("PDH Voltage", m_pdh.getVoltage());
-    SmartDashboard.putNumber("PDH Temperature", m_pdh.getTemperature());
+    // SmartDashboard.putNumber("PDH Total Current", m_pdh.getTotalCurrent());
+    // SmartDashboard.putNumber("PDH Voltage", m_pdh.getVoltage());
+    // SmartDashboard.putNumber("PDH Temperature", m_pdh.getTemperature());
+    // SmartDashboard.putNumber("Distance to hub", Swerve.get().distTo(Field.Alliance_Find.hub));
     
     logger.telemeterize(Swerve.get().getState());
     CommandScheduler.getInstance().run();

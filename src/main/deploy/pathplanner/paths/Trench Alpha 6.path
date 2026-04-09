@@ -3,59 +3,63 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 2.8279017857142854,
-        "y": 5.543984028393965
+        "x": 6.723504464285714,
+        "y": 4.243809523809524
       },
       "prevControl": null,
       "nextControl": {
-        "x": 3.0764586503786187,
-        "y": 5.517160810312678
+        "x": 6.425731616015971,
+        "y": 4.235661139455782
       },
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "End of Trench Alpha 4"
     },
     {
       "anchor": {
-        "x": 6.070974702380952,
-        "y": 5.543984028393965
+        "x": 6.587985803016859,
+        "y": 5.431
       },
       "prevControl": {
-        "x": 5.235736607142857,
-        "y": 5.568444940476191
+        "x": 7.062812777284827,
+        "y": 5.399121561668145
       },
       "nextControl": {
-        "x": 7.084850626721985,
-        "y": 5.514291501210419
+        "x": 6.122357678839756,
+        "y": 5.4622608555254075
       },
       "isLocked": false,
       "linkedName": null
     },
     {
       "anchor": {
-        "x": 6.912738095238095,
-        "y": 4.276436011904762
+        "x": 3.128,
+        "y": 5.431
       },
       "prevControl": {
-        "x": 6.906212797619047,
-        "y": 5.248705357142858
+        "x": 4.656486246672582,
+        "y": 5.415217391304347
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "End of Alpha 4"
+      "linkedName": null
     }
   ],
   "rotationTargets": [
     {
-      "waypointRelativePos": 0.8130630630630625,
-      "rotationDegrees": 180.0
+      "waypointRelativePos": 1.4,
+      "rotationDegrees": 0.0
+    },
+    {
+      "waypointRelativePos": 1.9,
+      "rotationDegrees": 0.0
     }
   ],
   "constraintZones": [],
   "pointTowardsZones": [],
   "eventMarkers": [],
   "globalConstraints": {
-    "maxVelocity": 2.0,
-    "maxAcceleration": 2.5,
+    "maxVelocity": 2.9,
+    "maxAcceleration": 2.9,
     "maxAngularVelocity": 120.0,
     "maxAngularAcceleration": 100.0,
     "nominalVoltage": 12.0,
@@ -63,13 +67,13 @@
   },
   "goalEndState": {
     "velocity": 0.0,
-    "rotation": 90.0
+    "rotation": -39.958
   },
   "reversed": false,
   "folder": "Alpha",
   "idealStartingState": {
-    "velocity": 0.0,
-    "rotation": 180.0
+    "velocity": 1.5,
+    "rotation": 90.0
   },
   "useDefaultConstraints": false
 }

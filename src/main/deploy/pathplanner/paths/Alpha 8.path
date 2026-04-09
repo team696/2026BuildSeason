@@ -3,16 +3,16 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 3.656614583333333,
-        "y": 7.284598214285714
+        "x": 2.9649330357142856,
+        "y": 7.285
       },
       "prevControl": null,
       "nextControl": {
-        "x": 4.420074404761902,
-        "y": 7.330275297619047
+        "x": 3.7283928571428544,
+        "y": 7.330677083333333
       },
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "End of Alpha 7"
     },
     {
       "anchor": {
@@ -57,12 +57,16 @@
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "End of Alpha 1"
+      "linkedName": null
     }
   ],
   "rotationTargets": [
     {
-      "waypointRelativePos": 0.5315315315315314,
+      "waypointRelativePos": 0.08445945945945946,
+      "rotationDegrees": 0.0
+    },
+    {
+      "waypointRelativePos": 0.6959459459459454,
       "rotationDegrees": 0.0
     }
   ],
@@ -106,7 +110,7 @@
   "folder": "Alpha",
   "idealStartingState": {
     "velocity": 1.5,
-    "rotation": 0.0
+    "rotation": -61.557071375636596
   },
   "useDefaultConstraints": true
 }

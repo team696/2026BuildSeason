@@ -61,6 +61,9 @@ public class Shooter extends SubsystemBase {
       private StatusSignal<AngularVelocity> velocity_roller;
       private StatusSignal<AngularVelocity> velocity_roller_2;
       private StatusSignal<AngularVelocity> indexer_velocity;
+      // Cached values to avoid calling refresh() from multiple places each loop
+      private double cachedRollerVelocity = 0.0;
+      private double cachedIndexerVelocity = 0.0;
 
   public Shooter() {
       //Config set up
@@ -180,7 +183,7 @@ public class Shooter extends SubsystemBase {
     // AST added command to spin up shooter roller during auto while driving
     public Command spinUpCommand(){
       return run(()->{
-        this.set_velocity(-15);
+        this.set_velocity(-20);
       });
   }
     
@@ -205,11 +208,12 @@ public class Shooter extends SubsystemBase {
   //Data stuff
  
   public double getRollerVelocity(){
-    return (velocity_roller.refresh().getValueAsDouble() + velocity_roller_2.refresh().getValueAsDouble()) / 2;
+    // Return cached value populated in periodic() to avoid extra refresh() calls
+    return cachedRollerVelocity;
   }
 
   public double getIndexerVelocity(){
-    return indexer_velocity.refresh().getValueAsDouble();
+    return cachedIndexerVelocity;
   }
 
 
@@ -239,12 +243,24 @@ public class Shooter extends SubsystemBase {
   
   @Override
   public void periodic() {
-    //Data stuff used in Autoalign
-    getRollerVelocity();
-    getIndexerVelocity();
+    // Refresh status signals once per loop and cache the values to avoid
+    // multiple blocking refresh() calls in other methods/commands which can
+    // overload the CAN/communication bus and cause scheduler overruns.
+    //Made with great assistance by copilot
+    try {
+      cachedRollerVelocity = (velocity_roller.refresh().getValueAsDouble() + velocity_roller_2.refresh().getValueAsDouble()) / 2.0;
+    } catch (RuntimeException e) {
+      // Be defensive: if refresh fails, keep last value and log to dashboard
+      SmartDashboard.putString("Shooter/VelocityRefreshError", e.getMessage());
+    }
+    try {
+      cachedIndexerVelocity = indexer_velocity.refresh().getValueAsDouble();
+    } catch (RuntimeException e) {
+      SmartDashboard.putString("Shooter/IndexerRefreshError", e.getMessage());
+    }
 
-    SmartDashboard.putNumber("Velocity", getRollerVelocity());
-    SmartDashboard.putNumber("Indexer Velocity", getIndexerVelocity());
+    SmartDashboard.putNumber("Velocity", cachedRollerVelocity);
+    SmartDashboard.putNumber("Indexer Velocity", cachedIndexerVelocity);
 
 
   }

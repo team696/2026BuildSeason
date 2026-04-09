@@ -46,7 +46,7 @@ public static final class DriverStation2026 {
 				.withVelocityY(square(HumanControls.DriverPanel.leftJoyX.getAsDouble())*BotConstants.DriveConstants.MaxSpeed)
 				.withRotationalRate(square(-HumanControls.DriverPanel.rightJoyX.getAsDouble())*BotConstants.DriveConstants.MaxAngularRate))) ; // Standard driving
 			
-		HumanControls.DriverPanel.OtherButton.whileTrue(new AutoAlign(()->Field.Alliance_Find.hub).alongWith(Shooter.get().spinUpCommand()));
+		HumanControls.DriverPanel.OtherButton.whileTrue(new AutoAlign(()->Field.Alliance_Find.hub));
 			
 		}
 	}
@@ -65,9 +65,9 @@ public static final class OperatorPanel{
 		HumanControls.OperatorPanel.gyro.onTrue(new GyroReset(Swerve.get()));
 		HumanControls.OperatorPanel.releaseCoral.whileTrue(Shooter.get().ShootPass().alongWith(Intake.get().doOscilateIntake()));
 		HumanControls.OperatorPanel.pickupAlgae.whileTrue(Intake.get().doOuttake());
-		HumanControls.OperatorPanel.L3.whileTrue(Swerve.get().xMode());
-	
-		HumanControls.OperatorPanel.L1.whileTrue(Shooter.get().spinUpCommand());  // Testing shooter spin up button
+		HumanControls.OperatorPanel.L1.whileTrue(Intake.get().doOscilateIntake());
+		HumanControls.OperatorPanel.L2.whileTrue(Swerve.get().xMode());
+		HumanControls.OperatorPanel.Processor.whileTrue(Shooter.get().spinUpCommand());  // Testing shooter spin up button
 
 
 		
