@@ -120,19 +120,20 @@ public class Intake extends SubsystemBase {
 }
 
 public Command doStow() {
-  // Staged move: move to an intermediate point first (halfway to target),
-  // wait to settle, then move to final stow. This slows motion without
-  // switching PID/feedforward slots.
+
+
+  //Stupidly long since the intake decided to be a stupid piece of shat and not go all the way up smh
+  //Made with clankers
+  //If it works it works atp
   return this.runOnce(() -> {
       m_IntakeRoller.stopMotor();
       m_IntakeRoller_2.stopMotor();
-      double current = cachedIntakePivotPosition;
+      double current = cachedIntakePivotPosition; //Current pose
       double target = Pivot.STOW.position;
       double intermediate = (current + target) / 2.0; // halfway
-      // command intermediate using the same slot (0)
       lastTargetPosition = intermediate;
-      lastSlotUsed = 0;
-      m_IntakePivot.setControl(PivotPositionControl.withPosition(intermediate).withSlot(0));
+      lastSlotUsed = 0; //Should be 0
+      m_IntakePivot.setControl(PivotPositionControl.withPosition(intermediate).withSlot(0)); 
     }).andThen(new WaitCommand(0.25)).andThen(this.run(() -> {
       // final move to stow
       lastTargetPosition = Pivot.STOW.position;
@@ -147,7 +148,8 @@ public Command doStow() {
         this.positionIntake(Pivot.DEPLOY); 
 
     }).andThen(new WaitCommand(0.5)).andThen(this.run(()->{
-              this.runIntake(State.INTAKE); 
+      LED.get().LEDgreenBlink();
+      this.runIntake(State.INTAKE); 
     }));
   }
 
@@ -165,7 +167,7 @@ public Command doOscilateIntake() {
       //m_IntakeRoller.stopMotor();
       //m_IntakeRoller_2.stopMotor();
 
-      this.runIntake(State.IDLE);
+      this.runIntake(State.IDLE); //Seems pointless, but this ensures that the rollers r stopped to prevent net snagging, especially during auto. 
 
       double time = Timer.getFPGATimestamp();
       double frequency = 5.0; // Adjust this to change speed (AST changed, was 10.0)

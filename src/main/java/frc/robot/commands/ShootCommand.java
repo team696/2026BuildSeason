@@ -9,6 +9,7 @@ import java.util.function.Supplier;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystem.Hopper;
+import frc.robot.subsystem.LED;
 import frc.robot.subsystem.Shooter;
 import frc.robot.subsystem.Swerve;
 import frc.robot.util.BotConstants;
@@ -23,7 +24,7 @@ public class ShootCommand extends Command {
 
     desiredPose = desired_pose;
 
-    this.addRequirements(Shooter.get(),Hopper.get());
+    this.addRequirements(Shooter.get(),Hopper.get(), LED.get());
     // Use addRequirements() here to declare subsystem dependencies.
   }
 
@@ -42,9 +43,12 @@ public class ShootCommand extends Command {
 
     Shooter.get().set_velocity(velocity);
 
+    LED.get().LEDyellowBlink();
+
     if((Math.abs(Shooter.get().getRollerVelocity()-velocity))<1){
         isAtspeed = true;
     }
+
 
     if(isAtspeed){
       Shooter.get().intake_shooter(intakespeed);

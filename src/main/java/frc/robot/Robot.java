@@ -24,6 +24,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import frc.robot.commands.ShootCommand;
 import frc.robot.subsystem.Intake;
+import frc.robot.subsystem.LED;
 import frc.robot.subsystem.Shooter;
 import frc.robot.subsystem.Swerve;
 import frc.robot.util.Auto;
@@ -33,7 +34,7 @@ import frc.robot.util.Field;
 public class Robot extends TimedRobot {
   private Command m_autonomousCommand;
 
-  private final Telemetry logger;
+  //private final Telemetry logger;
   
   private final PowerDistribution m_pdh = new PowerDistribution(1, ModuleType.kRev);
 
@@ -41,12 +42,7 @@ public class Robot extends TimedRobot {
 
 
   public Robot() {
-    this.logger = new Telemetry(BotConstants.DriveConstants.MaxSpeed);
-    CANdleConfiguration configAll = new CANdleConfiguration();
-
-    configAll.LED.StripType = StripTypeValue.GRB;
-    configAll.LED.LossOfSignalBehavior = LossOfSignalBehaviorValue.KeepRunning;
-    m_candle.getConfigurator().apply(configAll);
+    //this.logger = new Telemetry(BotConstants.DriveConstants.MaxSpeed);
 
     Auto.initialize(
     new Auto.NamedCommand("Shoot", new ShootCommand(()->Field.Alliance_Find.hub).withTimeout(5.5)),
@@ -76,10 +72,13 @@ public class Robot extends TimedRobot {
     
     Binds.DriverStation2026.bind();
     Binds.OperatorPanel.bind();
+    
+
     //Binds.Controller.bind();
     
     Intake.get().zeroEncoder();
     Intake.get().SlotZeroConfigIntake();
+    LED.get().tuffAnimation();
     //SignalLogger.start();
     //DataLogManager.start();
   
@@ -100,10 +99,8 @@ public double DistanceFinder(Translation2d targetPosition){
     // SmartDashboard.putNumber("PDH Temperature", m_pdh.getTemperature());
     // SmartDashboard.putNumber("Distance to hub", Swerve.get().distTo(Field.Alliance_Find.hub));
     
-    logger.telemeterize(Swerve.get().getState());
+    //logger.telemeterize(Swerve.get().getState());
     CommandScheduler.getInstance().run();
-
-    m_candle.setControl(new SingleFadeAnimation(0, 100).withColor(new RGBWColor(Color.kRed)));
 
   }
 
