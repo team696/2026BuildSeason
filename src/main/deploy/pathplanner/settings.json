@@ -4,10 +4,11 @@
   "holonomicMode": true,
   "pathFolders": [
     "Alpha",
+    "Bravo",
     "CLEAN UP",
     "Climb Auto",
     "Max",
-    "Bravo",
+    "Tide",
     "Testing"
   ],
   "autoFolders": [],

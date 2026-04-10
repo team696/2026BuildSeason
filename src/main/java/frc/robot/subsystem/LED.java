@@ -18,6 +18,7 @@ import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj.util.Color;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import edu.wpi.first.wpilibj2.command.RunCommand;
 import frc.robot.util.Field.Alliance_Find;
 
 public class LED extends SubsystemBase {
@@ -62,6 +63,7 @@ public class LED extends SubsystemBase {
     m_candle.setControl(new StrobeAnimation(0, 100).withColor(new RGBWColor(Color.kGreen)).withFrameRate(4));
   }
 
+
   public void tuffAnimation(){
     m_candle.setControl(new LarsonAnimation(0, 100).withBounceMode(LarsonBounceValue.Back).withColor(new RGBWColor(Color.kHotPink)).withFrameRate(25).withSize(3));
   }
@@ -73,16 +75,18 @@ public class LED extends SubsystemBase {
       LEDred();
     } else {
       // default/fallback
-      LEDyellowBlink();
+      tuffAnimation();
     }
   }
 
   public Command AlianceColorLED(){
-    return run(() -> applyAllianceColor());
+    // default command must require this subsystem so it is interrupted when other
+    // commands need the LED. Use a RunCommand with this as the requirement.
+    return new RunCommand(() -> applyAllianceColor(), this);
   }
 
   public Command CodeInitialize(){
-    return run(()->tuffAnimation());
+    return runOnce(()->tuffAnimation());
   }
 
 

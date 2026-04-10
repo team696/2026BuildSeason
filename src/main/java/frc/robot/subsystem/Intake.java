@@ -48,7 +48,7 @@ public class Intake extends SubsystemBase {
   //Enum to determin pivot position, values are temporary
   public enum Pivot{
     //STOW(-0.558),
-    STOW(0),
+    STOW(-0.006),
     DEPLOY(-0.38); //position flipped cuz now we counter clock wise positive
 
     public double position;
@@ -120,8 +120,6 @@ public class Intake extends SubsystemBase {
 }
 
 public Command doStow() {
-
-
   //Stupidly long since the intake decided to be a stupid piece of shat and not go all the way up smh
   //Made with clankers
   //If it works it works atp
@@ -133,12 +131,12 @@ public Command doStow() {
       double intermediate = (current + target) / 2.0; // halfway
       lastTargetPosition = intermediate;
       lastSlotUsed = 0; //Should be 0
-      m_IntakePivot.setControl(PivotPositionControl.withPosition(intermediate).withSlot(0)); 
+      m_IntakePivot.setControl(PivotPositionControl.withPosition(intermediate).withSlot(1)); 
     }).andThen(new WaitCommand(0.25)).andThen(this.run(() -> {
       // final move to stow
       lastTargetPosition = Pivot.STOW.position;
       lastSlotUsed = 0;
-      m_IntakePivot.setControl(PivotPositionControl.withPosition(Pivot.STOW.position).withSlot(0));
+      m_IntakePivot.setControl(PivotPositionControl.withPosition(Pivot.STOW.position).withSlot(1));
     }));
   }
 

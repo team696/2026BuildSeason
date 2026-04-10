@@ -34,15 +34,13 @@ import frc.robot.util.Field;
 public class Robot extends TimedRobot {
   private Command m_autonomousCommand;
 
-  //private final Telemetry logger;
+  private final Telemetry logger;
   
   private final PowerDistribution m_pdh = new PowerDistribution(1, ModuleType.kRev);
 
-  private final CANdle m_candle = new CANdle(0, "rio");
-
 
   public Robot() {
-    //this.logger = new Telemetry(BotConstants.DriveConstants.MaxSpeed);
+    this.logger = new Telemetry(BotConstants.DriveConstants.MaxSpeed);
 
     Auto.initialize(
     new Auto.NamedCommand("Shoot", new ShootCommand(()->Field.Alliance_Find.hub).withTimeout(5.5)),
@@ -99,13 +97,15 @@ public double DistanceFinder(Translation2d targetPosition){
     // SmartDashboard.putNumber("PDH Temperature", m_pdh.getTemperature());
     // SmartDashboard.putNumber("Distance to hub", Swerve.get().distTo(Field.Alliance_Find.hub));
     
-    //logger.telemeterize(Swerve.get().getState());
+    logger.telemeterize(Swerve.get().getState());
     CommandScheduler.getInstance().run();
 
   }
 
   @Override
   public void disabledInit() {
+    // apply alliance color immediately when disabled (don't create a command object)
+    LED.get().applyAllianceColor();
   }
 
   @Override
@@ -141,8 +141,6 @@ public double DistanceFinder(Translation2d targetPosition){
       m_autonomousCommand.cancel();
     }
     
-    /*Climber.get().doExtend();*/
-
   }
 
   @Override

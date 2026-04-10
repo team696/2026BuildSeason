@@ -50,7 +50,7 @@ public class BotConstants {
             // doesn't change the hold equilibrium. Slot1 can still have kG.
             cfg_Pivot.Slot0.kG = 0.0;
             cfg_Pivot.Slot1.kP = 10; 
-            cfg_Pivot.Slot1.kG = -.08*12;
+            cfg_Pivot.Slot1.kG = -.12*12; //was 0.08
             //cfg_Pivot.Slot1.kI=.001; //Was 0
             cfg_Pivot.Slot1.GravityType = GravityTypeValue.Arm_Cosine;
             
