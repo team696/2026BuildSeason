@@ -36,8 +36,8 @@
         "y": 5.543984028393965
       },
       "prevControl": {
-        "x": 3.271622023809523,
-        "y": 5.543984028393965
+        "x": 3.0777649534423546,
+        "y": 5.5357137555511455
       },
       "nextControl": null,
       "isLocked": false,
@@ -50,12 +50,23 @@
       "rotationDegrees": 0.0
     },
     {
-      "waypointRelativePos": 1.5045045045045047,
+      "waypointRelativePos": 1.6021220159151186,
       "rotationDegrees": 0.0
     }
   ],
   "constraintZones": [],
-  "pointTowardsZones": [],
+  "pointTowardsZones": [
+    {
+      "fieldPosition": {
+        "x": 4.625,
+        "y": 4.034
+      },
+      "rotationOffset": 0.0,
+      "minWaypointRelativePos": 1.7852348993288603,
+      "maxWaypointRelativePos": 2.0,
+      "name": "Point Towards Zone"
+    }
+  ],
   "eventMarkers": [
     {
       "name": "Reset Intake",

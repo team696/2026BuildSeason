@@ -41,7 +41,7 @@ public class LED extends SubsystemBase {
         configAll.LED.StripType = StripTypeValue.GRB;
         configAll.LED.LossOfSignalBehavior = LossOfSignalBehaviorValue.KeepRunning;
         m_candle.getConfigurator().apply(configAll);
-        setDefaultCommand(AlianceColorLED());
+        //setDefaultCommand(AlianceColorLED());
   }
 
 
