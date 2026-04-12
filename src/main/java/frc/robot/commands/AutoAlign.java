@@ -25,7 +25,7 @@ public class AutoAlign extends Command {
 					.withDeadband(BotConstants.DriveConstants.MaxSpeed* 0.1)
 					.withRotationalDeadband(BotConstants.DriveConstants.MaxAngularRate * 0.15) // Add a  deadband
 					.withDriveRequestType(DriveRequestType.OpenLoopVoltage)
-					.withHeadingPID(3, 0, 0); 
+					.withHeadingPID(8, 0, 0); 
 
   private Supplier<Translation2d> targetPosition;
 

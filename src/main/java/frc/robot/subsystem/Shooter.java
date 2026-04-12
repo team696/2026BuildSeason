@@ -93,7 +93,7 @@ public class Shooter extends SubsystemBase {
 
 
   public Command idle(){
-    return run(()->{this.Stop();; Hopper.get().Stop();});
+    return run(()->{this.Stop(); Hopper.get().Stop();});
   }
 
   //Commented out, runtime overrun error

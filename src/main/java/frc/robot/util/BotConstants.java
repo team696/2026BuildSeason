@@ -37,7 +37,7 @@ public class BotConstants {
             cfg_Roller.Slot0.kP = 0.5;
             cfg_Roller.MotorOutput.Inverted = InvertedValue.Clockwise_Positive;
             cfg_Roller.MotorOutput.NeutralMode = NeutralModeValue.Coast;
-            cfg_Roller.MotionMagic.MotionMagicAcceleration = 100;
+            cfg_Roller.MotionMagic.MotionMagicAcceleration = 80;
             cfg_Roller.MotionMagic.MotionMagicCruiseVelocity = 200;
             cfg_Roller.CurrentLimits.StatorCurrentLimit = 120;
 
@@ -46,8 +46,6 @@ public class BotConstants {
             //cfg_Roller.CurrentLimits.StatorCurrentLimit = 30.;
 
             cfg_Pivot.Slot0.kP = 15.; //YES ITS NORNMAL PID VALUES NOW
-            // Disable gravity/ff in Slot0 so switching to Slot1 (which has kG)
-            // doesn't change the hold equilibrium. Slot1 can still have kG.
             cfg_Pivot.Slot0.kG = 0.0;
             cfg_Pivot.Slot1.kP = 10; 
             cfg_Pivot.Slot1.kG = -.12*12; //was 0.08
@@ -64,8 +62,6 @@ public class BotConstants {
             cfg_Pivot.MotorOutput.Inverted = InvertedValue.CounterClockwise_Positive;
             cfg_Pivot.MotionMagic.MotionMagicAcceleration = 5;
             cfg_Pivot.MotionMagic.MotionMagicCruiseVelocity = 2;
-            //cfg_Pivot.MotorOutput.Inverted = InvertedValue.Clockwise_Positive;//Will try this out, if not work will go back to the that fucking negative pid value(wtf ctre)
-            cfg_Pivot.CurrentLimits.StatorCurrentLimitEnable = true;
             cfg_Pivot.CurrentLimits.StatorCurrentLimit = 80;
 
         }
@@ -78,7 +74,7 @@ public class BotConstants {
             cfg_Hopper.Slot0.kP = 1;
             cfg_Hopper.Slot0.kV = .1;
             cfg_Hopper.MotionMagic.MotionMagicCruiseVelocity = 100;
-            cfg_Hopper.MotionMagic.MotionMagicAcceleration = 10;
+            cfg_Hopper.MotionMagic.MotionMagicAcceleration = 20;
             cfg_Hopper.CurrentLimits.StatorCurrentLimitEnable = true;
             cfg_Hopper.CurrentLimits.StatorCurrentLimit = 100;
             
@@ -107,10 +103,10 @@ public class BotConstants {
             cfg_shooter.Slot0.kV = 0.13;
             cfg_shooter_intake.Slot0.kP = 0.45;
             cfg_shooter_intake.Slot0.kV = 0.12;
-            cfg_shooter.MotionMagic.MotionMagicAcceleration = 300;
+            cfg_shooter.MotionMagic.MotionMagicAcceleration = 20;
             cfg_shooter.MotionMagic.MotionMagicCruiseVelocity = 300;
             cfg_shooter_intake.MotionMagic.MotionMagicCruiseVelocity = 160;
-            cfg_shooter_intake.MotionMagic.MotionMagicAcceleration  = 160;
+            cfg_shooter_intake.MotionMagic.MotionMagicAcceleration  = 20;
             cfg_shooter.CurrentLimits.StatorCurrentLimit = 150;
         }
 

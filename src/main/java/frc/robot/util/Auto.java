@@ -35,6 +35,7 @@ public class Auto {
 
 			autoChooser.addOption("Double Swipe Bravo Auto", new PathPlannerAuto("Double Swipe Alpha Auto", true));
 			autoChooser.addOption("Single Swipe Bravo Auto", new PathPlannerAuto("Single Swipe Alpha Auto", true));
+			autoChooser.addOption("Double Swipe Bravo Auto Reset Odometry", new PathPlannerAuto("Double Swipe Alpha Auto Reset Odometry", true));
 		}
 
 		initialized = true;

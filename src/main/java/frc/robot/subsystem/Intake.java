@@ -101,7 +101,7 @@ public class Intake extends SubsystemBase {
 
 
   public void runIntake(State state) {
-    m_IntakeRoller.setControl(intakeVelocityController.withVelocity((state.roller_velocity*-1)-0.15));
+    m_IntakeRoller.setControl(intakeVelocityController.withVelocity(state.roller_velocity*-1));
     m_IntakeRoller_2.setControl(intakeVelocityController2.withVelocity(state.roller_velocity*-1*2));
   }
 
