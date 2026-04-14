@@ -23,7 +23,7 @@ public class BotConstants {
     
     static{
         riobus = new CANBus("rio");
-        Canivore = new CANBus("CANivore"); //need to reaname to "vore"
+        Canivore = new CANBus("CANivore");
     }
 
 //All these values are temporary.
@@ -131,36 +131,11 @@ public class BotConstants {
     }
 
 
-    public static class Climber{
-        public static final int Climber_ID = 30; //Make sure to change to like 20 to make the code nicer
-        public static final TalonFXConfiguration cfg_Climber = new TalonFXConfiguration();
-
-        static{
-            cfg_Climber.Slot0.kP = 2.5;
-            cfg_Climber.Slot0.kV = 0.12; // Feedforward for velocity - needed for Motion Magic
-            cfg_Climber.MotionMagic.MotionMagicAcceleration = 160; //Bumped this up cuz oml it is so slow
-            cfg_Climber.MotionMagic.MotionMagicCruiseVelocity = 200;//Random number, doesn't really matter too
-            cfg_Climber.MotorOutput.NeutralMode = NeutralModeValue.Brake;
-            cfg_Climber.CurrentLimits.StatorCurrentLimitEnable = true;
-            cfg_Climber.CurrentLimits.StatorCurrentLimit = 20;
-        }
-    
-
-    }
 
     public static class DriveConstants{
         public final static double MaxSpeed = TunerConstants.kSpeedAt12Volts.in(MetersPerSecond); // kSpeedAt12Volts desired top speed
     
-	    public final  static double MaxAngularRate = RotationsPerSecond.of(5.
-        
-        
-        
-        
-        
-        
-        
-        
-        ).in(RadiansPerSecond); // 3/4 of a rotation per second max angular velocity
+	    public final  static double MaxAngularRate = RotationsPerSecond.of(5.).in(RadiansPerSecond); // 3/4 of a rotation per second max angular velocity
 	
 	    public static final double kToleranceDegree = 0.5;
 	    public static final double kToleranceSpeed = 0.01;

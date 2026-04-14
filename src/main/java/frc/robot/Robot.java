@@ -8,6 +8,7 @@ package frc.robot;
 
 
 import edu.wpi.first.math.geometry.Translation2d;
+import edu.wpi.first.wpilibj.RobotController;
 //import edu.wpi.first.wpilibj.PowerDistribution;
 //import edu.wpi.first.wpilibj.PowerDistribution.ModuleType;
 import edu.wpi.first.wpilibj.TimedRobot;
@@ -61,6 +62,7 @@ public class Robot extends TimedRobot {
     
     Binds.DriverStation2026.bind();
     Binds.OperatorPanel.bind();
+    RobotController.setBrownoutVoltage(6.0);
     
 
     //Binds.Controller.bind();

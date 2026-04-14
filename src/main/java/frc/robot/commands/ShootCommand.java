@@ -45,7 +45,7 @@ public class ShootCommand extends Command {
 
     LED.get().LEDyellowBlink();
 
-    if((Math.abs(Shooter.get().getRollerVelocity()-velocity))<1){
+    if((Math.abs(Shooter.get().getRollerVelocity()-velocity))<0.95){
         isAtspeed = true;
     }
 
