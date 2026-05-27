@@ -34,7 +34,9 @@ import edu.wpi.first.wpilibj.smartdashboard.Field2d;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.Subsystem;
+import java.util.Set;
 import frc.robot.TunerConstants;
 import frc.robot.TunerConstants.TunerSwerveDrivetrain;
 import frc.robot.util.BaseCam.AprilTagResult;
@@ -232,19 +234,21 @@ void pidToDistance(){
 
 
 
-		// Since we are using a holonomic drivetrain, the rotation component of this pose
-	// represents the goal holonomic rotation
-	Pose2d targetPose = Field.Alliance_Find.climb_tower;
-
+	// Note: do NOT cache the climb target pose at construction time. Swerve is built before
+	// the FMS reports the alliance, so any cached Field.Alliance_Find.climb_tower would lock
+	// in the default (blue) value forever. alignToClimb() below defers the lookup until the
+	// command is scheduled (alliance known by then). See AlignToClimbTest.
 	PathConstraints constraints = new PathConstraints(
         0.5, 0.7,
         Units.degreesToRadians(5), Units.degreesToRadians(10));
 
 	public Command alignToClimb(){
-	return AutoBuilder.pathfindToPose(
-        targetPose,
-        constraints,
-         0.0);
-}
+		return Commands.defer(
+			() -> AutoBuilder.pathfindToPose(
+				Field.Alliance_Find.climb_tower,
+				constraints,
+				0.0),
+			Set.of(this));
+	}
 
 }
