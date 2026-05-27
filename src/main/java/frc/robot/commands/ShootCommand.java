@@ -13,62 +13,57 @@ import frc.robot.subsystem.LED;
 import frc.robot.subsystem.Shooter;
 import frc.robot.subsystem.Swerve;
 import frc.robot.util.BotConstants;
+import frc.robot.util.ShooterControlPolicy;
 
-/* You should consider using the more terse Command factories API instead https://docs.wpilib.org/en/stable/docs/software/commandbased/organizing-command-based.html#defining-commands */
 public class ShootCommand extends Command {
 
-  Supplier<Translation2d> desiredPose;
-  boolean isAtspeed;
-  /** Creates a new ShootCommand. */
+  private final Supplier<Translation2d> desiredPose;
+  /**
+   * Hysteresis latch state. Recomputed per execute() loop by ShooterControlPolicy.
+   * Reset to false in initialize() so each command instance starts from cold.
+   */
+  private boolean isFiring;
+
   public ShootCommand(Supplier<Translation2d> desired_pose) {
-
-    desiredPose = desired_pose;
-
-    this.addRequirements(Shooter.get(),Hopper.get(), LED.get());
-    // Use addRequirements() here to declare subsystem dependencies.
+    this.desiredPose = desired_pose;
+    addRequirements(Shooter.get(), Hopper.get(), LED.get());
   }
 
-  // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-      isAtspeed = false;
+    isFiring = false;
   }
 
-  // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-      double distMeters=Swerve.get().distTo(desiredPose.get());
-      double velocity = BotConstants.Shooter.ShooterTable.get(distMeters);
-      double intakespeed = BotConstants.Shooter.backSpinTable.get(distMeters);
+    double distMeters = Swerve.get().distTo(desiredPose.get());
+    ShooterControlPolicy.Decision decision = ShooterControlPolicy.compute(
+        distMeters,
+        Shooter.get().getRollerVelocity(),
+        BotConstants.Shooter.ShooterTable,
+        BotConstants.Shooter.backSpinTable,
+        ShooterControlPolicy.DEFAULT_ENTER_TOL,
+        ShooterControlPolicy.DEFAULT_EXIT_TOL,
+        isFiring);
 
-    Shooter.get().set_velocity(velocity);
-
+    Shooter.get().set_velocity(decision.flywheelTarget());
     LED.get().LEDyellowBlink();
 
-    if((Math.abs(Shooter.get().getRollerVelocity()-velocity))<0.95){
-        isAtspeed = true;
-    }
-
-
-    if(isAtspeed){
-      Shooter.get().intake_shooter(intakespeed);
+    isFiring = decision.fireIndexer();
+    if (isFiring) {
+      Shooter.get().intake_shooter(decision.indexerSpeed());
       Hopper.get().run_Hopper();
     }
-
   }
 
-  // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
     Hopper.get().Stop();
     Shooter.get().Stop();
-
   }
 
-  // Returns true when the command should end.
   @Override
   public boolean isFinished() {
     return false;
   }
-  //d
 }
