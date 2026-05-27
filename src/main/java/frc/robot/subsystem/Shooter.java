@@ -93,7 +93,7 @@ public class Shooter extends SubsystemBase {
 
 
   public Command idle(){
-    return run(()->{this.Stop(); Hopper.get().Stop();});
+    return run(()->{this.Stop(); Hopper.get().stop();});
   }
 
   //Commented out, runtime overrun error
@@ -140,7 +140,7 @@ public class Shooter extends SubsystemBase {
             }
         else{
           m_ShooterIntake.stopMotor();
-          Hopper.get().Stop();
+          Hopper.get().stop();
         }
 
       },
@@ -148,7 +148,7 @@ public class Shooter extends SubsystemBase {
           m_Shooter.stopMotor();
           m_Shooter_2.stopMotor();
           m_ShooterIntake.stopMotor();
-          Hopper.get().Stop();
+          Hopper.get().stop();
       });
     }
 
@@ -201,7 +201,7 @@ public class Shooter extends SubsystemBase {
       m_Shooter.stopMotor();
       m_Shooter_2.stopMotor();
       m_ShooterIntake.stopMotor();
-      Hopper.get().Stop();
+      Hopper.get().stop();
 
   }
 
@@ -241,14 +241,30 @@ public class Shooter extends SubsystemBase {
     m_Shooter.getSimState().setSupplyVoltage(12.0);
   }
   
+  /**
+   * Aggregates the two flywheel motors' signed rotor velocities into a single "true" flywheel
+   * velocity reading. Extracted as a static helper so it can be unit-tested without Phoenix6 sim.
+   *
+   * <p>The previous implementation returned {@code (leader + follower) / 2}, but the follower is
+   * set up via {@code Follower(..., MotorAlignmentValue.Opposed)} so its signed velocity is the
+   * negation of the leader's; averaging cancelled to ~0 at speed and prevented ShootCommand
+   * from ever tripping its at-speed threshold. The fix is to use only the leader. The follower
+   * parameter is retained in the signature so the call-site documents both signals and so a
+   * future regression to averaging is locally visible. See ShooterRollerVelocityTest.
+   */
+  public static double aggregateRollerVelocity(double leaderVelocity, double followerVelocity) {
+    return leaderVelocity;
+  }
+
   @Override
   public void periodic() {
     // Refresh status signals once per loop and cache the values to avoid
     // multiple blocking refresh() calls in other methods/commands which can
     // overload the CAN/communication bus and cause scheduler overruns.
-    //Made with great assistance by copilot
     try {
-      cachedRollerVelocity = (velocity_roller.refresh().getValueAsDouble() + velocity_roller_2.refresh().getValueAsDouble()) / 2.0;
+      cachedRollerVelocity = aggregateRollerVelocity(
+          velocity_roller.refresh().getValueAsDouble(),
+          velocity_roller_2.refresh().getValueAsDouble());
     } catch (RuntimeException e) {
       // Be defensive: if refresh fails, keep last value and log to dashboard
       SmartDashboard.putString("Shooter/VelocityRefreshError", e.getMessage());

@@ -14,10 +14,8 @@ import edu.wpi.first.wpilibj.RobotController;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
-import frc.robot.commands.ShootCommand;
 import frc.robot.subsystem.Intake;
 import frc.robot.subsystem.LED;
-import frc.robot.subsystem.Shooter;
 import frc.robot.subsystem.Swerve;
 import frc.robot.util.Auto;
 import frc.robot.util.BotConstants;
@@ -34,41 +32,23 @@ public class Robot extends TimedRobot {
   public Robot() {
     this.logger = new Telemetry(BotConstants.DriveConstants.MaxSpeed);
 
-    Auto.initialize(
-    new Auto.NamedCommand("Shoot", new ShootCommand(()->Field.Alliance_Find.hub).withTimeout(5.5)),
-
-    new Auto.NamedCommand("ShootForever", new ShootCommand(()->Field.Alliance_Find.hub)),
-
-
-    new Auto.NamedCommand("Shorter Shoot", new ShootCommand(()->Field.Alliance_Find.hub).withTimeout(2.5)),
-    
-    new Auto.NamedCommand("Intake_", Intake.get().doIntake().withTimeout(2)),
-
-    new Auto.NamedCommand("Intake Forever", Intake.get().doIntake()),
-    
-    new Auto.NamedCommand("Do stow", Intake.get().doStow().withTimeout(0.5)),
-
-    new Auto.NamedCommand("Rev up", Shooter.get().spinUpCommand()),
-
-    
-    new Auto.NamedCommand("Oscilate", Intake.get().doOscilateIntake().withTimeout(4.0)),
-
-    new Auto.NamedCommand("OscilateForever", Intake.get().doOscilateIntake()),
-
-
-    new Auto.NamedCommand("Outtake", Intake.get().doOuttake().withTimeout(3.5))
-
-    );
+    // The names below are the single source of truth maintained in NamedCommandRegistry;
+    // NamedCommandConsistencyTest cross-checks them against every .auto JSON file so an
+    // auto referencing a non-existent named command fails at build time.
+    Auto.initialize(NamedCommandRegistry.all());
     
     Binds.DriverStation2026.bind();
     Binds.OperatorPanel.bind();
+    // Brownout threshold is intentionally lowered from the WPILib default of 6.75 V
+    // to give the motors more sag headroom under simultaneous swerve + shooter +
+    // intake load. Trade-off: less protection against deeper brown-outs. Revisit if
+    // we see Rio resets during matches.
     RobotController.setBrownoutVoltage(6.0);
     
 
     //Binds.Controller.bind();
     
     Intake.get().zeroEncoder();
-    Intake.get().SlotZeroConfigIntake();
     LED.get().tuffAnimation();
     //SignalLogger.start();
     //DataLogManager.start();

@@ -4,7 +4,6 @@ package frc.robot.util;
 import com.ctre.phoenix6.swerve.SwerveRequest;
 import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.auto.NamedCommands;
-import com.pathplanner.lib.commands.PathPlannerAuto;
 import com.pathplanner.lib.config.PIDConstants;
 import com.pathplanner.lib.config.RobotConfig;
 import com.pathplanner.lib.controllers.PPHolonomicDriveController;
@@ -30,12 +29,13 @@ public class Auto {
 		  command.register();
 
 		if (configureAutoBuilder()) {
+			// buildAutoChooser() auto-loads every .auto file in
+			// src/main/deploy/pathplanner/autos/ by its on-disk name (including
+			// "Double Swipe Bravo Auto"). The previous explicit addOption calls
+			// added duplicate entries with mislabeled names (label "...Bravo..."
+			// silently loaded "...Alpha..."). See AutoChooserConsistencyTest.
 			autoChooser = AutoBuilder.buildAutoChooser();
 			SmartDashboard.putData("Auto Chooser", autoChooser);
-
-			autoChooser.addOption("Double Swipe Bravo Auto", new PathPlannerAuto("Double Swipe Alpha Auto", true));
-			autoChooser.addOption("Single Swipe Bravo Auto", new PathPlannerAuto("Single Swipe Alpha Auto", true));
-			autoChooser.addOption("Double Swipe Bravo Auto Reset Odometry", new PathPlannerAuto("Double Swipe Alpha Auto Reset Odometry", true));
 		}
 
 		initialized = true;

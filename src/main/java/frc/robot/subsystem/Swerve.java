@@ -17,7 +17,6 @@ import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.path.PathConstraints;
 
 import edu.wpi.first.math.Matrix;
-import edu.wpi.first.math.VecBuilder;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
@@ -35,12 +34,15 @@ import edu.wpi.first.wpilibj.smartdashboard.Field2d;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.Subsystem;
+import java.util.Set;
 import frc.robot.TunerConstants;
 import frc.robot.TunerConstants.TunerSwerveDrivetrain;
 import frc.robot.util.BaseCam.AprilTagResult;
 import frc.robot.util.Field;
 import frc.robot.util.LimeLightCam;
+import frc.robot.util.VisionFilter;
 
 public final class Swerve extends TunerSwerveDrivetrain implements Subsystem, Sendable {
 	private static Swerve m_Swerve;
@@ -110,27 +112,15 @@ public final class Swerve extends TunerSwerveDrivetrain implements Subsystem, Se
 	}
 
     boolean acceptEstimate(AprilTagResult latestResult) {
-        if (latestResult.distToTag > 3.5)
-        return false;
-		SmartDashboard.putBoolean("Accepted", false);
-      if (latestResult.ambiguity > 0.7)
-        return false; // Too Ambiguous, Ignore
-		SmartDashboard.putBoolean("Accepted", false);
-
-      if (getState().Speeds.omegaRadiansPerSecond > 1.5)
-        return false; // Rotating too fast, ignore
-		SmartDashboard.putBoolean("Accepted", false);
-
-      if (latestResult.distToTag < 0.5) {
-        setVisionMeasurementStdDevs(VecBuilder.fill(0.3, .3, 50.0));
-      } else {
-        setVisionMeasurementStdDevs(
-            VecBuilder.fill(latestResult.ambiguity * Math.pow(latestResult.distToTag, 2)*3.0,
-                latestResult.ambiguity * Math.pow(latestResult.distToTag, 2)*3.0,
-                latestResult.ambiguity * Math.pow(latestResult.distToTag, 2)*3.0));
-      }
-	  SmartDashboard.putBoolean("Accepted", true);
-      return true;
+        VisionFilter.Decision decision = VisionFilter.evaluate(
+            latestResult.distToTag,
+            latestResult.ambiguity,
+            getState().Speeds.omegaRadiansPerSecond);
+        if (decision.accept()) {
+            setVisionMeasurementStdDevs(decision.stdDevs());
+        }
+        SmartDashboard.putBoolean("Accepted", decision.accept());
+        return decision.accept();
     }
 
 
@@ -244,19 +234,21 @@ void pidToDistance(){
 
 
 
-		// Since we are using a holonomic drivetrain, the rotation component of this pose
-	// represents the goal holonomic rotation
-	Pose2d targetPose = Field.Alliance_Find.climb_tower;
-
+	// Note: do NOT cache the climb target pose at construction time. Swerve is built before
+	// the FMS reports the alliance, so any cached Field.Alliance_Find.climb_tower would lock
+	// in the default (blue) value forever. alignToClimb() below defers the lookup until the
+	// command is scheduled (alliance known by then). See AlignToClimbTest.
 	PathConstraints constraints = new PathConstraints(
         0.5, 0.7,
         Units.degreesToRadians(5), Units.degreesToRadians(10));
 
 	public Command alignToClimb(){
-	return AutoBuilder.pathfindToPose(
-        targetPose,
-        constraints,
-         0.0);
-}
+		return Commands.defer(
+			() -> AutoBuilder.pathfindToPose(
+				Field.Alliance_Find.climb_tower,
+				constraints,
+				0.0),
+			Set.of(this));
+	}
 
 }

@@ -111,6 +111,14 @@ public class Intake extends SubsystemBase {
     m_IntakePivot.setControl(PivotPositionControl.withPosition(pivot.position).withSlot(0)); //
   }
 
+  /**
+   * @deprecated Re-applies just the Slot0 PID gains of the pivot config. This was called
+   *     redundantly at robot init on top of the full {@code cfg_Pivot} apply that already
+   *     happens in {@link #Intake()}, and risks clobbering motor-controller settings that
+   *     were configured between the full apply and this partial re-apply. Don't call this
+   *     unless you're hot-tuning gains and know exactly what you're doing.
+   */
+  @Deprecated
   public void SlotZeroConfigIntake(){
     m_IntakePivot.getConfigurator().apply(BotConstants.Intake.cfg_Pivot.Slot0);
   }
