@@ -73,11 +73,21 @@ dependencies {
 
     testImplementation 'org.junit.jupiter:junit-jupiter:5.10.1'
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+    testImplementation 'org.assertj:assertj-core:3.26.3'
+    testImplementation 'org.mockito:mockito-core:5.14.2'
+    testImplementation 'org.mockito:mockito-junit-jupiter:5.14.2'
 }
 
 test {
     useJUnitPlatform()
     systemProperty 'junit.jupiter.extensions.autodetection.enabled', 'true'
+    maxParallelForks = Math.max(1, Runtime.runtime.availableProcessors().intdiv(2))
+    forkEvery = 50
+    testLogging {
+        events 'failed', 'skipped'
+        showStandardStreams = false
+        exceptionFormat = 'full'
+    }
 }
 
 // Simulation configuration (e.g. environment variables).
