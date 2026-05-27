@@ -17,7 +17,6 @@ import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.path.PathConstraints;
 
 import edu.wpi.first.math.Matrix;
-import edu.wpi.first.math.VecBuilder;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
@@ -41,6 +40,7 @@ import frc.robot.TunerConstants.TunerSwerveDrivetrain;
 import frc.robot.util.BaseCam.AprilTagResult;
 import frc.robot.util.Field;
 import frc.robot.util.LimeLightCam;
+import frc.robot.util.VisionFilter;
 
 public final class Swerve extends TunerSwerveDrivetrain implements Subsystem, Sendable {
 	private static Swerve m_Swerve;
@@ -110,27 +110,15 @@ public final class Swerve extends TunerSwerveDrivetrain implements Subsystem, Se
 	}
 
     boolean acceptEstimate(AprilTagResult latestResult) {
-        if (latestResult.distToTag > 3.5)
-        return false;
-		SmartDashboard.putBoolean("Accepted", false);
-      if (latestResult.ambiguity > 0.7)
-        return false; // Too Ambiguous, Ignore
-		SmartDashboard.putBoolean("Accepted", false);
-
-      if (getState().Speeds.omegaRadiansPerSecond > 1.5)
-        return false; // Rotating too fast, ignore
-		SmartDashboard.putBoolean("Accepted", false);
-
-      if (latestResult.distToTag < 0.5) {
-        setVisionMeasurementStdDevs(VecBuilder.fill(0.3, .3, 50.0));
-      } else {
-        setVisionMeasurementStdDevs(
-            VecBuilder.fill(latestResult.ambiguity * Math.pow(latestResult.distToTag, 2)*3.0,
-                latestResult.ambiguity * Math.pow(latestResult.distToTag, 2)*3.0,
-                latestResult.ambiguity * Math.pow(latestResult.distToTag, 2)*3.0));
-      }
-	  SmartDashboard.putBoolean("Accepted", true);
-      return true;
+        VisionFilter.Decision decision = VisionFilter.evaluate(
+            latestResult.distToTag,
+            latestResult.ambiguity,
+            getState().Speeds.omegaRadiansPerSecond);
+        if (decision.accept()) {
+            setVisionMeasurementStdDevs(decision.stdDevs());
+        }
+        SmartDashboard.putBoolean("Accepted", decision.accept());
+        return decision.accept();
     }
 
 
