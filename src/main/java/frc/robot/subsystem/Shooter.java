@@ -93,7 +93,7 @@ public class Shooter extends SubsystemBase {
 
 
   public Command idle(){
-    return run(()->{this.Stop(); Hopper.get().Stop();});
+    return run(()->{this.Stop(); Hopper.get().stop();});
   }
 
   //Commented out, runtime overrun error
@@ -140,7 +140,7 @@ public class Shooter extends SubsystemBase {
             }
         else{
           m_ShooterIntake.stopMotor();
-          Hopper.get().Stop();
+          Hopper.get().stop();
         }
 
       },
@@ -148,7 +148,7 @@ public class Shooter extends SubsystemBase {
           m_Shooter.stopMotor();
           m_Shooter_2.stopMotor();
           m_ShooterIntake.stopMotor();
-          Hopper.get().Stop();
+          Hopper.get().stop();
       });
     }
 
@@ -201,7 +201,7 @@ public class Shooter extends SubsystemBase {
       m_Shooter.stopMotor();
       m_Shooter_2.stopMotor();
       m_ShooterIntake.stopMotor();
-      Hopper.get().Stop();
+      Hopper.get().stop();
 
   }
 

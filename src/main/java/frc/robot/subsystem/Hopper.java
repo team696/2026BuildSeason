@@ -74,7 +74,20 @@ public class Hopper extends SubsystemBase {
   }
 
 
-  //Stops
+  /**
+   * Synchronously stops the hopper motor right now. Use this from inside other commands'
+   * {@code end()} / {@code execute()} methods where the caller would otherwise discard the
+   * {@link Command} returned by {@link #Stop()} and the motor wouldn't actually stop.
+   */
+  public void stop() {
+    m_Hopper.stopMotor();
+  }
+
+  /**
+   * Returns a Command that holds the motor stopped. ONLY intended for use as the hopper's
+   * default command in {@code Binds}. Other callers should use {@link #stop()} (void) — see
+   * HopperStopContractTest.
+   */
   public Command Stop(){
     return run(()->{m_Hopper.stopMotor();});
   }

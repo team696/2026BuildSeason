@@ -58,7 +58,7 @@ public class ShootCommand extends Command {
 
   @Override
   public void end(boolean interrupted) {
-    Hopper.get().Stop();
+    Hopper.get().stop();
     Shooter.get().Stop();
   }
 
