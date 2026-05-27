@@ -6,7 +6,6 @@ import com.ctre.phoenix6.swerve.SwerveRequest.ForwardPerspectiveValue;
 import com.ctre.phoenix6.swerve.SwerveRequest;
 import edu.wpi.first.wpilibj.DriverStation;
 import frc.robot.commands.AutoAlign;
-//import frc.robot.commands.DefenseBoost;
 import frc.robot.commands.GyroReset;
 import frc.robot.commands.ShootCommand;
 import frc.robot.subsystem.Hopper;
@@ -69,7 +68,6 @@ public static final class OperatorPanel{
 		HumanControls.OperatorPanel.L1.whileTrue(Intake.get().doOscilateIntake());
 		HumanControls.OperatorPanel.L2.whileTrue(Swerve.get().xMode());
 		HumanControls.OperatorPanel.L3.whileTrue(new ShootCommand(()->Field.Alliance_Find.hub));
-		//HumanControls.OperatorPanel.L4.whileTrue(new DefenseBoost(120, 50));
 		HumanControls.OperatorPanel.Processor.whileTrue(Shooter.get().spinUpCommand()); 
 
 

@@ -39,13 +39,16 @@ public class Robot extends TimedRobot {
     
     Binds.DriverStation2026.bind();
     Binds.OperatorPanel.bind();
+    // Brownout threshold is intentionally lowered from the WPILib default of 6.75 V
+    // to give the motors more sag headroom under simultaneous swerve + shooter +
+    // intake load. Trade-off: less protection against deeper brown-outs. Revisit if
+    // we see Rio resets during matches.
     RobotController.setBrownoutVoltage(6.0);
     
 
     //Binds.Controller.bind();
     
     Intake.get().zeroEncoder();
-    Intake.get().SlotZeroConfigIntake();
     LED.get().tuffAnimation();
     //SignalLogger.start();
     //DataLogManager.start();
