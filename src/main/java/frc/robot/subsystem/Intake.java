@@ -121,7 +121,7 @@ public class Intake extends SubsystemBase {
 
 public Command doStow() {
   //Stupidly long since the intake decided to be a stupid piece of shat and not go all the way up smh
-  //Made with clankers
+  //Made with clankers  
   //If it works it works atp
   return this.runOnce(() -> {
       m_IntakeRoller.stopMotor();

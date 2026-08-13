@@ -104,15 +104,26 @@ public static final class Controller {
 			.withVelocityX(getDriveForward())
 			.withVelocityY(getDriveRight())
 			.withRotationalRate(getRotationClockwise()))); //Standard driving
+
+		Hopper.get().setDefaultCommand(Hopper.get().Stop());
+		Shooter.get().setDefaultCommand(Shooter.get().idle()); //Shooter rollers idle
+		Intake.get().setDefaultCommand(Intake.get().doStow());
 		
 		
 	
 		
 
-	// HumanControls.SingleXboxController.A.whileTrue(Shooter.get().spinUpCommand());
-	// HumanControls.SingleXboxController.B.whileTrue(new ShootCommand(()->Field.Alliance_Find.hub));
-	// HumanControls.SingleXboxController.Y.whileTrue(Swerve.get().xMode());
-	 
+		HumanControls.SingleXboxController.LT.whileTrue(Intake.get().doIntake());
+		HumanControls.SingleXboxController.RT.whileTrue(new ShootCommand(()->Field.Alliance_Find.hub).alongWith(Intake.get().doOscilateIntake()));
+		//HumanControls.OperatorPanel.gyro.onTrue(new GyroReset(Swerve.get()));
+		HumanControls.SingleXboxController.Y.whileTrue(Shooter.get().ShootPass().alongWith(Intake.get().doOscilateIntake()));
+		HumanControls.SingleXboxController.X.whileTrue(Intake.get().doOuttake());
+		HumanControls.SingleXboxController.A.whileTrue(Intake.get().doOscilateIntake());
+		HumanControls.SingleXboxController.B.whileTrue(Swerve.get().xMode());
+		//HumanControls.SingleXboxController.RT.whileTrue(new ShootCommand(()->Field.Alliance_Find.hub));
+		HumanControls.SingleXboxController.RB.whileTrue(new AutoAlign(()->Field.Alliance_Find.hub));
+		HumanControls.SingleXboxController.LB.whileTrue(Shooter.get().spinUpCommand()); 
+
 
 
 

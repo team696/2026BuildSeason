@@ -60,12 +60,12 @@ public class Robot extends TimedRobot {
 
     );
     
-    Binds.DriverStation2026.bind();
-    Binds.OperatorPanel.bind();
+    //Binds.DriverStation2026.bind();
+    //Binds.OperatorPanel.bind();
     RobotController.setBrownoutVoltage(6.0);
     
 
-    //Binds.Controller.bind();
+    Binds.Controller.bind();
     
     Intake.get().zeroEncoder();
     Intake.get().SlotZeroConfigIntake();
